@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: words-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: words
+  template:
+    metadata:
+      labels:
+        app: words
+    spec:
+      containers:
+      - name: words
+        image: localhost:5000/word
+        ports:
+        - containerPort: 3001

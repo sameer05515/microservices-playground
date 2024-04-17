@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: words-base-01
+spec:
+  selector:
+    app: words-base-01
+  ports:
+  - protocol: TCP
+    port: 3001
+    targetPort: 3001
+  type: NodePort

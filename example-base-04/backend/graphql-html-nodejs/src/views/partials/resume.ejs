@@ -1,0 +1,14 @@
+<li>
+    <h2><%= resume.introduction %></h2>
+    <p><%= resume.summary %></p>
+    <ul>
+        <% resume.companies.forEach(company => { %>
+            <% include ./company.ejs %>
+        <% }); %>
+    </ul>
+    <ul>
+        <% resume.educations.forEach(education => { %>
+            <% include ./education.ejs %>
+        <% }); %>
+    </ul>
+</li>

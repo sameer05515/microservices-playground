@@ -1,0 +1,43 @@
+version: '3'
+
+services:
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "3002:3002"    
+    environment:
+      - PORT=3002
+      - TOPIC_BACKEND_BASE_URL=http://topics-service:3000
+      - WORD_BACKEND_BASE_URL=http://words-service:3001
+    networks:
+      - frontend_network
+      - backend_network
+
+  topics-service:
+    build:
+      context: ./backend/topic
+    expose:
+      - "3000"    
+    environment:
+      - PORT=3000
+      - FRONTEND_SERVICE_URL=http://frontend:3002
+    networks:
+      - backend_network
+
+  words-service:
+    build:
+      context: ./backend/word
+    expose:
+      - "3001"    
+    environment:
+      - PORT=3001
+      - FRONTEND_SERVICE_URL=http://frontend:3002
+    networks:
+      - backend_network
+
+networks:
+  frontend_network:
+    driver: bridge
+  backend_network:
+    driver: bridge

@@ -1,0 +1,58 @@
+input WordInput {
+    id: String
+    word: String
+    uniqueId: String
+    meanings: [String]
+    examples: [String]
+    synonyms: [String]
+    antonyms: [String]
+    pronunciation: String
+    origin: String
+}
+
+type Word {
+    id: ID!
+    uniqueId: String!
+    word: String!
+    meanings: [String]
+    examples: [String]
+    synonyms: [String]
+    antonyms: [String]
+    pronunciation: String
+    origin: String
+    createdAt: String
+    updatedAt: String
+}
+
+type Book {
+    id: ID
+    name: String
+    pageCount: Int
+    author: Author
+}
+
+type Author {
+    id: ID
+    firstName: String
+    lastName: String
+}
+
+
+
+type Query {
+    add(a: Int!, b: Int!): Int
+    greet(name: String!): String
+    bookById(id: ID): Book
+    allWords: [Word]
+    word(id: ID!): Word
+}
+
+type Mutation {
+    multiply(a: Int!, b: Int!): Int
+    createWord(input: WordInput!): Word
+    updateWord(input: WordInput!): Word
+    deleteWord(id: String!): Boolean
+}
+
+
+
