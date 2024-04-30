@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: words-base-01
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: words-base-01
+  template:
+    metadata:
+      labels:
+        app: words-base-01
+    spec:
+      containers:
+      - name: words-base-01
+        image: sameer426/words_base_01:01
+        ports:
+        - containerPort: 3001
+        env:
+        - name: FRONTEND_SERVICE_URL
+          value: "http://frontend-service"  # Define the backend service URL here

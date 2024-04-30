@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Resume</title>
+</head>
+<body>
+    <h1>Resume Details</h1>
+    <ul>
+        <li>ID: <span th:text="${resume.id}"></span></li>
+        <li>Name: <span th:text="${resume.name}"></span></li>
+        <li>Title: <span th:text="${resume.title}"></span></li>
+        <li>Experience: <span th:text="${resume.experience}"></span></li>
+        <li>Skills: 
+            <ul>
+                <li th:each="skill : ${resume.skills}" th:text="${skill}"></li>
+            </ul>
+        </li>
+    </ul>
+</body>
+</html>

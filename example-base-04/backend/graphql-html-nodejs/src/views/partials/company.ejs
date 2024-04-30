@@ -1,0 +1,9 @@
+<li>
+    <h3><%= company.name %></h3>
+    <p><%= company.details %></p>
+    <ul>
+        <% company.projects.forEach(project => { %>
+            <% include ./project.ejs %>
+        <% }); %>
+    </ul>
+</li>

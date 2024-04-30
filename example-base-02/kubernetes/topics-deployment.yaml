@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: topics-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: topics
+  template:
+    metadata:
+      labels:
+        app: topics
+    spec:
+      containers:
+      - name: topics
+        image: localhost:5000/topic
+        ports:
+        - containerPort: 3000

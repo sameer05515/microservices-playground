@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  backend-ejs-app:
+    build:
+      context: ./backend-ejs-app
+    ports:
+      - "3002:3002"
+    volumes:
+      - ./backend-ejs-app:/app
+    networks:
+      - backend_network
+
+  backend-app:
+    build:
+      context: ./backend-app
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./backend-app:/app
+    networks:
+      - backend_network
+
+networks:
+  backend_network:
+    driver: bridge

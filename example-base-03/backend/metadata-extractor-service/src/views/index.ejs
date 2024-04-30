@@ -1,0 +1,42 @@
+<!-- views/index.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metadata Extractor</title>
+    <style>
+        textarea {
+            width: 100%;
+        }
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Metadata Extractor</h1>
+    <form action="/process" method="POST">
+        <label for="rawText">Enter text:</label><br>
+        <textarea id="rawText" name="rawText" rows="5" cols="50"><%= rawText %></textarea><br><br>
+        <label for="textType">Input Text Type:</label>
+        <select id="textType" name="textType">
+            <option value="text" <% if (textType === 'text') { %>selected<% } %>>Text</option>
+            <option value="markdown" <% if (textType === 'markdown') { %>selected<% } %>>Markdown</option>
+            <option value="yaml" <% if (textType === 'yaml') { %>selected<% } %>>YAML</option>
+        </select><br><br>
+        <button type="submit">Submit</button>
+    </form>
+
+    <!-- Display error message -->
+    <% if (errorMessage) { %>
+        <p class="error"><%= errorMessage %></p>
+    <% } %>
+
+    <!-- Display response -->
+    <% if (metadata) { %>
+        <h2>Response:</h2>
+        <pre><%= JSON.stringify(metadata, null, 2) %></pre>
+    <% } %>
+</body>
+</html>

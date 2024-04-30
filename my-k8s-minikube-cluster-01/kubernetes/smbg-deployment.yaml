@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: smbg
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: smbg
+  template:
+    metadata:
+      labels:
+        app: smbg
+    spec:
+      containers:
+      - name: smbg
+        image: sameer426/shrimadbhagwatgeeta:0.0.1
+        ports:
+        - containerPort: 8080

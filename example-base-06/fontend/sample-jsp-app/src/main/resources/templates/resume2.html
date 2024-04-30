@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Resume2</title>
+</head>
+<body>
+    <h1>Resume2 Details</h1>
+    <ul>
+        <li>ID: <span th:text="${resume.uniqueId}"></span></li>
+        <li>Name: <span th:text="${resume.summary}"></span></li>
+        <li>Title: <span th:text="${resume.introduction}"></span></li>
+    </ul>
+</body>
+</html>
