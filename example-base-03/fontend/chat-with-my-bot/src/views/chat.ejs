@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat with My Bot</title>
+    <style>
+        /* CSS for the auto-growable textarea */
+        textarea {
+            resize: none;
+            overflow: hidden;
+            width: 100%;
+            min-height: 1em; /* Initial height */
+        }
+    </style>
+</head>
+<body>
+    <h1>Chat with My Bot</h1>
+    <!-- Textarea for input -->
+    <textarea id="userInput" rows="1" placeholder="Type your message here"></textarea>
+    <!-- Button to send selected text to server -->
+    <button onclick="sendQuestion()">Send Question</button>
+    <!-- Labels to display question and answer -->
+    <label id="questionLabel"></label>
+    <label id="answerLabel"></label>
+
+    <!-- JavaScript for auto-growable textarea and sending question -->
+    <script>
+        const textarea = document.getElementById('userInput');
+        const questionLabel = document.getElementById('questionLabel');
+        const answerLabel = document.getElementById('answerLabel');
+
+        textarea.addEventListener('input', () => {
+            textarea.style.height = 'auto';
+            textarea.style.height = textarea.scrollHeight + 'px';
+        });
+
+        function sendQuestion() {
+            const questionText = textarea.value.trim(); // Get the text from textarea
+            if(!questionText || !questionText.length>0){
+                console.log('Empty text kyu de diye? Ab hum process kya kare??');
+                return "";
+            }
+            fetch('/answer', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ questionText })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Display question and answer in labels
+                questionLabel.innerText = 'Question: ' + data.questionText;
+                answerLabel.innerText = 'Answer: ' + data.answerText;
+                // Clear textarea
+                //textarea.value = '';
+                textarea.style.height = 'auto';
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
+</body>
+</html>

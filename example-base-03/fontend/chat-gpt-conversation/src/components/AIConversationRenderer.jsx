@@ -10,14 +10,11 @@ import {
     otherMessageContentStyles,
 } from "../styles/AIConversationRendererStyles";
 
-// import { getConversationMessages } from "../utils/UtilityMethods";
-
 const ChatGPTConversationRenderer = ({ jsonData }) => {
 
     return (
         <div id="root" style={rootStyles}>
             {jsonData.map((conversation, index) => {
-                //const messages = getConversationMessages(conversation);
                 return (
                     <CustomCollapse
                         key={index}
@@ -25,19 +22,24 @@ const ChatGPTConversationRenderer = ({ jsonData }) => {
                         style={conversationStyles}
                         headerText={"Conversation Name : " + conversation.title}
                     >
-                        <h4 style={{ margin: "0" }}>
+                        <h2
+                            style={{ margin: "0" }}
+                        >
                             {"Conversation Name : " + conversation.title}
-                        </h4>
-                        {conversation.messages.map((message, msgIndex) => (
-                            <div key={msgIndex} className="message" style={messageStyles}>
-                                <div style={authorStyles}>{message.author}</div>
-                                {/* <div>{message.text}</div> */}
-                                <div style={message.author === 'user' ? userMessageContentStyles : otherMessageContentStyles}>
-                                    <MarkdownComponent markdownText={message.text} />
-                                </div>
+                        </h2>
+                        {
+                            conversation.messages.map(
+                                (message, msgIndex) => (
+                                    <div key={msgIndex} className="message" style={messageStyles}>
+                                        <div style={authorStyles}>{message.author}</div>
+                                        <div style={message.author === 'user' ? userMessageContentStyles : otherMessageContentStyles}>
+                                            <MarkdownComponent markdownText={message.text} />
+                                        </div>
 
-                            </div>
-                        ))}
+                                    </div>
+                                )
+                            )
+                        }
                     </CustomCollapse>
                 );
             })}

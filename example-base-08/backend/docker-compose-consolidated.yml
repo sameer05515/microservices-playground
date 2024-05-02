@@ -1,0 +1,148 @@
+version: '3.8'
+
+services:
+  eurekaserver:
+    build: ./eurekaserver
+    ports:
+      - "8070:8070"
+    environment:
+      SPRING_APPLICATION_NAME: "eurekaserver"
+    deploy:
+      resources:
+        limits:
+          memory: 1000m
+    healthcheck:
+      test: "curl --fail --silent http://eurekaserver:8070/actuator/health | grep UP || exit 1"
+      interval: 15s
+      timeout: 15s
+      retries: 20
+      start_period: 60s
+    networks:
+      - stavya-para-paroktih
+
+  bookapp:
+    build: ./book
+    ports:
+      - "8087:8087"
+    environment:
+      SPRING_APPLICATION_NAME: "book"
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eurekaserver:8070/eureka/
+    deploy:
+      resources:
+        limits:
+          memory: 1000m
+    volumes:
+      - ./book/src/main/resources/backup:/app/backup
+#    healthcheck:
+#      test: "curl --fail --silent localhost:8087/actuator/health | grep UP || exit 1"
+#      interval: 10s
+#      timeout: 5s
+#      retries: 10
+#      start_period: 10s
+    depends_on:
+      eurekaserver:
+        condition: service_healthy
+    networks:
+      - stavya-para-paroktih
+
+  courseapp:
+    build: ./course
+    ports:
+      - "8088:8088"
+    environment:
+      SPRING_APPLICATION_NAME: "course"
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eurekaserver:8070/eureka/
+    deploy:
+      resources:
+        limits:
+          memory: 1000m
+    volumes:
+      - ./course/src/main/resources/backup:/app/backup
+#    healthcheck:
+#      test: "curl --fail --silent localhost:8088/actuator/health | grep UP || exit 1"
+#      interval: 10s
+#      timeout: 5s
+#      retries: 10
+#      start_period: 10s
+    depends_on:
+      eurekaserver:
+        condition: service_healthy
+    networks:
+      - stavya-para-paroktih
+
+  studentapp:
+    build: ./student
+    ports:
+      - "8086:8086"
+    environment:
+      SPRING_APPLICATION_NAME: "student"
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eurekaserver:8070/eureka/
+    deploy:
+      resources:
+        limits:
+          memory: 1000m
+    volumes:
+      - ./student/src/main/resources/backup:/app/backup
+#    healthcheck:
+#      test: "curl --fail --silent localhost:8086/actuator/health | grep UP || exit 1"
+#      interval: 10s
+#      timeout: 5s
+#      retries: 10
+#      start_period: 10s
+    depends_on:
+      eurekaserver:
+        condition: service_healthy
+    networks:
+      - stavya-para-paroktih
+
+  loginapp:
+    build: ./login
+    ports:
+      - "8089:8089"
+    environment:
+      SPRING_APPLICATION_NAME: "login"
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eurekaserver:8070/eureka/
+    deploy:
+      resources:
+        limits:
+          memory: 1000m
+    volumes:
+      - ./login/src/main/resources/backup:/app/backup
+#    healthcheck:
+#      test: "curl --fail --silent localhost:8089/actuator/health | grep UP || exit 1"
+#      interval: 10s
+#      timeout: 5s
+#      retries: 10
+#      start_period: 10s
+    depends_on:
+      eurekaserver:
+        condition: service_healthy
+    networks:
+      - stavya-para-paroktih
+
+  gatewayserver:
+    build: ./api-gateway
+    ports:
+      - "8072:8072"
+    depends_on:
+      studentapp:
+        condition: service_started
+      courseapp:
+        condition: service_started
+      loginapp:
+        condition: service_started
+      bookapp:
+        condition: service_started
+    environment:
+      SPRING_APPLICATION_NAME: "gatewayserver"
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eurekaserver:8070/eureka/
+    deploy:
+      resources:
+        limits:
+          memory: 1000m
+    networks:
+      - stavya-para-paroktih
+
+networks:
+  stavya-para-paroktih:
+    driver: bridge

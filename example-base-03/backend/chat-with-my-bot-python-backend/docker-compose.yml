@@ -1,0 +1,15 @@
+# docker-compose.yml
+version: '3'
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    restart: always
+    environment:
+      DB_HOST: host.docker.internal
+      DB_USER: root
+      DB_PASSWORD: admin@123
+      DB_DATABASE: ex_base_03
+      PORT: 5000
+

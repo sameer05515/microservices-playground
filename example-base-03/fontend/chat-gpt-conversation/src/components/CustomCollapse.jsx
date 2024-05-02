@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { FaAngleDown, FaAngleRight } from 'react-icons/fa';
 
-const CustomCollapse = ({ headerText = 'No header set',style={}, children }) => {
+const CustomCollapse = ({ headerText = 'No header set',style={}, initiallyCollapsed=true, children }) => {
 
-    const [isCollapsed, setIsCollapsed] = useState(true);
+    const [isCollapsed, setIsCollapsed] = useState(initiallyCollapsed);
     const toggleCollapse = () => {
         setIsCollapsed(!isCollapsed);
     };

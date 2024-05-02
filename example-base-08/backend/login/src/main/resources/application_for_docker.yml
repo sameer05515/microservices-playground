@@ -1,0 +1,93 @@
+spring:
+  application:
+    name: login
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driverClassName: org.h2.Driver
+    username: sa
+    password: password
+  h2:
+    console:
+      enabled: true
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+
+  # DataSource Configuration for MySQL
+  # datasource:
+  #   url: jdbc:mysql://localhost:3306/ex_base_08_user?useSSL=false&serverTimezone=UTC
+  #   username: root
+  #   password: admin@123
+  #   driverClassName: com.mysql.cj.jdbc.Driver
+
+  # Hibernate Configuration
+  # jpa:
+  #   properties:
+  #     hibernate:
+  #       dialect: org.hibernate.dialect.MySQL8Dialect
+  #   hibernate:
+  #     ddl-auto: update
+
+  devtools:
+    restart:
+      enabled: true
+    livereload:
+      enabled: true
+    add-properties: true
+  main:
+    allow-circular-references: true
+
+server:
+  port: 8089
+
+jwt:
+  secret: your_jwt_secret_key
+  expiration: 3600000
+
+# Backup File Path
+backup:
+  file:
+    path: /app/backup/user_backup.json
+
+
+
+# Service discovery related configuration
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    fetchRegistry: true
+    registerWithEureka: true
+    serviceUrl:
+      defaultZone: http://localhost:8070/eureka/
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  health:
+    readiness-state:
+      enabled: true
+    liveness-state:
+      enabled: true
+  endpoint:
+    shutdown:
+      enabled: true
+    health:
+      probes:
+        enabled: true
+  info:
+    env:
+      enabled: true
+
+endpoints:
+  shutdown:
+    enabled: true
+
+info:
+  app:
+    name: "Eureka server"
+    description: "Eureka server Application"
+    version: "1.0.0"
