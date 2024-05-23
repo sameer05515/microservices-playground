@@ -1,0 +1,24 @@
+services:
+  network-deploy-service:
+    networks:
+      - stavya-para-paroktih
+
+  microservice-base-config:
+    extends:
+      service: network-deploy-service
+    deploy:
+      resources:
+        limits:
+          memory: 700m
+
+#  microservice-configserver-config:
+#    extends:
+#      service: microservice-base-config
+
+  microservice-eureka-config:
+    extends:
+#      service: microservice-configserver-config
+      service: microservice-base-config
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eurekaserver:8070/eureka/
+      SERVER_FORWARD_HEADERS_STRATEGY: framework

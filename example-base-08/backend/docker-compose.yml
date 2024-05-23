@@ -1,0 +1,128 @@
+version: '3.8'
+
+services:
+
+  eurekaserver:
+    build: ./eurekaserver
+    ports:
+      - "8070:8070"
+    environment:
+      SPRING_APPLICATION_NAME: "eurekaserver"
+    extends:
+      file: common-config.yml
+      service: microservice-base-config
+    healthcheck:
+      test: "curl --fail --silent localhost:8070/actuator/health | grep UP || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+
+  bookapp:
+    build: ./book
+#    ports:
+#      - "8087:8087"
+    environment:
+      SPRING_APPLICATION_NAME: "book"
+    extends:
+      file: common-config.yml
+      service: microservice-eureka-config
+    volumes:
+      - ./book/src/main/resources/backup:/app/backup
+    healthcheck:
+      test: "curl --fail --silent localhost:8087/actuator/health | grep UP || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    depends_on:
+      eurekaserver:
+        condition: service_healthy
+
+  courseapp:
+    build: ./course
+#    ports:
+#      - "8088:8088"
+    environment:
+      SPRING_APPLICATION_NAME: "course"
+    extends:
+      file: common-config.yml
+      service: microservice-eureka-config
+    volumes:
+      - ./course/src/main/resources/backup:/app/backup
+    healthcheck:
+      test: "curl --fail --silent localhost:8088/actuator/health | grep UP || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    depends_on:
+      eurekaserver:
+        condition: service_healthy
+
+  studentapp:
+    build: ./student
+#    ports:
+#      - "8086:8086"
+    environment:
+      SPRING_APPLICATION_NAME: "student"
+    extends:
+      file: common-config.yml
+      service: microservice-eureka-config
+    volumes:
+      - ./student/src/main/resources/backup:/app/backup
+    healthcheck:
+      test: "curl --fail --silent localhost:8086/actuator/health | grep UP || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    depends_on:
+      eurekaserver:
+        condition: service_healthy
+
+  loginapp:
+    build: ./login
+#    ports:
+#      - "8089:8089"
+    environment:
+      SPRING_APPLICATION_NAME: "login"
+    extends:
+      file: common-config.yml
+      service: microservice-eureka-config
+    volumes:
+      - ./login/src/main/resources/backup:/app/backup
+    healthcheck:
+      test: "curl --fail --silent localhost:8089/actuator/health | grep UP || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    depends_on:
+      eurekaserver:
+        condition: service_healthy
+
+  gatewayserver:
+#    image: "eazybytes/gatewayserver:s9"
+#    container_name: gatewayserver-ms
+    build: ./api-gateway
+    ports:
+      - "8072:8072"
+    depends_on:
+      studentapp:
+        condition: service_healthy
+      courseapp:
+        condition: service_healthy
+      loginapp:
+        condition: service_healthy
+      bookapp:
+        condition: service_healthy
+    environment:
+      SPRING_APPLICATION_NAME: "gatewayserver"
+    extends:
+      file: common-config.yml
+      service: microservice-eureka-config
+
+networks:
+  stavya-para-paroktih:
+    driver: "bridge"

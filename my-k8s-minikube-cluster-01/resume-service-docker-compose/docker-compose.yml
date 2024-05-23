@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  app:
+    image: sameer426/resume-service:21-May-24
+    ports:
+      - "4000:4000"
+    environment:
+      MONGO_URI: mongodb://host.docker.internal:27017/ms_playground_ex03_resume_db
+      PORT: 4000
+      BODY_PARSER_LIMIT: 60mb

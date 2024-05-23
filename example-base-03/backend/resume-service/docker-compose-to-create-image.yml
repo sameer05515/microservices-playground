@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  app_builder:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: sameer426/resume-service:21-May-24
+    volumes:
+      - .:/app

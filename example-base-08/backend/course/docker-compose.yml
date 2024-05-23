@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+  courseapp:
+    build: .
+    ports:
+      - "8088:8088"
+    volumes:
+      - ./src/main/resources/backup:/app/backup

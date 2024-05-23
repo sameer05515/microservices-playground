@@ -4,22 +4,26 @@ const mongoose = require('mongoose');
 const typeDefs = require('../schemas/resumeSchema');
 const resolvers = require('../resolvers/resumeResolvers');
 
+const config = require('../config/globalConfig');
+
 async function startApolloServer() {
   const server = new ApolloServer({ typeDefs, resolvers });
   await server.start();
 
   const app = express();
-  server.applyMiddleware({ app ,
+  server.applyMiddleware({
+    app,
     bodyParserConfig: {
-      limit:"60mb"
-    }});
+      limit: config.bodyParserLimit
+    }
+  });
 
-  await mongoose.connect('mongodb://127.0.0.1:27017/ms_playground_ex03_resume_db', {
+  await mongoose.connect(config.mongoURI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   });
 
-  const PORT = process.env.PORT || 4000;
+  const PORT = config.port;
   app.listen(PORT, () => {
     console.log(`Server ready at http://localhost:${PORT}${server.graphqlPath}`);
   });

@@ -9,7 +9,7 @@ export const rootStyles = {
 export const conversationStyles = {
     border: '1px solid black',
     padding: '20px',
-    backgroundColor: '#f3f3f3',
+    //backgroundColor: '#f3f3f3',
     marginBottom: '20px',
 };
 
@@ -24,7 +24,8 @@ export const userMessageContentStyles = {
     border: "1px solid #ccc",
     padding: "5px",
     borderRadius: "10px", // Adding round borders
-    backgroundColor: "PaleGreen", // Set the background color dynamically
+    //backgroundColor: "PaleGreen", // Set the background color dynamically
+    backgroundColor:"cornsilk",
     marginBottom: "5px", // Adding vertical spacing of 5px
 };
 
@@ -33,8 +34,9 @@ export const otherMessageContentStyles = {
     whiteSpace: 'pre-wrap',
     border: "1px solid #ccc",
     padding: "5px",
-    borderRadius: "10px", // Adding round borders
-    backgroundColor: "AntiqueWhite", // Set the background color dynamically
+    borderRadius: "2px", // Adding round borders
+    //backgroundColor: "AntiqueWhite", // Set the background color dynamically
+    backgroundColor: "lavenderblush",
     marginBottom: "5px", // Adding vertical spacing of 5px
 };
 
