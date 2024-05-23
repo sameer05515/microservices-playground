@@ -8,7 +8,7 @@ const WordsList = () => {
 
     useEffect(() => {
         // Fetch data from the words endpoint
-        alert(`WORD_BACKEND_BASE_URL : ${env.WORD_BACKEND_BASE_URL}`);
+        // alert(`WORD_BACKEND_BASE_URL : ${env.WORD_BACKEND_BASE_URL}`);
         fetch(`${WORD_BACKEND_BASE_URL}/words`)
             .then(response => {
                 // Check if response is OK

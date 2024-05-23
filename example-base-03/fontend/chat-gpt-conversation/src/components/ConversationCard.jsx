@@ -4,7 +4,7 @@ import {
     conversationStyles,
     messageStyles,
     otherMessageContentStyles,
-    userMessageContentStyles
+    userMessageContentStyles,
 } from "../styles/AIConversationRendererStyles";
 import CustomCollapse from "./CustomCollapse";
 import MarkdownComponent from "./MarkdownComponent";
@@ -27,26 +27,35 @@ const ConversationCard = ({
                 initiallyCollapsed={initiallyCollapsed}
             >
                 <div>
-                    <h2 style={{ margin: "0" }}>
-                        {conversation.title}
-                    </h2>
-                    <div style={{ padding: "5px", fontSize: "12px", borderRadius: "4px", margin: "5px", }}>
+                    <h2 style={{ margin: "0" }}>{conversation.title}</h2>
+                    <div
+                        style={{
+                            padding: "5px",
+                            fontSize: "12px",
+                            borderRadius: "4px",
+                            margin: "5px",
+                        }}
+                    >
                         <span style={{ marginRight: "10px" }}>
-                            <b>Created:</b>{conversation.createdOn}
+                            <b>Created:</b>
+                            {conversation.createdOn}
                         </span>
                         <span style={{ marginRight: "10px" }}>
-                            <b>Updated:</b>{conversation.updatedOn}
+                            <b>Updated:</b>
+                            {conversation.updatedOn}
                         </span>
                     </div>
                     <div>
-                        <button onClick={() => onPrevClick(conversation.id)}>Previous</button>
+                        <button onClick={() => onPrevClick(conversation.id)}>
+                            Previous
+                        </button>
                         <button onClick={() => onShowClick()}>Show</button>
                         <button onClick={() => onNextClick(conversation.id)}>Next</button>
                     </div>
                 </div>
                 {conversation.messages.map((message, msgIndex) => (
                     <div key={msgIndex} className="message" style={messageStyles}>
-                        
+                        {/* {`message.author : ${message.author}`} */}
                         <div
                             style={
                                 message.author === "user"
@@ -54,11 +63,19 @@ const ConversationCard = ({
                                     : otherMessageContentStyles
                             }
                         >
-                            <div style={authorStyles}>{capitalizeFirstLetter(message.author)}</div>
-                            <MarkdownComponent markdownText={message.text}
-                            additionalStyle={{backgroundColor: message.author === "user"
-                            ? userMessageContentStyles.backgroundColor
-                            : otherMessageContentStyles.backgroundColor}}  />
+                            <div style={authorStyles}>
+                                {capitalizeFirstLetter(message.author)}
+                            </div>
+                            <MarkdownComponent
+                                markdownText={message.text}
+                                additionalStyle={{
+                                    backgroundColor:
+                                        message.author === "user"
+                                            ? userMessageContentStyles.backgroundColor
+                                            : otherMessageContentStyles.backgroundColor,
+                                }}
+                                showCopyToclipboardButton={message.author !== "user"}
+                            />
                         </div>
                     </div>
                 ))}

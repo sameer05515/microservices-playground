@@ -1,5 +1,5 @@
 @echo off
-
+cls
 set curr_dir=%cd%
 
 cd D:\GIT\microservices-playground\example-base-08\backend\book

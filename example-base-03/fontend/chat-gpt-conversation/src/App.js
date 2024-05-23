@@ -19,6 +19,8 @@ const App = () => {
 
   const [showSideBar, setShowSideBar] = useState(false);
 
+  const [collapseAll, setCollapseAll] = useState(true);
+
   // Function to filter conversations and messages based on search query
   const handleSearch = (query) => {
     console.log("Search started: Search string : " + query);
@@ -96,10 +98,13 @@ const App = () => {
       "/data/conversations-09-May-2024.json",
       "/data/conversations-10-May-2024.json",
       "/data/conversations-12-May-2024.json",
+      "/data/conversations-24-May-2024.json",
+      "/data/conversations-27-May-2024.json",
+      "/data/conversations-17-June-2024.json",
     ];
     const fetchJsonData = async () => {
       try {
-        const response = await fetch(coversationNames[5]); // Adjust the file path here
+        const response = await fetch(coversationNames[8]); // Adjust the file path here
         if (!response.ok) {
           throw new Error("Failed to fetch data");
         }
@@ -191,11 +196,18 @@ const App = () => {
           <button onClick={() => setShowSearchSection((prev) => !prev)}>
             {showSearchSection ? "Hide " : "Show "} Search
           </button>
+
+          {showSearchSection &&
+            <button onClick={() => setCollapseAll((prev) => !prev)}>
+              {collapseAll ? "Expand " : "Collapse "} All Results
+            </button>
+          }
+
           {/* Render the Search component and pass handleSearch as a prop */}
           {showSearchSection && <Search onSearch={handleSearch} />}
           {/* Render the ChatGPTConversationRenderer component */}
           {showSearchSection && filteredData.length > 0 && (
-            <ChatGPTConversationRenderer jsonData={filteredData} />
+            <ChatGPTConversationRenderer jsonData={filteredData} collapseAll={collapseAll} />
           )}
 
           {selectedConv && !showSearchSection && (

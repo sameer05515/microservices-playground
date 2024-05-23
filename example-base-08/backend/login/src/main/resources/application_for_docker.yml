@@ -88,6 +88,6 @@ endpoints:
 
 info:
   app:
-    name: "Eureka server"
-    description: "Eureka server Application"
+    name: "Login server"
+    description: "Login server Application"
     version: "1.0.0"

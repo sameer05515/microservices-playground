@@ -1,0 +1,44 @@
+# /microservices/docker-compose.yml
+version: '3.8'
+
+services:
+  eureka:
+    build: ./eurekaserver
+    container_name: eureka
+    ports:
+      - "8761:8761"
+
+  topics-service:
+    build: ./topics
+    container_name: topics-service
+    environment:
+      - EUREKA_SERVER=http://eureka:8761/eureka
+      - SERVICE_PORT=3001
+    ports:
+      - "3001:3001"
+    depends_on:
+      - eureka
+
+  words-service:
+    build: ./words
+    container_name: words-service
+    environment:
+      - EUREKA_SERVER=http://eureka:8761/eureka
+      - SERVICE_PORT=3002
+    ports:
+      - "3002:3002"
+    depends_on:
+      - eureka
+
+  api-gateway:
+    build: ./api-gateway
+    container_name: api-gateway
+    environment:
+      - EUREKA_SERVER=http://eureka:8761/eureka
+      - SERVICE_PORT=3000
+    ports:
+      - "3000:3000"
+    depends_on:
+      - eureka
+      - topics-service
+      - words-service

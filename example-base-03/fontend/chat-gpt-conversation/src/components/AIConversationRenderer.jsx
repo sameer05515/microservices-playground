@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import MarkdownComponent from "./MarkdownComponent";
 import CustomCollapse from "./CustomCollapse";
 import {
@@ -10,7 +10,9 @@ import {
     otherMessageContentStyles,
 } from "../styles/AIConversationRendererStyles";
 
-const ChatGPTConversationRenderer = ({ jsonData }) => {
+const ChatGPTConversationRenderer = ({ jsonData, collapseAll=true }) => {
+
+    
 
     return (
         <div id="root" style={rootStyles}>
@@ -20,7 +22,9 @@ const ChatGPTConversationRenderer = ({ jsonData }) => {
                         key={index}
                         className="conversation"
                         style={conversationStyles}
-                        headerText={"Conversation Name : " + conversation.title}
+                        headerText={"Conversation Name : " + conversation.title}    
+                        initiallyCollapsed={false}
+                        collapseAll={collapseAll}                    
                     >
                         <h2
                             style={{ margin: "0" }}

@@ -9,7 +9,7 @@ const TopicsList = () => {
 
     useEffect(() => {
         // Fetch data from the topics endpoint
-        alert(`TOPIC_BACKEND_BASE_URL : ${env.TOPIC_BACKEND_BASE_URL}`);
+        // alert(`TOPIC_BACKEND_BASE_URL : ${env.TOPIC_BACKEND_BASE_URL}`);
         fetch(`${TOPIC_BACKEND_BASE_URL}/topics`)
             .then(response => {
                 // Check if response is OK
