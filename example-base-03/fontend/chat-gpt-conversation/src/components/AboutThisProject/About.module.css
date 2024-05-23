@@ -1,0 +1,53 @@
+/* About.module.css */
+
+.container {
+    padding: 20px;
+    background-color: #f4f4f9; /* Light background for better readability */
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+  }
+  
+  .markdownSection {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #ffffff; /* White background for content sections */
+    border: 1px solid #dcdcdc; /* Light gray border */
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  }
+  
+  .markdownSection h1 {
+    font-size: 1.8rem;
+    color: #2c3e50; /* Darker blue-gray for headings */
+    margin-bottom: 10px;
+  }
+  
+  .markdownSection h2 {
+    font-size: 1.5rem;
+    color: #34495e; /* Slightly lighter shade for subheadings */
+    margin-bottom: 8px;
+  }
+  
+  .markdownSection ul {
+    padding-left: 20px;
+    list-style-type: disc;
+  }
+  
+  .markdownSection li {
+    margin: 8px 0;
+    font-size: 1rem;
+    color: #555555; /* Neutral gray for list items */
+  }
+  
+  .markdownSection p {
+    margin: 10px 0;
+    color: #333333; /* Dark text for readability */
+  }
+  
+  .markdownSection code {
+    font-family: "Courier New", Courier, monospace;
+    background-color: #f0f0f0; /* Light gray background for code */
+    padding: 2px 4px;
+    border-radius: 4px;
+  }
+  

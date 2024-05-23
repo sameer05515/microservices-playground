@@ -1,0 +1,78 @@
+/** Post Module Form - New Modern Styles */
+
+.post-module-form {
+  background-color: #2a9d8f; /* Soft teal background */
+  padding: 1.5rem; /* Increased padding for better spacing */
+  width: 22rem; /* Slightly wider form */
+  margin: 2.5rem auto; /* Increased margin */
+  border-radius: 10px; /* More rounded corners */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Softer shadow */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.post-module-form:hover {
+  transform: translateY(-4px); /* Lift effect on hover */
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+}
+
+.post-module-form label {
+  display: block;
+  margin-bottom: 0.3rem; /* Increased margin for better readability */
+  color: #f4f1de; /* Light cream text color */
+  font-weight: 600; /* Semi-bold */
+}
+
+.post-module-form input,
+.post-module-form textarea {
+  display: block;
+  width: 100%; /* Full-width input fields */
+  font: inherit;
+  padding: 0.6rem;
+  border-radius: 8px; /* More rounded corners */
+  border: 1px solid #e9c46a; /* Border with a yellow tone */
+  background-color: #f0efeb; /* Soft background color */
+  color: #264653; /* Dark blue-gray text */
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.post-module-form input:focus,
+.post-module-form textarea:focus {
+  outline: none;
+  background-color: #e6ecee; /* Light background on focus */
+  border-color: #2a9d8f; /* Border changes to teal on focus */
+}
+
+.post-module-form-actions {
+  display: flex;
+  justify-content: space-between; /* Spaced apart buttons */
+  gap: 1rem; /* Increased gap for clarity */
+  margin-top: 1rem; /* Added spacing between form fields and actions */
+}
+
+.post-module-form-actions button {
+  cursor: pointer;
+  font: inherit;
+  padding: 0.6rem 1.8rem; /* Slightly bigger buttons */
+  border: none;
+  border-radius: 5px;
+  background-color: #e76f51; /* Muted coral background */
+  color: #f4f1de; /* Light cream text color */
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.post-module-form-actions button:hover {
+  background-color: #d9534f; /* Darker coral on hover */
+  transform: translateY(-2px); /* Lift effect on hover */
+}
+
+.post-module-form-actions button[type="button"] {
+  background-color: transparent;
+  border: 1px solid #e9c46a; /* Outline button for 'Cancel' */
+  color: #e76f51; /* Muted coral color */
+}
+
+.post-module-form-actions button[type="button"]:hover {
+  background-color: #f4f1de; /* Light background on hover */
+  color: #d9534f; /* Darker coral text */
+  border-color: #d9534f; /* Darker border on hover */
+}

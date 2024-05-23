@@ -1,0 +1,17 @@
+GET http://localhost:8082/products
+
+###
+
+GET http://localhost:8082/products/1
+
+###
+POST http://localhost:8081/orders
+Content-Type: application/json
+
+{
+    "customerName":"Jhandu Balm",
+    "productIds":[1,2,4]
+}
+
+###
+GET http://localhost:8081/orders

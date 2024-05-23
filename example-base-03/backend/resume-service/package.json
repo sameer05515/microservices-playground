@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon src/services/apolloServer.js"
+    "start": "node src/index.js",
+    "start:v1": "nodemon src/v1/server.js",
+    "start:v2": "nodemon src/v2/services/apolloServer.js",
+    "start:v3": "nodemon src/v3/services/apolloServer.js"
   },
   "keywords": [],
   "author": "",

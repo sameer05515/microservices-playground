@@ -1,0 +1,87 @@
+/* HoverActions.module.css */
+
+:root {
+    --primary-color: #007bff;
+    --secondary-color: #6c757d;
+    --hover-bg-color: #e9f7fe;
+    --hover-border-color: #b8daff;
+    --text-color: #333;
+    --background-color: #fff;
+    --border-radius: 8px;
+    --transition-duration: 0.3s;
+}
+
+.container {
+    position: relative;
+    display: inline-block;
+    background-color: var(--background-color);
+    border: 1px solid var(--secondary-color);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    width: 220px;
+    padding: 8px;
+    text-align: center;
+    color: var(--text-color);
+    font-weight: 500;
+    transition: all var(--transition-duration) ease-in-out;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.container:hover {
+    border-color: var(--hover-border-color);
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.15);
+}
+
+.actionsDropdown {
+    position: absolute;
+    top: 110%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--background-color);
+    border: 1px solid var(--secondary-color);
+    border-radius: var(--border-radius);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-height: 180px;
+    overflow-y: auto;
+    z-index: 10;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--transition-duration) ease-in-out, visibility var(--transition-duration) ease-in-out;
+}
+
+.container:hover .actionsDropdown {
+    opacity: 1;
+    visibility: visible;
+}
+
+.actionItem {
+    display: block;
+    padding: 8px 12px;
+    cursor: pointer;
+    color: var(--text-color);
+    transition: background-color var(--transition-duration) ease-in-out, color var(--transition-duration) ease-in-out;
+}
+
+.actionItem:not(:last-child) {
+    border-bottom: 1px solid #f1f1f1;
+}
+
+.actionItem:hover {
+    background-color: var(--hover-bg-color);
+    color: var(--primary-color);
+}
+
+/* Scrollbar Styling */
+.actionsDropdown::-webkit-scrollbar {
+    width: 6px;
+}
+
+.actionsDropdown::-webkit-scrollbar-thumb {
+    background-color: var(--secondary-color);
+    border-radius: 4px;
+}
+
+.actionsDropdown::-webkit-scrollbar-thumb:hover {
+    background-color: var(--primary-color);
+}

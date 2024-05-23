@@ -87,6 +87,6 @@ endpoints:
 
 info:
   app:
-    name: "login"
+    name: "Login"
     description: "Login Application"
     version: "1.0.0"

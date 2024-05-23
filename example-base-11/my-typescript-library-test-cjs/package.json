@@ -1,0 +1,15 @@
+{
+  "name": "my-typescript-library-test-cjs",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@stparap/my-typescript-library": "^1.5.0"
+  }
+}
