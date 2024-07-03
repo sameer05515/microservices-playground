@@ -4,11 +4,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 @Service
-public class RestClient {
+public class RestAPIInvokerService {
 
     private final RestTemplate restTemplate;
 
-    public RestClient(RestTemplate restTemplate) {
+    public RestAPIInvokerService(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 

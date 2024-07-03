@@ -3,9 +3,7 @@ package com.p.search.api.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.JsonNodeType;
-import com.p.search.api.service.RestClient;
+import com.p.search.api.service.RestAPIInvokerService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,21 +12,21 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api")
 public class ExampleController {
 
-    private final RestClient restClient;
+    private final RestAPIInvokerService restAPIInvokerService;
 
-    public ExampleController(RestClient restClient) {
-        this.restClient = restClient;
+    public ExampleController(RestAPIInvokerService restAPIInvokerService) {
+        this.restAPIInvokerService = restAPIInvokerService;
     }
 
     @GetMapping("/example")
     public String getExample() {
-        return restClient.getExample();
+        return restAPIInvokerService.getExample();
     }
 
     @GetMapping("/all-tags")
     public String getAllTags() {
         try {
-            String allTagsStrResponse = restClient.getAllTags();
+            String allTagsStrResponse = restAPIInvokerService.getAllTags();
 
             // Jackson main object
             ObjectMapper mapper = new ObjectMapper();
@@ -37,10 +35,6 @@ public class ExampleController {
             JsonNode node = mapper.readTree(allTagsStrResponse);
 
             return node.toPrettyString();
-//            if(node!=null && node.getNodeType()== JsonNodeType.ARRAY){
-//                (Json)
-//            }
-//            return "Prem NodeType:- "+node.getNodeType().name();
 
         } catch (JsonProcessingException jpe) {
             return jpe.getMessage();
