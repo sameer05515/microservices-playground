@@ -8,6 +8,7 @@ import {
 } from "./utils/UtilityMethods";
 import Search from "./components/common/Search";
 import ConversationCard from "./components/ConversationCard";
+import { coversationNames, LATEST_CONVERSATION_FILE } from "./utils/constants";
 
 const App = () => {
   const [jsonData, setJsonData] = useState([]);
@@ -91,21 +92,9 @@ const App = () => {
   }, [jsonData]);
 
   useEffect(() => {
-    const coversationNames = [
-      "/data/sample-conversations1.json",
-      "/data/sample-conversations2.json",
-      "/data/sample-conversations3.json",
-      "/data/conversations-09-May-2024.json",
-      "/data/conversations-10-May-2024.json",
-      "/data/conversations-12-May-2024.json",
-      "/data/conversations-24-May-2024.json",
-      "/data/conversations-27-May-2024.json",
-      "/data/conversations-17-June-2024.json",
-      "/data/conversations-12-July-2024.json"
-    ];
     const fetchJsonData = async () => {
       try {
-        const response = await fetch(coversationNames[9]); // Adjust the file path here
+        const response = await fetch(LATEST_CONVERSATION_FILE); // Adjust the file path here
         if (!response.ok) {
           throw new Error("Failed to fetch data");
         }
@@ -198,20 +187,25 @@ const App = () => {
             {showSearchSection ? "Hide " : "Show "} Search
           </button>
 
-          {showSearchSection &&
+          {showSearchSection && (
             <button onClick={() => setCollapseAll((prev) => !prev)}>
               {collapseAll ? "Expand " : "Collapse "} All Results
             </button>
-          }
+          )}
 
           {/* Render the Search component and pass handleSearch as a prop */}
           {showSearchSection && <Search onSearch={handleSearch} />}
           {/* Render the ChatGPTConversationRenderer component */}
           {showSearchSection && filteredData.length > 0 && (
-            <ChatGPTConversationRenderer jsonData={filteredData} collapseAll={collapseAll} />
+            <ChatGPTConversationRenderer
+              jsonData={filteredData}
+              collapseAll={collapseAll}
+            />
           )}
 
           {selectedConv && !showSearchSection && (
+            <>
+            
             <ConversationCard
               conversation={selectedConv}
               onNextClick={handleNext}
@@ -219,6 +213,7 @@ const App = () => {
               onShowClick={handleShowClick}
               initiallyCollapsed={false}
             />
+            </>
           )}
         </div>
       </div>
