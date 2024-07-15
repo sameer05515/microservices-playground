@@ -90,7 +90,7 @@ const App = () => {
 
       populateLinkVisibility();
       // Call populateLastSelectedConverstaion after setting jsonData
-      //populateLastSelectedConverstaion();
+      populateLastSelectedConverstaion();
       setSelectedConv(null);
     }
   }, [jsonData]);
