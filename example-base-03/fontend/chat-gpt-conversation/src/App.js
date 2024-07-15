@@ -23,50 +23,13 @@ const App = () => {
 
   const [collapseAll, setCollapseAll] = useState(true);
 
-  const [selectedFile, setSelectedFile]=useState(LATEST_CONVERSATION_FILE);
-
-  // Function to filter conversations and messages based on search query
-  const handleSearch = (query) => {
-    console.log("Search started: Search string : " + query);
-    if (!query || query.trim().length == 0) {
-      setFilteredData((prev) => []);
-      return;
-    }
-    const filteredConversations = jsonData.map((conversation) => {
-      // Filter messages within the conversation based on the search query
-      const filteredMessages = conversation.messages.filter((message) =>
-        message.text.toLowerCase().includes(query.toLowerCase())
-      );
-      // Check if conversation title contains the search query
-      const titleMatches = conversation.title
-        .toLowerCase()
-        .includes(query.toLowerCase());
-
-      // Return conversation object with filtered messages or empty messages array
-      return {
-        ...conversation,
-        messages: filteredMessages,
-        // Include the conversation in filteredConversations if either title or messages match the search query
-        include: titleMatches || filteredMessages.length > 0,
-      };
-    });
-
-    // Filter out conversations without matching titles or messages
-    const filteredData = filteredConversations.filter(
-      (conversation) => conversation.include
-    );
-
-    setFilteredData(filteredData);
-    console.log("Search Done: Search string : " + query);
-    // console.log(JSON.stringify(filteredData));
-  };
+  const [selectedFile, setSelectedFile] = useState(LATEST_CONVERSATION_FILE);
 
   const fetchJsonData = async () => {
-    if(!selectedFile){
-      return
+    if (!selectedFile) {
+      return;
     }
     try {
-      
       const response = await fetch(selectedFile); // Adjust the file path here
       if (!response.ok) {
         throw new Error("Failed to fetch data");
@@ -136,6 +99,42 @@ const App = () => {
     fetchJsonData();
     // populateLastSelectedConverstaion();
   }, [selectedFile]); // Empty dependency array ensures the effect runs only once on component mount
+
+  // Function to filter conversations and messages based on search query
+  const handleSearch = (query) => {
+    console.log("Search started: Search string : " + query);
+    if (!query || query.trim().length == 0) {
+      setFilteredData((prev) => []);
+      return;
+    }
+    const filteredConversations = jsonData.map((conversation) => {
+      // Filter messages within the conversation based on the search query
+      const filteredMessages = conversation.messages.filter((message) =>
+        message.text.toLowerCase().includes(query.toLowerCase())
+      );
+      // Check if conversation title contains the search query
+      const titleMatches = conversation.title
+        .toLowerCase()
+        .includes(query.toLowerCase());
+
+      // Return conversation object with filtered messages or empty messages array
+      return {
+        ...conversation,
+        messages: filteredMessages,
+        // Include the conversation in filteredConversations if either title or messages match the search query
+        include: titleMatches || filteredMessages.length > 0,
+      };
+    });
+
+    // Filter out conversations without matching titles or messages
+    const filteredData = filteredConversations.filter(
+      (conversation) => conversation.include
+    );
+
+    setFilteredData(filteredData);
+    console.log("Search Done: Search string : " + query);
+    // console.log(JSON.stringify(filteredData));
+  };
 
   const handleSelect = (item) => {
     console.log(
@@ -211,11 +210,15 @@ const App = () => {
             />
           )}
 
-          <ConversationFileSelector onChange={(fileName)=>{setSelectedFile(()=>fileName)}} />
+          <ConversationFileSelector
+            initialSelectedFile={LATEST_CONVERSATION_FILE}
+            onChange={(fileName) => {
+              setSelectedFile(() => fileName);
+            }}
+          />
 
           {selectedConv && !showSearchSection && (
             <>
-
               <ConversationCard
                 conversation={selectedConv}
                 onNextClick={handleNext}

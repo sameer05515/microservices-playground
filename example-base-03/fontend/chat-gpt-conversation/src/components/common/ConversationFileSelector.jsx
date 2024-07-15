@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { coversationNames } from '../../utils/constants';
 
-const ConversationFileSelector = ({onChange=()=>{}}) => {
-    const [selectedValue, setSelectedValue] = useState('');
+const ConversationFileSelector = ({initialSelectedFile='',onChange=()=>{}}) => {
+    
 
     const handleChange = (event) => {
         setSelectedValue(event.target.value);
@@ -18,6 +18,18 @@ const ConversationFileSelector = ({onChange=()=>{}}) => {
             };
         }
     );
+
+    const [selectedValue, setSelectedValue] = useState('');
+
+    useEffect(()=>{
+        if(initialSelectedFile){
+            const option=mappedArray.find(ma=>ma.value===initialSelectedFile);
+            if(option){
+                setSelectedValue(()=>option.value);
+            }            
+        }
+        
+    },[])
 
     const styles = {
         container: {
