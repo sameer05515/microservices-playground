@@ -9,6 +9,7 @@ import {
 import Search from "./components/common/Search";
 import ConversationCard from "./components/ConversationCard";
 import { coversationNames, LATEST_CONVERSATION_FILE } from "./utils/constants";
+import ConversationFileSelector from "./components/common/ConversationFileSelector";
 
 const App = () => {
   const [jsonData, setJsonData] = useState([]);
@@ -21,6 +22,8 @@ const App = () => {
   const [showSideBar, setShowSideBar] = useState(false);
 
   const [collapseAll, setCollapseAll] = useState(true);
+
+  const [selectedFile, setSelectedFile]=useState(LATEST_CONVERSATION_FILE);
 
   // Function to filter conversations and messages based on search query
   const handleSearch = (query) => {
@@ -58,6 +61,43 @@ const App = () => {
     // console.log(JSON.stringify(filteredData));
   };
 
+  const fetchJsonData = async () => {
+    if(!selectedFile){
+      return
+    }
+    try {
+      
+      const response = await fetch(selectedFile); // Adjust the file path here
+      if (!response.ok) {
+        throw new Error("Failed to fetch data");
+      }
+      let data = await response.json();
+      let count = 0;
+      console.log(`response data length: ${data ? data.length : 0}`);
+      data =
+        data && data.length > 0
+          ? data.map((conv, index) => {
+            const messages = getConversationMessages(conv);
+
+            return {
+              id: `conv_${++count}`,
+              title: conv.title,
+              messages: messages && messages.length > 0 ? messages : [],
+              createdOn: conv.create_time
+                ? formatUnixTimestamp(conv.create_time)
+                : `'${conv.create_time}'`,
+              updatedOn: conv.update_time
+                ? formatUnixTimestamp(conv.update_time)
+                : `'${conv.update_time}'`,
+            };
+          })
+          : [];
+      setJsonData((prev) => [...data]);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
   useEffect(() => {
     if (jsonData && jsonData.length > 0) {
       const populateLinkVisibility = () => {
@@ -87,47 +127,14 @@ const App = () => {
 
       populateLinkVisibility();
       // Call populateLastSelectedConverstaion after setting jsonData
-      populateLastSelectedConverstaion();
+      //populateLastSelectedConverstaion();
     }
   }, [jsonData]);
 
   useEffect(() => {
-    const fetchJsonData = async () => {
-      try {
-        const response = await fetch(LATEST_CONVERSATION_FILE); // Adjust the file path here
-        if (!response.ok) {
-          throw new Error("Failed to fetch data");
-        }
-        let data = await response.json();
-        let count = 0;
-        console.log(`response data length: ${data ? data.length : 0}`);
-        data =
-          data && data.length > 0
-            ? data.map((conv, index) => {
-              const messages = getConversationMessages(conv);
-
-              return {
-                id: `conv_${++count}`,
-                title: conv.title,
-                messages: messages && messages.length > 0 ? messages : [],
-                createdOn: conv.create_time
-                  ? formatUnixTimestamp(conv.create_time)
-                  : `'${conv.create_time}'`,
-                updatedOn: conv.update_time
-                  ? formatUnixTimestamp(conv.update_time)
-                  : `'${conv.update_time}'`,
-              };
-            })
-            : [];
-        setJsonData((prev) => [...data]);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
     fetchJsonData();
     // populateLastSelectedConverstaion();
-  }, []); // Empty dependency array ensures the effect runs only once on component mount
+  }, [selectedFile]); // Empty dependency array ensures the effect runs only once on component mount
 
   const handleSelect = (item) => {
     console.log(
@@ -203,16 +210,18 @@ const App = () => {
             />
           )}
 
+          <ConversationFileSelector onChange={(fileName)=>{setSelectedFile(()=>fileName)}} />
+
           {selectedConv && !showSearchSection && (
             <>
-            
-            <ConversationCard
-              conversation={selectedConv}
-              onNextClick={handleNext}
-              onPrevClick={handlePrev}
-              onShowClick={handleShowClick}
-              initiallyCollapsed={false}
-            />
+
+              <ConversationCard
+                conversation={selectedConv}
+                onNextClick={handleNext}
+                onPrevClick={handlePrev}
+                onShowClick={handleShowClick}
+                initiallyCollapsed={false}
+              />
             </>
           )}
         </div>
