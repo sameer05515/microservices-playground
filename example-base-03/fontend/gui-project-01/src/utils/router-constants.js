@@ -108,3 +108,36 @@ export const generateRoutes = (config = routeConfig) => {
         return <Route key={index} path={route.path} element={<Element />} />;
     });
 };
+
+
+/**
+ * @param parentRouteName 
+ *  
+ * @returns childComponentNameObj having fields as :  "Child component display name": "route" 
+ * 
+ * Example:
+ * 
+    {
+    "Child 1": "child1",
+    "Child 2": "child2"
+    } 
+ *
+ *  */
+    const getChildRouteNames = (parentRouteName = "/") => {
+        let childComponentNameObj = {};
+        if (parentRouteName) {
+            const parentRoute = routeConfig.find((rc) => rc.path === parentRouteName);
+            if (parentRoute && parentRoute.children) {
+                childComponentNameObj = parentRoute.children
+                    .filter((ch) => ch.displayInCombo && ch.displayInCombo === true)
+                    .reduce((acc, rcc) => {
+                        acc[rcc.element] = rcc.path;
+                        return acc;
+                    }, {});
+            }
+        }
+        // console.log(`${JSON.stringify(childComponentNameObj, null, 2)}`);
+        return childComponentNameObj;
+    };
+    
+    export const childComponentNames = getChildRouteNames();
