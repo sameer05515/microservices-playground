@@ -50,45 +50,29 @@ const BaseComponent = () => {
     );
 };
 
+const PATH_IDS = {
+    HOME: 'PATH_ID_HOME',
+    OLD_DASHBOARD: 'PATH_ID_OLD_DASHBOARD',
+    RESUMES_LIST: 'PATH_ID_RESUMES_LIST'
+};
+
+const breadcrumbItems = [
+    { id: PATH_IDS.HOME, title: 'Home', path: '/' },
+    { id: PATH_IDS.OLD_DASHBOARD, title: 'Old Resume Dashboard', path: '/old-dashboard' },
+    { id: PATH_IDS.RESUMES_LIST, title: 'Resumes', path: '/resumes' },
+];
+
 const GlobalBreadcrumb = ({ currentPath }) => {
-    const PATH_IDS = {
-        HOME: 'PATH_ID_HOME',
-        OLD_DASHBOARD: 'PATH_ID_OLD_DASHBOARD',
-        RESUMES_LIST: 'PATH_ID_RESUMES_LIST'
-    }
-    const breadcrumbItems = [
-        { id: PATH_IDS.HOME, title: 'Home', path: '/' },
-        { id: PATH_IDS.OLD_DASHBOARD, title: 'Old Resume Dashboard', path: '/old-dashboard' },
-        { id: PATH_IDS.RESUMES_LIST, title: 'Resumes', path: '/resumes' },
-    ];
-
-    const getBreadcrumbItemsForId = (id) => breadcrumbItems.find(bci => bci.id === id) || null;
-
     const [itemsForPath, setItemsForPath] = useState([]);
 
     useEffect(() => {
-        if (currentPath) {
-            const arr = [];
-            switch (currentPath) {
-                case '/':
-                    arr.push(getBreadcrumbItemsForId(PATH_IDS.HOME));
-                    setItemsForPath(() => [...arr]);
-                    break;
-                case '/old-dashboard':
-                    arr.push(getBreadcrumbItemsForId(PATH_IDS.HOME));
-                    arr.push(getBreadcrumbItemsForId(PATH_IDS.OLD_DASHBOARD));
-                    setItemsForPath(() => [...arr]);
-                    break;
-                case '/resumes':
-                    arr.push(getBreadcrumbItemsForId(PATH_IDS.HOME));
-                    arr.push(getBreadcrumbItemsForId(PATH_IDS.RESUMES_LIST));
-                    setItemsForPath(() => [...arr]);
-                    break;
+        const paths = currentPath.split('/').filter(Boolean);
+        const newItemsForPath = paths.map((_, index) => {
+            const path = `/${paths.slice(0, index + 1).join('/')}`;
+            return breadcrumbItems.find(item => item.path === path);
+        }).filter(Boolean);
 
-                default: break;
-            }
-        }
-
+        setItemsForPath([{ id: PATH_IDS.HOME, title: 'Home', path: '/' }, ...newItemsForPath]);
     }, [currentPath]);
 
     return (
@@ -115,11 +99,12 @@ const BreadcrumbItem = ({ item, isActive }) => {
                 //...styles.span,
                 color: 'blue',
                 textDecoration: 'none',
+                fontWeight:'bold',
                 ...(hovered && styles.hovered),
                 ...(isActive && { color: 'black' })
             }}
-            onMouseOver={() => { if (!isActive) setHovered(true) }}
-            onMouseOut={() => { if (!isActive) setHovered(false) }}
+            onMouseOver={() => !isActive && setHovered(true)}
+            onMouseOut={() => !isActive && setHovered(false)}
             onClick={() => navigate(item.path)}
         >
             {item.title}
