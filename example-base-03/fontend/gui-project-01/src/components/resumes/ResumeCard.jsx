@@ -5,6 +5,20 @@ import { setRefreshResumeList } from "../../common/redux/resumeSlice";
 import CustomButton from "../../common/components/CustomButton";
 import { isNonEmptyArray } from "../../utils/validation-utils";
 
+const styles = {
+    container: {
+        border: '1px solid #ddd',
+        padding: '10px',
+        marginBottom: '10px',
+    },
+    errorText: {
+        color: "red",
+    },
+    boldText: {
+        fontWeight: "bold",
+    },
+};
+
 const ResumeCard = ({ selectedResume: resume }) => {
     const dispatch = useDispatch();
     const location = useLocation();
@@ -21,7 +35,7 @@ const ResumeCard = ({ selectedResume: resume }) => {
         return <>Please provide valid selectedResume data</>;
     }
 
-    const { introduction, processedDetails, companies, educations, } = selectedResume;
+    const { introduction, processedDetails, companies, educations } = selectedResume;
     const metadata = processedDetails?.metadata;
     const summarizedIntroduction = metadata?.summarizedIntroduction;
 
@@ -31,31 +45,31 @@ const ResumeCard = ({ selectedResume: resume }) => {
                 Refresh List
             </CustomButton>
             <div>
-                <b>Introduction:</b> {introduction}
+                <span style={styles.boldText}>Introduction:</span> {introduction}
             </div>
-            <div style={{border: '1px solid #ddd',}}>
+            <div style={styles.container}>
                 {isNonEmptyArray(summarizedIntroduction) ? (
                     summarizedIntroduction.map((summ, idx) => (
                         <div key={idx}>{summ}</div>
                     ))
                 ) : (
-                    <span style={{ color: "red" }}>
+                    <span style={styles.errorText}>
                         No valid metadata found in this resume configuration
                     </span>
                 )}
             </div>
-            <div style={{border: '1px solid #ddd',}}>
+            <div style={styles.container}>
                 {isNonEmptyArray(companies) ? (
                     companies.map(({ uniqueId, name, projects }) => (
                         <div key={uniqueId}>
                             <p>{name}</p>
-                            <div style={{border: '1px solid #ddd',}}>
+                            <div style={styles.container}>
                                 {isNonEmptyArray(projects) ? (
                                     projects.map(({ uniqueId, name }) => (
                                         <div key={uniqueId}>{name}</div>
                                     ))
                                 ) : (
-                                    <span style={{ color: "red" }}>
+                                    <span style={styles.errorText}>
                                         No valid projects found in this company configuration
                                     </span>
                                 )}
@@ -63,19 +77,18 @@ const ResumeCard = ({ selectedResume: resume }) => {
                         </div>
                     ))
                 ) : (
-                    <span style={{ color: "red" }}>
+                    <span style={styles.errorText}>
                         No valid companies found in this resume configuration
                     </span>
                 )}
             </div>
-
-            <div style={{border: '1px solid #ddd',}}>
+            <div style={styles.container}>
                 {isNonEmptyArray(educations) ? (
                     educations.map(({ uniqueId, name }) => (
                         <div key={uniqueId}>{name}</div>
                     ))
                 ) : (
-                    <span style={{ color: "red" }}>
+                    <span style={styles.errorText}>
                         No valid educations found in this resume configuration
                     </span>
                 )}
