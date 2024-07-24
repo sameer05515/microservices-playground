@@ -7,56 +7,80 @@ import { isNonEmptyArray } from "../../utils/validation-utils";
 
 const ResumeCard = ({ selectedResume: resume }) => {
     const dispatch = useDispatch();
-    const { id } = useParams();
     const location = useLocation();
-    const state = location.state;
-    const [selectedResume, setSelectedResume] = useState({ ...resume });
-    // const {
-    //     uniqueId,
-    //     introduction,
-    //     summary,
-    //     processedDetails:{metadata},
-    //     companies,
-    //     educations,
-    // }= selectedResume;
+    const { state } = location;
+    const [selectedResume, setSelectedResume] = useState(resume);
+
     useEffect(() => {
-        state && setSelectedResume(() => ({ ...state }));
+        if (state) {
+            setSelectedResume(state);
+        }
     }, [state]);
+
+    if (!selectedResume) {
+        return <>Please provide valid selectedResume data</>;
+    }
+
+    const { introduction, processedDetails, companies, educations, } = selectedResume;
+    const metadata = processedDetails?.metadata;
+    const summarizedIntroduction = metadata?.summarizedIntroduction;
+
     return (
-        <>
-            {/* <pre style={{ textWrap: 'wrap' }}>Received State: {JSON.stringify(state)}</pre> */}
-            {selectedResume ? (
-                <div>
-                    {/* <pre style={{ textWrap: 'wrap' }}>{JSON.stringify(selectedResume, null, 2)}</pre> */}
-                    {selectedResume && (
-                        <>
-                            <CustomButton
-                                onClick={() => dispatch(setRefreshResumeList(true))}
-                            >
-                                Refresh List
-                            </CustomButton>
-                            <div>
-                                <b>Introduction</b>
-                                {selectedResume.introduction}
+        <div>
+            <CustomButton onClick={() => dispatch(setRefreshResumeList(true))}>
+                Refresh List
+            </CustomButton>
+            <div>
+                <b>Introduction:</b> {introduction}
+            </div>
+            <div style={{border: '1px solid #ddd',}}>
+                {isNonEmptyArray(summarizedIntroduction) ? (
+                    summarizedIntroduction.map((summ, idx) => (
+                        <div key={idx}>{summ}</div>
+                    ))
+                ) : (
+                    <span style={{ color: "red" }}>
+                        No valid metadata found in this resume configuration
+                    </span>
+                )}
+            </div>
+            <div style={{border: '1px solid #ddd',}}>
+                {isNonEmptyArray(companies) ? (
+                    companies.map(({ uniqueId, name, projects }) => (
+                        <div key={uniqueId}>
+                            <p>{name}</p>
+                            <div style={{border: '1px solid #ddd',}}>
+                                {isNonEmptyArray(projects) ? (
+                                    projects.map(({ uniqueId, name }) => (
+                                        <div key={uniqueId}>{name}</div>
+                                    ))
+                                ) : (
+                                    <span style={{ color: "red" }}>
+                                        No valid projects found in this company configuration
+                                    </span>
+                                )}
                             </div>
-                            <div>
-                                {/* <pre style={{ textWrap: 'wrap' }}>{JSON.stringify(metadata, null, 2)}</pre> */}
-                                {selectedResume.processedDetails?.metadata &&
-                                    isNonEmptyArray(
-                                        selectedResume.processedDetails.metadata
-                                            .summarizedIntroduction
-                                    ) &&
-                                    selectedResume.processedDetails.metadata.summarizedIntroduction.map(
-                                        (summ, idx) => <div key={idx}>{summ}</div>
-                                    ) || <span style={{color:'red'}}>No valid metadata found in this resume configuration</span>}
-                            </div>
-                        </>
-                    )}
-                </div>
-            ) : (
-                <>Please provide valid selectedResume data</>
-            )}
-        </>
+                        </div>
+                    ))
+                ) : (
+                    <span style={{ color: "red" }}>
+                        No valid companies found in this resume configuration
+                    </span>
+                )}
+            </div>
+
+            <div style={{border: '1px solid #ddd',}}>
+                {isNonEmptyArray(educations) ? (
+                    educations.map(({ uniqueId, name }) => (
+                        <div key={uniqueId}>{name}</div>
+                    ))
+                ) : (
+                    <span style={{ color: "red" }}>
+                        No valid educations found in this resume configuration
+                    </span>
+                )}
+            </div>
+        </div>
     );
 };
 
