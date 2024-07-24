@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useLocation, useParams } from "react-router-dom";
-import { setRefreshResumeList } from "../../common/redux/resumeSlice";
+import { setRefreshResumeList, setSelectedResumeId } from "../../common/redux/resumeSlice";
 import CustomButton from "../../common/components/CustomButton";
 import { isNonEmptyArray } from "../../utils/validation-utils";
 
@@ -19,7 +19,20 @@ const styles = {
     },
 };
 
+const ListSection = ({ title, items, renderItem, errorMessage }) => (
+    <div style={styles.container}>
+        <span style={styles.boldText}>{title}</span>
+        {isNonEmptyArray(items) ? (
+            items.map(renderItem)
+        ) : (
+            <span style={styles.errorText}>{errorMessage}</span>
+        )}
+    </div>
+);
+
 const ResumeCard = ({ selectedResume: resume }) => {
+    
+    const { id } = useParams();
     const dispatch = useDispatch();
     const location = useLocation();
     const { state } = location;
@@ -30,6 +43,12 @@ const ResumeCard = ({ selectedResume: resume }) => {
             setSelectedResume(state);
         }
     }, [state]);
+
+    useEffect(()=>{
+        if(id){
+            dispatch(setSelectedResumeId(id));
+        }
+    },[id])
 
     if (!selectedResume) {
         return <>Please provide valid selectedResume data</>;
@@ -47,52 +66,34 @@ const ResumeCard = ({ selectedResume: resume }) => {
             <div>
                 <span style={styles.boldText}>Introduction:</span> {introduction}
             </div>
-            <div style={styles.container}>
-                {isNonEmptyArray(summarizedIntroduction) ? (
-                    summarizedIntroduction.map((summ, idx) => (
-                        <div key={idx}>{summ}</div>
-                    ))
-                ) : (
-                    <span style={styles.errorText}>
-                        No valid metadata found in this resume configuration
-                    </span>
+            <ListSection
+                title="Summarized Introduction:"
+                items={summarizedIntroduction}
+                renderItem={(summ, idx) => <div key={idx}>{summ}</div>}
+                errorMessage="No valid metadata found in this resume configuration"
+            />
+            <ListSection
+                title="Companies:"
+                items={companies}
+                renderItem={({ uniqueId, name, projects }) => (
+                    <div key={uniqueId}>
+                        <p>{name}</p>
+                        <ListSection
+                            title=""
+                            items={projects}
+                            renderItem={({ uniqueId, name }) => <div key={uniqueId}>{name}</div>}
+                            errorMessage="No valid projects found in this company configuration"
+                        />
+                    </div>
                 )}
-            </div>
-            <div style={styles.container}>
-                {isNonEmptyArray(companies) ? (
-                    companies.map(({ uniqueId, name, projects }) => (
-                        <div key={uniqueId}>
-                            <p>{name}</p>
-                            <div style={styles.container}>
-                                {isNonEmptyArray(projects) ? (
-                                    projects.map(({ uniqueId, name }) => (
-                                        <div key={uniqueId}>{name}</div>
-                                    ))
-                                ) : (
-                                    <span style={styles.errorText}>
-                                        No valid projects found in this company configuration
-                                    </span>
-                                )}
-                            </div>
-                        </div>
-                    ))
-                ) : (
-                    <span style={styles.errorText}>
-                        No valid companies found in this resume configuration
-                    </span>
-                )}
-            </div>
-            <div style={styles.container}>
-                {isNonEmptyArray(educations) ? (
-                    educations.map(({ uniqueId, name }) => (
-                        <div key={uniqueId}>{name}</div>
-                    ))
-                ) : (
-                    <span style={styles.errorText}>
-                        No valid educations found in this resume configuration
-                    </span>
-                )}
-            </div>
+                errorMessage="No valid companies found in this resume configuration"
+            />
+            <ListSection
+                title="Educations:"
+                items={educations}
+                renderItem={({ uniqueId, name }) => <div key={uniqueId}>{name}</div>}
+                errorMessage="No valid educations found in this resume configuration"
+            />
         </div>
     );
 };

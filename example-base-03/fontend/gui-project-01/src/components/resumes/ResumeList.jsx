@@ -6,13 +6,14 @@ import { Outlet, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import {
     selectRefreshResumeList,
-    setRefreshResumeList,
+    selectSelectedResumeId
 } from "../../common/redux/resumeSlice";
 
 const ResumeList = () => {
     const navigate = useNavigate();
     // const dispatch = useDispatch();
     const refreshResumeList = useSelector(selectRefreshResumeList);
+    const selectedResumeId = useSelector(selectSelectedResumeId);
 
     // Use useQuery hook to execute the GET_RESUMES query
     const { loading, error, data, refetch } = useQuery(GET_RESUMES_FOR_LIST);
@@ -24,8 +25,14 @@ const ResumeList = () => {
     useEffect(() => {
         if (data && data.getAllResumes) {
             setResumes(data.getAllResumes);
+            if (selectedResumeId) {
+                const selRes = data.getAllResumes.find(r => r.uniqueId === selectedResumeId) || null;
+                if (selRes) {
+                    setSelectedResume(() => ({ ...selRes }));
+                }
+            }
         }
-    }, [data]);
+    }, [data, selectedResumeId]);
 
     const showResumeDetails = (res) => {
         res && setSelectedResume(() => ({ ...res }));
