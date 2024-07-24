@@ -36,9 +36,6 @@ const WelcomeIndex = () => {
                     <span style={styles.span} onClick={() => navigate('resumes')}>ResumeDashboardNew</span>
                 </li>
             </ul>
-            {/* <div style={styles.outletContainer}>
-                <Outlet />
-            </div> */}
         </div>
     )
 }
