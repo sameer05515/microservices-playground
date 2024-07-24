@@ -1,11 +1,18 @@
-import ResumeDashboard from "../components/resume/ResumeDashboard";
-import { Outlet, Route, useNavigate } from "react-router-dom";
+// import { element } from "prop-types";
+import ResumeDashboard from "../components/resume-old/ResumeDashboard";
+import { Route, useNavigate, BrowserRouter as Router, Routes } from "react-router-dom";
+import WelcomeIndex from "../components/WelcomeIndex";
+import BaseComponent from "../components/BaseComponent";
 
 export const routeConfig = [
     {
         path: "/",
         element: "Parent",
         children: [
+            {
+                index: true,
+                element: "WelcomeIndex"
+            },
             {
                 path: "old-dashboard",
                 element: "ResumeDashboardOld",
@@ -16,7 +23,7 @@ export const routeConfig = [
                 element: "Child2",
                 displayInCombo: true,
             },
-        ],
+        ]
     },
     {
         path: "*",
@@ -24,51 +31,6 @@ export const routeConfig = [
         displayInCombo: false,
     },
 ];
-
-
-
-const Welcome = () => {
-    const navigate = useNavigate();
-    const styles = {
-        container: {
-            padding: '20px',
-            fontFamily: 'Arial, sans-serif',
-            backgroundColor: '#f0f0f0'
-        },
-        ul: {
-            listStyleType: 'none',
-            padding: 0,
-        },
-        li: {
-            margin: '10px 0',
-        },
-        span: {
-            cursor: 'pointer',
-            color: 'blue',
-            textDecoration: 'none',
-            fontWeight: 'bold',
-        },
-        outletContainer: {
-            marginTop: '20px',
-        }
-    };
-
-    return (
-        <div style={styles.container}>
-            <ul style={styles.ul}>
-                <li style={styles.li}>
-                    <span style={styles.span} onClick={() => navigate('old-dashboard')}>ResumeDashboardOld</span>
-                </li>
-                <li style={styles.li}>
-                    <span style={styles.span} onClick={() => navigate('resumes')}>ResumeDashboardNew</span>
-                </li>
-            </ul>
-            <div style={styles.outletContainer}>
-                <Outlet />
-            </div>
-        </div>
-    )
-}
 
 const NotFound = () => {
     const navigate = useNavigate();
@@ -83,7 +45,8 @@ const NotFound = () => {
 
 // Define a mapping from string to component
 const componentMap = {
-    Parent: Welcome,
+    Parent: BaseComponent,
+    WelcomeIndex: WelcomeIndex,
     ResumeDashboardOld: () => (
         <div>
             <h1>Resume Dashboard</h1>
@@ -101,14 +64,20 @@ export const generateRoutes = (config = routeConfig) => {
         if (route.children) {
             return (
                 <Route key={index} path={route.path} element={<Element />}>
-                    {generateRoutes(route.children)}
+                    {route.children.map((child, idx) => {
+                        const ChildElement = componentMap[child.element];
+                        return child.index ? (
+                            <Route key={idx} index element={<ChildElement />} />
+                        ) : (
+                            <Route key={idx} path={child.path} element={<ChildElement />} />
+                        );
+                    })}
                 </Route>
             );
         }
         return <Route key={index} path={route.path} element={<Element />} />;
     });
 };
-
 
 /**
  * @param parentRouteName 
@@ -123,21 +92,32 @@ export const generateRoutes = (config = routeConfig) => {
     } 
  *
  *  */
-    const getChildRouteNames = (parentRouteName = "/") => {
-        let childComponentNameObj = {};
-        if (parentRouteName) {
-            const parentRoute = routeConfig.find((rc) => rc.path === parentRouteName);
-            if (parentRoute && parentRoute.children) {
-                childComponentNameObj = parentRoute.children
-                    .filter((ch) => ch.displayInCombo && ch.displayInCombo === true)
-                    .reduce((acc, rcc) => {
-                        acc[rcc.element] = rcc.path;
-                        return acc;
-                    }, {});
-            }
+const getChildRouteNames = (parentRouteName = "/") => {
+    let childComponentNameObj = {};
+    if (parentRouteName) {
+        const parentRoute = routeConfig.find((rc) => rc.path === parentRouteName);
+        if (parentRoute && parentRoute.children) {
+            childComponentNameObj = parentRoute.children
+                .filter((ch) => ch.displayInCombo && ch.displayInCombo === true)
+                .reduce((acc, rcc) => {
+                    acc[rcc.element] = rcc.path;
+                    return acc;
+                }, {});
         }
-        // console.log(`${JSON.stringify(childComponentNameObj, null, 2)}`);
-        return childComponentNameObj;
-    };
-    
-    export const childComponentNames = getChildRouteNames();
+    }
+    return childComponentNameObj;
+};
+
+export const childComponentNames = getChildRouteNames();
+
+const App = () => {
+    return (
+        <Router>
+            <Routes>
+                {generateRoutes(routeConfig)}
+            </Routes>
+        </Router>
+    );
+};
+
+export default App;

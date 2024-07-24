@@ -136,3 +136,15 @@ export const GET_RESUME = gql`
     }
   }
 `;
+
+
+// GraphQL query to fetch all resumes
+export const GET_RESUMES_FOR_LIST = gql`
+  query GetResumes {
+    getAllResumes {
+      uniqueId
+      introduction
+      summary      
+    }
+  }
+`;

@@ -1,6 +1,5 @@
 import React from 'react';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
-import ResumeDashboard from './components/resume/ResumeDashboard';
 import { BrowserRouter as Router, Routes } from 'react-router-dom';
 import { generateRoutes } from './utils/router-constants';
 
