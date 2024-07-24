@@ -4,6 +4,7 @@ import { useLocation, useParams } from "react-router-dom";
 import { setRefreshResumeList, setSelectedResumeId } from "../../common/redux/resumeSlice";
 import CustomButton from "../../common/components/CustomButton";
 import { isNonEmptyArray } from "../../utils/validation-utils";
+import HoverActions from "../../common/components/HoverActions";
 
 const styles = {
     container: {
@@ -64,7 +65,8 @@ const ResumeCard = ({ selectedResume: resume }) => {
                 Refresh List
             </CustomButton>
             <div>
-                <span style={styles.boldText}>Introduction:</span> {introduction}
+                <span style={styles.boldText}>Introduction:</span> {introduction} <br />
+                <HoverActions/>
             </div>
             <ListSection
                 title="Summarized Introduction:"

@@ -9,35 +9,52 @@ import {
     selectSelectedResumeId
 } from "../../common/redux/resumeSlice";
 
+const styles = {
+    list: {
+        listStyle: "none",
+        margin: 0,
+        paddingLeft: "20px",
+    },
+    listItem: {
+        marginBottom: "5px",
+        marginTop: "10px",
+    },
+    selectedResume: {
+        color: "blue",
+        fontSize: "20px",
+        fontWeight: "bold",
+    },
+    rightSection: {
+        paddingLeft: "20px",
+    }
+};
+
 const ResumeList = () => {
     const navigate = useNavigate();
-    // const dispatch = useDispatch();
     const refreshResumeList = useSelector(selectRefreshResumeList);
     const selectedResumeId = useSelector(selectSelectedResumeId);
 
-    // Use useQuery hook to execute the GET_RESUMES query
-    const { loading, error, data, refetch } = useQuery(GET_RESUMES_FOR_LIST);
-    // State to store list of resumes
+    const { loading, error, data } = useQuery(GET_RESUMES_FOR_LIST);
     const [resumes, setResumes] = useState([]);
     const [selectedResume, setSelectedResume] = useState(null);
 
-    // Update resumes state when data changes
     useEffect(() => {
-        if (data && data.getAllResumes) {
+        if (data?.getAllResumes) {
             setResumes(data.getAllResumes);
             if (selectedResumeId) {
                 const selRes = data.getAllResumes.find(r => r.uniqueId === selectedResumeId) || null;
                 if (selRes) {
-                    setSelectedResume(() => ({ ...selRes }));
+                    setSelectedResume(selRes);
                 }
             }
         }
     }, [data, selectedResumeId]);
 
     const showResumeDetails = (res) => {
-        res && setSelectedResume(() => ({ ...res }));
-        // dispatch(setRefreshResumeList(true));
-        navigate(`${res.uniqueId}`, { state: res });
+        if (res) {
+            setSelectedResume(res);
+            navigate(`${res.uniqueId}`, { state: res });
+        }
     };
 
     return (
@@ -49,52 +66,21 @@ const ResumeList = () => {
 
             <ContainerComponent
                 leftSection={() => (
-                    <ul style={{ listStyle: "none", margin: 0, paddingLeft: "20px" }}>
-                        {resumes &&
-                            resumes.length > 0 &&
-                            resumes.map(
-                                ({
-                                    uniqueId,
-                                    introduction,
-                                    summary,
-                                    processedDetails,
-                                    companies,
-                                    educations,
-                                }) => (
-                                    <li
-                                        key={uniqueId}
-                                        style={{ marginBottom: "5px", marginTop: "10px" }}
-                                    >
-                                        <span
-                                            style={
-                                                selectedResume?.uniqueId === uniqueId
-                                                    ? {
-                                                        color: "blue",
-                                                        fontSize: "20px",
-                                                        fontWeight: "bold",
-                                                    }
-                                                    : {}
-                                            }
-                                            onClick={() =>
-                                                showResumeDetails({
-                                                    uniqueId,
-                                                    introduction,
-                                                    summary,
-                                                    processedDetails,
-                                                    companies,
-                                                    educations,
-                                                })
-                                            }
-                                        >
-                                            {introduction}
-                                        </span>
-                                    </li>
-                                )
-                            )}
+                    <ul style={styles.list}>
+                        {resumes.map(({ uniqueId, introduction, summary, processedDetails, companies, educations }) => (
+                            <li key={uniqueId} style={styles.listItem}>
+                                <span
+                                    style={selectedResume?.uniqueId === uniqueId ? styles.selectedResume : {}}
+                                    onClick={() => showResumeDetails({ uniqueId, introduction, summary, processedDetails, companies, educations })}
+                                >
+                                    {introduction}
+                                </span>
+                            </li>
+                        ))}
                     </ul>
                 )}
                 rightSection={() => (
-                    <div style={{ paddingLeft: "20px" }}>
+                    <div style={styles.rightSection}>
                         <p>Outlet wala section</p>
                         <div>
                             <Outlet />
