@@ -144,7 +144,24 @@ export const GET_RESUMES_FOR_LIST = gql`
     getAllResumes {
       uniqueId
       introduction
-      summary      
+      summary 
+      processedDetails{
+        rawText
+        textType
+        metadata
+      }
+      companies{
+        uniqueId
+        name
+        projects {
+          uniqueId
+          name
+        }
+      }
+      educations {
+        uniqueId
+        name
+      }          
     }
   }
 `;

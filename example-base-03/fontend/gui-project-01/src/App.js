@@ -13,14 +13,14 @@ const App = () => {
   return (
     <ApolloProvider client={client}>
       <Router>
-      <Routes>
-        {/* <Route path="/" element={<Parent />} >
+        <Routes>
+          {/* <Route path="/" element={<Parent />} >
           <Route path="child1" element={<Child1 />} />
           <Route path="child2" element={<Child2 />} />
         </Route> */}
-        {generateRoutes()}
-      </Routes>
-    </Router>
+          {generateRoutes()}
+        </Routes>
+      </Router>
     </ApolloProvider>
   );
 };

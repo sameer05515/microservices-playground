@@ -3,6 +3,8 @@ import ResumeDashboard from "../components/resume-old/ResumeDashboard";
 import { Route, useNavigate, BrowserRouter as Router, Routes } from "react-router-dom";
 import WelcomeIndex from "../components/WelcomeIndex";
 import BaseComponent from "../components/BaseComponent";
+import ResumeList from "../components/resumes/ResumeList";
+import ResumeCard from "../components/resumes/ResumeCard";
 
 export const routeConfig = [
     {
@@ -20,8 +22,15 @@ export const routeConfig = [
             },
             {
                 path: "resumes",
-                element: "Child2",
+                element: "ResumeList",
                 displayInCombo: true,
+                children: [
+                    {
+                        path: ':id',
+                        element: 'ResumeCard',
+                        displayInCombo: false
+                    }
+                ]
             },
         ]
     },
@@ -53,31 +62,39 @@ const componentMap = {
             <ResumeDashboard />
         </div>
     ),
-    Child2: () => <>Development in progress</>,
+    ResumeList: ResumeList, //() => <>Development in progress</>,
+    ResumeCard: ResumeCard,
     NonExistingElement: () => <>I am the boss</>,
     NotFound: NotFound,
 };
 
 export const generateRoutes = (config = routeConfig) => {
-    return config.map((route, index) => {
-        const Element = componentMap[route.element];
-        if (route.children) {
-            return (
-                <Route key={index} path={route.path} element={<Element />}>
-                    {route.children.map((child, idx) => {
-                        const ChildElement = componentMap[child.element];
-                        return child.index ? (
-                            <Route key={idx} index element={<ChildElement />} />
-                        ) : (
-                            <Route key={idx} path={child.path} element={<ChildElement />} />
-                        );
-                    })}
-                </Route>
-            );
-        }
-        return <Route key={index} path={route.path} element={<Element />} />;
-    });
+    const mapRoutes = (routes) => {
+        return routes.map((route, index) => {
+            const Element = componentMap[route.element];
+            if (route.children) {
+                return (
+                    <Route key={index} path={route.path} element={<Element />}>
+                        {route.children.map((child, idx) => {
+                            const ChildElement = componentMap[child.element];
+                            return child.index ? (
+                                <Route key={idx} index element={<ChildElement />} />
+                            ) : (
+                                <Route key={idx} path={child.path} element={<ChildElement />}>
+                                    {child.children ? mapRoutes(child.children) : null}
+                                </Route>
+                            );
+                        })}
+                    </Route>
+                );
+            }
+            return <Route key={index} path={route.path} element={<Element />} />;
+        });
+    };
+
+    return mapRoutes(config);
 };
+
 
 /**
  * @param parentRouteName 
