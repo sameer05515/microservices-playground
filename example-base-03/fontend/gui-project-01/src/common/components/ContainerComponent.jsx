@@ -14,12 +14,12 @@ const ContainerComponent = ({
             border: '1px solid #ddd',
             borderRadius: '5px',
             padding: '16px',
-            margin: '16px',
+            // margin: '16px',
             width: '95%',
             boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
         },
         header: {
-            marginBottom: '16px',
+            marginBottom: '2px',
         },
         content: {
             display: 'flex',
@@ -28,13 +28,13 @@ const ContainerComponent = ({
         leftSection: {
             flex: 1,
             borderRight: '1px solid #ddd',
-            padding: '16px',
-            marginRight: '16px',
+            // padding: '16px',
+            // marginRight: '16px',
         },
         rightSection: {
             flex: 5,
-            padding: '16px',
-            marginLeft: '16px',
+            // padding: '16px',
+            // marginLeft: '16px',
         },
         footer: {
             //marginTop: '16px',

@@ -4,7 +4,7 @@ import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 const styles = {
     container: {
-        padding: '20px',
+        // padding: '20px',
         fontFamily: 'Arial, sans-serif',
         backgroundColor: '#f0f0f0'
     },
@@ -84,7 +84,7 @@ const GlobalBreadcrumb = ({ currentPath }) => {
                     isActive={currentPath === item.path}
                 />
             ))}
-            <p>Current Path: {currentPath}</p>
+            {/* <p>Current Path: {currentPath}</p> */}
         </div>
     );
 };
