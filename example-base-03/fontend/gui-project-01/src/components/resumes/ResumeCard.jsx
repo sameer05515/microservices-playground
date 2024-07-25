@@ -62,9 +62,23 @@ const ResumeCard = ({ selectedResume: resume }) => {
     const metadata = processedDetails?.metadata;
     const summarizedIntroduction = metadata?.summarizedIntroduction;
 
-    const ProjectItem = ({ project }) => (
-        <div key={project.uniqueId}>{project.name}</div>
+    const ProjectItem = ({ project: { uniqueId, name } }) => (
+        <div key={uniqueId}> modified : {name}</div>
     );
+
+    const CompanyItem = ({ company: { uniqueId, name, projects } }) => (
+        <div key={uniqueId}>
+            <p>{name}</p>
+            <ListSection
+                title="Projects:"
+                items={projects}
+                renderItem={({ uniqueId, name }) => (
+                    <ProjectItem key={uniqueId} project={{ uniqueId, name }} />
+                )}
+                errorMessage="No valid projects found in this company configuration"
+            />
+        </div>
+    )
 
     return (
         <div>
@@ -85,17 +99,7 @@ const ResumeCard = ({ selectedResume: resume }) => {
                 title="Companies:"
                 items={companies}
                 renderItem={({ uniqueId, name, projects }) => (
-                    <div key={uniqueId}>
-                        <p>{name}</p>
-                        <ListSection
-                            title="Projects:"
-                            items={projects}
-                            renderItem={(project) => (
-                                <ProjectItem key={project.uniqueId} project={project} />
-                            )}
-                            errorMessage="No valid projects found in this company configuration"
-                        />
-                    </div>
+                    <CompanyItem key={uniqueId} company={{ uniqueId, name, projects }} />
                 )}
                 errorMessage="No valid companies found in this resume configuration"
             />
