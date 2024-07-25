@@ -12,7 +12,7 @@ const HoverActions = () => {
             style={{
                 position: "relative",
                 display: "inline-block",
-                padding: "10px",
+                // padding: "10px",
                 border: "1px solid #ccc",
                 cursor: "pointer",
                 width: "200px",

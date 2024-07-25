@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useLocation, useParams } from "react-router-dom";
-import { setRefreshResumeList, setSelectedResumeId } from "../../common/redux/resumeSlice";
+import {
+    setRefreshResumeList,
+    setSelectedResumeId,
+} from "../../common/redux/resumeSlice";
 import CustomButton from "../../common/components/CustomButton";
 import { isNonEmptyArray } from "../../utils/validation-utils";
 import HoverActions from "../../common/components/HoverActions";
 
 const styles = {
     container: {
-        border: '1px solid #ddd',
-        padding: '10px',
-        marginBottom: '10px',
+        border: "1px solid #ddd",
+        padding: "10px",
+        marginBottom: "10px",
     },
     errorText: {
         color: "red",
@@ -32,7 +35,6 @@ const ListSection = ({ title, items, renderItem, errorMessage }) => (
 );
 
 const ResumeCard = ({ selectedResume: resume }) => {
-    
     const { id } = useParams();
     const dispatch = useDispatch();
     const location = useLocation();
@@ -45,19 +47,24 @@ const ResumeCard = ({ selectedResume: resume }) => {
         }
     }, [state]);
 
-    useEffect(()=>{
-        if(id){
+    useEffect(() => {
+        if (id) {
             dispatch(setSelectedResumeId(id));
         }
-    },[id])
+    }, [id, dispatch]);
 
     if (!selectedResume) {
         return <>Please provide valid selectedResume data</>;
     }
 
-    const { introduction, processedDetails, companies, educations } = selectedResume;
+    const { introduction, processedDetails, companies, educations } =
+        selectedResume;
     const metadata = processedDetails?.metadata;
     const summarizedIntroduction = metadata?.summarizedIntroduction;
+
+    const ProjectItem = ({ project }) => (
+        <div key={project.uniqueId}>{project.name}</div>
+    );
 
     return (
         <div>
@@ -66,7 +73,7 @@ const ResumeCard = ({ selectedResume: resume }) => {
             </CustomButton>
             <div>
                 <span style={styles.boldText}>Introduction:</span> {introduction} <br />
-                <HoverActions/>
+                <HoverActions />
             </div>
             <ListSection
                 title="Summarized Introduction:"
@@ -81,9 +88,11 @@ const ResumeCard = ({ selectedResume: resume }) => {
                     <div key={uniqueId}>
                         <p>{name}</p>
                         <ListSection
-                            title=""
+                            title="Projects:"
                             items={projects}
-                            renderItem={({ uniqueId, name }) => <div key={uniqueId}>{name}</div>}
+                            renderItem={(project) => (
+                                <ProjectItem key={project.uniqueId} project={project} />
+                            )}
                             errorMessage="No valid projects found in this company configuration"
                         />
                     </div>
