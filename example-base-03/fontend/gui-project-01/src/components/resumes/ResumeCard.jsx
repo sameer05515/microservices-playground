@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import {
     setRefreshResumeList,
     setSelectedResumeId,
@@ -35,6 +35,7 @@ const ListSection = ({ title, items, renderItem, errorMessage }) => (
 );
 
 const ResumeCard = ({ selectedResume: resume }) => {
+    const navigate = useNavigate();
     const { id } = useParams();
     const dispatch = useDispatch();
     const location = useLocation();
@@ -57,18 +58,26 @@ const ResumeCard = ({ selectedResume: resume }) => {
         return <>Please provide valid selectedResume data</>;
     }
 
+    const navigateToPath=(path, state)=>{
+        navigate(path, state);
+    }
+
     const { introduction, processedDetails, companies, educations } =
         selectedResume;
     const metadata = processedDetails?.metadata;
     const summarizedIntroduction = metadata?.summarizedIntroduction;
 
     const ProjectItem = ({ project: { uniqueId, name } }) => (
-        <div key={uniqueId}> modified : {name}</div>
+        <div key={uniqueId}> 
+        <p>{name}</p>
+        <CustomButton onClick={()=>navigateToPath('',"")}>View Project details</CustomButton>
+        </div>
     );
 
     const CompanyItem = ({ company: { uniqueId, name, projects } }) => (
         <div key={uniqueId}>
             <p>{name}</p>
+            <CustomButton onClick={()=>navigateToPath('',"")}>View company details</CustomButton>
             <ListSection
                 title="Projects:"
                 items={projects}
