@@ -1,9 +1,9 @@
-import { isValidTreeData, TreeValidationErrorCodes } from '../../src/playground/tree-data-validations-util';
+import { isValidTreeData, TreeValidationMessageCodes, ErrorTypes } from '../../src/playground/tree-data-validations-util';
 
 describe('isValidTreeData', () => {
     it('should return invalid error for non-array input', () => {
         const result = isValidTreeData({});
-        expect(result).toEqual(TreeValidationErrorCodes.INVALID_INPUT);
+        expect(result).toEqual(TreeValidationMessageCodes.INVALID_INPUT);
     });
 
     it('should return invalid error for missing required fields', () => {
@@ -12,7 +12,7 @@ describe('isValidTreeData', () => {
             { name: "Node 2", parentId: "1", uniqueId: "2" }
         ];
         const result = isValidTreeData(nodes);
-        expect(result).toEqual(TreeValidationErrorCodes.MISSING_FIELDS);
+        expect(result).toEqual(TreeValidationMessageCodes.MISSING_FIELDS);
     });
 
     it('should return invalid error for duplicate uniqueIds', () => {
@@ -21,7 +21,7 @@ describe('isValidTreeData', () => {
             { name: "Node 2", parentId: "1", uniqueId: "1" } // Duplicate uniqueId
         ];
         const result = isValidTreeData(nodes);
-        expect(result).toEqual(TreeValidationErrorCodes.DUPLICATE_UNIQUE_ID);
+        expect(result).toEqual(TreeValidationMessageCodes.DUPLICATE_UNIQUE_ID);
     });
 
     it('should return invalid error for cyclic dependencies', () => {
@@ -48,7 +48,7 @@ describe('isValidTreeData', () => {
         ];
         const result = isValidTreeData(nodes);
         expect(result).toEqual({
-            ...TreeValidationErrorCodes.CYCLIC_DEPENDENCY,
+            ...TreeValidationMessageCodes.CYCLIC_DEPENDENCY,
             uniqueId: "1"
         });
     });
@@ -69,7 +69,7 @@ describe('isValidTreeData', () => {
             }
         ];
         const result = isValidTreeData(nodes);
-        expect(result).toEqual(TreeValidationErrorCodes.VALID_TREE);
+        expect(result).toEqual(TreeValidationMessageCodes.VALID_TREE);
     });
 
     it('should return valid for correct flat tree data', () => {
@@ -86,6 +86,6 @@ describe('isValidTreeData', () => {
             }
         ];
         const result = isValidTreeData(nodes);
-        expect(result).toEqual(TreeValidationErrorCodes.VALID_TREE);
+        expect(result).toEqual(TreeValidationMessageCodes.VALID_TREE);
     });
 });

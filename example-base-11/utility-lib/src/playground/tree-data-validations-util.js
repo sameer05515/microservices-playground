@@ -1,37 +1,44 @@
-// Error codes enum
-const TreeValidationErrorCodes = {
+const ErrorTypes = {
+    NON_RECOVERABLE: "non-recoverable",
+    RECOVERABLE: "recoverable"
+};
+
+
+/**
+ * Error codes enum with their properties.
+ */
+const TreeValidationMessageCodes = {
     INVALID_INPUT: {
         isValid: false,
-        errorType: "non-recoverable",
+        errorType: ErrorTypes.NON_RECOVERABLE,
         message: "Input should be an array of objects.",
         code: "INVALID_INPUT"
     },
     MISSING_FIELDS: {
         isValid: false,
-        errorType: "non-recoverable",
+        errorType: ErrorTypes.NON_RECOVERABLE,
         message: "Each object must have 'name', 'parentId', and 'uniqueId' fields.",
         code: "MISSING_FIELDS"
     },
     CYCLIC_DEPENDENCY: {
         isValid: false,
-        errorType: "non-recoverable",
+        errorType: ErrorTypes.NON_RECOVERABLE,
         message: "Cyclic dependency detected.",
         code: "CYCLIC_DEPENDENCY"
     },
     DUPLICATE_UNIQUE_ID: {
         isValid: false,
-        errorType: "recoverable",
+        errorType: ErrorTypes.RECOVERABLE,
         message: "Duplicate uniqueId found.",
         code: "DUPLICATE_UNIQUE_ID"
     },
     VALID_TREE: {
         isValid: true,
-        errorType: "recoverable",
+        errorType: ErrorTypes.RECOVERABLE,
         message: "Tree data is valid.",
         code: "VALID_TREE"
     }
 };
-
 
 /**
  * Checks if a node has children.
@@ -47,22 +54,22 @@ const hasChildren = (node) => node.children && node.children.length > 0;
  */
 const isValidTreeData = (nodes = []) => {
     if (!Array.isArray(nodes)) {
-        return { ...TreeValidationErrorCodes.INVALID_INPUT };
+        return { ...TreeValidationMessageCodes.INVALID_INPUT };
     }
 
     const seenIds = new Set();
     const checkNode = (node, visited = new Set()) => {
         if (!node.name || !node.parentId || !node.uniqueId) {
-            return { ...TreeValidationErrorCodes.MISSING_FIELDS };
+            return { ...TreeValidationMessageCodes.MISSING_FIELDS };
         }
         if (visited.has(node.uniqueId)) {
             return {
-                ...TreeValidationErrorCodes.CYCLIC_DEPENDENCY,
+                ...TreeValidationMessageCodes.CYCLIC_DEPENDENCY,
                 uniqueId: node.uniqueId
             };
         }
         if (seenIds.has(node.uniqueId)) {
-            return { ...TreeValidationErrorCodes.DUPLICATE_UNIQUE_ID };
+            return { ...TreeValidationMessageCodes.DUPLICATE_UNIQUE_ID };
         }
         seenIds.add(node.uniqueId);
         visited.add(node.uniqueId);
@@ -74,7 +81,7 @@ const isValidTreeData = (nodes = []) => {
                 }
             }
         }
-        return { ...TreeValidationErrorCodes.VALID_TREE };
+        return { ...TreeValidationMessageCodes.VALID_TREE };
     };
 
     for (const node of nodes) {
@@ -84,7 +91,7 @@ const isValidTreeData = (nodes = []) => {
         }
     }
 
-    return { ...TreeValidationErrorCodes.VALID_TREE };
+    return { ...TreeValidationMessageCodes.VALID_TREE };
 };
 
-export { isValidTreeData, TreeValidationErrorCodes };
+export { isValidTreeData, TreeValidationMessageCodes, ErrorTypes };
