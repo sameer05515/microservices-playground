@@ -1,8 +1,24 @@
+// tree-data-validations-util.test.js
 import { isValidTreeData, TreeValidationMessageCodes, ErrorTypes } from '../../src/playground/tree-data-validations-util';
 
 describe('isValidTreeData', () => {
     it('should return invalid error for non-array input', () => {
         const result = isValidTreeData({});
+        expect(result).toEqual(TreeValidationMessageCodes.INVALID_INPUT);
+    });
+
+    it('should return invalid error for null input', () => {
+        const result = isValidTreeData(null);
+        expect(result).toEqual(TreeValidationMessageCodes.INVALID_INPUT);
+    });
+
+    it('should return invalid error for string input', () => {
+        const result = isValidTreeData("some random string");
+        expect(result).toEqual(TreeValidationMessageCodes.INVALID_INPUT);
+    });
+
+    it('should return invalid error for array of string input', () => {
+        const result = isValidTreeData(["some random string", "some random string2"]);
         expect(result).toEqual(TreeValidationMessageCodes.INVALID_INPUT);
     });
 
