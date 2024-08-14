@@ -1,4 +1,4 @@
-import { capitalize, reverse } from '../src/utils/stringUtils';
+import { capitalize, reverse } from '../../src/utils/stringUtils';
 
 test('capitalize capitalizes first letter', () => {
   expect(capitalize('hello')).toBe('Hello');

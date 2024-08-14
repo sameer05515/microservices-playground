@@ -1,4 +1,4 @@
-import { deepClone, mergeObjects } from '../src/utils/objectUtils';
+import { deepClone, mergeObjects } from '../../src/utils/objectUtils';
 
 test('deepClone creates a deep copy', () => {
   const obj = { a: 1, b: { c: 2 } };
