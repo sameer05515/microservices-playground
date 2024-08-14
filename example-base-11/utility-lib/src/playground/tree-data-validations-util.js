@@ -1,31 +1,37 @@
 // Error codes enum
 const TreeValidationErrorCodes = {
     INVALID_INPUT: {
+        isValid: false,
         errorType: "non-recoverable",
         message: "Input should be an array of objects.",
         code: "INVALID_INPUT"
     },
     MISSING_FIELDS: {
+        isValid: false,
         errorType: "non-recoverable",
         message: "Each object must have 'name', 'parentId', and 'uniqueId' fields.",
         code: "MISSING_FIELDS"
     },
     CYCLIC_DEPENDENCY: {
+        isValid: false,
         errorType: "non-recoverable",
         message: "Cyclic dependency detected.",
         code: "CYCLIC_DEPENDENCY"
     },
     DUPLICATE_UNIQUE_ID: {
+        isValid: false,
         errorType: "recoverable",
         message: "Duplicate uniqueId found.",
         code: "DUPLICATE_UNIQUE_ID"
     },
     VALID_TREE: {
+        isValid: true,
         errorType: "recoverable",
         message: "Tree data is valid.",
         code: "VALID_TREE"
     }
 };
+
 
 /**
  * Checks if a node has children.
@@ -41,23 +47,22 @@ const hasChildren = (node) => node.children && node.children.length > 0;
  */
 const isValidTreeData = (nodes = []) => {
     if (!Array.isArray(nodes)) {
-        return { isValid: false, ...TreeValidationErrorCodes.INVALID_INPUT };
+        return { ...TreeValidationErrorCodes.INVALID_INPUT };
     }
 
     const seenIds = new Set();
     const checkNode = (node, visited = new Set()) => {
         if (!node.name || !node.parentId || !node.uniqueId) {
-            return { isValid: false, ...TreeValidationErrorCodes.MISSING_FIELDS };
+            return { ...TreeValidationErrorCodes.MISSING_FIELDS };
         }
         if (visited.has(node.uniqueId)) {
             return {
-                isValid: false,
                 ...TreeValidationErrorCodes.CYCLIC_DEPENDENCY,
                 uniqueId: node.uniqueId
             };
         }
         if (seenIds.has(node.uniqueId)) {
-            return { isValid: false, ...TreeValidationErrorCodes.DUPLICATE_UNIQUE_ID };
+            return { ...TreeValidationErrorCodes.DUPLICATE_UNIQUE_ID };
         }
         seenIds.add(node.uniqueId);
         visited.add(node.uniqueId);
@@ -69,7 +74,7 @@ const isValidTreeData = (nodes = []) => {
                 }
             }
         }
-        return { isValid: true, ...TreeValidationErrorCodes.VALID_TREE };
+        return { ...TreeValidationErrorCodes.VALID_TREE };
     };
 
     for (const node of nodes) {
@@ -79,7 +84,7 @@ const isValidTreeData = (nodes = []) => {
         }
     }
 
-    return { isValid: true, ...TreeValidationErrorCodes.VALID_TREE };
+    return { ...TreeValidationErrorCodes.VALID_TREE };
 };
 
 export { isValidTreeData, TreeValidationErrorCodes };
