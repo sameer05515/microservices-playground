@@ -4,7 +4,6 @@ const ErrorTypes = {
     RECOVERABLE: "recoverable"
 };
 
-
 /**
  * Error codes enum with their properties.
  */
@@ -54,7 +53,7 @@ const hasChildren = (node) => node.children && node.children.length > 0;
  * @returns {Object} - An object containing `isValid` (boolean), `errorType` (string), `code` (string), and `uniqueId` (string, optional).
  */
 const isValidTreeData = (nodes = []) => {
-    if (!Array.isArray(nodes)) {
+    if (!Array.isArray(nodes) || !nodes.every(node => typeof node === 'object' && node !== null)) {
         return { ...TreeValidationMessageCodes.INVALID_INPUT };
     }
 

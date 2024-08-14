@@ -17,8 +17,18 @@ describe('isValidTreeData', () => {
         expect(result).toEqual(TreeValidationMessageCodes.INVALID_INPUT);
     });
 
+    it('should return invalid error for number input', () => {
+        const result = isValidTreeData(1);
+        expect(result).toEqual(TreeValidationMessageCodes.INVALID_INPUT);
+    });
+
     it('should return invalid error for array of string input', () => {
         const result = isValidTreeData(["some random string", "some random string2"]);
+        expect(result).toEqual(TreeValidationMessageCodes.INVALID_INPUT);
+    });
+
+    it('should return invalid error for array of number input', () => {
+        const result = isValidTreeData([1, 2]);
         expect(result).toEqual(TreeValidationMessageCodes.INVALID_INPUT);
     });
 
