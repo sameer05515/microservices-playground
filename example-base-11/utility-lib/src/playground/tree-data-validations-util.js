@@ -10,7 +10,7 @@ const hasChildren = (node) => node.children && node.children.length > 0;
  * @param {Array} nodes - The nodes to validate.
  * @returns {Object} - An object containing `isValid` (boolean) and `message` (string).
  */
-const isValid = (nodes = []) => {
+const isValidTreeData = (nodes = []) => {
     if (!Array.isArray(nodes)) {
         return { isValid: false, message: "Input should be an array of objects." };
     }
@@ -49,4 +49,4 @@ const isValid = (nodes = []) => {
     return { isValid: true, message: "Tree data is valid." };
 };
 
-export {isValid as isValidTreeData};
+export { isValidTreeData };

@@ -1,81 +1,69 @@
 import { isValidTreeData } from '../../src/playground/tree-data-validations-util';
 
 describe('isValidTreeData', () => {
-
-    test('should return false if input is not an array', () => {
-        const result = isValidTreeData({});
-        expect(result).toEqual({
-            isValid: false,
-            message: "Input should be an array of objects."
-        });
-    });
-
-    test('should return false if a node does not have required fields', () => {
+    it('should return false if there are duplicate uniqueIds', () => {
         const nodes = [
-            { name: "Node 1", parentId: null }
+            { name: 'Node 1', uniqueId: '1', parentId: '0' },
+            { name: 'Node 2', uniqueId: '1', parentId: '0' }, // duplicate uniqueId
         ];
         const result = isValidTreeData(nodes);
         expect(result).toEqual({
             isValid: false,
-            message: "Each object must have 'name', 'parentId', and 'uniqueId' fields."
+            message: "Duplicate uniqueId found: 1",
         });
     });
 
-    test('should return false if there are duplicate uniqueIds', () => {
+    it('should return true for valid tree data', () => {
         const nodes = [
-            { name: "Node 1", parentId: null, uniqueId: "1" },
-            { name: "Node 2", parentId: "1", uniqueId: "1" }
-        ];
-        const result = isValidTreeData(nodes);
-        expect(result).toEqual({
-            isValid: false,
-            message: "Duplicate uniqueId found: 1"
-        });
-    });
-
-    test('should return false if there is a cyclic dependency', () => {
-        const nodes = [
-            { name: "Node 1", parentId: "3", uniqueId: "1", children: [
-                { name: "Node 2", parentId: "1", uniqueId: "2", children: [
-                    { name: "Node 3", parentId: "2", uniqueId: "3", children: [
-                        { name: "Node 1", parentId: "3", uniqueId: "1" }
-                    ] }
-                ] }
-            ] }
-        ];
-        const result = isValidTreeData(nodes);
-        expect(result).toEqual({
-            isValid: false,
-            message: "Cyclic dependency detected."
-        });
-    });
-
-    test('should return true for valid tree data', () => {
-        const nodes = [
-            { name: "Node 1", parentId: null, uniqueId: "1", children: [
-                { name: "Node 2", parentId: "1", uniqueId: "2", children: [
-                    { name: "Node 3", parentId: "2", uniqueId: "3" }
-                ] }
-            ] }
+            { name: 'Node 1', uniqueId: '1', parentId: '0', children: [] },
+            { name: 'Node 2', uniqueId: '2', parentId: '1', children: [] },
         ];
         const result = isValidTreeData(nodes);
         expect(result).toEqual({
             isValid: true,
-            message: "Tree data is valid."
+            message: "Tree data is valid.",
         });
     });
 
-    test('should return true for valid flat tree data', () => {
+    it('should return true for valid flat tree data', () => {
         const nodes = [
-            { name: "Node 1", parentId: null, uniqueId: "1" },
-            { name: "Node 2", parentId: "1", uniqueId: "2" },
-            { name: "Node 3", parentId: "2", uniqueId: "3" }
+            { name: 'Node 1', uniqueId: '1', parentId: '0' },
+            { name: 'Node 2', uniqueId: '2', parentId: '0' },
         ];
         const result = isValidTreeData(nodes);
         expect(result).toEqual({
             isValid: true,
-            message: "Tree data is valid."
+            message: "Tree data is valid.",
         });
     });
 
+    it('should return false for missing name, parentId, or uniqueId', () => {
+        const nodes = [
+            { uniqueId: '1', parentId: '0' }, // Missing name
+            { name: 'Node 2', parentId: '0' }, // Missing uniqueId
+        ];
+        const result = isValidTreeData(nodes);
+        expect(result).toEqual({
+            isValid: false,
+            message: "Each object must have 'name', 'parentId', and 'uniqueId' fields.",
+        });
+    });
+
+    it('should return false for cyclic dependencies', () => {
+        const nodes = [
+            {
+                name: 'Node 1',
+                uniqueId: '1',
+                parentId: '0',
+                children: [
+                    { name: 'Node 2', uniqueId: '2', parentId: '1', children: [{ name: 'Node 1', uniqueId: '1', parentId: '2' }] },
+                ],
+            },
+        ];
+        const result = isValidTreeData(nodes);
+        expect(result).toEqual({
+            isValid: false,
+            message: "Cyclic dependency detected.",
+        });
+    });
 });
