@@ -1,4 +1,4 @@
-// const { startOperation, stepOperation, endOperation } = require("../../util/custom-logger");
+const { startOperation, stepOperation, getHierarchyString } = require("../../util/custom-logger");
 
 const ex1 = require('../exampleArrayForTesting');
 
@@ -12,7 +12,9 @@ const buildTree = require('../buildTree');
     if(result?.data && result.data.length>0){
         console.log("++++++++++++++++++++++\n", result.data[0], "\n++++++++++++++++++++++\n")
     }
+    console.log('============================================\n\n');
     console.log(`Input: '${ex1[index].input}'`);
-    console.log(`Result: '${JSON.stringify(result.data, null, 2)}'`)
+    console.log('============================================\n\n');
+    console.log(`Result: \n`,getHierarchyString(result.data))
 
 })

@@ -32,4 +32,24 @@ const endOperation = (message, beautify = true) => {
   console.log("\n############# Completing calculations #####################\n");
 };
 
-module.exports = { startOperation, stepOperation, endOperation };
+const getTabs = (noOfTabs = 1) => 
+  noOfTabs && !isNaN(noOfTabs) && noOfTabs > 0 
+      ? '\t'.repeat(noOfTabs) 
+      : '';
+
+const getHierarchyString = (nodes, noOfTabs = 1) => {
+  let str = '';
+  
+  nodes.forEach(node => {
+    str += `${getTabs(noOfTabs)}${node.name}, noOfTabs: ${noOfTabs}, node.name: ${node.name}, node.level: ${node.level}\n`;
+    
+    if (node.children && node.children.length > 0) {
+      str += getHierarchyString(node.children, noOfTabs + 1);
+    }
+  });
+
+  return str;
+};
+
+
+module.exports = { startOperation, stepOperation, endOperation, getHierarchyString };
