@@ -88,7 +88,14 @@ const validate = (rawLineArray) => {
         data: { rawLineArray },
     });
 
-    const lines = rawLineArray.map(line => line.trimRight()).filter(line => line.length > 0);
+    const lines = rawLineArray
+        .map(line => line.trimRight())
+        .filter(line => line.length > 0)
+        .map((line, index) => ({
+            name: line.trim(),
+            indentLevel: getIndentationLevel(line),
+            uniqueId: `Line_id_${new Date().toString()}_${index}`
+        }));
 
     stepOperation({
         title: "4.3 Inside Method: [validate]: Lines array created",
