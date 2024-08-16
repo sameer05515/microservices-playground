@@ -194,7 +194,7 @@ const validate = (rawLineArray) => {
             errorCode: ErrorCodes.SUCCESS.code,
             message: ErrorCodes.SUCCESS.message,
             data: lines.map((line) => ({
-                name: line.trim(),
+                name: line.name.trim(),
                 level: 0,
                 children: [],
             })),

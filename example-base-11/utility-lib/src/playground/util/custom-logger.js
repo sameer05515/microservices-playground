@@ -1,5 +1,5 @@
 const ENABLE_LOGGING = false;
-const SHOW_DATA = false;
+const SHOW_DATA = true;
 
 const logMessage = (phase, message = { title: "", data: `No data provided with this ${phase}` }, beautify = true) => {
   if (!ENABLE_LOGGING) return;
