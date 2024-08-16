@@ -24,6 +24,9 @@ const areDifferencesConsistent = (differences) => {
     return differences.every(diff => diff === firstDifference || diff % firstDifference === 0);
 };
 
+const computeLevel=(indentLevel, firstIndentation, firstDifference)=> 
+    (indentLevel - firstIndentation) / firstDifference;
+
 // Function to build the hierarchical tree from lines
 const buildTreeFromLines = (lines, firstIndentation, firstDifference) => {
     stepOperation({
@@ -32,12 +35,13 @@ const buildTreeFromLines = (lines, firstIndentation, firstDifference) => {
     });
 
     const result = [];
-    const stack = [{ name: lines[0].trim(), level: 0, children: [] }];
+    const stack = [{ name: lines[0].name.trim(), level: 0, children: [] }];
     result.push(stack[0]);
 
     for (let i = 1; i < lines.length; i++) {
-        const level = (getIndentationLevel(lines[i]) - firstIndentation) / firstDifference;
-        const node = { name: lines[i].trim(), level, children: [] };
+        // const level = (lines[i].indentLevel - firstIndentation) / firstDifference;
+        const level= computeLevel(lines[i].indentLevel, firstIndentation, firstDifference);
+        const node = { ...lines[i], level, children: [] };
 
         while (stack.length && stack[stack.length - 1].level >= level) {
             stack.pop();
@@ -122,12 +126,12 @@ const validate = (rawLineArray) => {
             isValid: true,
             errorCode: ErrorCodes.SUCCESS.code,
             message: ErrorCodes.SUCCESS.message,
-            data: [{ name: lines[0].trim(), level: 0, children: [] }],
+            data: [{ name: lines[0].name.trim(), level: 0, children: [] }],
         };
     }
 
-    const firstIndentation = getIndentationLevel(lines[0]);
-    const levels = lines.map(getIndentationLevel);
+    const firstIndentation = lines[0].indentLevel;
+    const levels = lines.map(({indentLevel})=>indentLevel);
 
     stepOperation({
         title: "4.4 Inside Method: [validate]: Levels array created",
