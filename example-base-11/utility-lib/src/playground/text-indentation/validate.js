@@ -97,7 +97,7 @@ const validate = (rawLineArray) => {
 
     const lines = rawLineArray
         .map((line, index) => ({
-            name: line.trimRight(),
+            name: line.trim(),
             indentLevel: getIndentationLevel(line),
             uniqueId: generateUniqueString("LINE_ID", index + 1),
         }))
