@@ -1,16 +1,12 @@
-const {
-    onStartOperationCallback,
-    onEndOperationCallback,
-    postStepCallback,
-} = require("./custom-logger");
+const { startOperation, stepOperation, endOperation } = require("./custom-logger");
 
 const logicWithCB = (num1, num2) => {
-    onStartOperationCallback({
+    startOperation({
         title: "Method Start with data: ",
         data: { num1, num2 },
     });
     if (!num1 || !num2) {
-        postStepCallback({
+        stepOperation({
             title: "Validation Error",
             data: `"Validation Error": Either number1:'${num1}' or number2:'${num2}' is null or undefined`,
         });
@@ -18,14 +14,14 @@ const logicWithCB = (num1, num2) => {
     }
 
     if (isNaN(num1) || isNaN(num1)) {
-        postStepCallback({
+        stepOperation({
             title: "Validation Error",
-            data: `"Validation Error": Either number1:'${num1}' or number2:'${num2}' is null or undefined`,
+            data: `Validation Error: Either number1:'${num1}' or number2:'${num2}' is null or undefined`,
         });
         return 0;
     }
     const result = num1 + num2;
-    onEndOperationCallback({ title: "Method End with data: ", data: result });
+    endOperation({ title: "Method End with data: ", data: result });
     return result;
 };
 

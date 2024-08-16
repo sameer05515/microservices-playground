@@ -1,19 +1,19 @@
-const logMessage = (prefix, messageObject = { title: "", data: "I am dummy text. please pass your data here" }) => {
-  console.log(`\n====================, \n ${prefix} Message: '${messageObject.title}', result: ${JSON.stringify(messageObject.data)}\n`);
+const logMessage = (phase, message = { title: "", data: "I am dummy text. Please pass your data here" }) => {
+  console.log(`\n====================\n ${phase} Message: '${message.title}', result: ${JSON.stringify(message.data)}\n`);
 };
 
-const onStartOperationCallback = (messageObject) => {
+const startOperation = (message) => {
   console.log("\n============ Starting calculations ===================\n");
-  logMessage("Start", messageObject);
+  logMessage("Start", message);
 };
 
-const postStepCallback = (messageObject) => {
-  logMessage("Step", messageObject);
+const stepOperation = (message) => {
+  logMessage("Step", message);
 };
 
-const onEndOperationCallback = (messageObject) => {
-  logMessage("End", messageObject);
+const endOperation = (message) => {
+  logMessage("End", message);
   console.log("\n============ Completing calculations ===================\n");
 };
 
-module.exports = { onStartOperationCallback, postStepCallback, onEndOperationCallback };
+module.exports = { startOperation, stepOperation, endOperation };
