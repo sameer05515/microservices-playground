@@ -2,7 +2,7 @@ function fillParentIds(nodes) {
     const stack = [];
     const nodeMap = new Map();
 
-    // Create a map of nodeId to node for quick lookup
+    // Initialize nodes with parentId
     nodes.forEach(node => nodeMap.set(node.uniqueId, node));
 
     for (let i = 0; i < nodes.length; i++) {
@@ -22,5 +22,6 @@ function fillParentIds(nodes) {
 
     return nodes;
 }
+
 
 module.exports= fillParentIds;

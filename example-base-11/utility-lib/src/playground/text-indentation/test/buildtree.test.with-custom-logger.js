@@ -12,6 +12,7 @@ const buildTree = require('../buildTree');
     if(result?.data && result.data.length>0){
         console.log("++++++++++++++++++++++\n", result.data[0], "\n++++++++++++++++++++++\n")
     }
-    console.log(`Input: '${ex1[index].input}'`)
+    console.log(`Input: '${ex1[index].input}'`);
+    console.log(`Result: '${JSON.stringify(result.data, null, 2)}'`)
 
 })
