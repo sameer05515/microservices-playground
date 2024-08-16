@@ -1,5 +1,5 @@
 const logMessage = (phase, message = { title: "", data: "I am dummy text. Please pass your data here" }) => {
-  console.log(`\n====================\n ${phase} Message: '${message.title}', result: ${JSON.stringify(message.data)}\n`);
+  console.log(`${phase} Message: '${message.title}', result: ${JSON.stringify(message.data)}\n =======`);
 };
 
 const startOperation = (message) => {

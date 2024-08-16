@@ -8,7 +8,7 @@ const logicWithCB = (num1, num2) => {
     if (!num1 || !num2) {
         stepOperation({
             title: "Validation Error",
-            data: `"Validation Error": Either number1:'${num1}' or number2:'${num2}' is null or undefined`,
+            data: `Validation Error: Either number1:'${num1}' or number2:'${num2}' is null or undefined`,
         });
         return 0;
     }
