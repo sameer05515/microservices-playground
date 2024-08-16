@@ -1,6 +1,7 @@
-const { startOperation, stepOperation, endOperation } = require("./custom-logger");
+const { startOperation, stepOperation, endOperation } = require("../util/custom-logger");
 
 const logicWithCB = (num1, num2) => {
+    let result=0;
     startOperation({
         title: "Method Start with data: ",
         data: { num1, num2 },
@@ -9,8 +10,7 @@ const logicWithCB = (num1, num2) => {
         stepOperation({
             title: "Validation Failed: ",
             data: `Error: Either number1:'${num1}' or number2:'${num2}' is null or undefined`,
-        });
-        return 0;
+        });        
     }
 
     stepOperation({
@@ -23,13 +23,14 @@ const logicWithCB = (num1, num2) => {
             title: "Validation Failed: ",
             data: `Error: Either number1:'${num1}' or number2:'${num2}' is Nan`,
         });
-        return 0;
+        
     }
     stepOperation({
         title: "Validation Passed: ",
         data: `Success: Neither number1:'${num1}' nor number2:'${num2}' is Nan`,
     });
-    const result = num1 + num2;
+
+    result = num1 + num2;
     stepOperation({
         title: "Calculation Done: ",
         data: {
