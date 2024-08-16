@@ -1,6 +1,7 @@
 const { stepOperation } = require("../util/custom-logger");
 const validateStringArray = require("./validateStringArray");
 const ErrorCodes = require("./error-codes");
+const { generateUniqueString } = require('../util/generateUniqueString')
 
 // Function to determine the indentation level of a line
 const getIndentationLevel = (line) => line.search(/\S/);
@@ -94,7 +95,8 @@ const validate = (rawLineArray) => {
         .map((line, index) => ({
             name: line.trim(),
             indentLevel: getIndentationLevel(line),
-            uniqueId: `Line_id_${new Date().toString()}_${index}`
+            // uniqueId: `Line_id_${new Date().toString()}_${index}`
+            uniqueId: generateUniqueString("LINE_ID", index+1)
         }));
 
     stepOperation({
