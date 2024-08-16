@@ -1,3 +1,9 @@
+const {
+    // startOperation,
+    stepOperation,
+    // endOperation,
+  } = require("../util/custom-logger");
+
 const ErrorCodes = require('./error-codes');
 
 // Function to determine the indentation level of a line
