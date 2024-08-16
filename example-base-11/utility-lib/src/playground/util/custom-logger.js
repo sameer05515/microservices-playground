@@ -7,14 +7,14 @@ const logMessage = (
   if(!ENABLE_LOGGING) return;
   if (message?.data && typeof message.data === "string") {
     console.log(
-      `${phase} : '${message.title}' =======\n`,
+      `${phase} : ${message.title} \n`,
       "data: ",
       message.data,
       "\n"
     );
   } else {
     console.log(
-      `${phase} : '${message.title}', =======\n`,
+      `${phase} : ${message.title} \n`,
       "data: ",
       JSON.stringify(message.data, null, beutify ? 2 : 0),
       "\n"

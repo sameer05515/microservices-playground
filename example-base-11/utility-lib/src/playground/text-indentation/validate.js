@@ -64,7 +64,7 @@ const buildTreeFromLines = (lines, firstIndentation, firstDifference) => {
 const validate = (rawLineArray) => {
     stepOperation({
         title:
-            "Inside Method: [validate]: Data recieved for 'validate' method : Will start validating first.",
+            "4.1 Inside Method: [validate]: Data recieved for 'validate' method : Will start validating first.",
         data: {
             rawLineArray,
             validationResult: {
@@ -86,6 +86,14 @@ const validate = (rawLineArray) => {
             data: [],
         };
     }
+
+    stepOperation({
+        title: `4.2 Inside Method: [validate]: Successfully validated: 
+        1. "rawLineArray" is an array and contains only string values.
+        
+        Now starting process to create an array of strings, having trimmed from right and create a new lines array`,
+        data: { rawLineArray },
+      });
 
     const lines = rawLineArray
         .map((line) => line.trimRight())
