@@ -1,4 +1,4 @@
-const ENABLE_LOGGING = true;
+const ENABLE_LOGGING = false;
 const SHOW_DATA = false;
 
 const logMessage = (phase, message = { title: "", data: `No data provided with this ${phase}` }, beautify = true) => {
@@ -24,10 +24,12 @@ const startOperation = (message, beautify = true) => {
 };
 
 const stepOperation = (message, beautify = true) => {
+  if (!ENABLE_LOGGING) return;
   logMessage("Step", message, beautify);
 };
 
 const endOperation = (message, beautify = true) => {
+  if (!ENABLE_LOGGING) return;
   logMessage("End", message, beautify);
   console.log("\n############# Completing calculations #####################\n");
 };
