@@ -128,6 +128,28 @@ const exampleIndentedStringArrayForTesting = [
         expectedResult: false, // Non-string input
         id:13
     },
+    {
+        input:`
+          Root
+            Child 1
+        Invalid Indentation
+          Another root
+
+        `,
+        expectedResult: false, // Indentation of 3rd line is less than First node
+        id:14
+    },
+    {
+        input:`
+          Root
+            Child 1
+          Valid Indentation
+          Another root
+
+        `,
+        expectedResult: true, // Indentation of 2nd line is less than First node
+        id:15
+    }
 ];
 
 module.exports = exampleIndentedStringArrayForTesting;
