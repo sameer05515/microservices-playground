@@ -11,34 +11,27 @@ const getIndentationLevel = (line) => line.search(/\S/);
 // Function to check if all indentation levels are equal
 const areAllLevelsEqual = (levels) => new Set(levels).size === 1;
 
-// Function to calculate the difference between consecutive indentation levels
-const calculateDifferences = (levels) => {
-    const differences = [];
-    for (let i = 1; i < levels.length; i++) {
-        differences.push(levels[i] - levels[i - 1]);
-    }
-    return differences;
-};
+// Function to calculate the differences between consecutive indentation levels
+const calculateDifferences = (levels) => levels.slice(1).map((level, i) => level - levels[i]);
 
 // Function to check if differences are consistent
 const areDifferencesConsistent = (differences) => {
     const firstDifference = differences[0];
-    return differences.every(
-        (diff) => diff === firstDifference || diff % firstDifference === 0
-    );
+    return differences.every((diff) => diff === firstDifference || diff % firstDifference === 0);
 };
 
+// Function to compute the level based on indentation
 const computeLevel = (indentLevel, firstIndentation, firstDifference) =>
     (indentLevel - firstIndentation) / firstDifference;
 
 // Function to build the hierarchical tree from lines
 const buildTreeFromLines = (lines, firstIndentation, firstDifference) => {
     stepOperation({
-        title: `4.6.1.1 Inside Method: [validate]: Starting building tree in 'buildTreeFromLines' method`,
+        title: "4.6.1.1 Inside Method: [validate]: Starting building tree in 'buildTreeFromLines' method",
         data: { lines, firstIndentation, firstDifference },
     });
 
-    const linesWithLevelandChildren = lines.map((line, index) => ({
+    const linesWithLevelAndChildren = lines.map((line, index) => ({
         ...line,
         lineNo: index + 1,
         level: computeLevel(line.indentLevel, firstIndentation, firstDifference),
@@ -46,71 +39,30 @@ const buildTreeFromLines = (lines, firstIndentation, firstDifference) => {
     }));
 
     stepOperation({
-        title: `4.6.1.1.a Inside Method: [validate]: computed and appended level and children to each line node`,
-        data: {
-            linesWithLevelandChildren: linesWithLevelandChildren.map(
-                ({ name, uniqueId, lineNo, level }) => ({
-                    name,
-                    uniqueId,
-                    lineNo,
-                    level,
-                })
-            ),
-        },
+        title: "4.6.1.1.a Inside Method: [validate]: Computed and appended level and children to each line node",
+        data: linesWithLevelAndChildren.map(({ name, uniqueId, lineNo, level }) => ({
+            name,
+            uniqueId,
+            lineNo,
+            level,
+        })),
     });
 
-    const filledParentIdsArray = fillParentIds(linesWithLevelandChildren);
+    const filledParentIdsArray = fillParentIds(linesWithLevelAndChildren);
 
     stepOperation({
-        title: `4.6.1.1.b Inside Method: [validate]: computed and filled ParentId to each line node`,
-        data: {
-            filledParentIdsArray,
-        },
-    },false);
+        title: "4.6.1.1.b Inside Method: [validate]: Filled ParentId for each line node",
+        data: { filledParentIdsArray },
+    }, false);
 
     const transformedData = buildHierarchy(filledParentIdsArray);
 
     stepOperation({
-        title: `4.6.1.1.c Inside Method: [validate]: computed and transformed Data to tree structure`,
-        data: {
-            transformedData,
-        },
+        title: "4.6.1.1.c Inside Method: [validate]: Transformed data into tree structure",
+        data: { transformedData },
     }, false);
 
-    const result = [...transformedData];
-    // const stack = [{ name: lines[0].name.trim(), level: 0, children: [] }];
-    // result.push(stack[0]);
-
-    // for (let i = 1; i < lines.length; i++) {
-    //     // const level = (lines[i].indentLevel - firstIndentation) / firstDifference;
-    //     const level = computeLevel(
-    //         lines[i].indentLevel,
-    //         firstIndentation,
-    //         firstDifference
-    //     );
-    //     const node = { ...lines[i], level, children: [] };
-
-    //     while (stack.length && stack[stack.length - 1].level >= level) {
-    //         stack.pop();
-    //     }
-
-    //     if (stack.length) {
-    //         stack[stack.length - 1].children.push(node);
-    //     }
-
-    //     stack.push(node);
-    //     result.push(node);
-    // }
-
-    stepOperation(
-        {
-            title: `4.6.1.2 Inside Method: [validate]: Final result for building tree in 'buildTreeFromLines' method`,
-            data: { lines, firstIndentation, firstDifference, createdStack: result },
-        },
-        false
-    );
-
-    return result;
+    return [...transformedData];
 };
 
 // Main validation function
@@ -144,14 +96,12 @@ const validate = (rawLineArray) => {
     });
 
     const lines = rawLineArray
-        .map((line) => line.trimRight())
-        .filter((line) => line.length > 0)
         .map((line, index) => ({
-            name: line.trim(),
+            name: line.trimRight(),
             indentLevel: getIndentationLevel(line),
-            // uniqueId: `Line_id_${new Date().toString()}_${index}`
             uniqueId: generateUniqueString("LINE_ID", index + 1),
-        }));
+        }))
+        .filter((line) => line.name.length > 0);
 
     stepOperation({
         title: "4.3 Inside Method: [validate]: Lines array created",
