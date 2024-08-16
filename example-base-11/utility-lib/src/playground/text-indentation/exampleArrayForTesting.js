@@ -5,6 +5,19 @@ const exampleIndentedStringArrayForTesting = [
             Root
              Child 1
               Grandchild 1
+
+              
+               Grandchild 2
+             Child 2
+              Grandchild 3
+        `,
+        expectedResult: true,
+    },
+    {
+        input: `
+            Root
+             Child 1
+              Grandchild 1
                Grandchild 2
              Child 2
               Grandchild 3
