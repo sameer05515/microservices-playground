@@ -5,9 +5,12 @@ const exampleIndentedStringArrayForTesting = [
             Root
              Child 1
               Grandchild 1
+              
 
               
-               Grandchild 2
+               Great Grandchild 1
+                 Great Great Grandchild 1
+              Grandchild 2
              Child 2
               Grandchild 3
         `,

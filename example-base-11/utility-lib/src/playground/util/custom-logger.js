@@ -9,7 +9,7 @@ const logMessage = (phase, message = { title: "", data: `No data provided with t
 
   if (SHOW_DATA) {
     const formattedData = typeof data === "string" ? data : JSON.stringify(data, null, beautify ? 2 : 0);
-    console.log(`${output}\n`, "data: ", formattedData, "\n");
+    console.log(`${output}\n\n`, "data: ", formattedData, "\n");
   } else {
     console.log(`${output}\n`);
   }

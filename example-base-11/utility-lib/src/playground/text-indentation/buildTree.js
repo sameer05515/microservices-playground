@@ -30,18 +30,18 @@ function buildTree(text) {
   stepOperation({
     title: "4. Starting validation with parsed data: ",
     data: { parsedData: parsed.data },
-  });
+  }, false);
 
   const dataAfterValidation = validate(parsed.data);
   stepOperation({
     title: "5. Result from validate method: ",
     data: { dataAfterValidation },
-  });
+  }, false);
 
   endOperation({
     title: "6. Method End with data: ",
     data: dataAfterValidation,
-  });
+  }, false);
 
   return dataAfterValidation;
 }
