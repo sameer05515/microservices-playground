@@ -1,25 +1,22 @@
-const {
-  startOperation,
-  stepOperation,
-  endOperation,
-} = require("../util/custom-logger");
+const { startOperation, stepOperation, endOperation } = require("../util/custom-logger");
 const validate = require("./validate");
 const parseLines = require("./parse-lines");
 
 function buildTree(text) {
   startOperation({
-    title: "1. Inside Method: [buildTree] buildTree: Start with data: ",
+    title: "1. Inside Method: [buildTree] Start with data: ",
     data: text,
-  }, true);
+  });
+
   const parsed = parseLines(text);
   stepOperation({
-    title: "2. Inside Method: [buildTree]: Result post method: parseLines: ",
+    title: "2. Result post parseLines: ",
     data: { parsed },
   });
 
   if (!parsed.isValid) {
     stepOperation({
-      title: "3. Inside Method: [buildTree]: Result for checking 'parsed.isValid' is 'falsy' : ",
+      title: "3. Validation failed: ",
       data: {
         data: parsed.data,
         isValid: false,
@@ -27,26 +24,25 @@ function buildTree(text) {
         message: parsed.message,
       },
     });
-    return {
-      data: parsed.data,
-      isValid: false,
-      errorCode: parsed.errorCode,
-      message: parsed.message,
-    };
+    return parsed;
   }
 
   stepOperation({
-    title: "4. Inside Method: [buildTree]: Result for checking 'parsed.isValid' is 'truthy' : Will start validate method with parsedData : ",
-    data: { parsedData:parsed.data },
+    title: "4. Starting validation with parsed data: ",
+    data: { parsedData: parsed.data },
   });
 
-  const dataAfterValidation= validate(parsed.data);
+  const dataAfterValidation = validate(parsed.data);
   stepOperation({
-    title: "5. Inside Method: [buildTree]: Data recieved from 'validate' method ",
+    title: "5. Result from validate method: ",
     data: { dataAfterValidation },
   });
 
-  endOperation({ title: "6. Inside Method: [buildTree]: Method End with data: ", data: dataAfterValidation });
+  endOperation({
+    title: "6. Method End with data: ",
+    data: dataAfterValidation,
+  });
+
   return dataAfterValidation;
 }
 
