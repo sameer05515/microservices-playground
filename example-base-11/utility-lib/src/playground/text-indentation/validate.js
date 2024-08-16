@@ -165,7 +165,7 @@ const validate = (rawLineArray) => {
     }
 
     stepOperation({
-        title: "4.6.1 Inside Method: [validate]: Building tree with valid data",
+        title: "4.6.2 Inside Method: [validate]: Building tree with valid data",
         data: { lines, firstIndentation, firstDifference },
     });
 
