@@ -2,6 +2,9 @@ const { stepOperation } = require("../util/custom-logger");
 const validateStringArray = require("./validateStringArray");
 const ErrorCodes = require("./error-codes");
 const { generateUniqueString } = require("../util/generateUniqueString");
+const fillParentIds= require('./fillParentIds');
+const buildHierarchy= require('./buildHierarchy');
+
 
 // Function to determine the indentation level of a line
 const getIndentationLevel = (line) => line.search(/\S/);
@@ -53,30 +56,50 @@ const buildTreeFromLines = (lines, firstIndentation, firstDifference) => {
         },
     });
 
-    const result = [];
-    const stack = [{ name: lines[0].name.trim(), level: 0, children: [] }];
-    result.push(stack[0]);
+    const filledParentIdsArray=fillParentIds(linesWithLevelandChildren);
 
-    for (let i = 1; i < lines.length; i++) {
-        // const level = (lines[i].indentLevel - firstIndentation) / firstDifference;
-        const level = computeLevel(
-            lines[i].indentLevel,
-            firstIndentation,
-            firstDifference
-        );
-        const node = { ...lines[i], level, children: [] };
+    stepOperation({
+        title: `4.6.1.1.b Inside Method: [validate]: computed and filled ParentId to each line node`,
+        data: {
+            linesWithLevelandChildren,
+            filledParentIdsArray
+        },
+    });
 
-        while (stack.length && stack[stack.length - 1].level >= level) {
-            stack.pop();
-        }
+    const transformedData = buildHierarchy(filledParentIdsArray);
 
-        if (stack.length) {
-            stack[stack.length - 1].children.push(node);
-        }
+    stepOperation({
+        title: `4.6.1.1.c Inside Method: [validate]: computed and transformed Data to tree structure`,
+        data: {
+            linesWithLevelandChildren,
+            filledParentIdsArray
+        },
+    });
 
-        stack.push(node);
-        result.push(node);
-    }
+    const result = [...transformedData];
+    // const stack = [{ name: lines[0].name.trim(), level: 0, children: [] }];
+    // result.push(stack[0]);
+
+    // for (let i = 1; i < lines.length; i++) {
+    //     // const level = (lines[i].indentLevel - firstIndentation) / firstDifference;
+    //     const level = computeLevel(
+    //         lines[i].indentLevel,
+    //         firstIndentation,
+    //         firstDifference
+    //     );
+    //     const node = { ...lines[i], level, children: [] };
+
+    //     while (stack.length && stack[stack.length - 1].level >= level) {
+    //         stack.pop();
+    //     }
+
+    //     if (stack.length) {
+    //         stack[stack.length - 1].children.push(node);
+    //     }
+
+    //     stack.push(node);
+    //     result.push(node);
+    // }
 
     stepOperation({
         title: `4.6.1.2 Inside Method: [validate]: Final result for building tree in 'buildTreeFromLines' method`,
