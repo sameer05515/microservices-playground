@@ -1,5 +1,10 @@
 const logMessage = (phase, message = { title: "", data: `No data provided with this ${phase}` }, beutify = false) => {
-  console.log(`${phase} Message: '${message.title}', data: ${JSON.stringify(message.data, null, beutify ? 2 : 0)}\n =======`);
+  if(message?.data && typeof message.data=== 'string'){
+    console.log(`${phase} Message: '${message.title}' =======\n`, 'data: ', message.data);    
+  }else{
+    console.log(`${phase} Message: '${message.title}', data: ${JSON.stringify(message.data, null, beutify ? 2 : 0)}\n =======`);
+  }
+  
 };
 
 const startOperation = (message, beutify = false) => {
