@@ -8,6 +8,6 @@ const buildTree = require('../buildTree');
     const result = buildTree(textInput.input);
     
     console.log(`test no: ${index}, Expected: ${ex1[index].expectedResult}, Actual: ${result.isValid}, Message: ${result.message}`);
-    console.log(`Input: '${ex1[index].input}', \n ====================, \n result: ${JSON.stringify(result.data)}`)
+    //console.log(`Input: '${ex1[index].input}', \n ====================, \n result: ${JSON.stringify(result.data)}`)
 
 })
