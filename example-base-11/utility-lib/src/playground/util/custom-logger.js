@@ -5,12 +5,13 @@ const logMessage = (phase, message = { title: "", data: `No data provided with t
   if (!ENABLE_LOGGING) return;
 
   const { title, data } = message;
- 
+  const output = `${phase} : ${title}`;
+
   if (SHOW_DATA) {
     const formattedData = typeof data === "string" ? data : JSON.stringify(data, null, beautify ? 2 : 0);
-    console.log(`${phase} : ${title}\n`, "data: ", formattedData, "\n");
+    console.log(`${output}\n`, "data: ", formattedData, "\n");
   } else {
-    console.log(`${phase} : ${title}\n`);
+    console.log(`${output}\n`);
   }
 };
 
