@@ -12,11 +12,11 @@ const ErrorCodes = {
         message: 'Input is not a string.'
     },
     INVALID_INDENTATION: {
-        code: 2,
+        code: "INVALID_INDENTATION",
         message: "Indentation is invalid; subsequent lines should have indentation greater than or equal to the first line."
     },
     INCONSISTENT_INDENTATION: {
-        code: 3,
+        code: "INCONSISTENT_INDENTATION",
         message: "Indentation levels are inconsistent."
     }
 };

@@ -2,9 +2,11 @@ const {
     // startOperation,
     stepOperation,
     // endOperation,
-  } = require("../util/custom-logger");
+} = require("../util/custom-logger");
 
-const ErrorCodes = require('./error-codes');
+const validateStringArray = require("./validateStringArray");
+
+const ErrorCodes = require("./error-codes");
 
 // Function to determine the indentation level of a line
 const getIndentationLevel = (line) => line.search(/\S/);
@@ -27,7 +29,9 @@ const calculateDifferences = (levels) => {
 // Function to check if differences are consistent
 const areDifferencesConsistent = (differences) => {
     const firstDifference = differences[0];
-    return differences.every(diff => diff === firstDifference || diff % firstDifference === 0);
+    return differences.every(
+        (diff) => diff === firstDifference || diff % firstDifference === 0
+    );
 };
 
 // Function to build the hierarchical tree from lines
@@ -37,7 +41,8 @@ const buildTreeFromLines = (lines, firstIndentation, firstDifference) => {
     result.push(stack[0]);
 
     for (let i = 1; i < lines.length; i++) {
-        const level = (getIndentationLevel(lines[i]) - firstIndentation) / firstDifference;
+        const level =
+            (getIndentationLevel(lines[i]) - firstIndentation) / firstDifference;
         const node = { name: lines[i].trim(), level, children: [] };
 
         while (stack.length > 0 && stack[stack.length - 1].level >= level) {
@@ -56,24 +61,42 @@ const buildTreeFromLines = (lines, firstIndentation, firstDifference) => {
 };
 
 // Main validation function
-const validate = (input) => {
-    if (typeof input !== 'string') {
+const validate = (rawLineArray) => {
+    stepOperation({
+        title:
+            "Inside Method: [validate]: Data recieved for 'validate' method : Will start validating first.",
+        data: {
+            rawLineArray,
+            validationResult: {
+                condition: `typeof rawLineArray !== 'string'`,
+                result: typeof rawLineArray !== "string",
+                actualTypeOfInput: `${typeof rawLineArray}`,
+                isInputAnArray: Array.isArray(rawLineArray),
+            },
+        },
+    });
+    const validateStringArrayResult = validateStringArray(rawLineArray);
+    if (!validateStringArrayResult.isValid) {
         return {
             isValid: false,
-            errorCode: ErrorCodes.INVALID_INPUT.code,
-            message: ErrorCodes.INVALID_INPUT.message,
-            data: []
+            errorCode:
+                validateStringArrayResult.errorCode || ErrorCodes.INVALID_INPUT.code,
+            message:
+                validateStringArrayResult.message || ErrorCodes.INVALID_INPUT.message,
+            data: [],
         };
     }
 
-    const lines = input.split('\n').map(line => line.trimRight()).filter(line => line.length > 0);
+    const lines = rawLineArray
+        .map((line) => line.trimRight())
+        .filter((line) => line.length > 0);
 
     if (lines.length === 0) {
         return {
             isValid: false,
             errorCode: ErrorCodes.EMPTY_INPUT.code,
             message: ErrorCodes.EMPTY_INPUT.message,
-            data: []
+            data: [],
         };
     }
 
@@ -82,19 +105,23 @@ const validate = (input) => {
             isValid: true,
             errorCode: ErrorCodes.SUCCESS.code,
             message: ErrorCodes.SUCCESS.message,
-            data: [{ name: lines[0].trim(), level: 0, children: [] }]
+            data: [{ name: lines[0].trim(), level: 0, children: [] }],
         };
     }
 
     const firstIndentation = getIndentationLevel(lines[0]);
-    const levels = lines.map(line => getIndentationLevel(line));
+    const levels = lines.map((line) => getIndentationLevel(line));
 
     if (areAllLevelsEqual(levels)) {
         return {
             isValid: true,
             errorCode: ErrorCodes.SUCCESS.code,
             message: ErrorCodes.SUCCESS.message,
-            data: lines.map(line => ({ name: line.trim(), level: 0, children: [] }))
+            data: lines.map((line) => ({
+                name: line.trim(),
+                level: 0,
+                children: [],
+            })),
         };
     }
 
@@ -104,7 +131,7 @@ const validate = (input) => {
             isValid: false,
             errorCode: ErrorCodes.INCONSISTENT_INDENTATION.code,
             message: ErrorCodes.INCONSISTENT_INDENTATION.message,
-            data: []
+            data: [],
         };
     }
 
@@ -115,7 +142,7 @@ const validate = (input) => {
             isValid: false,
             errorCode: ErrorCodes.INVALID_INDENTATION.code,
             message: ErrorCodes.INVALID_INDENTATION.message,
-            data: []
+            data: [],
         };
     }
 
@@ -125,7 +152,7 @@ const validate = (input) => {
         isValid: true,
         errorCode: ErrorCodes.SUCCESS.code,
         message: ErrorCodes.SUCCESS.message,
-        data: result
+        data: result,
     };
 };
 
