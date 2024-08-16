@@ -1,45 +1,34 @@
-const ENABLE_LOGGING=true;
-const logMessage = (
-  phase,
-  message = { title: "", data: `No data provided with this ${phase}` },
-  beutify = true
-) => {
-  if(!ENABLE_LOGGING) return;
-  if (message?.data && typeof message.data === "string") {
-    console.log(
-      `${phase} : ${message.title} \n`,
-      "data: ",
-      message.data,
-      "\n"
-    );
+const ENABLE_LOGGING = true;
+const SHOW_DATA = false;
+
+const logMessage = (phase, message = { title: "", data: `No data provided with this ${phase}` }, beautify = true) => {
+  if (!ENABLE_LOGGING) return;
+
+  const { title, data } = message;
+ 
+  if (SHOW_DATA) {
+    const formattedData = typeof data === "string" ? data : JSON.stringify(data, null, beautify ? 2 : 0);
+    console.log(`${phase} : ${title}\n`, "data: ", formattedData, "\n");
   } else {
-    console.log(
-      `${phase} : ${message.title} \n`,
-      "data: ",
-      JSON.stringify(message.data, null, beutify ? 2 : 0),
-      "\n"
-    );
+    console.log(`${phase} : ${title}\n`);
   }
 };
 
-const startOperation = (message, beutify = true) => {
-  if(!ENABLE_LOGGING) return;
+const startOperation = (message, beautify = true) => {
+  if (!ENABLE_LOGGING) return;
+
   console.log("\n============ Starting calculations ===================");
   console.log(new Date().toString() + "\n");
-  logMessage("Start", message, beutify);
+  logMessage("Start", message, beautify);
 };
 
-const stepOperation = (message, beutify = true) => {
-  if(!ENABLE_LOGGING) return;
-  logMessage("Step", message, beutify);
+const stepOperation = (message, beautify = true) => {
+  logMessage("Step", message, beautify);
 };
 
-const endOperation = (message, beutify = true) => {
-  if(!ENABLE_LOGGING) return;
-  logMessage("End", message, beutify);
-  console.log(
-    "\n############# Completing calculations #####################\n"
-  );
+const endOperation = (message, beautify = true) => {
+  logMessage("End", message, beautify);
+  console.log("\n############# Completing calculations #####################\n");
 };
 
 module.exports = { startOperation, stepOperation, endOperation };

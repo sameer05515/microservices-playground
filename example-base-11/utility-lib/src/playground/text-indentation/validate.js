@@ -36,6 +36,15 @@ const areDifferencesConsistent = (differences) => {
 
 // Function to build the hierarchical tree from lines
 const buildTreeFromLines = (lines, firstIndentation, firstDifference) => {
+    stepOperation({
+        title:
+            `4.6.1.1 Inside Method: [validate]: Starting building tree in 'buildTreeFromLines' method`,
+        data: {
+            lines,
+            firstIndentation,
+            firstDifference
+        },
+    });
     const result = [];
     const stack = [{ name: lines[0].trim(), level: 0, children: [] }];
     result.push(stack[0]);
@@ -56,6 +65,17 @@ const buildTreeFromLines = (lines, firstIndentation, firstDifference) => {
         stack.push(node);
         result.push(node);
     }
+
+    stepOperation({
+        title:
+            `4.6.1.1 Inside Method: [validate]: Final result for building tree in 'buildTreeFromLines' method`,
+        data: {
+            lines,
+            firstIndentation,
+            firstDifference,
+            createdStack: result
+        },
+    });
 
     return result;
 };
@@ -93,11 +113,21 @@ const validate = (rawLineArray) => {
         
         Now starting process to create an array of strings, having trimmed from right and create a new lines array`,
         data: { rawLineArray },
-      });
+    });
 
     const lines = rawLineArray
         .map((line) => line.trimRight())
         .filter((line) => line.length > 0);
+
+    stepOperation({
+        title:
+            "4.3. Inside Method: [validate]: Successfully created 'lines' array ",
+        data: {
+            lines,
+            isLengthOfLinesrrayZero: lines.length === 0,
+            isLengthOfLinesrrayOne: lines.length === 1,
+        },
+    });
 
     if (lines.length === 0) {
         return {
@@ -117,10 +147,35 @@ const validate = (rawLineArray) => {
         };
     }
 
+
+
     const firstIndentation = getIndentationLevel(lines[0]);
     const levels = lines.map((line) => getIndentationLevel(line));
 
-    if (areAllLevelsEqual(levels)) {
+    stepOperation({
+        title:
+            `4.4. Inside Method: [validate]: Successfully validated 'lines' array length is greater than 1 `,
+        data: {
+            lines,
+            firstIndentation,
+            levelsArrayCreatedFromLinesArray: levels,
+        },
+    });
+
+
+    const resultForAreAllLevelsEqualMethod = areAllLevelsEqual(levels);
+    stepOperation({
+        title:
+            `4.5. Inside Method: [validate]: Validation result for 'areAllLevelsEqual' Method 
+            
+            If true, this should return Success response with an array of objects with their level as '0' value `,
+        data: {
+            levels,
+            resultForAreAllLevelsEqualMethod
+        },
+    });
+
+    if (resultForAreAllLevelsEqualMethod) {
         return {
             isValid: true,
             errorCode: ErrorCodes.SUCCESS.code,
@@ -131,10 +186,24 @@ const validate = (rawLineArray) => {
                 children: [],
             })),
         };
-    }
+    }    
 
     const differences = calculateDifferences(levels);
+    stepOperation({
+        title:
+            `4.6. Inside Method: [validate]: Result for 'calculateDifferences' Method`,
+        data: {
+            differences
+        },
+    });
     if (!areDifferencesConsistent(differences)) {
+        stepOperation({
+            title:
+                `4.6.1 Inside Method: [validate]: Returning error response as result for 'areDifferencesConsistent' Method is false`,
+            data: {
+                differences
+            },
+        });
         return {
             isValid: false,
             errorCode: ErrorCodes.INCONSISTENT_INDENTATION.code,
@@ -145,6 +214,13 @@ const validate = (rawLineArray) => {
 
     // Validate indentation
     const firstDifference = differences[0];
+    stepOperation({
+        title:
+            `4.6. Inside Method: [validate]: Since all differences are consistent, hence calculated result for 'firstDifference'`,
+        data: {
+            firstDifference
+        },
+    });
     if (firstDifference <= 0) {
         return {
             isValid: false,
@@ -154,7 +230,24 @@ const validate = (rawLineArray) => {
         };
     }
 
+    stepOperation({
+        title:
+            `4.6.1 Inside Method: [validate]: Starting building tree with 'buildTreeFromLines' method`,
+        data: {
+            lines,
+            firstIndentation,
+            firstDifference
+        },
+    });
+
     const result = buildTreeFromLines(lines, firstIndentation, firstDifference);
+    stepOperation({
+        title:
+            `4.7. Inside Method: [validate]: Final result calculated`,
+        data: {
+            result
+        },
+    });
 
     return {
         isValid: true,
