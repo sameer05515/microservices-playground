@@ -23,16 +23,19 @@ function getChildren(data, uniqueId) {
                 const child = data.find(o => o.uniqueId === relation.withId);
                 if (child) {
                     children.push(child);
-                    // Recursively find children's children
-                    const grandChildren = getChildren(data, child.uniqueId);
-                    children.push(...grandChildren);
                 }
             }
         });
     });
 
+    // Recursively find children's children
+    const grandChildren = children.flatMap(child => getChildren(data, child.uniqueId));
+    children.push(...grandChildren);
+
     return children;
 }
+
+
 
 // Example usage
 // const uniqueIdToFind = '1';

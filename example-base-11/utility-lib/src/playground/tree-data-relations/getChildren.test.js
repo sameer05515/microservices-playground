@@ -82,8 +82,20 @@ useCases.map((testCase, index) => {
     const actualResult= JSON.stringify(result) === JSON.stringify(testCase.expectedResult);
     console.log(`Test Case ${index + 1}: ${testCase.expectation}: ${actualResult ? 'Passed' : 'Failed'}`);
     return {
-        expected: testCase.expectedResult,
-        actual: actualResult,
+        result: actualResult,
         expectation: testCase.expectation,
     };
-})
+}).reduce((acc, { result, expectation }) => {
+    if (!result) {
+        acc.push(expectation);
+    }
+    return acc;
+}, mismatches);
+
+mismatches.length === 0
+? console.log("All test cases match the expectation.")
+: console.log(
+    `Below expectation of test cases do not match. Please review and correct the logic: ${mismatches.join(
+        ",\n "
+    )}`
+);
