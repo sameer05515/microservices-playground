@@ -35,12 +35,31 @@ const styles = {
     },
 };
 
+// Extracted CopyButton component
+const CopyButton = ({ textToCopy, onCopy }) => (
+    <CopyToClipboard text={textToCopy} onCopy={onCopy}>
+        <button style={{ ...styles.button, ...styles.copyButton }}>
+            Copy to Clipboard
+        </button>
+    </CopyToClipboard>
+);
+
+// Extracted GoToButton component
+const GoToButton = ({ onClick }) => (
+    <button style={{ ...styles.button, ...styles.goToButton }} onClick={onClick}>
+        Go to Related Conversation
+    </button>
+);
+
+// Main MarkdownComponent component
 const MarkdownComponent = ({
     markdownText = "",
     additionalStyle = {},
     showCopyToclipboardButton = true,
+    onGoToClick = () => {},
 }) => {
     const [copied, setCopied] = useState(false);
+
     const handleCopy = () => {
         setCopied(true);
         setTimeout(() => {
@@ -55,15 +74,9 @@ const MarkdownComponent = ({
         >
             <div style={styles.buttonContainer}>
                 {showCopyToclipboardButton && (
-                    <CopyToClipboard text={markdownText} onCopy={handleCopy}>
-                        <button style={{ ...styles.button, ...styles.copyButton }}>
-                            Copy to Clipboard
-                        </button>
-                    </CopyToClipboard>
+                    <CopyButton textToCopy={markdownText} onCopy={handleCopy} />
                 )}
-                <button style={{ ...styles.button, ...styles.goToButton }}>
-                    Go to Related Conversation
-                </button>
+                <GoToButton onClick={onGoToClick} />
             </div>
 
             {copied && <span style={styles.copiedMessage}>Copied!</span>}

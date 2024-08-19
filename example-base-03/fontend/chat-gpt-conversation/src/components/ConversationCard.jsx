@@ -38,31 +38,34 @@ const ConversationHeader = ({ title, createdOn, updatedOn, onPrevClick, onShowCl
 );
 
 // Extracted component for MessageItem
-const MessageItem = ({ message }) => (
-    <div className="message" style={messageStyles}>
-        <div
-            style={
-                message.author === "user"
-                    ? userMessageContentStyles
-                    : otherMessageContentStyles
-            }
-        >
-            <div style={authorStyles}>
-                {capitalizeFirstLetter(message.author)}
+const MessageItem = ({ message }) => {
+
+    return (
+        <div className="message" style={messageStyles}>
+            <div
+                style={
+                    message.author === "user"
+                        ? userMessageContentStyles
+                        : otherMessageContentStyles
+                }
+            >
+                <div style={authorStyles}>
+                    {capitalizeFirstLetter(message.author)}
+                </div>
+                <MarkdownComponent
+                    markdownText={message.text}
+                    additionalStyle={{
+                        backgroundColor:
+                            message.author === "user"
+                                ? userMessageContentStyles.backgroundColor
+                                : otherMessageContentStyles.backgroundColor,
+                    }}
+                    showCopyToclipboardButton={message.author !== "user"}
+                />
             </div>
-            <MarkdownComponent
-                markdownText={message.text}
-                additionalStyle={{
-                    backgroundColor:
-                        message.author === "user"
-                            ? userMessageContentStyles.backgroundColor
-                            : otherMessageContentStyles.backgroundColor,
-                }}
-                showCopyToclipboardButton={message.author !== "user"}
-            />
         </div>
-    </div>
-);
+    );
+};
 
 // Main ConversationCard component
 const ConversationCard = ({
