@@ -1,15 +1,34 @@
 import React, { useState, useEffect } from "react";
-import ChatGPTConversationRenderer from "./components/AIConversationRenderer"; // Assuming you have your ChatGPTConversationRenderer component in a separate file
+import ChatGPTConversationRenderer from "./components/AIConversationRenderer";
 import Sidebar from "./components/common/Sidebar";
-import {
-  formatUnixTimestamp,
-  getConversationMessages,
-  localSessionManager,
-} from "./utils/UtilityMethods";
 import Search from "./components/common/Search";
 import ConversationCard from "./components/ConversationCard";
-import { coversationNames, LATEST_CONVERSATION_FILE } from "./utils/constants";
 import ConversationFileSelector from "./components/common/ConversationFileSelector";
+import { formatUnixTimestamp, getConversationMessages, localSessionManager } from "./utils/UtilityMethods";
+import { coversationNames, LATEST_CONVERSATION_FILE } from "./utils/constants";
+
+// Reusable utility functions
+const fetchJsonData = async (selectedFile, setJsonData) => {
+  if (!selectedFile) return;
+
+  try {
+    const response = await fetch(selectedFile);
+    if (!response.ok) throw new Error("Failed to fetch data");
+
+    const data = await response.json();
+    const formattedData = data.map((conv, index) => ({
+      id: `conv_${index + 1}`,
+      title: conv.title,
+      messages: getConversationMessages(conv) || [],
+      createdOn: conv.create_time ? formatUnixTimestamp(conv.create_time) : `'${conv.create_time}'`,
+      updatedOn: conv.update_time ? formatUnixTimestamp(conv.update_time) : `'${conv.update_time}'`,
+    }));
+
+    setJsonData(formattedData);
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+};
 
 const App = () => {
   const [jsonData, setJsonData] = useState([]);
@@ -18,157 +37,79 @@ const App = () => {
   const { setItemForKey, getItemForKey, KEYS } = localSessionManager();
 
   const [showSearchSection, setShowSearchSection] = useState(false);
-
   const [showSideBar, setShowSideBar] = useState(false);
-
   const [collapseAll, setCollapseAll] = useState(true);
-
   const [selectedFile, setSelectedFile] = useState(LATEST_CONVERSATION_FILE);
 
-  const fetchJsonData = async () => {
-    if (!selectedFile) {
-      return;
-    }
-    try {
-      const response = await fetch(selectedFile); // Adjust the file path here
-      if (!response.ok) {
-        throw new Error("Failed to fetch data");
-      }
-      let data = await response.json();
-      let count = 0;
-      console.log(`response data length: ${data ? data.length : 0}`);
-      data =
-        data && data.length > 0
-          ? data.map((conv, index) => {
-            const messages = getConversationMessages(conv);
-
-            return {
-              id: `conv_${++count}`,
-              title: conv.title,
-              messages: messages && messages.length > 0 ? messages : [],
-              createdOn: conv.create_time
-                ? formatUnixTimestamp(conv.create_time)
-                : `'${conv.create_time}'`,
-              updatedOn: conv.update_time
-                ? formatUnixTimestamp(conv.update_time)
-                : `'${conv.update_time}'`,
-            };
-          })
-          : [];
-      setJsonData((prev) => [...data]);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
+  useEffect(() => {
+    fetchJsonData(selectedFile, setJsonData);
+  }, [selectedFile]);
 
   useEffect(() => {
-    if (jsonData && jsonData.length > 0) {
-      const populateLinkVisibility = () => {
-        const lastValue = getItemForKey(KEYS.listVisible);
-        // console.log(`LAST VALUE : ${KEYS.listVisible} : ${lastValue}: ${typeof lastValue}`);
-        if (lastValue != null) {
-          // setShowSideBar(lastValue);
-          lastValue ? handleShowClick() : handleHideClick();
-        }
-      };
-
-      const populateLastSelectedConverstaion = () => {
-        const selectedConversationId = getItemForKey(
-          KEYS.selectedConversationId
-        );
-        if (selectedConversationId != null) {
-          console.log(
-            `[App][useEffect][populateLastSelectedConverstaion]: LAST VALUE : ${KEYS.selectedConversationId
-            } : ${JSON.stringify(
-              selectedConversationId
-            )}: ${typeof selectedConversationId}`
-          );
-          handleSelect({ id: selectedConversationId });
-        }
-        return true;
-      };
-
+    if (jsonData.length > 0) {
       populateLinkVisibility();
-      // Call populateLastSelectedConverstaion after setting jsonData
-      populateLastSelectedConverstaion();
+      populateLastSelectedConversation();
       setSelectedConv(null);
     }
   }, [jsonData]);
 
-  useEffect(() => {
-    fetchJsonData();
-    // populateLastSelectedConverstaion();
-  }, [selectedFile]); // Empty dependency array ensures the effect runs only once on component mount
+  const populateLinkVisibility = () => {
+    const lastValue = getItemForKey(KEYS.listVisible);
+    if (lastValue != null) lastValue ? handleShowClick() : handleHideClick();
+  };
 
-  // Function to filter conversations and messages based on search query
+  const populateLastSelectedConversation = () => {
+    const selectedConversationId = getItemForKey(KEYS.selectedConversationId);
+    if (selectedConversationId != null) {
+      handleSelect({ id: selectedConversationId });
+    }
+  };
+
   const handleSearch = (query) => {
-    console.log("Search started: Search string : " + query);
-    if (!query || query.trim().length == 0) {
-      setFilteredData((prev) => []);
+    if (!query || query.trim().length === 0) {
+      setFilteredData([]);
       return;
     }
+
     const filteredConversations = jsonData.map((conversation) => {
-      // Filter messages within the conversation based on the search query
       const filteredMessages = conversation.messages.filter((message) =>
         message.text.toLowerCase().includes(query.toLowerCase())
       );
-      // Check if conversation title contains the search query
-      const titleMatches = conversation.title
-        .toLowerCase()
-        .includes(query.toLowerCase());
+      const titleMatches = conversation.title.toLowerCase().includes(query.toLowerCase());
 
-      // Return conversation object with filtered messages or empty messages array
       return {
         ...conversation,
         messages: filteredMessages,
-        // Include the conversation in filteredConversations if either title or messages match the search query
         include: titleMatches || filteredMessages.length > 0,
       };
     });
 
-    // Filter out conversations without matching titles or messages
-    const filteredData = filteredConversations.filter(
-      (conversation) => conversation.include
-    );
-
-    setFilteredData(filteredData);
-    console.log("Search Done: Search string : " + query);
-    // console.log(JSON.stringify(filteredData));
+    setFilteredData(filteredConversations.filter((conversation) => conversation.include));
   };
 
   const handleSelect = (item) => {
-    console.log(
-      `${JSON.stringify(item)} , jsonData-length: ${jsonData.length}`
-    );
-    let selConv = jsonData.find((c) => c.id === item?.id);
+    const selConv = jsonData.find((c) => c.id === item?.id);
     setSelectedConv(selConv);
-    if(selConv){
-      setItemForKey(KEYS.selectedConversationId, selConv?.id);
-    }
-    
+    if (selConv) setItemForKey(KEYS.selectedConversationId, selConv.id);
   };
 
   const handleNext = (id) => {
-    let nextIndex =
-      (jsonData.findIndex((c) => c.id === id) + 1 + jsonData.length) %
-      jsonData.length;
-    setSelectedConv((prev) => jsonData[nextIndex]);
+    const nextIndex = (jsonData.findIndex((c) => c.id === id) + 1) % jsonData.length;
+    setSelectedConv(jsonData[nextIndex]);
     setItemForKey(KEYS.selectedConversationId, jsonData[nextIndex].id);
   };
 
   const handlePrev = (id) => {
-    let nextIndex =
-      (jsonData.findIndex((c) => c.id === id) - 1 + jsonData.length) %
-      jsonData.length;
-    setSelectedConv((prev) => jsonData[nextIndex]);
-    setItemForKey(KEYS.selectedConversationId, jsonData[nextIndex].id);
+    const prevIndex = (jsonData.findIndex((c) => c.id === id) - 1 + jsonData.length) % jsonData.length;
+    setSelectedConv(jsonData[prevIndex]);
+    setItemForKey(KEYS.selectedConversationId, jsonData[prevIndex].id);
   };
 
   const handleHideClick = () => {
     setShowSideBar(false);
     setItemForKey(KEYS.listVisible, false);
-    // setSelectedConv((prev) => (prev ? prev : jsonData[0]));
   };
+
   const handleShowClick = () => {
     setItemForKey(KEYS.listVisible, true);
     setShowSideBar(true);
@@ -176,10 +117,7 @@ const App = () => {
 
   return (
     <div>
-      {/* <h1>ChatGPT Conversation Renderer</h1> */}
       <div style={{ display: "flex", ...scrollingStyles.linksContainer }}>
-        {/* Render the Sidebar component */}
-
         {showSideBar && (
           <Sidebar
             jsonData={jsonData}
@@ -190,9 +128,7 @@ const App = () => {
           />
         )}
 
-        <div
-          style={{ border: "1px solid black", ...scrollingStyles.rightSection }}
-        >
+        <div style={{ border: "1px solid black", ...scrollingStyles.rightSection }}>
           <button onClick={() => setShowSearchSection((prev) => !prev)}>
             {showSearchSection ? "Hide " : "Show "} Search
           </button>
@@ -203,33 +139,24 @@ const App = () => {
             </button>
           )}
 
-          {/* Render the Search component and pass handleSearch as a prop */}
           {showSearchSection && <Search onSearch={handleSearch} />}
-          {/* Render the ChatGPTConversationRenderer component */}
           {showSearchSection && filteredData.length > 0 && (
-            <ChatGPTConversationRenderer
-              jsonData={filteredData}
-              collapseAll={collapseAll}
-            />
+            <ChatGPTConversationRenderer jsonData={filteredData} collapseAll={collapseAll} />
           )}
 
           <ConversationFileSelector
             initialSelectedFile={LATEST_CONVERSATION_FILE}
-            onChange={(fileName) => {
-              setSelectedFile(() => fileName);
-            }}
+            onChange={setSelectedFile}
           />
 
           {selectedConv && !showSearchSection && (
-            <>
-              <ConversationCard
-                conversation={selectedConv}
-                onNextClick={handleNext}
-                onPrevClick={handlePrev}
-                onShowClick={handleShowClick}
-                initiallyCollapsed={false}
-              />
-            </>
+            <ConversationCard
+              conversation={selectedConv}
+              onNextClick={handleNext}
+              onPrevClick={handlePrev}
+              onShowClick={handleShowClick}
+              initiallyCollapsed={false}
+            />
           )}
         </div>
       </div>
@@ -266,7 +193,7 @@ const scrollingStyles = {
     width: "75vw",
     top: "0",
     bottom: "0",
-    height: "95vh", // Set a specific height to trigger scrollbar
+    height: "95vh",
   },
 };
 
