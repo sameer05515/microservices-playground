@@ -20,7 +20,6 @@ const ChatGPTConversationRenderer = ({ jsonData, collapseAll=true }) => {
                 return (
                     <CustomCollapse
                         key={index}
-                        className="conversation"
                         style={conversationStyles}
                         headerText={"Conversation Name : " + conversation.title}    
                         initiallyCollapsed={false}
