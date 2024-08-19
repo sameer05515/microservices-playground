@@ -142,8 +142,10 @@ const App = () => {
     );
     let selConv = jsonData.find((c) => c.id === item?.id);
     setSelectedConv(selConv);
-    if(selConv)
-    setItemForKey(KEYS.selectedConversationId, selConv?.id);
+    if(selConv){
+      setItemForKey(KEYS.selectedConversationId, selConv?.id);
+    }
+    
   };
 
   const handleNext = (id) => {
