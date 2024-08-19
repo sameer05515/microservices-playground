@@ -10,6 +10,17 @@ import CustomCollapse from "./CustomCollapse";
 import MarkdownComponent from "./MarkdownComponent";
 import { capitalizeFirstLetter } from "../utils/UtilityMethods";
 
+// Reusable ToggleButton Component
+const ToggleButton = ({ isVisible, onToggle, title }) => (
+    <span
+        style={{ cursor: 'pointer', paddingLeft: '50px' }}
+        title={title}
+        onClick={onToggle}
+    >
+        {isVisible ? "- " : "+ "}
+    </span>
+);
+
 // Extracted component for ConversationHeader
 const ConversationHeader = ({
     title,
@@ -20,27 +31,18 @@ const ConversationHeader = ({
     onNextClick,
     conversationId,
     showAllNonUserMessages = true,
-    onShowAllNonUserMessagesChange=()=>{}
+    onShowAllNonUserMessagesChange = () => {}
 }) => (
     <div>
         <h2 style={{ margin: "0" }}>
             {title}
-            <span 
-            title={showAllNonUserMessages ? "Hide All non-user messages" : "Show All non-user messages"} 
-            style={{cursor:'pointer', paddingLeft: '50px'}}
-            onClick={()=>onShowAllNonUserMessagesChange(!showAllNonUserMessages)}
-            >
-                {showAllNonUserMessages ? '+' : '-'}
-            </span>
+            <ToggleButton
+                isVisible={showAllNonUserMessages}
+                onToggle={() => onShowAllNonUserMessagesChange(!showAllNonUserMessages)}
+                title={showAllNonUserMessages ? "Hide All non-user messages" : "Show All non-user messages"}
+            />
         </h2>
-        <div
-            style={{
-                padding: "5px",
-                fontSize: "12px",
-                borderRadius: "4px",
-                margin: "5px",
-            }}
-        >
+        <div style={{ padding: "5px", fontSize: "12px", borderRadius: "4px", margin: "5px" }}>
             <span style={{ marginRight: "10px" }}>
                 <b>Created:</b> {createdOn}
             </span>
@@ -50,7 +52,7 @@ const ConversationHeader = ({
         </div>
         <div>
             <button onClick={() => onPrevClick(conversationId)}>Previous</button>
-            <button onClick={() => onShowClick()}>Show</button>
+            <button onClick={onShowClick}>Show</button>
             <button onClick={() => onNextClick(conversationId)}>Next</button>
         </div>
     </div>
@@ -59,12 +61,12 @@ const ConversationHeader = ({
 // Extracted component for MessageItem
 const MessageItem = ({ message, initialValueForShowMessageText = false }) => {
     const [showMessageText, setShowMessageText] = useState(
-        initialValueForShowMessageText || message?.author === "user" || false
+        initialValueForShowMessageText || message?.author === "user"
     );
 
-    useEffect(()=>{
-        setShowMessageText(initialValueForShowMessageText|| message?.author === "user");
-    },[initialValueForShowMessageText])
+    useEffect(() => {
+        setShowMessageText(initialValueForShowMessageText || message?.author === "user");
+    }, [initialValueForShowMessageText, message?.author]);
 
     return (
         <div className="message" style={messageStyles}>
@@ -77,13 +79,11 @@ const MessageItem = ({ message, initialValueForShowMessageText = false }) => {
             >
                 <div style={authorStyles}>
                     {capitalizeFirstLetter(message.author)}
-                    <span
-                        style={{ cursor: 'pointer', paddingLeft: '50px' }}
+                    <ToggleButton
+                        isVisible={showMessageText}
+                        onToggle={() => setShowMessageText((prev) => !prev)}
                         title={`${showMessageText ? "Hide " : "Show "} Message Text`}
-                        onClick={() => setShowMessageText((prev) => !prev)}
-                    >
-                        {showMessageText ? "- " : "+ "}
-                    </span>
+                    />
                 </div>
                 {showMessageText && (
                     <MarkdownComponent
@@ -108,11 +108,12 @@ const MessageItem = ({ message, initialValueForShowMessageText = false }) => {
 const ConversationCard = ({
     conversation,
     initiallyCollapsed = false,
-    onNextClick = () => { },
-    onPrevClick = () => { },
-    onShowClick = () => { },
+    onNextClick = () => {},
+    onPrevClick = () => {},
+    onShowClick = () => {},
 }) => {
-    const [showAllNonUserMessages, setShowAllNonUserMessages]=useState(true);
+    const [showAllNonUserMessages, setShowAllNonUserMessages] = useState(true);
+
     return (
         <CustomCollapse
             key={conversation.id}
@@ -130,17 +131,18 @@ const ConversationCard = ({
                 onNextClick={onNextClick}
                 conversationId={conversation.id}
                 showAllNonUserMessages={showAllNonUserMessages}
-                onShowAllNonUserMessagesChange={(updatedValue)=>{
-                    console.log(`updatedValue: ${updatedValue}`);
-                    setShowAllNonUserMessages(()=>updatedValue);
-                }}
+                onShowAllNonUserMessagesChange={setShowAllNonUserMessages}
             />
             {conversation.messages.map((message, msgIndex) => (
-                <MessageItem key={msgIndex} message={message} initialValueForShowMessageText={showAllNonUserMessages} />
+                <MessageItem
+                    key={msgIndex}
+                    message={message}
+                    initialValueForShowMessageText={showAllNonUserMessages}
+                />
             ))}
             <div>
                 <button onClick={() => onPrevClick(conversation.id)}>Previous</button>
-                <button onClick={() => onShowClick()}>Show</button>
+                <button onClick={onShowClick}>Show</button>
                 <button onClick={() => onNextClick(conversation.id)}>Next</button>
             </div>
         </CustomCollapse>
