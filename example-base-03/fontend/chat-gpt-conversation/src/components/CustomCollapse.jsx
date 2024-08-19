@@ -4,8 +4,8 @@ import { FaAngleDown, FaAngleRight } from "react-icons/fa";
 const CustomCollapse = ({
   headerText = "No header set",
   style = {},
-  initiallyCollapsed = true,
-  collapseAll = true,
+  initiallyCollapsed = false,
+  collapseAll = false,
   children,
 }) => {
   const [isCollapsed, setIsCollapsed] = useState(initiallyCollapsed);

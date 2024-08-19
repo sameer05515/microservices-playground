@@ -140,9 +140,10 @@ const App = () => {
     console.log(
       `${JSON.stringify(item)} , jsonData-length: ${jsonData.length}`
     );
-    let selConv = jsonData.find((c) => c.id === item.id);
+    let selConv = jsonData.find((c) => c.id === item?.id);
     setSelectedConv(selConv);
-    setItemForKey(KEYS.selectedConversationId, selConv.id);
+    if(selConv)
+    setItemForKey(KEYS.selectedConversationId, selConv?.id);
   };
 
   const handleNext = (id) => {
