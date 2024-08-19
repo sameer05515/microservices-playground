@@ -56,7 +56,8 @@ const MarkdownComponent = ({
     markdownText = "",
     additionalStyle = {},
     showCopyToclipboardButton = true,
-    onGoToClick = () => {},
+    onGoToClick = () => { },
+    reactMarkdownStyles = {}
 }) => {
     const [copied, setCopied] = useState(false);
 
@@ -81,7 +82,10 @@ const MarkdownComponent = ({
 
             {copied && <span style={styles.copiedMessage}>Copied!</span>}
 
-            <ReactMarkdown>{markdownText}</ReactMarkdown>
+            
+            <div style={{ ...reactMarkdownStyles }}>
+                <ReactMarkdown>{markdownText}</ReactMarkdown>
+            </div>
         </div>
     );
 };

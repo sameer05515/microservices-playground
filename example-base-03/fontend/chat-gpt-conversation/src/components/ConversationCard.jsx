@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
     authorStyles,
     conversationStyles,
@@ -19,9 +19,20 @@ const ConversationHeader = ({
     onShowClick,
     onNextClick,
     conversationId,
+    showAllNonUserMessages = true,
+    onShowAllNonUserMessagesChange=()=>{}
 }) => (
     <div>
-        <h2 style={{ margin: "0" }}>{title}</h2>
+        <h2 style={{ margin: "0" }}>
+            {title}
+            <span 
+            title={showAllNonUserMessages ? "Hide All non-user messages" : "Show All non-user messages"} 
+            style={{cursor:'pointer', paddingLeft: '50px'}}
+            onClick={()=>onShowAllNonUserMessagesChange(!showAllNonUserMessages)}
+            >
+                {showAllNonUserMessages ? '+' : '-'}
+            </span>
+        </h2>
         <div
             style={{
                 padding: "5px",
@@ -46,10 +57,14 @@ const ConversationHeader = ({
 );
 
 // Extracted component for MessageItem
-const MessageItem = ({ message }) => {
+const MessageItem = ({ message, initialValueForShowMessageText = false }) => {
     const [showMessageText, setShowMessageText] = useState(
-        message?.author === "user" || false
+        initialValueForShowMessageText || message?.author === "user" || false
     );
+
+    useEffect(()=>{
+        setShowMessageText(initialValueForShowMessageText|| message?.author === "user");
+    },[initialValueForShowMessageText])
 
     return (
         <div className="message" style={messageStyles}>
@@ -63,11 +78,11 @@ const MessageItem = ({ message }) => {
                 <div style={authorStyles}>
                     {capitalizeFirstLetter(message.author)}
                     <span
-                        style={{cursor:'pointer', paddingLeft:'50px'}}
+                        style={{ cursor: 'pointer', paddingLeft: '50px' }}
                         title={`${showMessageText ? "Hide " : "Show "} Message Text`}
                         onClick={() => setShowMessageText((prev) => !prev)}
                     >
-                        {showMessageText ? "+ " : "- "}
+                        {showMessageText ? "- " : "+ "}
                     </span>
                 </div>
                 {showMessageText && (
@@ -80,6 +95,8 @@ const MessageItem = ({ message }) => {
                                     : otherMessageContentStyles.backgroundColor,
                         }}
                         showCopyToclipboardButton={message.author !== "user"}
+                        makeFontWeightBold={message?.author === "user"}
+                        reactMarkdownStyles={{ fontWeight: message?.author === "user" ? 'bold' : '' }}
                     />
                 )}
             </div>
@@ -95,6 +112,7 @@ const ConversationCard = ({
     onPrevClick = () => { },
     onShowClick = () => { },
 }) => {
+    const [showAllNonUserMessages, setShowAllNonUserMessages]=useState(true);
     return (
         <CustomCollapse
             key={conversation.id}
@@ -111,9 +129,14 @@ const ConversationCard = ({
                 onShowClick={onShowClick}
                 onNextClick={onNextClick}
                 conversationId={conversation.id}
+                showAllNonUserMessages={showAllNonUserMessages}
+                onShowAllNonUserMessagesChange={(updatedValue)=>{
+                    console.log(`updatedValue: ${updatedValue}`);
+                    setShowAllNonUserMessages(()=>updatedValue);
+                }}
             />
             {conversation.messages.map((message, msgIndex) => (
-                <MessageItem key={msgIndex} message={message} />
+                <MessageItem key={msgIndex} message={message} initialValueForShowMessageText={showAllNonUserMessages} />
             ))}
             <div>
                 <button onClick={() => onPrevClick(conversation.id)}>Previous</button>
