@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
     authorStyles,
     conversationStyles,
@@ -11,7 +11,15 @@ import MarkdownComponent from "./MarkdownComponent";
 import { capitalizeFirstLetter } from "../utils/UtilityMethods";
 
 // Extracted component for ConversationHeader
-const ConversationHeader = ({ title, createdOn, updatedOn, onPrevClick, onShowClick, onNextClick, conversationId }) => (
+const ConversationHeader = ({
+    title,
+    createdOn,
+    updatedOn,
+    onPrevClick,
+    onShowClick,
+    onNextClick,
+    conversationId,
+}) => (
     <div>
         <h2 style={{ margin: "0" }}>{title}</h2>
         <div
@@ -39,6 +47,9 @@ const ConversationHeader = ({ title, createdOn, updatedOn, onPrevClick, onShowCl
 
 // Extracted component for MessageItem
 const MessageItem = ({ message }) => {
+    const [showMessageText, setShowMessageText] = useState(
+        message?.author === "user" || false
+    );
 
     return (
         <div className="message" style={messageStyles}>
@@ -51,17 +62,26 @@ const MessageItem = ({ message }) => {
             >
                 <div style={authorStyles}>
                     {capitalizeFirstLetter(message.author)}
+                    <span
+                        style={{cursor:'pointer', paddingLeft:'50px'}}
+                        title={`${showMessageText ? "Hide " : "Show "} Message Text`}
+                        onClick={() => setShowMessageText((prev) => !prev)}
+                    >
+                        {showMessageText ? "+ " : "- "}
+                    </span>
                 </div>
-                <MarkdownComponent
-                    markdownText={message.text}
-                    additionalStyle={{
-                        backgroundColor:
-                            message.author === "user"
-                                ? userMessageContentStyles.backgroundColor
-                                : otherMessageContentStyles.backgroundColor,
-                    }}
-                    showCopyToclipboardButton={message.author !== "user"}
-                />
+                {showMessageText && (
+                    <MarkdownComponent
+                        markdownText={message.text}
+                        additionalStyle={{
+                            backgroundColor:
+                                message.author === "user"
+                                    ? userMessageContentStyles.backgroundColor
+                                    : otherMessageContentStyles.backgroundColor,
+                        }}
+                        showCopyToclipboardButton={message.author !== "user"}
+                    />
+                )}
             </div>
         </div>
     );
@@ -71,9 +91,9 @@ const MessageItem = ({ message }) => {
 const ConversationCard = ({
     conversation,
     initiallyCollapsed = false,
-    onNextClick = () => {},
-    onPrevClick = () => {},
-    onShowClick = () => {},
+    onNextClick = () => { },
+    onPrevClick = () => { },
+    onShowClick = () => { },
 }) => {
     return (
         <CustomCollapse

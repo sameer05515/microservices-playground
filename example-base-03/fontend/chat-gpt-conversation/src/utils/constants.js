@@ -25,7 +25,8 @@ export const coversationNames = {
     CONVERSATIONS_15_JULY_2024_NANDINI: "/data/conversations_15_July_2024_Nandini.json",
     CONVERSATIONS_20_JULY_2024: "/data/conversations-20-July-2024.json",
     CONVERSATIONS_15_Aug_2024: "/data/conversations-15-Aug-2024.json",
-	CONVERSATIONS_18_Aug_2024: "/data/conversations-18-Aug-2024.json"
+	CONVERSATIONS_18_Aug_2024: "/data/conversations-18-Aug-2024.json",
+	CONVERSATIONS_19_Aug_2024: "/data/conversations-19-Aug-2024.json"
 };
 
-export const LATEST_CONVERSATION_FILE = coversationNames.CONVERSATIONS_18_Aug_2024;
+export const LATEST_CONVERSATION_FILE = coversationNames.CONVERSATIONS_19_Aug_2024;
