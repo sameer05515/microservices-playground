@@ -6,6 +6,7 @@ import ConversationCard from "./components/ConversationCard";
 import ConversationFileSelector from "./components/common/ConversationFileSelector";
 import { formatUnixTimestamp, getConversationMessages, localSessionManager } from "./utils/UtilityMethods";
 import { coversationNames, LATEST_CONVERSATION_FILE } from "./utils/constants";
+import ResumeComponent from "./components/resume/ResumeComponent";
 
 // Reusable utility functions
 const fetchJsonData = async (selectedFile, setJsonData) => {
@@ -197,4 +198,8 @@ const scrollingStyles = {
   },
 };
 
-export default App;
+// export default App;
+
+const Res= ()=><ResumeComponent/>
+
+export default Res;
