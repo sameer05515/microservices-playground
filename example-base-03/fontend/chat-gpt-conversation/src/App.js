@@ -198,8 +198,8 @@ const scrollingStyles = {
   },
 };
 
-// export default App;
+export default App;
 
-const Res= ()=><ResumeComponent/>
+// const Res= ()=><ResumeComponent/>
 
-export default Res;
+// export default Res;
