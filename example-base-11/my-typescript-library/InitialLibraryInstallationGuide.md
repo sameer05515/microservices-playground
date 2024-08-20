@@ -183,4 +183,157 @@ Here's a step-by-step guide to setting up a Node.js project for library creation
 This will give you a solid starting point for creating a Node.js library with TypeScript.
 
 
+## Please make configuration, so that this library, once published, could be used for javascript commonjs, modules as well as other typescript projects
+
+
+To make your TypeScript library compatible with CommonJS, ECMAScript Modules (ESM), and TypeScript projects, you need to adjust your TypeScript configuration and build process accordingly. Here's how you can set it up:
+
+### Step 1: Update `tsconfig.json`
+Modify your `tsconfig.json` to generate both CommonJS and ESM outputs:
+
+```json
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "ESNext",
+    "declaration": true,
+    "declarationDir": "./dist/types",
+    "outDir": "./dist",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "sourceMap": true
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "dist", "test"]
+}
+```
+
+### Step 2: Create Multiple Build Outputs
+To generate both CommonJS and ESM formats, you can use a combination of different `tsconfig` files and `npm` scripts.
+
+1. **Create a `tsconfig.cjs.json`** for CommonJS build:
+   ```json
+   {
+     "extends": "./tsconfig.json",
+     "compilerOptions": {
+       "module": "CommonJS",
+       "outDir": "./dist/cjs"
+     }
+   }
+   ```
+
+2. **Create a `tsconfig.esm.json`** for ESM build:
+   ```json
+   {
+     "extends": "./tsconfig.json",
+     "compilerOptions": {
+       "module": "ESNext",
+       "outDir": "./dist/esm"
+     }
+   }
+   ```
+
+### Step 3: Adjust the Build Scripts
+In your `package.json`, update the `scripts` section to build both formats:
+
+```json
+{
+  "scripts": {
+    "build:cjs": "tsc --project tsconfig.cjs.json",
+    "build:esm": "tsc --project tsconfig.esm.json",
+    "build": "npm run build:cjs && npm run build:esm",
+    "test": "jest"
+  }
+}
+```
+
+### Step 4: Set Up `package.json` for Multi-Module Support
+To ensure the library is compatible with both module systems and TypeScript, modify the `package.json`:
+
+```json
+{
+  "name": "my-typescript-library",
+  "version": "1.0.0",
+  "description": "A sample TypeScript library",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js",
+      "types": "./dist/types/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build:cjs": "tsc --project tsconfig.cjs.json",
+    "build:esm": "tsc --project tsconfig.esm.json",
+    "build": "npm run build:cjs && npm run build:esm",
+    "test": "jest"
+  },
+  "author": "Your Name",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^29.0.0",
+    "@types/node": "^20.0.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "eslint": "^8.0.0",
+    "eslint-config-prettier": "^8.0.0",
+    "eslint-plugin-prettier": "^5.0.0",
+    "jest": "^29.0.0",
+    "prettier": "^3.0.0",
+    "ts-jest": "^29.0.0",
+    "ts-node": "^10.0.0",
+    "typescript": "^5.0.0"
+  }
+}
+```
+
+### Step 5: Publishing to npm
+When publishing, npm will recognize the different entry points (`main`, `module`, `types`) and export them accordingly. After running `npm run build`, you can publish the package:
+
+```bash
+npm publish
+```
+
+### Final Directory Structure
+Your directory structure after build should look something like this:
+
+```
+my-typescript-library/
+│
+├── dist/
+│   ├── cjs/
+│   │   └── index.js
+│   ├── esm/
+│   │   └── index.js
+│   └── types/
+│       └── index.d.ts
+│
+├── src/
+│   └── index.ts
+│
+├── test/
+│   └── index.test.ts
+│
+├── tsconfig.json
+├── tsconfig.cjs.json
+├── tsconfig.esm.json
+├── jest.config.js
+├── package.json
+└── .eslintrc.json
+```
+
+This setup ensures your library can be consumed in multiple environments:
+- **CommonJS** (Node.js requiring `require`)
+- **ES Modules** (modern JavaScript environments using `import`)
+- **TypeScript** (with accurate type definitions).
+
+This will allow developers using your library to seamlessly integrate it into their projects, regardless of their setup.
+
 ## 
