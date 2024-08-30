@@ -16,7 +16,8 @@ export const coversationNames = {
     CONVERSATIONS_18_Aug_2024: "/data/conversations-18-Aug-2024.json",
     CONVERSATIONS_19_Aug_2024: "/data/conversations-19-Aug-2024.json",
     CONVERSATIONS_25_Aug_2024: "/data/conversations-25-Aug-2024.json",
+	CONVERSATIONS_30_Aug_2024: "/data/conversations-30-Aug-2024.json",
 };
 
 export const LATEST_CONVERSATION_FILE =
-    coversationNames.CONVERSATIONS_25_Aug_2024;
+    coversationNames.CONVERSATIONS_30_Aug_2024;
