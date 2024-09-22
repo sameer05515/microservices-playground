@@ -13,6 +13,8 @@ import CompanyDetails from './CompanyDetails';
 import EducationDetails from './EducationDetails';
 import TextRenderer from '../../../common/components/TextRenderer';
 import DynamicDataRenderer from '../../../common/components/DynamicDataRenderer';
+import JSONDataViewer from '../../../common/components/JSONDataViewer';
+import ToggleablePanel from '../../../common/components/ToggleablePanel';
 
 // Wrapped with collapsed feature,  Component to render individual resume details
 const ResumeDetails = withCollapse(({ resume, onEdit, onPreview }) => (
@@ -23,9 +25,20 @@ const ResumeDetails = withCollapse(({ resume, onEdit, onPreview }) => (
             <CustomButton onClick={() => { alert('Copy functionality will be added soon') }}> Copy </CustomButton>
             <CustomButton onClick={() => onPreview(resume)}> Preview </CustomButton>
         </h3>
-        <p>
+        {/* <p style={{ whiteSpace: 'pre-wrap' }}>
             <b>Summary </b>: {resume.processedDetails?.metadata?.summarizedIntroduction || ''}
-        </p>
+            {resume.summary}
+        </p> */}
+
+        <ToggleablePanel title="Summarized Introduction" showContent={true}>
+            <p style={{ whiteSpace: 'pre-wrap' }}>
+                <b>Summary </b>: {resume.processedDetails?.metadata?.summarizedIntroduction || ''}
+                {/* {resume.summary} */}
+            </p>
+        </ToggleablePanel>
+
+        <JSONDataViewer metadata={{ processedDetails: resume.processedDetails, resume }} title={"resume"} />
+
         {/* <p>{resume.summary}</p> */}
         {/* <HTMLDataViewer style={companyItemStyle} htmlText={resume.summary} /> */}
 
