@@ -9,6 +9,7 @@ I want to migrate current `example-base-03\backend\resume-service` project to TS
 
 ## References:
 - [Get Started with Apollo Server](https://www.apollographql.com/docs/apollo-server/getting-started)
+- [The Query](https://graphql.com/learn/the-query/#the-query)
 
 
 ## Milestones and Steps
