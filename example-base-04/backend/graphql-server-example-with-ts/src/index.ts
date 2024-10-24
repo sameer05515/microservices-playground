@@ -9,6 +9,8 @@ Milestone 1:
 - [Step]: [Planned]: Set up blank GraphQL server with TS
 - [Step]: [Planned]: Move basic folder in 'src/01-basic-server', so that we can set up multiple version of servers in single project.
     - Target to do so is to simulate and repeat the process of creating different versions of servers, untill we are not achieving purpose of the project.
+- [Step]: [Planned]: Modularize the application into meaningful files.
+- [Step]: [Planned]: In this vesrion, try to include simple examples of all the three special root operation types: Query, Mutation, and Subscription
 `;
 
 const projInfo:ProjectInfoType={
@@ -43,6 +45,8 @@ const thankYou=`
 Different versions of servers in this project
     01-basic-server    
         npm run start:01-basic-server
+    02-basic-server-modular
+        npm run start:02-basic-server-modular
     
 
 #################################################################

@@ -6,7 +6,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "compile": "tsc",
     "start": "npm run compile && node ./dist/index.js",
-    "start:01-basic-server": "npm run compile && node ./dist/01-basic-server/index.js"
+    "start:01-basic-server": "npm run compile && node ./dist/01-basic-server/index.js",
+    "start:02-basic-server-modular":"npm run compile && node ./dist/02-basic-server-modular/index.js"
   },
   "keywords": [],
   "author": "",
