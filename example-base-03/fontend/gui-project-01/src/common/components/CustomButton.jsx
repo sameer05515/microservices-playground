@@ -25,7 +25,7 @@ const textStyle = {
   marginLeft: '5px',
 };
 
-const CustomButton = ({ children, iconName, onClick }) => {
+const CustomButton = ({ children, iconName, onClick, title }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   const handleMouseEnter = () => {
@@ -42,6 +42,7 @@ const CustomButton = ({ children, iconName, onClick }) => {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onClick={onClick}
+      title={title}
     >
       {iconName && <span style={iconStyle}><IconComponent iconName={iconName} /></span>}
       {children && <span style={textStyle}>{children}</span>}

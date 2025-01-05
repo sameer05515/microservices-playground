@@ -1,4 +1,5 @@
 import React from "react";
+import CustomCollapse from "./CustomCollapse";
 
 const DynamicDataRenderer = ({ data = {} }) => {
   const renderValue = (value) => {
@@ -24,9 +25,7 @@ const DynamicDataRenderer = ({ data = {} }) => {
       return (
         <ul>
           {value.map((element, index) => (
-            <li key={index}>
-              {renderValue(element)}
-            </li>
+            <li key={index}>{renderValue(element)}</li>
           ))}
         </ul>
       );
@@ -59,4 +58,27 @@ const DynamicDataRenderer = ({ data = {} }) => {
   );
 };
 
-export default DynamicDataRenderer;
+const WithCCDynamicDataRenderer = ({
+  data = {},
+  headerText = "No header text provided",
+  showBoldTitle = true,
+}) => {
+  return (
+    <CustomCollapse
+      style={{
+        border: "1px solid #ccc",
+        padding: "5px",
+        borderRadius: "10px",
+      }}
+      headerText={headerText || "No header text provided"}
+      showBoldTitle={showBoldTitle}
+    >
+      <DynamicDataRenderer data={data} />
+    </CustomCollapse>
+  );
+};
+
+// export default DynamicDataRenderer;
+// export { WithCCDynamicDataRenderer };
+export { DynamicDataRenderer as default, WithCCDynamicDataRenderer };
+

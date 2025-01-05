@@ -39,3 +39,17 @@ info:
     name: "gatewayserver"
     description: "Eazy Bank Gateway Server Application"
     version: "1.0.0"
+
+jwt:
+  secret: your_jwt_secret_key
+  expiration: 3600000
+
+custom:
+  prem:
+    validation-url: http://loginapp:8089/auth-service/validate
+    open-api-endpoints:
+      - /api/auth/login
+      - /api/auth/token
+      - /api/auth/validate
+#      - /actuator/
+      - /eureka/

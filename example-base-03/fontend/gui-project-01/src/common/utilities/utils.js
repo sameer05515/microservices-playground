@@ -12,3 +12,28 @@ export const handleDownloadJSON = (
     document.body.appendChild(link);
     link.click();
 };
+
+export const hasDuplicateKeys = (obj) => {
+    const seenKeys = new Set();
+    const conflictedFields = [];
+    const messages = [];
+
+    for (const key in obj) {
+        if (seenKeys.has(key)) {
+            conflictedFields.push(key);
+            messages.push(`Duplicate key found: ${key}`);
+        }
+        seenKeys.add(key);
+    }
+
+    return {
+        isError: conflictedFields.length > 0,
+        conflictedFields,
+        messages
+    };
+    // if(conflictedFields.length>0){
+    //     throw new Error(messages);
+    // }
+
+    // return false;
+}

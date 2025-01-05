@@ -1,0 +1,38 @@
+.card {
+  /* width: 300px;
+    margin: 20px auto; */
+  margin: 10px 0px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  background-color: #f9f9f9;
+  font-family: Arial, sans-serif;
+}
+
+.card-header {
+  background-color: #4caf50;
+  color: white;
+  /* padding: 10px; */
+  padding-left: 20px;
+  /* text-align: center; */
+  font-weight: bold;
+}
+
+.card-body {
+  padding: 15px;
+}
+
+.card-field {
+  margin-bottom: 10px;
+}
+
+.card-field ul {
+  padding-left: 20px;
+  margin: 5px 0;
+}
+
+.card-field ul li {
+  list-style-type: disc;
+  color: #555;
+}

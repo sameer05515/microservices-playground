@@ -1,0 +1,68 @@
+/* NotFound.module.css */
+
+/* Container styles */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f8f9fa;
+    text-align: center;
+    padding: 20px;
+    color: #2f3542;
+}
+
+/* Heading styles */
+.heading {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #ff4757;
+    margin-bottom: 16px;
+}
+
+/* Message styles */
+.message {
+    font-size: 1.25rem;
+    margin-bottom: 24px;
+}
+
+.route {
+    font-weight: bold;
+    color: #57606f;
+}
+
+/* Button container */
+.actions {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 32px;
+}
+
+/* Button styles */
+.backButton, .homeButton {
+    background-color: #1e90ff;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.backButton:hover, .homeButton:hover {
+    background-color: #3742fa;
+}
+
+.backButton:focus, .homeButton:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(30, 144, 255, 0.6);
+}
+
+/* Footer styles */
+.footer {
+    font-size: 0.9rem;
+    color: #a4b0be;
+    margin-top: 20px;
+}

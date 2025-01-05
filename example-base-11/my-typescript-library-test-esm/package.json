@@ -1,0 +1,16 @@
+{
+  "name": "my-typescript-library-test-esm",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "node index.mjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@stparap/my-typescript-library": "^1.5.0"
+  }
+}

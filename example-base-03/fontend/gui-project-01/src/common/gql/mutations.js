@@ -136,3 +136,49 @@ export const GET_RESUME = gql`
     }
   }
 `;
+
+
+// GraphQL query to fetch all resumes
+export const GET_RESUMES_FOR_LIST = gql`
+  query GetResumes {
+    getAllResumes {
+      uniqueId
+      introduction
+      summary 
+      processedDetails{
+        rawText
+        textType
+        metadata
+      }
+      companies{
+        uniqueId
+        name
+        projects {
+          uniqueId
+          name
+        }
+      }
+      educations {
+        uniqueId
+        name
+      }          
+    }
+  }
+`;
+
+export const GET_RESUMES_FOR_TREE= gql`
+query GetResumes {
+    getAllResumes {
+      uniqueId
+      introduction
+      companies {
+        name
+        uniqueId
+        projects {
+          uniqueId
+          name
+        }
+      }
+    }
+  }
+`;
