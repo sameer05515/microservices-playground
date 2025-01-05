@@ -1,0 +1,93 @@
+/* Backdrop container */
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.75); /* Dark semi-transparent black */
+  z-index: 1000;
+  display: flex;
+  flex-direction: column; /* Stacks title, subtitle, and description */
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.3s ease-in-out;
+  backdrop-filter: blur(6px); /* Slightly stronger blur for focus */
+  padding: 20px; /* Add padding for better spacing */
+  box-sizing: border-box;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.backdrop:hover {
+  background-color: rgba(0, 0, 0, 0.85); /* Darker background on hover */
+}
+
+/* Title styles */
+.title {
+  color: #ffffff;
+  font-size: 2.5rem;
+  font-family: "Arial", sans-serif;
+  text-shadow: 0px 4px 6px rgba(0, 0, 0, 0.6);
+  animation: slideDown 0.4s ease-in-out;
+  cursor: pointer;
+  margin: 10px 0; /* Add spacing between elements */
+  transition: transform 0.2s ease-in-out, text-shadow 0.2s ease-in-out;
+}
+
+.title:hover {
+  transform: scale(1.05);
+  text-shadow: 0px 6px 8px rgba(0, 0, 0, 0.8);
+}
+
+/* Subtitle styles */
+.subtitle {
+  color: #e0e0e0; /* Slightly dimmer white */
+  font-size: 1.8rem;
+  font-family: "Verdana", sans-serif;
+  text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
+  margin: 8px 0;
+  transition: color 0.2s ease-in-out;
+}
+
+.subtitle:hover {
+  color: #ffffff;
+}
+
+/* Description styles */
+.description {
+  color: #bdbdbd; /* Dimmer white for less emphasis */
+  font-size: 1.2rem;
+  font-family: "Tahoma", sans-serif;
+  line-height: 1.5; /* Better readability */
+  text-align: center; /* Center-align text for consistency */
+  margin: 10px 0;
+  max-width: 80%; /* Prevents overflow and keeps content readable */
+  word-wrap: break-word; /* Handles long unbroken text */
+  transition: color 0.2s ease-in-out;
+}
+
+.description:hover {
+  color: #e0e0e0;
+}
+
+/* Fade-in animation for backdrop */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Slide-down animation for title */
+@keyframes slideDown {
+  from {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

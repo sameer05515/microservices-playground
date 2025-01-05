@@ -1,0 +1,20 @@
+:root {
+  --bg-color: white;
+  --text-color: black;
+}
+
+[data-theme="dark"] {
+  --bg-color: #1a202c;
+  --text-color: #f7fafc;
+}
+
+[data-theme="solarized"] {
+  --bg-color: #002b36;
+  --text-color: #839496;
+}
+
+/* Alternatively, if using data-theme */
+html[data-theme="dark"] body {
+  background-color: #333333;
+  color: #ffffff;
+}

@@ -1,0 +1,28 @@
+/* Counter.module.css */
+.counterContainer {
+  /* background-color: #f7fafc; */
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.buttonCustom {
+  transition: all 0.2s ease-in-out;
+}
+
+.buttonCustom:hover {
+  transform: scale(1.1);
+}
+
+/* Custom fade-in animation */
+.fadeIn {
+    animation: fadeIn 1s ease-in-out;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }

@@ -29,9 +29,11 @@ const fetchGraphQL = async (query, variables = {}) => {
     }
 };
 
+const variables = { uniqueId: '0f20819b-c89e-4bdc-8613-5a9a99445533' };
+
 const ResumeComponent = () => {
     const [resumeData, setResumeData] = useState(null);
-    const variables = { uniqueId: '0f20819b-c89e-4bdc-8613-5a9a99445533' };
+    
     
     useEffect(() => {
         const query = `

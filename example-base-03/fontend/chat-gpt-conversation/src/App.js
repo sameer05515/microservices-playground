@@ -1,9 +1,8 @@
 import React from "react";
-// import Dashboard from "./components/legacy/Dashboard";
-import About from "./components/AboutThisProject/About";
+import CGPTAppRoutes from "./routes";
 
 const App = () => {
-  return <About />;
+  return <CGPTAppRoutes />;
 };
 
 export default App;
