@@ -1,5 +1,5 @@
 import express from "express";
-import { generateItems, getItems, getItemsById } from "./controllers/items.controller.v4";
+import { generateItems, getItems, getItemsById } from "./controllers/items.controller.v5";
 import { errorHandler } from "./middlewares/error.middleware.v1";
 
 const app = express();
