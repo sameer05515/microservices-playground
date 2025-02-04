@@ -4,10 +4,10 @@ import axios from "axios";
 const API_URL = "http://localhost:3005/api/v3/items";
 
 const categories = ["Tech", "Home", "Entertainment", "Study"];
-const saveingDisabled=true;
+const savingDisabled=true;
 
 const saveItemsToDB = async () => {
-  if(saveingDisabled){
+  if(savingDisabled){
     console.log('saving is disabled!');
     return;
   }

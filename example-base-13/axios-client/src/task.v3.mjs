@@ -3,8 +3,13 @@ import axios from "axios";
 const API_URL = "http://localhost:3005/api/v3/tasks";
 
 const TaskStatus = ["open", "in-progress", "on-hold", "closed"];
+const savingDisabled = true;
 
 const saveTaskToDB = async () => {
+  if (savingDisabled) {
+    console.log("saving is disabled!");
+    return;
+  }
   for (let i = 1; i <= 100; i++) {
     for (let status of TaskStatus) {
       try {
