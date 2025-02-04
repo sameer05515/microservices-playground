@@ -1,5 +1,5 @@
 import express, { Request, Response } from "express";
-import { generateItems, items } from "./controllers/items.controller.v4";
+import { generateItems, getItems, items } from "./controllers/items.controller.v4";
 import { errorHandler } from "./middlewares/error.middleware.v1";
 
 const app = express();
@@ -9,9 +9,11 @@ const port = 3005;
 items.push(...generateItems(20));
 
 // Routes
-app.get("/api/v5/items", (req: Request, res: Response) => {
-  res.status(200).json({ items });
-});
+// app.get("/api/v5/items", (req: Request, res: Response) => {
+//   res.status(200).json({ items });
+// });
+
+app.get("/api/v5/items", getItems);
 
 // Use error handler middleware
 app.use(errorHandler);
