@@ -100,7 +100,7 @@ const fetchFilteredTasksByStatuses = async () => {
 //sort
 const fetTasksSortedByStatus = async () => {
   try {
-    const response = await axios.get(`${API_URL}/filter?sort=${encodeURIComponent("status")}}`);
+    const response = await axios.get(`${API_URL}/filter?sort=${encodeURIComponent("status")}`);
     if (response.data && response.data.tasks) {
       console.log(
         "[fetTasksSortedByStatus]: Task Details: ",
