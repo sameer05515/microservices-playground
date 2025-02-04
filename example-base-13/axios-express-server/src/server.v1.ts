@@ -15,7 +15,7 @@ const items = [
 ];
 
 // Fetch items with optional filtering and sorting
-app.get("/items", (req, res) => {
+app.get("/api/v1/items", (req, res) => {
   let { category, sortBy } = req.query;
   let filteredItems = [...items];
 

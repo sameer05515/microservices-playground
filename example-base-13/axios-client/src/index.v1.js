@@ -1,6 +1,6 @@
 const axios = require("axios");
 
-const API_URL = "http://localhost:3005/items";
+const API_URL = "http://localhost:3005/api/v1/items";
 
 // GET request with filtering
 const fetchItemsWithFilter = async () => {

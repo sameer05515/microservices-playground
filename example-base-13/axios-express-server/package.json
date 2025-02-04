@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "node dist/server.js",
-    "dev": "nodemon --ext ts --exec ts-node src/server.ts",
+    "start:v1": "node dist/server.v1.js",
+    "start:v2": "node dist/server.v2.js",
+    "dev:v1": "nodemon --ext ts --exec ts-node src/server.v1.ts",
     "dev:v2": "nodemon --ext ts --exec ts-node src/server.v2.ts"
   },
   "keywords": [],
