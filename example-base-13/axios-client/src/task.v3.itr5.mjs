@@ -4,9 +4,18 @@ const API_URL = "http://localhost:3005/api/v3/tasks/paginated";
 
 const fetTasksSortByMultipleConditions = async (page = 1, pageSize = 5) => {
   try {
-    const response = await axios.get(
-      `${API_URL}/sort?page=${page}&pageSize=${pageSize}&sort=${encodeURIComponent("status:desc,dueDate:asc")}`
-    );
+    // Define the sort query
+    const sortQuery = "status:desc,dueDate:asc";
+
+    // Use axios config to pass query params
+    const response = await axios.get(API_URL + "/sort", {
+      params: {
+        page,
+        pageSize,
+        sort: sortQuery
+      }
+    });
+
     if (response.data && response.data.tasks) {
       console.log(
         "[fetTasksSortByMultipleConditions]: Task Details: ",
