@@ -5,7 +5,7 @@ const axiosInstance = axios.create({
   baseURL: "http://localhost:3005/api/v3/tasks"
 });
 
-const fetTasksSortByMultipleConditions = async (page = 1, pageSize = 5) => {
+const fetchTasksSortByMultipleConditions = async (page = 1, pageSize = 5) => {
   try {
     // Define the sort query
     const sortQuery = "status:desc,dueDate:asc";
@@ -32,4 +32,4 @@ const fetTasksSortByMultipleConditions = async (page = 1, pageSize = 5) => {
   }
 };
 
-fetTasksSortByMultipleConditions(5, 5);
+fetchTasksSortByMultipleConditions(5, 5);
