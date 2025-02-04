@@ -29,8 +29,9 @@ export const addItemToDB = async (req: Request, res: Response) => {
     const { name, category, price } = req.body;
 
     if (!name || !category || typeof price !== "number") {
-      //   return res.status(400).json({ message: "Invalid input data" });
-      throw new Error("Invalid input data");
+      res.status(400).json({ message: "Invalid input data" });
+      return;
+      //   throw new Error("Invalid input data");
     }
 
     const newItem = new ItemModel({ name, category, price });
