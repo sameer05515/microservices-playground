@@ -33,3 +33,7 @@ export const selectApplicationStateIsSidebarCollapsed = (state) =>
  * Please see './consolidated-report/selectors.js', as we are now re-organizing selectors in their respective folders.
  *
  * */
+
+const selectPositivityContentState = (state) => state.positivityContent;
+
+export const selectApplicationStateSelectedId = (state) => selectPositivityContentState(state).selectedId;
