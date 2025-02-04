@@ -76,9 +76,10 @@ export const getPaginatedFilteredTasks = async (req: Request, res: Response) => 
       .limit(pageSize);
 
     res.status(200).json({
-      data: tasks,
+      tasks,
       totalCount,
       currentPageNo: page,
+      pageSize,
     });
   } catch (error) {
     res.status(500).json({ message: "Error fetching paginated filtered tasks", error });
