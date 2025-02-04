@@ -135,6 +135,6 @@ const fetTasksSortByMultipleConditions = async () => {
 // fetchAllTasks();
 // fetchTasksDetails("67a1a26feb2c5d1f2d9ccce6");
 // fetchFilteredTasksByStatus("open");
-// fetchFilteredTasksByStatuses();
+fetchFilteredTasksByStatuses();
 // fetTasksSortedByStatus();
-fetTasksSortByMultipleConditions();
+// fetTasksSortByMultipleConditions();
