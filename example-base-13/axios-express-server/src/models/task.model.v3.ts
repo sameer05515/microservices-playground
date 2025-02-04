@@ -13,7 +13,13 @@ const taskSchema: Schema = new Schema({
   name: { type: String, required: true },
   description: { type: String, required: true },
   dueDate: { type: Date, required: true },
-  status: { type: String, required: true, default: "pending" },
+  //   status: { type: String, required: true, default: "pending" },
+  status: {
+    type: String,
+    enum: ["open", "in-progress", "on-hold", "closed"],
+    required: true,
+    default: "open"
+  },
 });
 
 const TaskModel = mongoose.model<ITask>("Task", taskSchema);

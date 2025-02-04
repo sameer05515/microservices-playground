@@ -1,5 +1,5 @@
 import express from "express";
-import { addTask } from "../controllers/task.controller.v3";
+import { addTask, getAllTasks, getTaskDetails, getFilteredTasks } from "../controllers/task.controller.v3";
 
 const router = express.Router();
 
@@ -7,5 +7,14 @@ const router = express.Router();
 router.post("/tasks", addTask);
 
 // Additional routes can be added for fetching, updating tasks, etc.
+
+// Route to fetch all tasks (_id, name, status)
+router.get("/tasks", getAllTasks);
+
+// Route to fetch task details by _id
+router.get("/tasks/:id", getTaskDetails);
+
+// Route to fetch tasks with filters: status, date (on or after), and sort by status
+router.get("/tasks/filter", getFilteredTasks);
 
 export default router;

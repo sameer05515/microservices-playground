@@ -32,7 +32,7 @@ const saveTaskToDB = async () => {
         });
 
         console.log(
-          "[saveItemsToDB]: Saved Item:",
+          "[saveItemsToDB]: Saved Item: ",
           response.data.message,
           "  ",
           response.data.task.name,
@@ -42,7 +42,7 @@ const saveTaskToDB = async () => {
       } catch (error) {
         // Improve error handling to give more useful information
         console.error(
-          `Error saving task with status "${status}" and index ${i}:`,
+          `[saveItemsToDB]: Error saving task with status "${status}" and index ${i}:`,
           error.response ? error.response.data : error.message
         );
       }
@@ -50,4 +50,24 @@ const saveTaskToDB = async () => {
   }
 };
 
+const fetchAllTasks = async () => {
+  try {
+    const response = await axios.get(API_URL);
+    console.log("[fetchAllTasks]: Total length: ", response.data.tasks.length);
+  } catch (error) {
+    console.error("[fetchAllTasks]: Error data:", error);
+  }
+};
+
+const fetchTasksDetails = async (id="") => {
+  try {
+    const response = await axios.get(`${API_URL}/${id}`);
+    console.log("[fetchTasksDetails]: Task Details: ", response.data.task);
+  } catch (error) {
+    console.error("[fetchTasksDetails]: Error data: ", error);
+  }
+};
+
 saveTaskToDB();
+fetchAllTasks();
+fetchTasksDetails("67a1a26feb2c5d1f2d9ccce6")
