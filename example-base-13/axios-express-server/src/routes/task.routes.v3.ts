@@ -7,6 +7,8 @@ import {
   sortByMyltipleConditions,
 } from "../controllers/task.controller.v3";
 
+import { getPaginatedTasks } from "../controllers/task.controller.v3.pagination";
+
 const router = express.Router();
 
 // Route to save a new task
@@ -23,7 +25,11 @@ router.get("/tasks/filter", getFilteredTasks);
 // Fetch tasks with sorting by one or more fields
 router.get("/tasks/sort", sortByMyltipleConditions);
 
+router.get("/tasks/paginated", getPaginatedTasks);
+
 // Route to fetch task details by _id
 router.get("/tasks/:id", getTaskDetails);
+
+
 
 export default router;
