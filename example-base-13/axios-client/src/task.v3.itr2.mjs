@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:3005/tasks/sort";
+const API_URL = "http://localhost:3005/api/v3/tasks/sort";
 
 /**
  * Fetch tasks sorted by given fields and order.
@@ -17,7 +17,30 @@ const fetchSortedTasks = async (sortFields = [], sortOrders = []) => {
 
     console.log("[fetchSortedTasks]: Sorted Tasks:", response.data.tasks);
   } catch (error) {
-    console.error("[fetchSortedTasks]: Error fetching sorted tasks:", error);
+    // console.error("[fetchSortedTasks]: Error fetching sorted tasks:", error);
+    if (axios.isAxiosError(error)) {
+      // Extract meaningful error message and status from backend
+      const message = error.response?.data || error.message || "An error occurred";
+      // const status = error.response?.status;
+      console.error("[fetchSortedTasks]: Error fetching sorted tasks:", message);
+      // return {
+      //   data: null,
+      //   isError: true,
+      //   message: typeof message === "string" ? message : JSON.stringify(message),
+      //   //status,
+      //   // response:undefined,
+      //   // error
+      // };
+    } else {
+      console.error("[fetchSortedTasks]: Error fetching sorted tasks:", error);
+      // return {
+      //   data: null,
+      //   isError: true,
+      //   message: error ? JSON.stringify(error) : "An error occurred",
+      //   // response:undefined,
+      //   // error
+      // };
+    }
   }
 };
 
