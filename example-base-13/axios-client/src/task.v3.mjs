@@ -59,7 +59,7 @@ const fetchAllTasks = async () => {
   }
 };
 
-const fetchTasksDetails = async (id="") => {
+const fetchTasksDetails = async (id = "") => {
   try {
     const response = await axios.get(`${API_URL}/${id}`);
     console.log("[fetchTasksDetails]: Task Details: ", response.data.task.name);
@@ -68,6 +68,21 @@ const fetchTasksDetails = async (id="") => {
   }
 };
 
+const fetchFilteredTasksByStatus = async (status = "") => {
+    try {
+      const response = await axios.get(`${API_URL}/filter?status=${encodeURIComponent(status)}`);
+      if (response.data && response.data.tasks) {
+        console.log("[fetchFilteredTasksByStatus]: Task Details: ", response.data.tasks.length);
+      } else {
+        console.error("[fetchFilteredTasksByStatus]: No tasks found.");
+      }
+    } catch (error) {
+      console.error("[fetchFilteredTasksByStatus]: Error data: ", error);
+    }
+  };
+  
+
 saveTaskToDB();
 fetchAllTasks();
-fetchTasksDetails("67a1a26feb2c5d1f2d9ccce6")
+fetchTasksDetails("67a1a26feb2c5d1f2d9ccce6");
+fetchFilteredTasksByStatus("open");

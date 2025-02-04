@@ -11,10 +11,12 @@ router.post("/tasks", addTask);
 // Route to fetch all tasks (_id, name, status)
 router.get("/tasks", getAllTasks);
 
+// Route to fetch tasks with filters: status, date (on or after), and sort by status
+router.get("/tasks/filter", getFilteredTasks);
+
 // Route to fetch task details by _id
 router.get("/tasks/:id", getTaskDetails);
 
-// Route to fetch tasks with filters: status, date (on or after), and sort by status
-router.get("/tasks/filter", getFilteredTasks);
+
 
 export default router;
