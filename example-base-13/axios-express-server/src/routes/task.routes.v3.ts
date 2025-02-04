@@ -24,7 +24,7 @@ router.post("/tasks", addTask);
 // Route to fetch all tasks (_id, name, status)
 router.get("/tasks", getAllTasks);
 
-router.get("tasks/filter-with-formatted-query", getFilteredTasksWithFormattedQuery);
+router.get("/tasks/filter-with-formatted-query", getFilteredTasksWithFormattedQuery);
 
 // Route to fetch tasks with filters: status, date (on or after), and sort by status
 router.get("/tasks/filter", getFilteredTasks);

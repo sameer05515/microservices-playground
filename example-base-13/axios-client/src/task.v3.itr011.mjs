@@ -1,23 +1,33 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:3005/api/v3/tasks/sort";
+const API_URL = "http://localhost:3005/api/v3/tasks/filter-with-formatted-query";
 
-const fetTasksSortByMultipleConditions = async () => {
+function handleError(error /**: any*/, initialMessage = "") {
+  if (axios.isAxiosError(error)) {
+    const message = error.response?.data || error.message || "An error occurred";
+    console.error(`${initialMessage} Axios error:`, message);
+  } else {
+    console.error(`${initialMessage} General error:`, error);
+  }
+}
+
+const fetchTasksFilteredByQuerySyntax = async () => {
   try {
-    const response = await axios.get(`${API_URL}/sort?sort=${encodeURIComponent("dueDate:asc,status:desc")}`);
+    const response = await axios.get(`${API_URL}?filter=${encodeURIComponent("status:eq:[open]")}`);
     // const response = await axios.get(`${API_URL}/sort?sort=${encodeURIComponent("status:desc,dueDate:asc")}`);
     if (response.data && response.data.tasks) {
       console.log(
-        "[fetTasksSortByMultipleConditions]: Task Details: ",
+        "[fetchTasksFilteredByQuerySyntax]: Task Details: ",
         response.data.tasks.map(({ dueDate, status }) => `${dueDate}_${status}`).join(" ,\n ")
       );
     } else {
-      console.error("[fetTasksSortByMultipleConditions]: No tasks found.");
+      console.error("[fetchTasksFilteredByQuerySyntax]: No tasks found.");
     }
   } catch (error) {
-    console.error("[fetTasksSortByMultipleConditions]: Error data: ", error);
+    // console.error("[fetchTasksFilteredByQuerySyntax]: Error data: ", error);
+    handleError(error, "[fetchTasksFilteredByQuerySyntax]: Error data: ");
   }
 };
 
 // Example usage
-fetTasksSortByMultipleConditions();
+fetchTasksFilteredByQuerySyntax();
