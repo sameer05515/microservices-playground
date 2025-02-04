@@ -1,6 +1,6 @@
 import express from "express";
 import { generateItems, getItems, getItemsById } from "./controllers/items.controller.v5";
-import { errorHandler } from "./middlewares/error.middleware.v1";
+import { errorHandler } from "./middlewares/errorHandler.middleware.v1";
 import { notFoundHandler } from "./middlewares/notFound.middleware.v1";
 
 const app = express();

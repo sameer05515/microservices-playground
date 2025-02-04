@@ -9,12 +9,14 @@
     "start:v4": "node dist/server.v4.js",
     "start:v5": "node dist/server.v5.js",
     "start:v6": "node dist/server.v6.js",
+    "start:v7": "node dist/server.v7.js",
     "dev:v1": "nodemon --ext ts --exec ts-node src/server.v1.ts",
     "dev:v2": "nodemon --ext ts --exec ts-node src/server.v2.ts",
     "dev:v3": "nodemon --ext ts --exec ts-node src/server.v3.ts",
     "dev:v4": "nodemon --ext ts --exec ts-node src/server.v4.ts",
     "dev:v5": "nodemon --ext ts --exec ts-node src/server.v5.ts",
-    "dev:v6": "nodemon --ext ts --exec ts-node src/server.v6.ts"
+    "dev:v6": "nodemon --ext ts --exec ts-node src/server.v6.ts",
+    "dev:v7": "nodemon --ext ts --exec ts-node src/server.v7.ts"
   },
   "keywords": [],
   "author": "",
