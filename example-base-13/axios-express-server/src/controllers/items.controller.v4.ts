@@ -1,6 +1,6 @@
 // controllers/item.controller.ts
 
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { Item } from "../models/item.model.v4";
 
 // In-memory database for simplicity
@@ -24,13 +24,14 @@ export function generateItems(count: number) {
 }
 
 // Route handler to fetch items
-export const getItems = (req: Request, res: Response) => {
+export const getItems = (req: Request, res: Response, next: NextFunction) => {
   try {
     if (!items.length) {
       throw new Error("No items found!");
     }
     res.status(200).json({ items });
   } catch (error) {
-    res.status(500).json({ message: error instanceof Error ? error.message : "Some Unexpected Error occurred" });
+    // res.status(500).json({ message: error instanceof Error ? error.message : "Some Unexpected Error occurred" });
+    next(error); // Pass errors to the centralized error handler
   }
 };
