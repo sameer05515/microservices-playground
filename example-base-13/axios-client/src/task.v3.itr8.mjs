@@ -5,8 +5,16 @@ const API_URL = "http://localhost:3005/api/v3/tasks/paginated";
 class SortingQueryBuilder {
   #sortParams /**: string[]*/ = [];
 
+  constructor() {
+    this.#sortParams = [];
+  }
+
+  static builder() {
+    return new SortingQueryBuilder();
+  }
+
   addSort({ field /**: string*/, order /**: "asc" | "desc"*/ = "asc" }) /**: SortingQueryBuilder*/ {
-    this.#sortParams.push(`${field}:${order}`);
+    this.#sortParams.push(`${field}:${order === "asc" ? order : "desc"}`);
     return this;
   }
 
@@ -46,4 +54,8 @@ const fetchTasksSortByMultipleConditions = async (sortQuery = "", page = 1, page
   }
 };
 
-fetchTasksSortByMultipleConditions("status:desc,dueDate:asc", 5, 5);
+fetchTasksSortByMultipleConditions(
+  SortingQueryBuilder.builder().addSort({ field: "status", order: "asc" }).build(),
+  2,
+  4
+);
