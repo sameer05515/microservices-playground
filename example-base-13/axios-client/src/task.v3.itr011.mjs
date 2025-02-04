@@ -13,12 +13,15 @@ function handleError(error /**: any*/, initialMessage = "") {
 
 const fetchTasksFilteredByQuerySyntax = async () => {
   try {
-    const response = await axios.get(`${API_URL}?filter=${encodeURIComponent("status:eq:[open]")}`);
-    // const response = await axios.get(`${API_URL}/sort?sort=${encodeURIComponent("status:desc,dueDate:asc")}`);
+    const response = await axios.get(`${API_URL}?filter=${encodeURIComponent("status:eq:[open,closed]")}`);
     if (response.data && response.data.tasks) {
       console.log(
         "[fetchTasksFilteredByQuerySyntax]: Task Details: ",
-        response.data.tasks.map(({ dueDate, status }) => `${dueDate}_${status}`).join(" ,\n ")
+        response.data.tasks.map(({ dueDate, status }) => `${dueDate}_${status}`).join(" , ")
+      );
+    console.log(
+        "[fetchTasksFilteredByQuerySyntax]: Task Details count: ",
+        response.data.tasks.length
       );
     } else {
       console.error("[fetchTasksFilteredByQuerySyntax]: No tasks found.");
