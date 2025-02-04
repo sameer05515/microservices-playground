@@ -2,6 +2,7 @@ import dotenv from "dotenv";
 import express from "express";
 import mongoose from "mongoose";
 import authRoutes from "./routes/auth.routes.v2";
+import { notFoundHandler } from "./middlewares/notFound.middleware.v1";
 
 dotenv.config();
 
@@ -13,6 +14,9 @@ app.use(express.json());
 
 // Routes
 app.use("/api/v8/auth", authRoutes);
+
+// 4️⃣ Route Not Found Middleware (must be after all valid routes)
+app.use(notFoundHandler);
 
 // Connect to MongoDB and Start Server
 mongoose

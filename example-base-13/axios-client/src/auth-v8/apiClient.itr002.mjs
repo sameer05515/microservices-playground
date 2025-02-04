@@ -1,7 +1,7 @@
 import axios from "axios";
 import { saveTokenToFile, getTokenFromFile, clearTokenFile } from "./tokenStorage.itr002.mjs";
 
-const API_BASE_URL = "http://localhost:3005/api/v8";
+const API_BASE_URL = "http://localhost:3005/api/v8/auth";
 
 export const signup = async (email/** : string */, password/** : string */) => {
   try {
