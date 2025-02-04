@@ -1,0 +1,1 @@
+/**Keeping this file to put pure functions to provide utility*/
