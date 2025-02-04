@@ -62,7 +62,7 @@ const fetchAllTasks = async () => {
 const fetchTasksDetails = async (id="") => {
   try {
     const response = await axios.get(`${API_URL}/${id}`);
-    console.log("[fetchTasksDetails]: Task Details: ", response.data.task);
+    console.log("[fetchTasksDetails]: Task Details: ", response.data.task.name);
   } catch (error) {
     console.error("[fetchTasksDetails]: Error data: ", error);
   }
