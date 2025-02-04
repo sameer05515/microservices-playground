@@ -69,20 +69,37 @@ const fetchTasksDetails = async (id = "") => {
 };
 
 const fetchFilteredTasksByStatus = async (status = "") => {
-    try {
-      const response = await axios.get(`${API_URL}/filter?status=${encodeURIComponent(status)}`);
-      if (response.data && response.data.tasks) {
-        console.log("[fetchFilteredTasksByStatus]: Task Details: ", response.data.tasks.length);
-      } else {
-        console.error("[fetchFilteredTasksByStatus]: No tasks found.");
-      }
-    } catch (error) {
-      console.error("[fetchFilteredTasksByStatus]: Error data: ", error);
+  try {
+    const response = await axios.get(
+      `${API_URL}/filter?status=${encodeURIComponent(status)}&status=${encodeURIComponent(status)}`
+    );
+    if (response.data && response.data.tasks) {
+      console.log("[fetchFilteredTasksByStatus]: Task Details: ", response.data.tasks.length);
+    } else {
+      console.error("[fetchFilteredTasksByStatus]: No tasks found.");
     }
-  };
-  
+  } catch (error) {
+    console.error("[fetchFilteredTasksByStatus]: Error data: ", error);
+  }
+};
+
+const fetchFilteredTasksByStatuses = async () => {
+  try {
+    const response = await axios.get(
+      `${API_URL}/filter?status=${encodeURIComponent("open")}&status=${encodeURIComponent("closed")}`
+    );
+    if (response.data && response.data.tasks) {
+      console.log("[fetchFilteredTasksByStatuses]: Task Details: ", response.data.tasks.length);
+    } else {
+      console.error("[fetchFilteredTasksByStatuses]: No tasks found.");
+    }
+  } catch (error) {
+    console.error("[fetchFilteredTasksByStatuses]: Error data: ", error);
+  }
+};
 
 saveTaskToDB();
 fetchAllTasks();
 fetchTasksDetails("67a1a26feb2c5d1f2d9ccce6");
 fetchFilteredTasksByStatus("open");
+fetchFilteredTasksByStatuses();
