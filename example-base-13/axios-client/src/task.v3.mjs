@@ -3,6 +3,12 @@ import axios from "axios";
 const API_URL = "http://localhost:3005/api/v3/tasks";
 
 const TaskStatus = ["open", "in-progress", "on-hold", "closed"];
+const StatusOrder = {
+  open: 1,
+  "in-progress": 2,
+  "on-hold": 3,
+  closed: 4,
+};
 const savingDisabled = true;
 
 const saveTaskToDB = async () => {
