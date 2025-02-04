@@ -3,6 +3,15 @@ import axios from "axios";
 
 const API_URL = "http://localhost:3005/api/v3/items";
 
+const saveItemsToDB = async () => {
+  try {
+    const response = await axios.post(API_URL, { name: "Item A", category: "Tech", price: 100 });
+    console.log("Filtered Items:", response.data);
+  } catch (error) {
+    console.error("Error saving items:", error);
+  }
+};
+
 // GET request with filtering
 const fetchItemsWithFilter = async () => {
   try {
@@ -24,5 +33,6 @@ const fetchSortedItems = async () => {
 };
 
 // Execute requests
+saveItemsToDB();
 fetchItemsWithFilter();
 fetchSortedItems();

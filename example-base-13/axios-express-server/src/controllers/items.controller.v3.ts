@@ -26,6 +26,7 @@ export const getItemsFromDB = async (req: Request, res: Response) => {
 // 🔴 Save New Item to MongoDB
 export const addItemToDB = async (req: Request, res: Response) => {
   try {
+    
     const { name, category, price } = req.body;
 
     if (!name || !category || typeof price !== "number") {
