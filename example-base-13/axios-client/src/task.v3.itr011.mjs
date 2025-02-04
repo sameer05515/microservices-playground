@@ -19,15 +19,11 @@ const fetchTasksFilteredByQuerySyntax = async () => {
         "[fetchTasksFilteredByQuerySyntax]: Task Details: ",
         response.data.tasks.map(({ dueDate, status }) => `${dueDate}_${status}`).join(" , ")
       );
-    console.log(
-        "[fetchTasksFilteredByQuerySyntax]: Task Details count: ",
-        response.data.tasks.length
-      );
+      console.log("[fetchTasksFilteredByQuerySyntax]: Task Details count: ", response.data.tasks.length);
     } else {
       console.error("[fetchTasksFilteredByQuerySyntax]: No tasks found.");
     }
   } catch (error) {
-    // console.error("[fetchTasksFilteredByQuerySyntax]: Error data: ", error);
     handleError(error, "[fetchTasksFilteredByQuerySyntax]: Error data: ");
   }
 };
