@@ -97,3 +97,36 @@ export const getFilteredTasks = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Error fetching filtered tasks", error });
   }
 };
+
+// Utility to convert sort query to mongoose-compatible format
+const convertSortQuery = (sort: string) => {
+  const sortObj: { [key: string]: 1 | -1 } = {};
+  const sortFields = sort.split(",");
+
+  sortFields.forEach((field) => {
+    const [key, order] = field.split(":");
+    sortObj[key] = order === "desc" ? -1 : 1; // default to 'asc' if no order is specified
+  });
+
+  return sortObj;
+};
+
+export const sortByMyltipleConditions = async (req: Request, res: Response) => {
+  try {
+    const { sort } = req.query;
+
+    let sortQuery = {};
+    if (sort) {
+      sortQuery = convertSortQuery(sort as string);
+    } else {
+      // If no sorting is provided, default to sorting by 'name' in ascending order
+      sortQuery = { name: 1 };
+    }
+
+    const tasks = await TaskModel.find().sort(sortQuery);
+
+    res.status(200).json({ tasks });
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching sorted tasks", error });
+  }
+};

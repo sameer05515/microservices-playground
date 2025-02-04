@@ -114,9 +114,27 @@ const fetTasksSortedByStatus = async () => {
   }
 };
 
-saveTaskToDB();
-fetchAllTasks();
-fetchTasksDetails("67a1a26feb2c5d1f2d9ccce6");
-fetchFilteredTasksByStatus("open");
-fetchFilteredTasksByStatuses();
-fetTasksSortedByStatus();
+const fetTasksSortByMultipleConditions = async () => {
+  try {
+    const response = await axios.get(`${API_URL}/sort?sort=${encodeURIComponent("dueDate:asc,status:desc")}`);
+    // const response = await axios.get(`${API_URL}/sort?sort=${encodeURIComponent("status:desc,dueDate:asc")}`);
+    if (response.data && response.data.tasks) {
+      console.log(
+        "[fetTasksSortByMultipleConditions]: Task Details: ",
+        response.data.tasks.map(({ dueDate, status }) => `${dueDate}_${status}`).join(" ,\n ")
+      );
+    } else {
+      console.error("[fetTasksSortByMultipleConditions]: No tasks found.");
+    }
+  } catch (error) {
+    console.error("[fetTasksSortByMultipleConditions]: Error data: ", error);
+  }
+};
+
+// saveTaskToDB();
+// fetchAllTasks();
+// fetchTasksDetails("67a1a26feb2c5d1f2d9ccce6");
+// fetchFilteredTasksByStatus("open");
+// fetchFilteredTasksByStatuses();
+// fetTasksSortedByStatus();
+fetTasksSortByMultipleConditions();
