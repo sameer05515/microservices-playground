@@ -4,7 +4,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node dist/server.js",
-    "dev": "nodemon --ext ts --exec ts-node src/server.ts"
+    "dev": "nodemon --ext ts --exec ts-node src/server.ts",
+    "dev:v2": "nodemon --ext ts --exec ts-node src/server.v2.ts"
   },
   "keywords": [],
   "author": "",
