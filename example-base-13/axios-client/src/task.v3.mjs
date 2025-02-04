@@ -97,9 +97,26 @@ const fetchFilteredTasksByStatuses = async () => {
     console.error("[fetchFilteredTasksByStatuses]: Error data: ", error);
   }
 };
+//sort
+const fetTasksSortedByStatus = async () => {
+  try {
+    const response = await axios.get(`${API_URL}/filter?sort=${encodeURIComponent("status")}}`);
+    if (response.data && response.data.tasks) {
+      console.log(
+        "[fetTasksSortedByStatus]: Task Details: ",
+        response.data.tasks.map(({ status }) => status).join(" , ")
+      );
+    } else {
+      console.error("[fetTasksSortedByStatus]: No tasks found.");
+    }
+  } catch (error) {
+    console.error("[fetTasksSortedByStatus]: Error data: ", error);
+  }
+};
 
 saveTaskToDB();
 fetchAllTasks();
 fetchTasksDetails("67a1a26feb2c5d1f2d9ccce6");
 fetchFilteredTasksByStatus("open");
 fetchFilteredTasksByStatuses();
+fetTasksSortedByStatus();
