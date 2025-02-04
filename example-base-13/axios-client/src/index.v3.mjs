@@ -3,12 +3,18 @@ import axios from "axios";
 
 const API_URL = "http://localhost:3005/api/v3/items";
 
+const categories = ["Tech", "Home", "Entertainment", "Study"];
+
 const saveItemsToDB = async () => {
-  try {
-    const response = await axios.post(API_URL, { name: "Item A", category: "Tech", price: 100 });
-    console.log("Filtered Items:", response.data);
-  } catch (error) {
-    console.error("Error saving items:", error);
+  for (let i = 1; i <= 100; i++) {
+    for (let cat of categories) {
+      try {
+        const response = await axios.post(API_URL, { name: `Item-${cat}-${i}`, category: cat, price: 1000 + i });
+        console.log("[saveItemsToDB]: Saved Item:", response.data.message, "  ", response.data.item.name, "  ", response.data.item._id );
+      } catch (error) {
+        console.error("Error saving items:", error);
+      }
+    }
   }
 };
 
@@ -34,5 +40,5 @@ const fetchSortedItems = async () => {
 
 // Execute requests
 saveItemsToDB();
-fetchItemsWithFilter();
-fetchSortedItems();
+// fetchItemsWithFilter();
+// fetchSortedItems();
