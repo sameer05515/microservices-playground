@@ -12,6 +12,7 @@ import {
   getPaginatedTasks,
   sortWithPaginatedByMultipleConditions,
 } from "../controllers/task.controller.v3.pagination";
+import { getFilteredTasksWithFormattedQuery } from "../controllers/task.controller.v3.filter-syntax";
 
 const router = express.Router();
 
@@ -22,6 +23,8 @@ router.post("/tasks", addTask);
 
 // Route to fetch all tasks (_id, name, status)
 router.get("/tasks", getAllTasks);
+
+router.get("tasks/filter-with-formatted-query", getFilteredTasksWithFormattedQuery);
 
 // Route to fetch tasks with filters: status, date (on or after), and sort by status
 router.get("/tasks/filter", getFilteredTasks);
