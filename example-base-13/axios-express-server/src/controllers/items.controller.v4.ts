@@ -7,7 +7,7 @@ import { Item } from "../models/item.model.v4";
 export let items: Item[] = [];
 
 // Function to generate random items
-export function generateItems(count: number): Item[] {
+export function generateItems(count: number) {
   const generatedItems: Item[] = [];
   for (let i = 1; i <= count; i++) {
     generatedItems.push({
@@ -19,7 +19,8 @@ export function generateItems(count: number): Item[] {
       currentPcsInStock: Math.floor(Math.random() * 50),
     });
   }
-  return generatedItems;
+  //   return generatedItems;
+  items.push(...generatedItems);
 }
 
 // Route handler to fetch items

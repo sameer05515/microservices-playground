@@ -6,7 +6,7 @@ const app = express();
 const port = 3005;
 
 // Generate 20 items when the server starts
-items.push(...generateItems(20));
+generateItems(20);
 
 // Routes
 // app.get("/api/v5/items", (req: Request, res: Response) => {
