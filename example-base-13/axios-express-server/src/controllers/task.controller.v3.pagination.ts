@@ -84,3 +84,63 @@ export const getPaginatedFilteredTasks = async (req: Request, res: Response) => 
     res.status(500).json({ message: "Error fetching paginated filtered tasks", error });
   }
 };
+
+// Utility to convert sort query to mongoose-compatible format
+// const convertSortQuery = (sort: string) => {
+//   const sortObj: { [key: string]: 1 | -1 } = {};
+//   const sortFields = sort.split(",");
+
+//   sortFields.forEach((field) => {
+//     const [key, order] = field.split(":");
+//     sortObj[key] = order === "desc" ? -1 : 1; // default to 'asc' if no order is specified
+//   });
+
+//   return sortObj;
+// };
+
+// Helper function to convert the sort query
+const convertSortQuery = (sort: string) => {
+  const sortFields = sort.split(",").map((s) => {
+    const [field, order] = s.split(":");
+    return { [field]: order === "desc" ? -1 : 1 };
+  });
+  return Object.assign({}, ...sortFields); // Convert to an object for mongoose sort query
+};
+
+// Fetch tasks with sorting and pagination
+export const sortWithPaginatedByMultipleConditions = async (req: Request, res: Response) => {
+  try {
+    const page = parseInt(req.query.page as string) || 1;
+    const pageSize = parseInt(req.query.pageSize as string) || 5;
+    const { sort } = req.query;
+
+    let sortQuery = {};
+
+    // If sort query exists, convert it
+    if (sort) {
+      sortQuery = convertSortQuery(sort as string);
+    } else {
+      // Default sort query, by name in ascending order
+      sortQuery = { name: 1 };
+    }
+
+    // Fetch total count before applying pagination
+    const totalCount = await TaskModel.countDocuments();
+
+    // Fetch paginated and sorted tasks
+    const tasks = await TaskModel.find()
+      .sort(sortQuery)
+      .skip((page - 1) * pageSize) // Skip for pagination
+      .limit(pageSize); // Limit to the page size
+
+    // Return tasks along with pagination details
+    res.status(200).json({
+      tasks,
+      totalCount,
+      currentPageNo: page,
+      pageSize,
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching sorted tasks", error });
+  }
+};

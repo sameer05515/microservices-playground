@@ -38,6 +38,26 @@ const fetchPaginatedFilteredTasksByStatus = async (status = "", page = 1, pageSi
   }
 };
 
+const fetTasksSortByMultipleConditions = async (page = 1, pageSize = 5) => {
+  try {
+    // const response = await axios.get(`${API_URL}/sort?sort=${encodeURIComponent("dueDate:asc,status:desc")}`);
+    const response = await axios.get(
+      `${API_URL}/sort?page=${page}&pageSize=${pageSize}&sort=${encodeURIComponent("status:desc,dueDate:asc")}`
+    );
+    if (response.data && response.data.tasks) {
+      console.log(
+        "[fetTasksSortByMultipleConditions]: Task Details: ",
+        response.data.tasks.map(({ dueDate, status }) => `${dueDate}_${status}`).join(" ,\n ")
+      );
+    } else {
+      console.error("[fetTasksSortByMultipleConditions]: No tasks found.");
+    }
+  } catch (error) {
+    console.error("[fetTasksSortByMultipleConditions]: Error data: ", error);
+  }
+};
+
 // Example usage
 // fetchPaginatedTasks(1, 5);
-fetchPaginatedFilteredTasksByStatus("open", 5, 1);
+// fetchPaginatedFilteredTasksByStatus("open", 5, 1);
+fetTasksSortByMultipleConditions(5, 1);

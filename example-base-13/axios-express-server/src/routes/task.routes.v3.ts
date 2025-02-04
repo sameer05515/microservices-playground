@@ -7,7 +7,11 @@ import {
   sortByMyltipleConditions,
 } from "../controllers/task.controller.v3";
 
-import { getPaginatedFilteredTasks, getPaginatedTasks } from "../controllers/task.controller.v3.pagination";
+import {
+  getPaginatedFilteredTasks,
+  getPaginatedTasks,
+  sortWithPaginatedByMultipleConditions,
+} from "../controllers/task.controller.v3.pagination";
 
 const router = express.Router();
 
@@ -28,6 +32,8 @@ router.get("/tasks/sort", sortByMyltipleConditions);
 router.get("/tasks/paginated", getPaginatedTasks);
 
 router.get("/tasks/paginated/filter", getPaginatedFilteredTasks);
+
+router.get("/tasks/paginated/sort", sortWithPaginatedByMultipleConditions);
 
 // Route to fetch task details by _id
 router.get("/tasks/:id", getTaskDetails);
