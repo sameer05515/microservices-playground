@@ -17,7 +17,7 @@ const errorHandler = (err: any, req: Request, res: Response, next: NextFunction)
 };
 
 // Sample route to fetch items
-app.get("/items", (req: Request, res: Response, next: NextFunction) => {
+app.get("/api/v4/items", (req: Request, res: Response, next: NextFunction) => {
   try {
     if (!items.length) {
       throw new Error("No items found!");
@@ -29,7 +29,7 @@ app.get("/items", (req: Request, res: Response, next: NextFunction) => {
 });
 
 // Sample route to generate 20 items
-app.get("/generate-items", (req: Request, res: Response, next: NextFunction) => {
+app.get("/api/v4/generate-items", (req: Request, res: Response, next: NextFunction) => {
   try {
     if (items.length > 0) {
       res.status(200).json({ message: "Items already generated" });
