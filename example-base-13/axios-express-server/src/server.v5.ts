@@ -1,5 +1,5 @@
-import express, { Request, Response } from "express";
-import { generateItems, getItems, items } from "./controllers/items.controller.v4";
+import express from "express";
+import { generateItems, getItems, getItemsById } from "./controllers/items.controller.v4";
 import { errorHandler } from "./middlewares/error.middleware.v1";
 
 const app = express();
@@ -14,6 +14,7 @@ generateItems(20);
 // });
 
 app.get("/api/v5/items", getItems);
+app.get("/api/v5/items/:id", getItemsById);
 
 // Use error handler middleware
 app.use(errorHandler);

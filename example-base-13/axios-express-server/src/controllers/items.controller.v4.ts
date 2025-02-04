@@ -4,7 +4,7 @@ import { NextFunction, Request, Response } from "express";
 import { Item } from "../models/item.model.v4";
 
 // In-memory database for simplicity
-export let items: Item[] = [];
+let items: Item[] = [];
 
 // Function to generate random items
 export function generateItems(count: number) {
@@ -30,6 +30,21 @@ export const getItems = (req: Request, res: Response, next: NextFunction) => {
       throw new Error("No items found!");
     }
     res.status(200).json({ items });
+  } catch (error) {
+    // res.status(500).json({ message: error instanceof Error ? error.message : "Some Unexpected Error occurred" });
+    next(error); // Pass errors to the centralized error handler
+  }
+};
+
+// Route handler to fetch items
+export const getItemsById = (req: Request, res: Response, next: NextFunction) => {
+  const { id } = req.params;
+  try {
+    const item = items.find((item) => +id === item.id);
+    if (!item) {
+      throw new Error("item not found for id: " + id);
+    }
+    res.status(200).json({ item });
   } catch (error) {
     // res.status(500).json({ message: error instanceof Error ? error.message : "Some Unexpected Error occurred" });
     next(error); // Pass errors to the centralized error handler
