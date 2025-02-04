@@ -1,4 +1,4 @@
-import { signup, login } from "./auth-v8/authService.mjs";
+import { signup, login } from "./auth-v8/authService.itr001.mjs";
 
 const testAuth = async () => {
   try {
