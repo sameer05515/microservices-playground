@@ -2,6 +2,19 @@ import axios from "axios";
 
 const API_URL = "http://localhost:3005/api/v3/tasks/paginated";
 
+class SortingQueryBuilder {
+  #sortParams /**: string[]*/ = [];
+
+  addSort({ field /**: string*/, order /**: "asc" | "desc"*/ = "asc" }) /**: SortingQueryBuilder*/ {
+    this.#sortParams.push(`${field}:${order}`);
+    return this;
+  }
+
+  build() /**: string*/ {
+    return this.#sortParams.length > 0 ? encodeURIComponent(this.#sortParams.join(",")) : "";
+  }
+}
+
 const fetchTasksSortByMultipleConditions = async (sortQuery = "", page = 1, pageSize = 5) => {
   try {
     // Define the sort query
