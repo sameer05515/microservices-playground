@@ -13,7 +13,7 @@ class SortingQueryBuilder {
   }
 
   addSort({ field, order = "asc" } /**: { field: string, order?: "asc" | "desc" }*/) {
-    this.#sortParams.push(`${field}:${order}`);
+    this.#sortParams.push(`${field}:${order === "asc" ? "asc" : "desc"}`);
     return this;
   }
 
@@ -36,9 +36,12 @@ const fetchTasksSortByMultipleConditions = async (sortQuery = "", page = 1, page
     const response = await apiClient.get("/sort", { params });
 
     console.log(
-      "[fetchTasksSortByMultipleConditions]: Task Details:",
+      "[fetchTasksSortByMultipleConditions]: Task Details:\n",
       response.data?.tasks
-        ?.map(({ dueDate, status } /**: { dueDate: string; status: string }*/) => `${dueDate}_${status}`)
+        ?.map(
+          ({ name, dueDate, status } /**: { name:string; dueDate: string; status: string }*/) =>
+            `${name}_${dueDate}_${status}`
+        )
         .join(" ,\n ") || "No tasks found."
     );
   } catch (error) {
@@ -48,7 +51,10 @@ const fetchTasksSortByMultipleConditions = async (sortQuery = "", page = 1, page
 
 // Example usage
 fetchTasksSortByMultipleConditions(
-  SortingQueryBuilder.builder().addSort({ field: "status", order: "asc" }).build(),
+  SortingQueryBuilder.builder()    
+    .addSort({ field: "status", order: "asc" })
+    .addSort({ field: "name", order: "desc" })
+    .build(),
   2,
-  1
+  5
 );
