@@ -2,8 +2,8 @@ import fs from "fs";
 import path from "path";
 
 // Get the directory name using `import.meta.url`
-const __dirname = new URL(".", import.meta.url).pathname;
-const TEMP_DIR = path.join(__dirname, "temp");
+const __dirname = "D:\\my-temp\\"; // new URL(".", import.meta.url).pathname;
+const TEMP_DIR = "D:\\my-temp\\"; //path.join(__dirname, "temp");
 const TOKEN_FILE_PATH = path.join(TEMP_DIR, "token.temp");
 
 // const TOKEN_FILE_PATH = path.join(__dirname, "token.temp");
@@ -26,6 +26,7 @@ export const getTokenFromFile = () /**: string | null*/ => {
 
 export const clearTokenFile = () => {
   if (fs.existsSync(TOKEN_FILE_PATH)) {
-    fs.unlinkSync(TOKEN_FILE_PATH);
+    // fs.unlinkSync(TOKEN_FILE_PATH);
+    console.log("clear ho jayega!!")
   }
 };

@@ -3,6 +3,7 @@ import express from "express";
 import mongoose from "mongoose";
 import authRoutes from "./routes/auth.routes.v2";
 import { notFoundHandler } from "./middlewares/notFound.middleware.v1";
+import { authenticateToken } from "./middlewares/authHandler.middleware.v1";
 
 dotenv.config();
 
@@ -14,6 +15,10 @@ app.use(express.json());
 
 // Routes
 app.use("/api/v8/auth", authRoutes);
+
+app.get("/api/v8/hello/protected", authenticateToken, (req, res) => {
+  res.json({ message: "Hello, World! ✅" });
+});
 
 // 4️⃣ Route Not Found Middleware (must be after all valid routes)
 app.use(notFoundHandler);
