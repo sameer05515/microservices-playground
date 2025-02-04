@@ -4,8 +4,13 @@ import axios from "axios";
 const API_URL = "http://localhost:3005/api/v3/items";
 
 const categories = ["Tech", "Home", "Entertainment", "Study"];
+const saveingDisabled=true;
 
 const saveItemsToDB = async () => {
+  if(saveingDisabled){
+    console.log('saving is disabled!');
+    return;
+  }
   for (let i = 1; i <= 100; i++) {
     for (let cat of categories) {
       try {
