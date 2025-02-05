@@ -33,7 +33,7 @@ export const getProtectedData = async () => {
       return;
     }
 
-    const response = await axios.get(`${API_BASE_URL}/hello/protected`, {
+    const response = await axios.get(`${API_BASE_URL}/protected/hello`, {
       headers: { Authorization: `Bearer ${token}` },
     });
 
