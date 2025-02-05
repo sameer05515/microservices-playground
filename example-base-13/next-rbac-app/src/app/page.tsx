@@ -12,6 +12,13 @@ export default function Home() {
           >
             🔹 RBAC v1 (Basic Role-Based Access)
           </a>
+
+          <a
+            href="/v2"
+            className="block w-full rounded-md bg-blue-500 p-3 text-center text-white transition-all hover:bg-blue-600"
+          >
+            🔹 RBAC v2 (Basic Role-Based Access, using api/v1 routes and without {"use client"} in top of file 🤣)
+          </a>
           {/* Add more versions later */}
         </div>
       </div>
