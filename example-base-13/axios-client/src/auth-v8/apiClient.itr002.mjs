@@ -25,7 +25,7 @@ export const login = async (email/** : string */, password/** : string */) => {
   }
 };
 
-export const getProtectedData = async () => {
+export const getProtectedData = async (route="/hello") => {
   try {
     const token = getTokenFromFile();
     if (!token) {
@@ -33,7 +33,7 @@ export const getProtectedData = async () => {
       return;
     }
 
-    const response = await axios.get(`${API_BASE_URL}/protected/hello`, {
+    const response = await axios.get(`${API_BASE_URL}/protected${route}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
 

@@ -20,6 +20,10 @@ app.get("/api/v8/protected/hello", authenticateToken, (req, res) => {
   res.json({ message: "Hello, World! ✅" });
 });
 
+app.get("/api/v8/protected/hello2", authenticateToken, (req, res) => {
+  res.json({ message: "I am also protected! ✅" });
+});
+
 // 4️⃣ Route Not Found Middleware (must be after all valid routes)
 app.use(notFoundHandler);
 
