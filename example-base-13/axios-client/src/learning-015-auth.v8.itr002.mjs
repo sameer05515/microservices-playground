@@ -34,8 +34,8 @@ export const getTokenFromFile = () /**: string | null*/ => {
 
 export const clearTokenFile = () => {
   if (fs.existsSync(TOKEN_FILE_PATH)) {
-    // fs.unlinkSync(TOKEN_FILE_PATH);
-    console.log("clear ho jayega!!");
+    fs.unlinkSync(TOKEN_FILE_PATH);
+    // console.log("clear ho jayega!!");
   }
 };
 
