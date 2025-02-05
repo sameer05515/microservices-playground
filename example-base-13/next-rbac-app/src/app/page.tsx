@@ -16,15 +16,15 @@ export default function Home() {
     const data = await res.json();
     if (res.ok) {
       localStorage.setItem("token", data.token);
-      setMessage("Login Successful! Token saved.");
+      setMessage("✅ Login Successful! Token saved.");
     } else {
-      setMessage(data.message);
+      setMessage(`❌ ${data.message}`);
     }
   };
 
   const fetchProtectedData = async () => {
     const token = localStorage.getItem("token");
-    if (!token) return setMessage("No token found. Please log in first.");
+    if (!token) return setMessage("⚠️ No token found. Please log in first.");
 
     const res = await fetch("/api/protected", {
       method: "GET",
@@ -36,13 +36,43 @@ export default function Home() {
   };
 
   return (
-    <div>
-      <h1>Next.js RBAC Demo</h1>
-      <input type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
-      <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
-      <button onClick={handleLogin}>Login</button>
-      <button onClick={fetchProtectedData}>Fetch Protected Data</button>
-      <p>{message}</p>
+    <div className="flex min-h-screen items-center justify-center bg-gray-100 p-4">
+      <div className="w-full max-w-md space-y-6 rounded-lg bg-white p-6 shadow-md">
+        <h1 className="text-center text-2xl font-bold text-gray-800">🔒 Next.js RBAC Demo</h1>
+
+        <div className="space-y-4">
+          <input
+            type="email"
+            placeholder="Enter Email"
+            className="w-full rounded-md border border-gray-300 p-3 focus:border-blue-500 focus:outline-none"
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            type="password"
+            placeholder="Enter Password"
+            className="w-full rounded-md border border-gray-300 p-3 focus:border-blue-500 focus:outline-none"
+            onChange={(e) => setPassword(e.target.value)}
+          />
+
+          <button
+            className="w-full rounded-md bg-blue-500 p-3 text-white transition-all hover:bg-blue-600"
+            onClick={handleLogin}
+          >
+            🔑 Login
+          </button>
+
+          <button
+            className="w-full rounded-md bg-green-500 p-3 text-white transition-all hover:bg-green-600"
+            onClick={fetchProtectedData}
+          >
+            🔍 Fetch Protected Data
+          </button>
+        </div>
+
+        {message && (
+          <p className="mt-4 rounded-md bg-gray-200 p-3 text-center text-gray-800">{message}</p>
+        )}
+      </div>
     </div>
   );
 }
