@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import itemsRoutes from "./routes/items.routes.v3";
-import taskRoutes from "./routes/task.routes.v3"
+import taskRoutes from "./routes/task.routes.v3";
 import { connectDB } from "./config/db.config";
 import { PORT } from "./config/server.config";
 

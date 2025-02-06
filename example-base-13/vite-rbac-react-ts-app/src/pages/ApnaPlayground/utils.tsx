@@ -1,8 +1,10 @@
 import { JSX } from "react";
 import ServerV1ApiTestingV1 from "./ServerV1ApiTesting/v1";
+import ServerV3ApiTestingV1 from "./ServerV3ApiTesting/v1";
 
 const Components: Record<string, () => JSX.Element> = {
-  ServerV1ApiTestingV1
+  ServerV1ApiTestingV1,
+  ServerV3ApiTestingV1
 };
 
 export const componentNames = Object.keys(Components);
