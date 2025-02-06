@@ -1,10 +1,8 @@
 import { Routes, Route } from "react-router-dom";
 
-import "./App.css";
 import Home from "./pages/Home";
 import About from "./pages/AboutThisProject";
 import NotFound from "./pages/NotFound";
-// import Layout from "./routes/Layout";
 import TestingDashboard from "./pages/ApnaPlayground";
 
 function App() {
