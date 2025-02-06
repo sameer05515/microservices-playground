@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { AvailableLinks } from "../routes/available-links";
+import { AvailableLinks } from "../../routes/available-links";
 
 export default function Home() {
   return (

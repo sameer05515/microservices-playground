@@ -47,7 +47,7 @@ import Home from "../Home";
 
 const Components: Record<string, () => JSX.Element> = {
   Test: () => <div>Just to test</div>,
-  Home
+  Home,
   // DashboardDemoV1,
   // DashboardDemoV2,
   // SampleNameListV1,
@@ -96,7 +96,7 @@ const Components: Record<string, () => JSX.Element> = {
 export const componentNames = Object.keys(Components);
 const componentCount = componentNames.length;
 
-export const calculateNextPrev = (selectedIndex:number) =>
+export const calculateNextPrev = (selectedIndex: number) =>
   selectedIndex >= 0
     ? {
         next: componentNames[(selectedIndex + 1 + componentCount) % componentCount],
