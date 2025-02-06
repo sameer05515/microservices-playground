@@ -12,6 +12,7 @@ const prepareLinks = () =>
     { linkHeader: "Home", linkPath: () => "/", icon: "FaHome" },
     // { linkHeader: "Targetted Questions", linkPath: () => "/targetted-questions", icon: "FaBullseye" },
     { linkHeader: "Apna Playground", linkPath: () => "/testing", icon: "FaBasketballBall" },
+    { linkHeader: "About", linkPath: () => "/about", icon: "FaFileAlt" },
     // { linkHeader: "Resume Management", linkPath: () => "/resume", icon: "FaFileAlt" },
     // { linkHeader: "CGPT Dashboard V1", linkPath: () => "/cgpt/v1", icon: "FaChartPie" },
     // { linkHeader: "PragyamDashboard V2", linkPath: () => "/cgpt/v2", icon: "TbInfinity" },

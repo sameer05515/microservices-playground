@@ -1,10 +1,15 @@
 import { Link } from "react-router-dom";
+import { AvailableLinks } from "../routes/available-links";
 
 export default function Home() {
   return (
     <h1>
       <nav>
-        <Link to="/">Home</Link> | <Link to="/about">About </Link> | <Link to="/testing">ApnaPlayground </Link>
+        {AvailableLinks.map((link) => (
+          <Link key={link.id} to={link.linkPath()}>
+            {link.linkHeader} |{" "}
+          </Link>
+        ))}
       </nav>
     </h1>
   );
