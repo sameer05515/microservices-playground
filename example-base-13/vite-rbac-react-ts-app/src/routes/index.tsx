@@ -4,6 +4,7 @@ import Home from "../pages/Home";
 import About from "../pages/AboutThisProject";
 import NotFound from "./NotFound/v2";
 import Layout from "./Layout";
+import Settings from "../pages/Settings";
 
 const RBACPracticeRoutes = () => {
   return (
@@ -15,6 +16,7 @@ const RBACPracticeRoutes = () => {
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="/about" element={<About />} />
+          <Route path="/settings" element={<Settings/>}/>
         </Route>
 
         <Route path="*" element={<NotFound />} />
