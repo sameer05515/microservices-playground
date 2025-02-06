@@ -1,19 +1,18 @@
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 
 import './App.css';
 import Home from './pages/Home';
 import About from './pages/AboutThisProject';
 import NotFound from './pages/NotFound';
+// import Layout from "./routes/Layout";
 
 function App() {
   
 
   return (
     <div>
-      <nav>
-        <Link to="/">Home</Link> | <Link to="/about">About</Link>
-      </nav>
+      
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
