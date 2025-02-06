@@ -14,6 +14,7 @@
     "start:v9": "node dist/server.v009.js",
     "start:v10": "node dist/server.v0010.js",
     "start:v11": "node dist/server.v0011.js",
+    "start": "node dist/server.js",
     "dev:v1": "nodemon --ext ts --exec ts-node src/server.v001.ts",
     "dev:v2": "nodemon --ext ts --exec ts-node src/server.v002.ts",
     "dev:v3": "nodemon --ext ts --exec ts-node src/server.v003.ts",
@@ -24,7 +25,8 @@
     "dev:v8": "nodemon --ext ts --exec ts-node src/server.v008.ts",
     "dev:v9": "nodemon --ext ts --exec ts-node src/server.v009.ts",
     "dev:v10": "nodemon --ext ts --exec ts-node src/server.v010.ts",
-    "dev:v11": "nodemon --ext ts --exec ts-node src/server.v011.ts"
+    "dev:v11": "nodemon --ext ts --exec ts-node src/server.v011.ts",
+    "dev": "nodemon --ext ts --exec ts-node src/server.ts"
   },
   "keywords": [],
   "author": "",
