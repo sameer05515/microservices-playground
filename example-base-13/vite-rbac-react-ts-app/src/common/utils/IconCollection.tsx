@@ -3,7 +3,7 @@ import * as ReactIconsMd from "react-icons/md";
 import * as ReactIconsAi from "react-icons/ai";
 import * as ReactIconsTb from "react-icons/tb";
 import { IconType } from "react-icons";
-import { isValidString } from "../../pages/ApnaPlayground/basic-validations";
+import { isValidString } from "./basic-validations";
 
 // Utility to fetch icons by name
 export const getIcon = (name: string = "FaQuestionCircle"): IconType => {
