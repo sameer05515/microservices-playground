@@ -11,7 +11,7 @@
 import { useMemo } from "react";
 import { NavLink, useSearchParams } from "react-router-dom";
 import { componentNames, getComponentDetails } from "./utils";
-import SidebarV3 from "./SidebarV3";
+import SidebarV3 from "../../routes/Layout/Sidebar/v3";
 import { AiFillForward as NextIcon, AiFillBackward as PrevIcon } from "react-icons/ai";
 // import PomodoroTimerV2 from "./PomodoroTimer/v2";
 

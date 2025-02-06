@@ -2,7 +2,7 @@
 // import { FiMoon, FiSun } from "react-icons/fi";
 // import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { getIcon } from "../../common/utils/IconCollection";
+import { getIcon } from "../../../common/utils/IconCollection";
 // import { setSelectedModuleName } from "../../../store/v2/application-states/actions";
 // import { links } from "./utils";
 // import useThemeManager from "../../../common/hooks/useThemeManager";
