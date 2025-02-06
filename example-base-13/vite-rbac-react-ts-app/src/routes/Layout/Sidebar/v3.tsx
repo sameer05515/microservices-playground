@@ -8,26 +8,9 @@ import { getIcon } from "../../../common/utils/IconCollection";
 // import useThemeManager from "../../../common/hooks/useThemeManager";
 // import { selectApplicationStateIsDarkModeActive } from "../../../store/v2/selectors";
 
-type LinkProps = {
-  id: string;
-  linkHeader: string;
-  linkPath: () => string;
-  icon: string;
-};
-// Links with icons
-const links: LinkProps[] = [
-  { linkHeader: "Home", linkPath: () => "/", icon: "FaHome" },
-  // { linkHeader: "Targetted Questions", linkPath: () => "/targetted-questions", icon: "FaBullseye" },
-  { linkHeader: "Apna Playground", linkPath: () => "/testing", icon: "FaBasketballBall" },
-  // { linkHeader: "Resume Management", linkPath: () => "/resume", icon: "FaFileAlt" },
-  // { linkHeader: "CGPT Dashboard V1", linkPath: () => "/cgpt/v1", icon: "FaChartPie" },
-  // { linkHeader: "PragyamDashboard V2", linkPath: () => "/cgpt/v2", icon: "TbInfinity" },
-  { linkHeader: "Settings", linkPath: () => "/settings", icon: "FaCog" },
-  // { linkHeader: "Testing", linkPath: () => "/testing", icon: "MdOutlineAssessment" },
-].map((link, idx) => ({ ...link, id: `link_${idx}` }));
+import { AvailableLinks as links, type LinkProps } from "../../available-links";
 
-export const CollapsedIcon = getIcon("FaToggleOff");
-export const ExpandedIcon = getIcon("FaToggleOn");
+// const links=prepareLinks();
 
 const SidebarV3 = () => {
   //   const dispatch = useDispatch();
