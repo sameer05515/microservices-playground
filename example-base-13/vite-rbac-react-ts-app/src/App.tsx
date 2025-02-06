@@ -3,7 +3,7 @@ import { Routes, Route, Link } from "react-router-dom";
 
 import './App.css';
 import Home from './pages/Home';
-import About from './AboutThisProject';
+import About from './pages/AboutThisProject';
 import NotFound from './pages/NotFound';
 
 function App() {
