@@ -1,15 +1,8 @@
 import { JSX } from "react";
+import ServerV1ApiTestingV1 from "./ServerV1ApiTesting/v1";
 
 const Components: Record<string, () => JSX.Element> = {
-  Test: () => (
-    <div>
-      This is our first component in this playground. <br /> We will mainly focus on following
-      <ul>
-        <li>Axios config usage</li>
-        <li>RBAC usage with Axios</li>
-      </ul>
-    </div>
-  ),
+  ServerV1ApiTestingV1
 };
 
 export const componentNames = Object.keys(Components);
