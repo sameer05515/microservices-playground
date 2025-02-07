@@ -33,6 +33,7 @@ export const verifyToken = async (req: AuthRequest, res: Response, next: NextFun
     req.user = { id: user.id, roles: user.roles };
     next();
   } catch (error) {
+    console.log(error)
     res.status(403).json({ message: "Invalid token" });
   }
 };
@@ -115,7 +116,7 @@ router.post("/auth/login", async (req, res) => {
       return;
     }
 
-    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET!, { expiresIn: "1h" });
+    const token = jwt.sign({ id: user.id }, JWT_SECRET!, { expiresIn: "1h" });
 
     res.cookie("token", token, { httpOnly: true, secure: process.env.NODE_ENV === "production" });
     res.json({ message: "Login successful", user: { id: user.id, roles: user.roles } });
