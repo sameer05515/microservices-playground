@@ -25,7 +25,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const { data } = await axios.get("/api/v13/auth/me", { withCredentials: true });
+        const { data } = await axios.get("http://localhost:3005/api/v13/auth/me", { withCredentials: true });
         setUser(data.user);
       } catch (error) {
         setUser(null);
