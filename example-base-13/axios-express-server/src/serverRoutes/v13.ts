@@ -124,12 +124,12 @@ router.post("/auth/login", async (req, res) => {
 });
 
 // 🔥 Fetch Authenticated User (Protected)
-router.get("/me", verifyToken, (req: AuthRequest, res) => {
+router.get("/auth/me", verifyToken, (req: AuthRequest, res) => {
   res.json({ user: req.user });
 });
 
 // 🔥 Logout Endpoint (Clears Token)
-router.post("/logout", (req, res) => {
+router.post("/auth/logout", (req, res) => {
   res.clearCookie("token");
   res.json({ message: "Logged out successfully" });
 });
