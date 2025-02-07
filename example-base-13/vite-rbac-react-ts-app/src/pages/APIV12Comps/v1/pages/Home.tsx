@@ -9,7 +9,7 @@ const Home = () => {
   return (
     <div className="flex flex-col items-center gap-4 p-6">
       <h1 className="text-2xl font-bold text-blue-600">🏠 Home Page</h1>
-      {user ? (
+      {user && user.id && user.role ? (
         <>
           <p className="text-lg">👋 Welcome, {user.id}!</p>
           <p className="text-sm text-gray-500">Your Role: {user.role?.toUpperCase()}</p>
