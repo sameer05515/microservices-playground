@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { APP_V12_OBJECT_KEY } from "../hooks/useAuth";
+import { LocalSessionManager } from "../../../common/utils/LocalSessionManager";
 
 const Login = () => {
   const [role, setRole] = useState<"admin" | "user">("user");
@@ -8,7 +9,8 @@ const Login = () => {
 
   const handleLogin = () => {
     const user = { id: "user123", role };
-    localStorage.setItem(APP_V12_OBJECT_KEY, JSON.stringify(user));
+    // localStorage.setItem(APP_V12_OBJECT_KEY, JSON.stringify(user));
+    LocalSessionManager.writeApplicationObject(user, APP_V12_OBJECT_KEY);
     navigate("/"); // Redirect to home
   };
 
