@@ -9,7 +9,7 @@ const Signup = () => {
   const [userData, setUserData] = useState({
     username: "",
     password: "",
-    roles: [], // Multi-role support 🔥 (Can be ["admin", "user"])
+    roles: "", // Single selection dropdown (Can be enhanced to multiple selection)
   });
 
   const [error, setError] = useState("");
@@ -39,55 +39,67 @@ const Signup = () => {
   };
 
   return (
-    <div className="container mt-5">
-      <h2>Signup</h2>
-      {error && <p className="text-danger">{error}</p>}
+    <div className="flex min-h-screen items-center justify-center bg-gray-100 px-4">
+      <div className="w-full max-w-sm rounded-lg bg-white p-6 shadow-lg">
+        <h2 className="mb-6 text-center text-2xl font-semibold text-gray-700">Sign Up</h2>
 
-      <form onSubmit={handleSubmit}>
-        <div className="mb-3">
-          <label className="form-label">Username</label>
-          <input
-            type="text"
-            name="username"
-            className="form-control"
-            value={userData.username}
-            onChange={handleChange}
-            required
-          />
-        </div>
+        {error && <p className="mb-4 rounded-md bg-red-100 p-2 text-center text-red-600">{error}</p>}
 
-        <div className="mb-3">
-          <label className="form-label">Password</label>
-          <input
-            type="password"
-            name="password"
-            className="form-control"
-            value={userData.password}
-            onChange={handleChange}
-            required
-          />
-        </div>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label className="mb-1 block text-sm font-medium text-gray-700">Username</label>
+            <input
+              type="text"
+              name="username"
+              className="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none focus:ring"
+              value={userData.username}
+              onChange={handleChange}
+              required
+            />
+          </div>
 
-        <div className="mb-3">
-          <label className="form-label">Role</label>
-          <select
-            name="roles"
-            className="form-select"
-            onChange={handleChange}
-            required
+          <div>
+            <label className="mb-1 block text-sm font-medium text-gray-700">Password</label>
+            <input
+              type="password"
+              name="password"
+              className="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none focus:ring"
+              value={userData.password}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div>
+            <label className="mb-1 block text-sm font-medium text-gray-700">Role</label>
+            <select
+              name="roles"
+              className="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none focus:ring"
+              value={userData.roles}
+              onChange={handleChange}
+              required
+            >
+              <option value="">Select Role</option>
+              <option value="user">User</option>
+              <option value="admin">Admin</option>
+            </select>
+          </div>
+
+          <button
+            type="submit"
+            className="w-full rounded-md bg-blue-600 px-4 py-2 text-white transition hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300"
           >
-            <option value="">Select Role</option>
-            <option value="user">User</option>
-            <option value="admin">Admin</option>
-          </select>
-        </div>
+            Sign Up
+          </button>
+        </form>
 
-        <button type="submit" className="btn btn-primary">Signup</button>
-      </form>
-
-      <p className="mt-3">
-        Already have an account? <a href="/login">Login</a>
-      </p>
+        <p className="mt-4 text-center text-gray-600">
+          Already have an account?{" "}
+          <a href="/login" className="font-medium text-blue-600 hover:underline">
+            Login
+          </a>
+        </p>
+      </div>
     </div>
   );
 };
