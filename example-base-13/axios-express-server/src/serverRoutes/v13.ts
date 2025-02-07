@@ -13,6 +13,7 @@ export interface AuthRequest extends Request {
 }
 
 export const verifyToken = async (req: AuthRequest, res: Response, next: NextFunction) => {
+  console.log("Cookies:", req.cookies); // 🔍 Log received cookies
   const token = req.cookies?.token || req.headers.authorization?.split(" ")[1];
 
   if (!token) {
