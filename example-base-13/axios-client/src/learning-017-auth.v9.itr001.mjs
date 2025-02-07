@@ -100,7 +100,7 @@ const UserRegistry = {
   User1: { name: "User1 Kumar", email: "user1@example.com", password: "Test@123", role: "user" },
 };
 
-const selectedUser = UserRegistry.User1;
+const selectedUser = UserRegistry.Admin1;
 
 // Step 1: Sign up a user, One time activity, hence execution of this route is masked
 if (signUpRequired) {
