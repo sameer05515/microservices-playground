@@ -9,6 +9,7 @@ import serverRoutesV1 from "./serverRoutes/v1";
 import serverRoutesV10 from "./serverRoutes/v10";
 import serverRoutesV11 from "./serverRoutes/v11";
 import serverRoutesV12 from "./serverRoutes/v12";
+import serverRoutesV13 from "./serverRoutes/v13";
 import serverRoutesV4 from "./serverRoutes/v4";
 import serverRoutesV5 from "./serverRoutes/v5";
 import serverRoutesV6 from "./serverRoutes/v6";
@@ -50,6 +51,8 @@ app.use("/api/v11", serverRoutesV11);
 
 // Add this line before `app.use(notFoundHandler)`
 app.use("/api/v12", serverRoutesV12);
+
+app.use("/api/v13", serverRoutesV13);
 
 // 4️⃣ Route Not Found Middleware (must be after all valid routes)
 app.use(notFoundHandler);
