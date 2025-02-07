@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 // import { LocalSessionManager } from "../../../common/utils/LocalSessionManager/v1";
-import LocalSessionManager from "../../../common/utils/LocalSessionManager/v3";
+import LocalSessionManager from "../../../../common/utils/LocalSessionManager/v3";
 
 interface User {
   id: string;

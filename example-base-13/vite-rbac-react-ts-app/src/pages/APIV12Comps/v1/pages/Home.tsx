@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { APP_V12_OBJECT_KEY, useAuth } from "../hooks/useAuth";
-import LocalSessionManager from "../../../common/utils/LocalSessionManager/v3";
+import LocalSessionManager from "../../../../common/utils/LocalSessionManager/v3";
 
 const Home = () => {
   const { user } = useAuth();
@@ -12,7 +12,7 @@ const Home = () => {
       {user ? (
         <>
           <p className="text-lg">👋 Welcome, {user.id}!</p>
-          <p className="text-sm text-gray-500">Your Role: {user.role.toUpperCase()}</p>
+          <p className="text-sm text-gray-500">Your Role: {user.role?.toUpperCase()}</p>
           <button
             className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
             onClick={() => {

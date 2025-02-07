@@ -1,10 +1,17 @@
+import RBACPracticeRoutes from "./routes";
+import AppV12Routes from "./pages/APIV12Comps/v1/routes/AppRoutes";
 
-// import RBACPracticeRoutes from "./routes";
-import AppV12Routes from "./pages/APIV12Comps/routes/AppRoutes";
+const setting = {
+  ShowRBACPracticeRoutes: false,
+  ShowAppV12Routes: true,
+};
 
 function App() {
   return (
-    <AppV12Routes/>
+    <>
+      {setting.ShowAppV12Routes && <AppV12Routes />}
+      {setting.ShowRBACPracticeRoutes && <RBACPracticeRoutes />}
+    </>
   );
 }
 
