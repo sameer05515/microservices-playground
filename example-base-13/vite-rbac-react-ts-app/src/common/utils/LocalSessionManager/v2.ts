@@ -1,6 +1,6 @@
 import { isValidObject, isValidString } from "../basic-validations";
 
-class LocalSessionManager {
+class LocalSessionManagerV2 {
   static readApplicationObject(appObjectName: string): Record<string, unknown> {
     if (!isValidString(appObjectName)) {
       throw new Error("Invalid application object name provided for storage: " + appObjectName);
@@ -31,8 +31,8 @@ class LocalSessionManager {
 
   static getItemForKey<T>(key: string, appObjectName: string): T | null {
     if (!isValidString(key)) {
-        throw new Error("Key and value are required for setItemForKey.");
-      }
+      throw new Error("Key and value are required for setItemForKey.");
+    }
     if (!isValidString(appObjectName)) {
       throw new Error("Invalid application object name provided for storage: " + appObjectName);
     }
@@ -75,5 +75,4 @@ class LocalSessionManager {
   }
 }
 
-
-export default LocalSessionManager;
+export default LocalSessionManagerV2;
