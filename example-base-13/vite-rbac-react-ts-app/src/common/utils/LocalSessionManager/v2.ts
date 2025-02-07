@@ -3,15 +3,11 @@ import { isValidObject, isValidString } from "../basic-validations";
 // Application object keys
 export const APPLICATION_OBJECT_CHAT_RENDERER_KEY = "chatRendererConfig";
 
-
 export class LocalSessionManager {
-  /**
-   * Reads the application configuration object from localStorage.
-   * @param appObjectName - The key under which the application config is stored.
-   * @returns Parsed configuration object.
-   * @throws Error If JSON parsing fails.
-   */
-  static readApplicationObject(appObjectName: string = APPLICATION_OBJECT_CHAT_RENDERER_KEY): Record<string, unknown> {
+  static readApplicationObject(appObjectName: string): Record<string, unknown> {
+    if (!isValidString(appObjectName)) {
+      throw new Error("Invalid application object name provided for storage: " + appObjectName);
+    }
     try {
       const storedConfig = localStorage.getItem(appObjectName);
       return storedConfig ? JSON.parse(storedConfig) : {};
@@ -21,12 +17,6 @@ export class LocalSessionManager {
     }
   }
 
-  /**
-   * Writes the given object to localStorage under the application config name.
-   * @param obj - The object to be stored.
-   * @param appObjectName - The key under which the application config is stored.
-   * @throws Error If the object is invalid or cannot be written.
-   */
   static writeApplicationObject(obj: Record<string, unknown>, appObjectName: string): void {
     if (!isValidObject(obj)) {
       throw new Error("Invalid object provided for storage.");
@@ -42,12 +32,6 @@ export class LocalSessionManager {
     }
   }
 
-  /**
-   * Retrieves the value for a specific key from the application configuration.
-   * @param key - The key to retrieve.
-   * @param appObjectName - The key under which the application config is stored.
-   * @returns The value associated with the key, or null if not found.
-   */
   static getItemForKey<T>(key: string, appObjectName: string = APPLICATION_OBJECT_CHAT_RENDERER_KEY): T | null {
     try {
       const config = this.readApplicationObject(appObjectName);
@@ -58,13 +42,6 @@ export class LocalSessionManager {
     }
   }
 
-  /**
-   * Sets the value for a specific key in the application configuration.
-   * @param key - The key to set.
-   * @param value - The value to associate with the key.
-   * @param appObjectName - The key under which the application config is stored.
-   * @throws Error If writing to local storage fails.
-   */
   static setItemForKey(key: string, value: unknown, appObjectName: string): void {
     if (!key || value === undefined) {
       throw new Error("Key and value are required for setItemForKey.");
@@ -82,10 +59,6 @@ export class LocalSessionManager {
     }
   }
 
-  /**
-   * Clears the entire application configuration in localStorage.
-   * @param appObjectName - The key under which the application config is stored.
-   */
   static clearApplicationObject(appObjectName: string): void {
     if (!isValidString(appObjectName)) {
       throw new Error("Invalid application object name provided: " + appObjectName);
