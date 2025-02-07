@@ -39,14 +39,15 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   // 🔥 Login Function
   const login = async (email: string, password: string) => {
-    await axios.post("/api/v13/auth/login", { email, password }, { withCredentials: true });
-    const { data } = await axios.get("/api/v13/auth/me", { withCredentials: true });
+    // await axios.post("http://localhost:3005/api/v13/auth/login", { email, password }, { withCredentials: true });
+    await axios.post("http://localhost:3005/api/v13/auth/login", { email, password });
+    const { data } = await axios.get("http://localhost:3005/api/v13/auth/me", { withCredentials: true });
     setUser(data.user);
   };
 
   // 🔥 Logout Function
   const logout = async () => {
-    await axios.post("/api/v13/auth/logout", {}, { withCredentials: true });
+    await axios.post("http://localhost:3005/api/v13/auth/logout", {}, { withCredentials: true });
     setUser(null);
   };
 

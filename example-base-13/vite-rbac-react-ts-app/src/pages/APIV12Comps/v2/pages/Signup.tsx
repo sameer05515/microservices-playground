@@ -8,6 +8,7 @@ const Signup = () => {
   // State for form inputs
   const [userData, setUserData] = useState({
     username: "",
+    email:"",
     password: "",
     roles: "", // Single selection dropdown (Can be enhanced to multiple selection)
   });
@@ -27,7 +28,7 @@ const Signup = () => {
 
     try {
       // 🔥 API CALL (Replace with real backend endpoint)
-      const response = await axios.post("/api/v1/auth/signup", userData);
+      const response = await axios.post("http://localhost:3005/api/v13/auth/register", userData);
       console.log("Signup successful!", response.data);
 
       // Redirect to login after successful signup
@@ -53,6 +54,18 @@ const Signup = () => {
               name="username"
               className="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none focus:ring"
               value={userData.username}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div>
+            <label className="mb-1 block text-sm font-medium text-gray-700">Email</label>
+            <input
+              type="text"
+              name="email"
+              className="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none focus:ring"
+              value={userData.email}
               onChange={handleChange}
               required
             />

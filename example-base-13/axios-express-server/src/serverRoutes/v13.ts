@@ -1,5 +1,6 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import cors from "cors";
 import express, { Request, Response, NextFunction } from "express";
 import cookieParser from "cookie-parser";
 import { User } from "../models/user.model.v4";
@@ -92,6 +93,8 @@ export const registerUser = async (req: Request, res: Response) => {
 
 const router = express.Router();
 router.use(cookieParser());
+// router.use(cors({ origin: process.env.CLIENT_URL || "http://localhost:5173", credentials: true }));
+// router.use(cors());
 router.post("/auth/register", registerUser);
 // router.post("/auth/login", loginUser);
 // 🔥 Login Endpoint (Issues JWT)
