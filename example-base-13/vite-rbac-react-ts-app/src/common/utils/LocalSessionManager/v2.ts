@@ -10,7 +10,7 @@ import { isValidObject, isValidString } from "../basic-validations";
  * 
  * However, this version is an intermediate version and **should not be used in production**.
  * 
- * Please refer [LocalSessionManagerV3](./v3.ts) for prod use.
+ * Please refer [LocalSessionManagerV3](./v3.ts) for production use.
  *
  */
 class LocalSessionManagerV2 {
