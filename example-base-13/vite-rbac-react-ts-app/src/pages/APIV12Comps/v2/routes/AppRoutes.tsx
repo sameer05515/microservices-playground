@@ -7,6 +7,7 @@ import LogoutButton from "../pages/LogoutButton";
 import Unauthorized from "../pages/Unauthorized";
 import Dashboard from "../pages/Dashboard";
 import Home from "../pages/Home";
+import Signup from "../pages/Signup";
 
 const AppRoutes = () => {
   return (
@@ -30,6 +31,7 @@ const AppRoutes = () => {
         <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/unauthorized" element={<Unauthorized />} />
+          <Route path="/sign-up" element={<Signup />} />
 
           {/* 🔐 Protected Routes */}
           <Route element={<ProtectedRoute allowedRoles={["user", "admin"]} />}>
