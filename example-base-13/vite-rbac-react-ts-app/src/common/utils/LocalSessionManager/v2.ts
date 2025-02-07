@@ -1,5 +1,18 @@
 import { isValidObject, isValidString } from "../basic-validations";
 
+/**
+ * This version is just cleaned up v1.
+ *
+ * We have performed below actions
+ * - Removed extra constants came along with old file, which I copied from another project
+ * - Removed old documentation, so that I can put updated documentation which reflects what has been changed in this version
+ * - Removed default values for appObjectName and tried to add error throwing logic
+ * 
+ * However, this version is an intermediate version and **should not be used in production**.
+ * 
+ * Please refer [LocalSessionManagerV3](./v3.ts) for prod use.
+ *
+ */
 class LocalSessionManagerV2 {
   static readApplicationObject(appObjectName: string): Record<string, unknown> {
     if (!isValidString(appObjectName)) {
