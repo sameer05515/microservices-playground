@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { APP_V12_OBJECT_KEY, useAuth } from "../hooks/useAuth";
-import { LocalSessionManager } from "../../../common/utils/LocalSessionManager/v2";
+import LocalSessionManager from "../../../common/utils/LocalSessionManager/v2";
 
 const Home = () => {
   const { user } = useAuth();

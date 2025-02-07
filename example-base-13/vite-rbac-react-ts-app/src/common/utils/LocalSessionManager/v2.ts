@@ -1,9 +1,6 @@
 import { isValidObject, isValidString } from "../basic-validations";
 
-// Application object keys
-export const APPLICATION_OBJECT_CHAT_RENDERER_KEY = "chatRendererConfig";
-
-export class LocalSessionManager {
+class LocalSessionManager {
   static readApplicationObject(appObjectName: string): Record<string, unknown> {
     if (!isValidString(appObjectName)) {
       throw new Error("Invalid application object name provided for storage: " + appObjectName);
@@ -32,7 +29,13 @@ export class LocalSessionManager {
     }
   }
 
-  static getItemForKey<T>(key: string, appObjectName: string = APPLICATION_OBJECT_CHAT_RENDERER_KEY): T | null {
+  static getItemForKey<T>(key: string, appObjectName: string): T | null {
+    if (!isValidString(key)) {
+        throw new Error("Key and value are required for setItemForKey.");
+      }
+    if (!isValidString(appObjectName)) {
+      throw new Error("Invalid application object name provided for storage: " + appObjectName);
+    }
     try {
       const config = this.readApplicationObject(appObjectName);
       return key in config ? (config[key] as T) : null;
@@ -44,7 +47,7 @@ export class LocalSessionManager {
 
   static setItemForKey(key: string, value: unknown, appObjectName: string): void {
     if (!key || value === undefined) {
-      throw new Error("Key and value are required for setItemForKey.");
+      throw new Error("Invalid Key name provided.");
     }
     if (!isValidString(appObjectName)) {
       throw new Error("Invalid application object name provided for storage: " + appObjectName);
@@ -71,3 +74,6 @@ export class LocalSessionManager {
     }
   }
 }
+
+
+export default LocalSessionManager;
