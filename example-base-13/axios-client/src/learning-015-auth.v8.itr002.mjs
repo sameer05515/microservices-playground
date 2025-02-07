@@ -93,7 +93,7 @@ export const logout = () => {
 
 // USAGE EXAMPLE
 const signUpRequired = false;
-const loginRequired = false;
+const loginRequired = true;
 const shouldLogout = false;
 
 // Step 1: Sign up a user, One time activity, hence execution of this route is masked

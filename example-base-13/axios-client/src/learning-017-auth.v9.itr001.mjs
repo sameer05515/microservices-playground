@@ -92,7 +92,7 @@ class ApiClient {
 
 // =======================================  USAGE EXAMPLE  =============================
 const signUpRequired = false;
-const loginRequired = false;
+const loginRequired = true;
 const shouldLogout = false;
 
 const UserRegistry = {

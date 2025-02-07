@@ -10,6 +10,10 @@ import serverRoutesV4 from "./serverRoutes/v4";
 import serverRoutesV5 from "./serverRoutes/v5";
 import serverRoutesV6 from "./serverRoutes/v6";
 import serverRoutesV7 from "./serverRoutes/v7";
+import serverRoutesV8 from "./serverRoutes/v8";
+import serverRoutesV9 from "./serverRoutes/v9";
+import serverRoutesV10 from "./serverRoutes/v10";
+import serverRoutesV11 from "./serverRoutes/v11";
 
 dotenv.config();
 
@@ -34,6 +38,14 @@ app.use("/api/v5", serverRoutesV5);
 app.use("/api/v6", serverRoutesV6);
 
 app.use("/api/v7", serverRoutesV7);
+
+app.use("/api/v8", serverRoutesV8);
+
+app.use("/api/v9", serverRoutesV9);
+
+app.use("/api/v10", serverRoutesV10);
+
+app.use("/api/v11", serverRoutesV11);
 
 // 4️⃣ Route Not Found Middleware (must be after all valid routes)
 app.use(notFoundHandler);
