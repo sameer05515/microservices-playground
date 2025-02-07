@@ -14,15 +14,20 @@ export const useAuth = () => {
 
   useEffect(() => {
     // const storedUser = localStorage.getItem(APP_V12_OBJECT_KEY);
-    const storedUser = LocalSessionManager.readApplicationObject(APP_V12_OBJECT_KEY);
+    const storedUser = LocalSessionManager.readApplicationObject<User>(APP_V12_OBJECT_KEY);
+    
     // 🔥 Directly set the user since it's already parsed
     // if (storedUser && "id" in storedUser && "role" in storedUser) {
     //   setUser(storedUser as User);
     // }
 
     // ✅ Convert to `unknown` first, then assert as `User`
-    if (storedUser && typeof storedUser === "object" && "id" in storedUser && "role" in storedUser) {
-      setUser(storedUser as unknown as User);
+    // if (storedUser && typeof storedUser === "object" && "id" in storedUser && "role" in storedUser) {
+    //   setUser(storedUser as unknown as User);
+    // }
+
+    if (storedUser) {
+      setUser(storedUser);
     }
   }, []);
 
