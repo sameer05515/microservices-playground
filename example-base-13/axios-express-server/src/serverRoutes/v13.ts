@@ -33,7 +33,7 @@ export const verifyToken = async (req: AuthRequest, res: Response, next: NextFun
     req.user = { id: user.id, roles: user.roles };
     next();
   } catch (error) {
-    console.log(error)
+    console.log(error);
     res.status(403).json({ message: "Invalid token" });
   }
 };
@@ -41,7 +41,12 @@ export const verifyToken = async (req: AuthRequest, res: Response, next: NextFun
 // Register New User
 export const registerUser = async (req: Request, res: Response) => {
   try {
-    const { username, email, password, role } = req.body;
+    const { username, email, password, roles } = req.body;
+
+    if (!username || !email || !password || !roles) {
+      res.status(400).json({ message: "Name, Email, role & Password required" });
+      return;
+    }
 
     // Check if user already exists
     const existingUser = await User.findOne({ email });
@@ -54,7 +59,7 @@ export const registerUser = async (req: Request, res: Response) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Create user
-    const newUser = new User({ username, email, password: hashedPassword, role });
+    const newUser = new User({ username, email, password: hashedPassword, roles: [roles] });
     await newUser.save();
 
     res.status(201).json({ message: "User registered successfully" });
