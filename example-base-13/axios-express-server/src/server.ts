@@ -1,19 +1,19 @@
+import cors from "cors";
+import dotenv from "dotenv";
 import express from "express";
 import mongoose from "mongoose";
-import dotenv from "dotenv";
 import { notFoundHandler } from "./middlewares/notFound.middleware.v1";
-import cors from "cors";
-import serverRoutesV1 from "./serverRoutes/v1";
 import itemsRoutesV3 from "./routes/items.routes.v3";
 import taskRoutesV3 from "./routes/task.routes.v3";
+import serverRoutesV1 from "./serverRoutes/v1";
+import serverRoutesV10 from "./serverRoutes/v10";
+import serverRoutesV11 from "./serverRoutes/v11";
 import serverRoutesV4 from "./serverRoutes/v4";
 import serverRoutesV5 from "./serverRoutes/v5";
 import serverRoutesV6 from "./serverRoutes/v6";
 import serverRoutesV7 from "./serverRoutes/v7";
 import serverRoutesV8 from "./serverRoutes/v8";
 import serverRoutesV9 from "./serverRoutes/v9";
-import serverRoutesV10 from "./serverRoutes/v10";
-import serverRoutesV11 from "./serverRoutes/v11";
 
 dotenv.config();
 
@@ -51,13 +51,13 @@ app.use("/api/v11", serverRoutesV11);
 app.use(notFoundHandler);
 
 // 5️⃣ Global error handler (handles all other errors)
-// app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
-//   console.error(`[ERROR]: ${err.message}`);
-//   res.status(err.status || 500).json({
-//     message: err.message || "Internal Server Error",
-//     statusCode: err.status || 500,
-//   });
-// });
+app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
+  console.error(`[ERROR]: ${err.message}`);
+  res.status(err.status || 500).json({
+    message: err.message || "Internal Server Error",
+    statusCode: err.status || 500,
+  });
+});
 
 // app.listen(port, () => {
 //   console.log(`Server running at http://localhost:${port}`);
