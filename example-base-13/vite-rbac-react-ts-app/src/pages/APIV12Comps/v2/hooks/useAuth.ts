@@ -1,35 +1,34 @@
 import { useState, useEffect } from "react";
-// import { LocalSessionManager } from "../../../common/utils/LocalSessionManager/v1";
-import LocalSessionManager from "../../../../common/utils/LocalSessionManager/v3";
+import axios from "axios";
 
 interface User {
   id: string;
-  role: "admin" | "user"; // Add more roles as needed
+  roles: string[]; // Now supports multiple roles
 }
-
-export const APP_V12_OBJECT_KEY = "appv12-user";
 
 export const useAuth = () => {
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
-    // const storedUser = localStorage.getItem(APP_V12_OBJECT_KEY);
-    const storedUser = LocalSessionManager.readApplicationObject<User>(APP_V12_OBJECT_KEY);
-    
-    // 🔥 Directly set the user since it's already parsed
-    // if (storedUser && "id" in storedUser && "role" in storedUser) {
-    //   setUser(storedUser as User);
-    // }
-
-    // ✅ Convert to `unknown` first, then assert as `User`
-    // if (storedUser && typeof storedUser === "object" && "id" in storedUser && "role" in storedUser) {
-    //   setUser(storedUser as unknown as User);
-    // }
-
-    if (storedUser) {
-      setUser(storedUser);
-    }
+    const fetchUser = async () => {
+      try {
+        const response = await axios.get("/api/v13/auth/me"); // Fetch user session
+        setUser(response.data);
+      } catch {
+        setUser(null);
+      }
+    };
+    fetchUser();
   }, []);
 
-  return { user, role: user?.role };
+  const logout = async () => {
+    try {
+      await axios.post("/api/v13/auth/logout"); // Backend logout call
+      setUser(null);
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
+  };
+
+  return { user, roles: user?.roles || [], logout };
 };
