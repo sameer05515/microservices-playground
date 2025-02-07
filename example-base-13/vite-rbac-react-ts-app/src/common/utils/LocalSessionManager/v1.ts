@@ -20,7 +20,7 @@ export const KEYS = {
   ConsolidatedReportV1_SidebarClosed: "ConsolidatedReportV1_SidebarClosed",
 };
 
-export class LocalSessionManager {
+class LocalSessionManagerV1 {
   /**
    * Reads the application configuration object from localStorage.
    * @param appObjectName - The key under which the application config is stored.
@@ -114,3 +114,6 @@ export class LocalSessionManager {
     }
   }
 }
+
+
+export default LocalSessionManagerV1;
