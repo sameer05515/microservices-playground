@@ -5,7 +5,7 @@
  * Plan: Import methods from UtilityMethods.ts for validation and other utilities.
  */
 
-import { isValidObject, isValidString } from "./basic-validations";
+import { isValidObject, isValidString } from "../basic-validations";
 
 // Application object keys
 export const APPLICATION_OBJECT_CHAT_RENDERER_KEY = "chatRendererConfig";

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { LocalSessionManager } from "../../../common/utils/LocalSessionManager";
+import { LocalSessionManager } from "../../../common/utils/LocalSessionManager/v1";
 
 interface User {
   id: string;
