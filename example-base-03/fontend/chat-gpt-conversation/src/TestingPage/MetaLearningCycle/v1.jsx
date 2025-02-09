@@ -68,6 +68,70 @@ const MetaLearningCycleV1 = () => {
           </div>
         </div>
       </div>
+      <div className="p-6 min-h-screen leading-relaxed">
+        <div className="w-full">
+          <b>Summary: </b> Meta Learning to Learn 10x Fast
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+          {/* Left Section */}
+          <div>
+            <div className="mb-4">
+              <b>Neuroscience Behind Learning</b>
+              <p className="mt-2 space-y-1">
+                <span>
+                  • <b>Neuroplasticity:</b> Brain forms stronger connections with practice.
+                </span>
+                <br />
+                <span>
+                  • <b>Dopamine:</b> Motivation and reward system that keeps you engaged.
+                </span>
+              </p>
+            </div>
+
+            <div>
+              <b>4 Stages of Learning</b>
+              <ol className="mt-2 space-y-2 list-decimal list-inside">
+                <li>
+                  <b>Discomfort:</b> Initial struggle when learning something new.
+                </li>
+                <li>
+                  <b>Improvement:</b> Confidence grows with progress.
+                </li>
+                <li>
+                  <b>Plateau:</b> Frustrating phase where results slow down.
+                </li>
+                <li>
+                  <b>Success:</b> Mastery achieved with persistence.
+                </li>
+              </ol>
+            </div>
+          </div>
+
+          {/* Right Section */}
+          <div>
+            <b>5 Ways to Learn Faster</b>
+            <ul className="mt-2 space-y-2 list-disc list-inside">
+              <li>
+                <b>80/20 Rule:</b> Focus on the 20% that gives 80% of the results.
+              </li>
+              <li>
+                <b>Clear Intentions:</b> Ask yourself why you are learning to stay motivated.
+              </li>
+              <li>
+                <b>Teach Others:</b> Explaining what you learn helps retention.
+              </li>
+              <li>
+                <b>Get Feedback:</b> Learn faster by correcting mistakes in real-time.
+              </li>
+              <li>
+                <b>Shift your Identity:</b> Embrace mistakes and grow from them.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
       <div className="p-10 font-sans leading-relaxed min-h-screen">
         <MDSectionV7 mdFileUrl="/meta-learning/v1.md" />
       </div>
