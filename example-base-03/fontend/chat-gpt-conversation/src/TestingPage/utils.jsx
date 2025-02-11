@@ -42,7 +42,7 @@ import CornellMethodVisualizationV1 from "./CornellMethod/v1";
 import PomodoroTimerV1 from "./PomodoroTimer/v1";
 import ExternalLinksV1 from "./ExternalLinks/v1";
 import MetaLearningCycleV1 from "./MetaLearningCycle/v1";
-import MDSectionTesingV1 from "./MDSectionTesting/v1";
+import MDSectionV8TesingV1 from "./MDSectionTesting/v1";
 
 const Components = {
   DashboardDemoV1,
@@ -89,7 +89,7 @@ const Components = {
   PomodoroTimerV1,
   ExternalLinksV1,
   MetaLearningCycleV1,
-  MDSectionTesingV1
+  MDSectionV8TesingV1
 };
 
 export const componentNames = Object.keys(Components);

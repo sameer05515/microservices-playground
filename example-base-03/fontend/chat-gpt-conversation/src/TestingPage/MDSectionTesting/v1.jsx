@@ -1,7 +1,7 @@
 import React, { useCallback } from "react";
 import MDSectionV8 from "../../common/components/MDSection/v8";
 
-const MDSectionTesingV1 = () => {
+const MDSectionV8TesingV1 = () => {
   const handleRecievingSuccessResponse = useCallback((response) => response.data?.content || "", []);
   return (
     <div>
@@ -13,4 +13,4 @@ const MDSectionTesingV1 = () => {
   );
 };
 
-export default MDSectionTesingV1;
+export default MDSectionV8TesingV1;
