@@ -6,7 +6,7 @@ const MDSectionTesingV1 = () => {
   return (
     <div>
       <MDSectionV8
-        mdFileUrl="http://localhost:3000/smart-content/choot-ka-dhakkan"
+        mdFileUrl="http://localhost:3000/smart-content/actionables--my-bugs-and-new-requirements-md"
         onRecievingSuccessResponse={handleRecievingSuccessResponse}
       />
     </div>
