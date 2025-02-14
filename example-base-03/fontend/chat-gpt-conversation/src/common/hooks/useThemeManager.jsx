@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import useLocalStorage from "./useLocalStorage"; // Import the custom localStorage hook
 import { useDispatch } from "react-redux";
 import { setDarkViewMode, setLightViewMode } from "../../store/v2/application-states/actions";
+// import { bootstrap } from "../../TestingPage/KnowYourPositivity/Registry";
 
 const THEME_KEY = "viewMode";
 
@@ -27,6 +28,10 @@ const useThemeManager = () => {
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
   }, [theme]);
+
+  // useEffect(() => {
+  //   bootstrap();
+  // }, []);
 
   return { toggleTheme };
 };
