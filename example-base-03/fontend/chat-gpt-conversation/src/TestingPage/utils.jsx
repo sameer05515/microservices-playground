@@ -44,6 +44,7 @@ import ExternalLinksV1 from "./ExternalLinks/v1";
 import MetaLearningCycleV1 from "./MetaLearningCycle/v1";
 import MDSectionV8TesingV1 from "./MDSectionTesting/v1";
 import MDSectionV8TesingV2 from "./MDSectionTesting/v2";
+import { ContentNavigator } from "./KnowYourPositivity";
 
 const Components = {
   DashboardDemoV1,
@@ -91,7 +92,8 @@ const Components = {
   ExternalLinksV1,
   MetaLearningCycleV1,
   MDSectionV8TesingV1,
-  MDSectionV8TesingV2
+  MDSectionV8TesingV2,
+  ContentNavigator
 };
 
 export const componentNames = Object.keys(Components);
