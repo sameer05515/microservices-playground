@@ -1,18 +1,22 @@
+import Navigator from "../../../TestingPage/KnowYourPositivity/Navigator";
+import { bootstrap } from "../../../TestingPage/KnowYourPositivity/Registry";
 import * as PositivityContentStateActions from "./action-types";
 
 const initialState = {
-  selectedId: 1,
+  selectedId: "",
 };
 
 const contentReducer = (state = initialState, action) => {
   switch (action.type) {
     case PositivityContentStateActions.NAVIGATE_TO_NEXT_positivity_Content:
-      return { ...state, selectedId: state.selectedId + 1 };
+      return { ...state, selectedId: Navigator.getNextSentenceId(state.selectedId) };
     case PositivityContentStateActions.NAVIGATE_TO_PREV_positivity_Content:
-      return { ...state, selectedId: Math.max(1, state.selectedId - 1) };
+      return { ...state, selectedId: Navigator.getPrevSentenceId(state.selectedId) };
     default:
       return state;
   }
 };
+
+bootstrap();
 
 export default contentReducer;
