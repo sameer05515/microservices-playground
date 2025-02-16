@@ -4,8 +4,7 @@ import useSPPNavigation from "../../common/hooks/useSPPNavigation";
 
 const smartContentApiUrl = "http://localhost:3000/v2/api/smart-content/itr1";
 
-const data = [
-  // `${smartContentApiUrl}/actionables--my-bugs-and-new-requirements-md`,
+const data = [  
   `${smartContentApiUrl}/16Feb2025.know-your-positivity--todays-target---live-the-initial-website-on-github-pages-by-eod-today-itr0`,
   `${smartContentApiUrl}/16Feb2025.know-your-positivity--todays-target---live-the-initial-website-on-github-pages-by-eod-today-itr1`,
   `${smartContentApiUrl}/16Feb2025.know-your-positivity--todays-target---live-the-initial-website-on-github-pages-by-eod-today-itr2`,
