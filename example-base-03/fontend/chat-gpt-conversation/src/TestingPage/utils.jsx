@@ -43,8 +43,15 @@ import PomodoroTimerV1 from "./PomodoroTimer/v1";
 import ExternalLinksV1 from "./ExternalLinks/v1";
 import MetaLearningCycleV1 from "./MetaLearningCycle/v1";
 import MDSectionV8TesingV1 from "./MDSectionTesting/v1";
-import MDSectionV8TesingV2 from "./MDSectionTesting/v2";
+import MDSectionV8TestingV2 from "./MDSectionTesting/v2";
 import KnowYourPositivityDashboardV1,{ ContentNavigator } from "./KnowYourPositivity";
+
+// yaha seggregation logic lagana hai ki, asaani se samajh aaye ki kon sa version stable wala hai,
+// abhi yaha bhid bhad dikh rahi hai.
+
+// **TODO: LATER**: user ko component ke naam se matlab hai. 
+// isiliye `Components` object ko thora aur develop kar sakte hain, ki seggregation ho ki kaun sa stable version hai.
+// abhi ke liye comment kar dete hain, jo unstable versions hai.
 
 const Components = {
   DashboardDemoV1,
@@ -92,13 +99,14 @@ const Components = {
   ExternalLinksV1,
   MetaLearningCycleV1,
   MDSectionV8TesingV1,
-  MDSectionV8TesingV2,
+  MDSectionV8TesingV2: MDSectionV8TestingV2,
   ContentNavigator,
   KnowYourPositivityDashboardV1,
 };
 
 export const componentNames = Object.keys(Components);
 const componentCount = componentNames.length;
+
 
 export const calculateNextPrev = (selectedIndex) =>
   selectedIndex >= 0
