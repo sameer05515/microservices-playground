@@ -1,75 +1,93 @@
-import React, { useCallback, useRef, useMemo } from "react";
+import React, { useCallback } from "react";
 import MDSectionV8 from "../../common/components/MDSection/v8";
 import useSPPNavigation from "../../common/hooks/useSPPNavigation";
-import { isValidString } from "../../common/utils/basic-validations";
 
-const MDSectionV8TestingV2 = () => {
-  //"http://localhost:3000/v2/api/smart-content/itr1/actionables--my-bugs-and-new-requirements-md"
-  // const [mdFileUrl, setMdFileUrl] = useState("http://localhost:3000/v2/api/smart-content/itr1/actionables--my-bugs-and-new-requirements-md");
-  // const [submittedUrl, setSubmittedUrl] = useState("");
+const smartContentApiUrl = "http://localhost:3000/v2/api/smart-content/itr1";
 
+const data = [
+  // `${smartContentApiUrl}/actionables--my-bugs-and-new-requirements-md`,
+  `${smartContentApiUrl}/16Feb2025.know-your-positivity--todays-target---live-the-initial-website-on-github-pages-by-eod-today-itr0`,
+  `${smartContentApiUrl}/16Feb2025.know-your-positivity--todays-target---live-the-initial-website-on-github-pages-by-eod-today-itr1`,
+  `${smartContentApiUrl}/16Feb2025.know-your-positivity--todays-target---live-the-initial-website-on-github-pages-by-eod-today-itr2`,
+];
+
+export const getNavigation = (index = 0) => {
+  try {
+    if (index < 0 || index >= data.length) {
+      throw new Error("Invalid index");
+    }
+
+    return {
+      currentIndex: index,
+      nextIndex: (index + 1) % data.length,
+      prevIndex: (index - 1 + data.length) % data.length,
+      data: data[index],
+    };
+  } catch (error) {
+    console.error(error?.message || "Something went wrong!");
+    return null;
+  }
+};
+
+const MDSectionV8TestingV3 = () => {
   const { searchParams, goToTestingRoute } = useSPPNavigation();
-  const inputText =
-    searchParams.get("mdFileUrl") ||
-    "http://localhost:3000/v2/api/smart-content/itr1/actionables--my-bugs-and-new-requirements-md";
+  const selectedIndex = parseInt(searchParams.get("selectedIndex") || "0", 10);
 
-  const ref = useRef(null);
-  const submittedUrl = useMemo(() => {
-    if (!isValidString(inputText)) return "";
-    // const datePart = getFormattedDate();
-    // const kebabCasePart = toKebabCase(inputText);
-    return inputText;
-  }, [inputText]);
+  const handleNavigate = useCallback(
+    (index) => {
+      console.log("Navigating to Index:", index);
+      goToTestingRoute({
+        search: {
+          tester: "MDSectionV8TestingV3",
+          selectedIndex: index, // ✅ Corrected
+        },
+      });
+    },
+    [goToTestingRoute]
+  );
 
-  const handleRecievingSuccessResponse = useCallback((response) => response.data?.content || "", []);
-
-  const handleSubmit = () => {
-    // e.preventDefault();
-    // setSubmittedUrl(mdFileUrl.trim() ? mdFileUrl : ""); // Trim to remove accidental spaces
-
-    goToTestingRoute({
-      search: {
-        tester: "MDSectionV8TesingV2",
-        mdFileUrl: ref.current?.value || "",
-      },
-    });
+  const navigationData = getNavigation(selectedIndex) || {
+    data: null,
+    nextIndex: 0,
+    prevIndex: data.length - 1,
   };
+
+  const handleRecievingSuccessResponse = useCallback(
+    (response) => response.data?.content || "",
+    []
+  );
 
   return (
     <div className="p-4">
-      <div>
-        <h3>For quick reference: Other valid slugs:</h3>
-        <p>
-          16Feb2025.know-your-positivity--todays-target---live-the-initial-website-on-github-pages-by-eod-today
-        </p>
-        <p>actionables--my-bugs-and-new-requirements-md</p>
-      </div>
-      {/* Input & Button */}
-      <div onSubmit={handleSubmit} className="mb-4 flex gap-2">
-        <input
-          type="text"
-          className="border px-3 py-2 w-full bg-white text-black rounded"
-          placeholder="Enter markdown file URL"
-          defaultValue={inputText}
-          ref={ref}
-          // onChange={(e) => setMdFileUrl(e.target.value)}
-        />
+      <div className="mb-4 flex gap-2">
         <button
           title="Currently reload not working. Workaround is copy other slug and then recopy"
           type="button"
-          onClick={() => handleSubmit()}
-          className="px-4 py-2 bg-blue-500 rounded hover:bg-blue-600"
+          onClick={() => handleNavigate(navigationData.prevIndex)}
+          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
         >
-          Load
+          Prev
+        </button>
+        Selected Index: {selectedIndex}
+        <button
+          title="Currently reload not working. Workaround is copy other slug and then recopy"
+          type="button"
+          onClick={() => handleNavigate(navigationData.nextIndex)}
+          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+        >
+          Next
         </button>
       </div>
 
       {/* Conditional Rendering */}
-      {submittedUrl && (
-        <MDSectionV8 mdFileUrl={submittedUrl} onRecievingSuccessResponse={handleRecievingSuccessResponse} />
+      {navigationData.data && (
+        <MDSectionV8
+          mdFileUrl={navigationData.data}
+          onRecievingSuccessResponse={handleRecievingSuccessResponse}
+        />
       )}
     </div>
   );
 };
 
-export default MDSectionV8TestingV2;
+export default MDSectionV8TestingV3;

@@ -45,6 +45,7 @@ import MetaLearningCycleV1 from "./MetaLearningCycle/v1";
 import MDSectionV8TesingV1 from "./MDSectionTesting/v1";
 import MDSectionV8TestingV2 from "./MDSectionTesting/v2";
 import KnowYourPositivityDashboardV1,{ ContentNavigator } from "./KnowYourPositivity";
+import MDSectionV8TestingV3 from "./MDSectionTesting/v3";
 
 // yaha seggregation logic lagana hai ki, asaani se samajh aaye ki kon sa version stable wala hai,
 // abhi yaha bhid bhad dikh rahi hai.
@@ -105,6 +106,7 @@ const Components = {
   MDSectionV8TesingV2: MDSectionV8TestingV2,
   ContentNavigator,
   KnowYourPositivityDashboardV1,
+  MDSectionV8TestingV3,
 };
 
 export const componentNames = Object.keys(Components);
