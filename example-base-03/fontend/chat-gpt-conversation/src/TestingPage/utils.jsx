@@ -50,8 +50,11 @@ import KnowYourPositivityDashboardV1,{ ContentNavigator } from "./KnowYourPositi
 // abhi yaha bhid bhad dikh rahi hai.
 
 // **TODO: LATER**: user ko component ke naam se matlab hai. 
-// isiliye `Components` object ko thora aur develop kar sakte hain, ki seggregation ho ki kaun sa stable version hai.
-// abhi ke liye comment kar dete hain, jo unstable versions hai.
+//   - isiliye `Components` object ko thora aur develop kar sakte hain, ki seggregation ho ki kaun sa stable version hai.
+//   - abhi ke liye comment kar sakte hain, jo unstable versions hai.
+
+// - but abhi ke liye yaha koi change nhi karenge.
+//   - Aaj ka mission clear hai: KnowYourPositivity.v1.0.1 ko live karna! 🎯
 
 const Components = {
   DashboardDemoV1,
