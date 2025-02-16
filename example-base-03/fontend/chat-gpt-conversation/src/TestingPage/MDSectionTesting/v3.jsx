@@ -10,6 +10,7 @@ const data = [
   `${smartContentApiUrl}/16Feb2025.know-your-positivity--todays-target---live-the-initial-website-on-github-pages-by-eod-today-itr1`,
   `${smartContentApiUrl}/16Feb2025.know-your-positivity--todays-target---live-the-initial-website-on-github-pages-by-eod-today-itr2`,
   `${smartContentApiUrl}/16Feb2025.know-your-positivity--todays-target---live-the-initial-website-on-github-pages-by-eod-today-itr3`,
+  `${smartContentApiUrl}/16Feb2025.know-your-positivity--todays-target---live-the-initial-website-on-github-pages-by-eod-today-itr4`,
 ];
 
 export const getNavigation = (index = 0) => {
