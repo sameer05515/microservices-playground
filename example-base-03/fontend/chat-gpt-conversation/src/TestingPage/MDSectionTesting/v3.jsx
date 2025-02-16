@@ -9,6 +9,7 @@ const data = [
   `${smartContentApiUrl}/16Feb2025.know-your-positivity--todays-target---live-the-initial-website-on-github-pages-by-eod-today-itr0`,
   `${smartContentApiUrl}/16Feb2025.know-your-positivity--todays-target---live-the-initial-website-on-github-pages-by-eod-today-itr1`,
   `${smartContentApiUrl}/16Feb2025.know-your-positivity--todays-target---live-the-initial-website-on-github-pages-by-eod-today-itr2`,
+  `${smartContentApiUrl}/16Feb2025.know-your-positivity--todays-target---live-the-initial-website-on-github-pages-by-eod-today-itr3`,
 ];
 
 export const getNavigation = (index = 0) => {
@@ -52,10 +53,7 @@ const MDSectionV8TestingV3 = () => {
     prevIndex: data.length - 1,
   };
 
-  const handleRecievingSuccessResponse = useCallback(
-    (response) => response.data?.content || "",
-    []
-  );
+  const handleRecievingSuccessResponse = useCallback((response) => response.data?.content || "", []);
 
   return (
     <div className="p-4">
