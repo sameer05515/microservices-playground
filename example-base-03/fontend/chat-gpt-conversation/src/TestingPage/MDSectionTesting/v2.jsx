@@ -42,6 +42,7 @@ const MDSectionV8TestingV2 = () => {
         <p>
           16Feb2025.know-your-positivity--todays-target---live-the-initial-website-on-github-pages-by-eod-today
         </p>
+        <p>actionables--my-bugs-and-new-requirements-md</p>
       </div>
       {/* Input & Button */}
       <div onSubmit={handleSubmit} className="mb-4 flex gap-2">
@@ -54,6 +55,7 @@ const MDSectionV8TestingV2 = () => {
           // onChange={(e) => setMdFileUrl(e.target.value)}
         />
         <button
+          title="Currently reload not working. Workaround is copy other slug and then recopy"
           type="button"
           onClick={() => handleSubmit()}
           className="px-4 py-2 bg-blue-500 rounded hover:bg-blue-600"
@@ -66,8 +68,6 @@ const MDSectionV8TestingV2 = () => {
       {submittedUrl && (
         <MDSectionV8 mdFileUrl={submittedUrl} onRecievingSuccessResponse={handleRecievingSuccessResponse} />
       )}
-
-      
     </div>
   );
 };
