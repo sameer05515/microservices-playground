@@ -4,14 +4,49 @@ import useSPPNavigation from "../../common/hooks/useSPPNavigation";
 
 const smartContentApiUrl = "http://localhost:3000/v2/api/smart-content/itr1";
 
-const data = [  
-  `${smartContentApiUrl}/16Feb2025.know-your-positivity--todays-target---live-the-initial-website-on-github-pages-by-eod-today-itr0`,
-  `${smartContentApiUrl}/16Feb2025.know-your-positivity--todays-target---live-the-initial-website-on-github-pages-by-eod-today-itr1`,
-  `${smartContentApiUrl}/16Feb2025.know-your-positivity--todays-target---live-the-initial-website-on-github-pages-by-eod-today-itr2`,
-  `${smartContentApiUrl}/16Feb2025.know-your-positivity--todays-target---live-the-initial-website-on-github-pages-by-eod-today-itr3`,
-  `${smartContentApiUrl}/16Feb2025.know-your-positivity--todays-target---live-the-initial-website-on-github-pages-by-eod-today-itr4`,
+const getUrl = (url, slug) => {
+  if (!url || !slug) return "";
+  return `${url}/${slug}`;
+};
 
-  `${smartContentApiUrl}/"17Feb2025.know-your-positivity---todays-target---review-practice-and-retrospect--itr1",`
+// const data = [
+//   `${smartContentApiUrl}/16Feb2025.know-your-positivity--todays-target---live-the-initial-website-on-github-pages-by-eod-today-itr0`,
+//   `${smartContentApiUrl}/16Feb2025.know-your-positivity--todays-target---live-the-initial-website-on-github-pages-by-eod-today-itr1`,
+//   `${smartContentApiUrl}/16Feb2025.know-your-positivity--todays-target---live-the-initial-website-on-github-pages-by-eod-today-itr2`,
+//   `${smartContentApiUrl}/16Feb2025.know-your-positivity--todays-target---live-the-initial-website-on-github-pages-by-eod-today-itr3`,
+//   `${smartContentApiUrl}/16Feb2025.know-your-positivity--todays-target---live-the-initial-website-on-github-pages-by-eod-today-itr4`,
+
+//   `${smartContentApiUrl}/17Feb2025.know-your-positivity---todays-target---review-practice-and-retrospect--itr1`,
+// ];
+
+const data = [
+  // 16Feb2025
+  getUrl(
+    smartContentApiUrl,
+    "16Feb2025.know-your-positivity--todays-target---live-the-initial-website-on-github-pages-by-eod-today-itr0"
+  ),
+  getUrl(
+    smartContentApiUrl,
+    "16Feb2025.know-your-positivity--todays-target---live-the-initial-website-on-github-pages-by-eod-today-itr1"
+  ),
+  getUrl(
+    smartContentApiUrl,
+    "16Feb2025.know-your-positivity--todays-target---live-the-initial-website-on-github-pages-by-eod-today-itr2"
+  ),
+  getUrl(
+    smartContentApiUrl,
+    "16Feb2025.know-your-positivity--todays-target---live-the-initial-website-on-github-pages-by-eod-today-itr3"
+  ),
+  getUrl(
+    smartContentApiUrl,
+    "16Feb2025.know-your-positivity--todays-target---live-the-initial-website-on-github-pages-by-eod-today-itr4"
+  ),
+
+  //17Feb2025
+  getUrl(
+    smartContentApiUrl,
+    "17Feb2025.know-your-positivity---todays-target---review-practice-and-retrospect--itr1.1"
+  ),
 ];
 
 export const getNavigation = (index = 0) => {
