@@ -120,7 +120,7 @@ const MDSectionV8TestingV3 = () => {
         >
           Prev
         </button>
-        Selected Index: {selectedIndex}
+        Selected Index: {selectedIndex} , Slug: {navigationData.data || "NA"}
         <button
           title="Currently reload not working. Workaround is copy other slug and then recopy"
           type="button"
