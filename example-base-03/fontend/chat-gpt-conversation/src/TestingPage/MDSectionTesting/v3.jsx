@@ -9,15 +9,13 @@ const getUrl = (url, slug) => {
   return `${url}/${slug}`;
 };
 
-// const data = [
-//   `${smartContentApiUrl}/16Feb2025.know-your-positivity--todays-target---live-the-initial-website-on-github-pages-by-eod-today-itr0`,
-//   `${smartContentApiUrl}/16Feb2025.know-your-positivity--todays-target---live-the-initial-website-on-github-pages-by-eod-today-itr1`,
-//   `${smartContentApiUrl}/16Feb2025.know-your-positivity--todays-target---live-the-initial-website-on-github-pages-by-eod-today-itr2`,
-//   `${smartContentApiUrl}/16Feb2025.know-your-positivity--todays-target---live-the-initial-website-on-github-pages-by-eod-today-itr3`,
-//   `${smartContentApiUrl}/16Feb2025.know-your-positivity--todays-target---live-the-initial-website-on-github-pages-by-eod-today-itr4`,
-
-//   `${smartContentApiUrl}/17Feb2025.know-your-positivity---todays-target---review-practice-and-retrospect--itr1`,
-// ];
+// **Todo**:
+// - Yahan bhi `data` array me slugs ki baadh lagne wali hai.
+// - `chaos` create hoga, kuch din baad! Ki
+//   - isme se latest wala kon sa hai?
+//   - `date-wise categorization` kaise karein, taaki ek good UX mile??
+// - **Jugaad kar lo bhai!! Jaldi se!!
+//
 
 const data = [
   // 16Feb2025
@@ -40,6 +38,10 @@ const data = [
   getUrl(
     smartContentApiUrl,
     "16Feb2025.know-your-positivity--todays-target---live-the-initial-website-on-github-pages-by-eod-today-itr4"
+  ),
+  getUrl(
+    smartContentApiUrl,
+    "16Feb2025.know-your-positivity--todays-target---live-the-initial-website-on-github-pages-by-eod-today-itr4--2"
   ),
 
   //17Feb2025
