@@ -64,6 +64,18 @@ const data = [
     smartContentApiUrl,
     "17Feb2025.know-your-positivity---todays-target---review-practice-and-retrospect--itr--2-1"
   ),
+  getUrl(
+    smartContentApiUrl,
+    "17Feb2025.know-your-positivity---todays-target---review-practice-and-retrospect--itr--2-2"
+  ),
+  getUrl(
+    smartContentApiUrl,
+    "17Feb2025.know-your-positivity---todays-target---review-practice-and-retrospect--itr--3-1"
+  ),
+  getUrl(
+    smartContentApiUrl,
+    "17Feb2025.know-your-positivity---todays-target---review-practice-and-retrospect--itr--3-2"
+  ),
 ];
 
 export const getNavigation = (index = 0) => {
