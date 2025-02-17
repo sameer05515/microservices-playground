@@ -44,7 +44,7 @@ const data = [
   ),
   getUrl(
     smartContentApiUrl,
-    "16Feb2025.know-your-positivity--todays-target---live-the-initial-website-on-github-pages-by-eod-today--itr4-2"
+    "17Feb2025.know-your-positivity--todays-target---live-the-initial-website-on-github-pages-by-eod-today--itr--4-2"
   ),
 
   //17Feb2025
