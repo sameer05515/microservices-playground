@@ -45,7 +45,15 @@ const data = [
   //17Feb2025
   getUrl(
     smartContentApiUrl,
-    "17Feb2025.know-your-positivity---todays-target---review-practice-and-retrospect--itr1.1"
+    "17Feb2025.know-your-positivity---todays-target---review-practice-and-retrospect--itr--1-1"
+  ),
+  getUrl(
+    smartContentApiUrl,
+    "17Feb2025.know-your-positivity---todays-target---review-practice-and-retrospect--itr--1-2"
+  ),
+  getUrl(
+    smartContentApiUrl,
+    "17Feb2025.know-your-positivity---todays-target---review-practice-and-retrospect--itr--1-3"
   ),
 ];
 
