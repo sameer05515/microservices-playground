@@ -18,6 +18,9 @@ const getUrl = (url, slug) => {
 //
 
 const data = [
+  //15Feb2025
+  getUrl(smartContentApiUrl, "15Feb2025.know-your-positivity--about-this-module--index-v1-md"),
+
   // 16Feb2025
   getUrl(
     smartContentApiUrl,
@@ -41,7 +44,7 @@ const data = [
   ),
   getUrl(
     smartContentApiUrl,
-    "16Feb2025.know-your-positivity--todays-target---live-the-initial-website-on-github-pages-by-eod-today-itr4--2"
+    "16Feb2025.know-your-positivity--todays-target---live-the-initial-website-on-github-pages-by-eod-today--itr4-2"
   ),
 
   //17Feb2025
