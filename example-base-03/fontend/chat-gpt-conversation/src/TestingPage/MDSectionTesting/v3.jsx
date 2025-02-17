@@ -10,11 +10,11 @@ const getUrl = (url, slug) => {
 };
 
 // **Todo**:
-// - Yahan bhi `data` array me slugs ki baadh lagne wali hai.
-// - `chaos` create hoga, kuch din baad! Ki
-//   - isme se latest wala kon sa hai?
-//   - `date-wise categorization` kaise karein, taaki ek good UX mile??
-// - **Jugaad kar lo bhai!! Jaldi se!!
+// - Yahan bhi `data` array me slugs ki baadh lagne wali hai. 😤😤
+// - `chaos` create hoga, kuch din baad! Ki 🤔
+//   - isme se latest wala kon sa hai? 🙇‍♂️
+//   - `date-wise categorization` kaise karein, taaki ek good UX mile?? 😤
+// - 🎯**Jugaad kar lo bhai!! Jaldi se!! 😍
 //
 
 const data = [
