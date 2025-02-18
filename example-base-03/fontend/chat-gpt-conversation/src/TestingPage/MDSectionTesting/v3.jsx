@@ -80,46 +80,45 @@ const data = [
   //18Feb2025
   getUrl(
     smartContentApiUrl,
-    "18Feb2025.know-your-positivity---review-practice-and-retrospect---part-2---simplify-processing-and-retrieval---of-meaningful-informations-from-a-chat-backup-file--itr--1-1",
+    "18Feb2025.know-your-positivity---review-practice-and-retrospect---part-2---simplify-processing-and-retrieval---of-meaningful-informations-from-a-chat-backup-file--itr--1-1"
   ),
   getUrl(
     smartContentApiUrl,
-    "18Feb2025.know-your-positivity---review-practice-and-retrospect---part-2---simplify-processing-and-retrieval---of-meaningful-informations-from-a-chat-backup-file--itr--1-2",
+    "18Feb2025.know-your-positivity---review-practice-and-retrospect---part-2---simplify-processing-and-retrieval---of-meaningful-informations-from-a-chat-backup-file--itr--1-2"
   ),
   getUrl(
     smartContentApiUrl,
-    "18Feb2025.know-your-positivity---review-practice-and-retrospect---part-2---simplify-processing-and-retrieval---of-meaningful-informations-from-a-chat-backup-file--itr--1-3",
+    "18Feb2025.know-your-positivity---review-practice-and-retrospect---part-2---simplify-processing-and-retrieval---of-meaningful-informations-from-a-chat-backup-file--itr--1-3"
   ),
   getUrl(
     smartContentApiUrl,
-    "18Feb2025.know-your-positivity---review-practice-and-retrospect---part-2---simplify-processing-and-retrieval---of-meaningful-informations-from-a-chat-backup-file--itr--2-1",
+    "18Feb2025.know-your-positivity---review-practice-and-retrospect---part-2---simplify-processing-and-retrieval---of-meaningful-informations-from-a-chat-backup-file--itr--2-1"
   ),
   getUrl(
     smartContentApiUrl,
-    "18Feb2025.know-your-positivity---review-practice-and-retrospect---part-2---simplify-processing-and-retrieval---of-meaningful-informations-from-a-chat-backup-file--itr--2-2",
+    "18Feb2025.know-your-positivity---review-practice-and-retrospect---part-2---simplify-processing-and-retrieval---of-meaningful-informations-from-a-chat-backup-file--itr--2-2"
   ),
   getUrl(
     smartContentApiUrl,
-    "18Feb2025.know-your-positivity---review-practice-and-retrospect---part-2---simplify-processing-and-retrieval---of-meaningful-informations-from-a-chat-backup-file--itr--3-1",
+    "18Feb2025.know-your-positivity---review-practice-and-retrospect---part-2---simplify-processing-and-retrieval---of-meaningful-informations-from-a-chat-backup-file--itr--3-1"
   ),
   getUrl(
     smartContentApiUrl,
-    "18Feb2025.know-your-positivity---review-practice-and-retrospect---part-2---simplify-processing-and-retrieval---of-meaningful-informations-from-a-chat-backup-file--itr--3-2",
+    "18Feb2025.know-your-positivity---review-practice-and-retrospect---part-2---simplify-processing-and-retrieval---of-meaningful-informations-from-a-chat-backup-file--itr--3-2"
   ),
-
 
   //19Feb2025
   getUrl(
     smartContentApiUrl,
-    "19Feb2025.know-your-positivity---review-practice-and-retrospect---part-3---simplify-processing-and-retrieval---of-meaningful-informations-from-a-chat-backup-file--itr--1-1",
+    "19Feb2025.know-your-positivity---review-practice-and-retrospect---part-3---simplify-processing-and-retrieval---of-meaningful-informations-from-a-chat-backup-file--itr--1-1"
   ),
   getUrl(
     smartContentApiUrl,
-    "19Feb2025.know-your-positivity---review-practice-and-retrospect---part-3---simplify-processing-and-retrieval---of-meaningful-informations-from-a-chat-backup-file--itr--1-2",
+    "19Feb2025.know-your-positivity---review-practice-and-retrospect---part-3---simplify-processing-and-retrieval---of-meaningful-informations-from-a-chat-backup-file--itr--1-2"
   ),
   getUrl(
     smartContentApiUrl,
-    "19Feb2025.know-your-positivity---review-practice-and-retrospect---part-3---simplify-processing-and-retrieval---of-meaningful-informations-from-a-chat-backup-file--itr--1-3",
+    "19Feb2025.know-your-positivity---review-practice-and-retrospect---part-3---simplify-processing-and-retrieval---of-meaningful-informations-from-a-chat-backup-file--itr--1-3"
   ),
 ];
 
