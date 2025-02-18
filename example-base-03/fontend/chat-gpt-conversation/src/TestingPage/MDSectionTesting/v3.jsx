@@ -76,6 +76,28 @@ const data = [
     smartContentApiUrl,
     "17Feb2025.know-your-positivity---todays-target---review-practice-and-retrospect--itr--3-2"
   ),
+
+  //18Feb2025
+  getUrl(
+    smartContentApiUrl,
+    "18Feb2025.know-your-positivity---review-practice-and-retrospect---part-2---simplify-processing-and-retrieval---of-meaningful-informations-from-a-chat-backup-file--itr--1-1",
+  ),
+  getUrl(
+    smartContentApiUrl,
+    "18Feb2025.know-your-positivity---review-practice-and-retrospect---part-2---simplify-processing-and-retrieval---of-meaningful-informations-from-a-chat-backup-file--itr--1-2",
+  ),
+  getUrl(
+    smartContentApiUrl,
+    "18Feb2025.know-your-positivity---review-practice-and-retrospect---part-2---simplify-processing-and-retrieval---of-meaningful-informations-from-a-chat-backup-file--itr--1-3",
+  ),
+  getUrl(
+    smartContentApiUrl,
+    "18Feb2025.know-your-positivity---review-practice-and-retrospect---part-2---simplify-processing-and-retrieval---of-meaningful-informations-from-a-chat-backup-file--itr--2-1",
+  ),
+  getUrl(
+    smartContentApiUrl,
+    "18Feb2025.know-your-positivity---review-practice-and-retrospect---part-2---simplify-processing-and-retrieval---of-meaningful-informations-from-a-chat-backup-file--itr--2-2",
+  ),
 ];
 
 export const getNavigation = (index = 0) => {
