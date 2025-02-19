@@ -25,6 +25,8 @@ export const coversationNames = {
   CONVERSATIONS_29_JAN_2025: "/data/conversations-29-Jan-2025.json",
   CONVERSATIONS_08_FEB_2025: "/data/conversations-08-Feb-2025.json",
   CONVERSATIONS_15_FEB_2025: "/data/conversations-15-Feb-2025.json",
+  CONVERSATIONS_17_FEB_2025: "/data/conversations-17-Feb-2025.json",
+  CONVERSATIONS_19_FEB_2025: "/data/conversations-19-Feb-2025.json",
 };
 
-export const LATEST_CONVERSATION_FILE = coversationNames.CONVERSATIONS_15_FEB_2025;
+export const LATEST_CONVERSATION_FILE = coversationNames.CONVERSATIONS_19_FEB_2025;
