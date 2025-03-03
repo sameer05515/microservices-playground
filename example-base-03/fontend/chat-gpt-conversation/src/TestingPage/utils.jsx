@@ -46,6 +46,7 @@ import MDSectionV8TesingV1 from "./MDSectionTesting/v1";
 import MDSectionV8TestingV2 from "./MDSectionTesting/v2";
 import KnowYourPositivityDashboardV1,{ ContentNavigator } from "./KnowYourPositivity";
 import MDSectionV8TestingV3 from "./MDSectionTesting/v3";
+import ChatDataXRayV1 from "./ChatDataXRay/v1";
 
 // yaha seggregation logic lagana hai ki, asaani se samajh aaye ki kon sa version stable wala hai,
 // abhi yaha bhid bhad dikh rahi hai.
@@ -107,6 +108,7 @@ const Components = {
   ContentNavigator,
   KnowYourPositivityDashboardV1,
   MDSectionV8TestingV3,
+  ChatDataXRayV1,
 };
 
 export const componentNames = Object.keys(Components);
