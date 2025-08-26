@@ -19,6 +19,7 @@ import PragyamLayoutAdjustV4 from "./PragyamLayoutAdjust/v4";
 import PragyamLayoutAdjustV5 from "./PragyamLayoutAdjust/v5";
 import PragyamLayoutAdjustV6 from "./PragyamLayoutAdjust/v6";
 import PragyamLayoutAdjustV7 from "./PragyamLayoutAdjust/v7";
+// import PragyamLayoutAdjustV8 from "./PragyamLayoutAdjust/v8";
 import MDSectionV1StyleCheck from "./PragyamLayoutAdjust/vv123";
 import MessagesListV1 from "./MessageList/v1";
 import InterviewFinalRoundPreparationV1 from "./InterviewFinalRoundPreparation/v1";
@@ -41,6 +42,23 @@ import HTMLRenderTestingV1 from "./HTMLRenderTesting/v1";
 import CornellMethodVisualizationV1 from "./CornellMethod/v1";
 import PomodoroTimerV1 from "./PomodoroTimer/v1";
 import ExternalLinksV1 from "./ExternalLinks/v1";
+import MetaLearningCycleV1 from "./MetaLearningCycle/v1";
+import MDSectionV8TesingV1 from "./MDSectionTesting/v1";
+import MDSectionV8TestingV2 from "./MDSectionTesting/v2";
+import KnowYourPositivityDashboardV1,{ ContentNavigator } from "./KnowYourPositivity";
+import MDSectionV8TestingV3 from "./MDSectionTesting/v3";
+import ChatDataXRayV1 from "./ChatDataXRay/v1";
+import TimeZoneClockV1 from "./TimeZoneClock/v1";
+
+// yaha seggregation logic lagana hai ki, asaani se samajh aaye ki kon sa version stable wala hai,
+// abhi yaha bhid bhad dikh rahi hai.
+
+// **TODO: LATER**: user ko component ke naam se matlab hai. 
+//   - isiliye `Components` object ko thora aur develop kar sakte hain, ki seggregation ho ki kaun sa stable version hai.
+//   - abhi ke liye comment kar sakte hain, jo unstable versions hai.
+
+// - but abhi ke liye yaha koi change nhi karenge.
+//   - Aaj ka mission clear hai: KnowYourPositivity.v1.0.1 ko live karna! 🎯
 
 const Components = {
   DashboardDemoV1,
@@ -64,6 +82,7 @@ const Components = {
   PragyamLayoutAdjustV5,
   PragyamLayoutAdjustV6,
   PragyamLayoutAdjustV7,
+  // PragyamLayoutAdjustV8,
   MDSectionV1StyleCheck,
   MessagesListV1,
   InterviewFinalRoundPreparationV1,
@@ -85,11 +104,20 @@ const Components = {
   HTMLRenderTestingV1,
   CornellMethodVisualizationV1,
   PomodoroTimerV1,
-  ExternalLinksV1
+  ExternalLinksV1,
+  MetaLearningCycleV1,
+  MDSectionV8TesingV1,
+  MDSectionV8TesingV2: MDSectionV8TestingV2,
+  ContentNavigator,
+  KnowYourPositivityDashboardV1,
+  MDSectionV8TestingV3,
+  ChatDataXRayV1,
+  TimeZoneClockV1
 };
 
 export const componentNames = Object.keys(Components);
 const componentCount = componentNames.length;
+
 
 export const calculateNextPrev = (selectedIndex) =>
   selectedIndex >= 0

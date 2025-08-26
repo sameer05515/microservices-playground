@@ -1031,7 +1031,7 @@ const questionData1 = [
     id: "ques_12_5_1",
     name: "What are the advantages of the Builder Pattern over telescoping constructors in Java?",
     answers: [],
-    answerFiles: [],
+    answerFiles: ["03Aug2025.design-patterns--what-are-the-advantages-of-the-builder-pattern-over-telescoping-constructors-in-java.md"],
   },
   {
     sectionId: "section_12",
@@ -1039,7 +1039,7 @@ const questionData1 = [
     id: "ques_12_5_2",
     name: "How would you use the Builder Pattern to construct complex JSON responses?",
     answers: [],
-    answerFiles: [],
+    answerFiles: ["03Aug2025.design-patterns--how-would-you-use-the-builder-pattern-to-construct-complex-json-responses.md"],
   },
   {
     sectionId: "section_12",
@@ -1047,7 +1047,7 @@ const questionData1 = [
     id: "ques_12_5_3",
     name: "Provide a use case for the Builder Pattern in your microservices experience.",
     answers: [],
-    answerFiles: [],
+    answerFiles: ["03Aug2025.design-patterns--provide-a-use-case-for-the-builder-pattern-in-your-microservices-experience.md"],
   },
   {
     sectionId: "section_12",
@@ -1055,7 +1055,7 @@ const questionData1 = [
     id: "ques_12_5_4",
     name: "How would you implement the Builder Pattern for constructing immutable objects?",
     answers: [],
-    answerFiles: [],
+    answerFiles: ["03Aug2025.design-patterns--how-would-you-implement-the-builder-pattern-for-constructing-immutable-objects.md"],
   },
   {
     sectionId: "section_12",
@@ -1311,7 +1311,7 @@ const questionData1 = [
     id: "ques_12_7_1",
     name: "Question: Write a Java program to remove duplicates from an array.",
     answers: [],
-    answerFiles: [],
+    answerFiles: ["03Aug2025.java--write-a-java-program-to-remove-duplicates-from-an-array.md"],
   },
   {
     sectionId: "section_12",
@@ -1319,7 +1319,7 @@ const questionData1 = [
     id: "ques_12_7_2",
     name: "Question: Write a Java program to find the second largest element in an array.",
     answers: [],
-    answerFiles: [],
+    answerFiles: ["03Aug2025.java--write-a-java-program-to-find-the-second-largest-element-in-an-array.md"],
   },
   {
     sectionId: "section_12",
