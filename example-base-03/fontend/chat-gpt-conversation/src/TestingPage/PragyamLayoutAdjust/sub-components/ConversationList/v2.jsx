@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { isValidArray } from "../../../../common/utils/basic-validations";
 
 const ConversationListV2 = ({ data, onClick = () => {} }) => {
   // const iconParents = useMemo(() => getAllIconParents(), []);
+  
+  const [filter, setFilter] = useState("");
+  const filteredFruits = data?.filter(fruit =>
+    fruit.title.toLowerCase().includes(filter.toLowerCase())
+  );
   if (typeof onClick !== "function") {
     return <span className="text-3xl text-red-700">`onClick` should be a valid function!!</span>;
   }
@@ -12,7 +17,16 @@ const ConversationListV2 = ({ data, onClick = () => {} }) => {
   return (
     <div className="mt-0 flex flex-col items-center text-xs">
       <div className="text-4xl text-gray-700 dark:text-sky-300">SELECT A CONVERSATION</div>
-      {data.map(({ id, title }) => (
+      <div>
+        <input
+        type="text"
+        placeholder="Search fruit..."
+        // className="form-control mb-3"
+        value={filter}
+        onChange={e => setFilter(e.target.value)}
+      />
+      </div>
+      {filteredFruits.map(({ id, title }) => (
         <span
           key={id}
           onClick={() => onClick && onClick(id)}
