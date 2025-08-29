@@ -36,8 +36,9 @@
     "CONVERSATIONS_29_APR_2025": "/data/conversations-29-Apr-2025.json",
     "CONVERSATIONS_23_MAY_2025": "/data/conversations-23-May-2025.json",
 	"CONVERSATIONS_01_JUL_2025": "/data/conversations-01-Jul-2025.json",
-	"CONVERSATIONS_12_AUG_2025":"/data/conversations-12-Aug-2025.json"
+	"CONVERSATIONS_12_AUG_2025": "/data/conversations-12-Aug-2025.json",
+	"CONVERSATIONS_29_AUG_2025": "/data/conversations-29-Aug-2025.json"
   },
-  "LATEST_CONVERSATION_FILE": "CONVERSATIONS_12_AUG_2025",
+  "LATEST_CONVERSATION_FILE": "CONVERSATIONS_29_AUG_2025",
   "baseDir": "D:/GIT/microservices-playground/example-base-03/fontend/chat-gpt-conversation/public"
 }
