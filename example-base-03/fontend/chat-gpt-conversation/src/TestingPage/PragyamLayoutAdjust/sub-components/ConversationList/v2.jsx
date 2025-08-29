@@ -5,8 +5,8 @@ const ConversationListV2 = ({ data, onClick = () => {} }) => {
   // const iconParents = useMemo(() => getAllIconParents(), []);
   
   const [filter, setFilter] = useState("");
-  const filteredFruits = data?.filter(fruit =>
-    fruit.title.toLowerCase().includes(filter.toLowerCase())
+  const filteredData = data?.filter(conv =>
+    conv.title.toLowerCase().includes(filter.toLowerCase())
   );
   if (typeof onClick !== "function") {
     return <span className="text-3xl text-red-700">`onClick` should be a valid function!!</span>;
@@ -21,12 +21,12 @@ const ConversationListV2 = ({ data, onClick = () => {} }) => {
         <input
         type="text"
         placeholder="Search fruit..."
-        // className="form-control mb-3"
+        className="bg-white text-black p-2 border rounded mb-2"
         value={filter}
         onChange={e => setFilter(e.target.value)}
       />
       </div>
-      {filteredFruits.map(({ id, title }) => (
+      {filteredData.map(({ id, title }) => (
         <span
           key={id}
           onClick={() => onClick && onClick(id)}
