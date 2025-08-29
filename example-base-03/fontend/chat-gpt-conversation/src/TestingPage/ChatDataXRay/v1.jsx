@@ -1,6 +1,7 @@
 import { useCallback } from "react";
 import useSPPNavigation from "../../common/hooks/useSPPNavigation";
 import Step1DataRenderer from "./Step1DataRenderer";
+import Step2DataRenderer from "./Step2DataRenderer";
 
 const ChatDataXRayV1 = () => {
   const { searchParams, goToTestingRoute } = useSPPNavigation();
@@ -22,7 +23,7 @@ const ChatDataXRayV1 = () => {
   return (
     <div>
       {!widget && <Step1DataRenderer onSlugClick={showConversations} />}
-      {widget === "conv" && <div>Conversations for : {slug}</div>}
+      {widget === "conv" && <Step2DataRenderer slug={slug}/>}
     </div>
   );
 };
