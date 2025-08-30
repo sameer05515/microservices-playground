@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { apiRequest } from "../../common/utils/apiClient/v1";
 
-const Step2DataRenderer = ({ onSlugClick, slug }) => {
+const Step2DataRenderer = ({ onConvClick, slug }) => {
   const [step2Data, setStep1Data] = useState([]);
   const fetchItr2 = useCallback(() => {
     apiRequest({
@@ -36,7 +36,9 @@ const Step2DataRenderer = ({ onSlugClick, slug }) => {
           {step2Data.map((item) => (
             <tr key={item.id} className="">
               {/* <td className="px-4 py-2 border">{item.id}</td> */}
-              <td className="px-4 py-2 border cursor-pointer">{item.title}</td>
+              <td className="px-4 py-2 border cursor-pointer" onClick={() => onConvClick(slug, item.id)}>
+                {item.title}
+              </td>
               <td className="px-4 py-2 border">{item.createdOn}</td>
               <td className="px-4 py-2 border">{item.updatedOn}</td>
               <td className="px-4 py-2 border">{item.msgCount}</td>
