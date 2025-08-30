@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { apiRequest } from "../../common/utils/apiClient/v1";
+import QAViewer from "./QAViewer";
 
 const ConvMessageRenderer = ({ slug, convId }) => {
   const [convo, setConvo] = useState(null);
@@ -46,6 +47,10 @@ const ConvMessageRenderer = ({ slug, convId }) => {
             <span className="font-semibold">Message Count:</span> {convo.msgCount}
           </p>
         </div>
+
+        {convo.messages.map((msg) => (
+          <QAViewer key={msg.q.id} data={msg} />
+        ))}
       </div>
     </div>
   );
