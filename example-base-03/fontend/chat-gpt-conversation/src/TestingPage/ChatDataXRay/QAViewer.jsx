@@ -1,30 +1,20 @@
 import React from "react";
+import MDSectionV1 from "../../common/components/MDSection/v1";
 
 const QAViewer = ({ data }) => {
   if (!data) return null;
 
   return (
-    <div className="container mt-4">
-      <div className="card mb-3">
-        <div className="card-header bg-primary text-white">
-          <h5>Question</h5>
-        </div>
-        <div className="card-body">
-          <p className="card-text">{data.q.content}</p>
-        </div>
+    <div className="max-w-full mx-auto mt-6 space-y-4">
+      {/* Question Card */}
+      <div className="bg-gray-200 dark:bg-blue-700 shadow-md rounded-lg overflow-hidden">
+        <MDSectionV1 content={data.q.content} />
       </div>
 
+      {/* Answer Cards */}
       {data.ans.map((answer) => (
-        <div key={answer.id} className="card mb-3">
-          <div className="card-header bg-success text-white">
-            <h6>Answer</h6>
-          </div>
-          <div className="card-body">
-            <div
-              className="card-text"
-              dangerouslySetInnerHTML={{ __html: answer.content.replace(/\n/g, "<br/>") }}
-            />
-          </div>
+        <div key={answer.id} className="bg-white dark:bg-black shadow-md rounded-lg overflow-hidden">
+          <MDSectionV1 content={answer.content} />
         </div>
       ))}
     </div>
