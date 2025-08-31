@@ -41,7 +41,9 @@ const ChatDataXRayV1 = () => {
     <div>
       {!widget && <Step1DataRenderer onSlugClick={showConversations} />}
       {widget === "conv" && <Step2DataRenderer onConvClick={showConversationMessages} slug={slug} />}
-      {widget === "conv-messages" && <ConvMessageRenderer slug={slug} convId={convId} />}
+      {widget === "conv-messages" && (
+        <ConvMessageRenderer slug={slug} convId={convId} onConvClick={showConversationMessages} />
+      )}
     </div>
   );
 };

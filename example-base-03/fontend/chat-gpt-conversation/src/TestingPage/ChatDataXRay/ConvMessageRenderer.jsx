@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { apiRequest } from "../../common/utils/apiClient/v1";
 import QAViewer from "./QAViewer";
 
-const ConvMessageRenderer = ({ slug, convId }) => {
+const ConvMessageRenderer = ({ slug, convId, onConvClick }) => {
   const [convo, setConvo] = useState(null);
   const fetchItr2 = useCallback(() => {
     apiRequest({
@@ -33,7 +33,7 @@ const ConvMessageRenderer = ({ slug, convId }) => {
           <div className="p-4 text-xs text-gray-600 dark:text-gray-100">
             <p>
               {/* <span className="font-semibold">ID:</span>  */}
-              {convo.title}
+              {convo.title} ({convo.selectedIndex+1}/{convo.totalConv})
             </p>
             <p>
               <span className="font-semibold">Created On:</span> {convo.createdOn}
@@ -50,6 +50,7 @@ const ConvMessageRenderer = ({ slug, convId }) => {
               id="prevConversationBtn"
               title="Prev Conversation"
               className="px-4 py-2 bg-gray-300 text-gray-100 dark:text-gray-700 rounded-lg disabled:opacity-50"
+              onClick={() => onConvClick(slug, convo.prev)}
             >
               ⏪
             </button>
@@ -57,6 +58,7 @@ const ConvMessageRenderer = ({ slug, convId }) => {
               id="nextConversationBtn"
               title="Next Conversation"
               className="px-4 py-2 bg-gray-300 text-gray-100 dark:text-gray-700 rounded-lg disabled:opacity-50"
+              onClick={() => onConvClick(slug, convo.next)}
             >
               ⏩
             </button>
