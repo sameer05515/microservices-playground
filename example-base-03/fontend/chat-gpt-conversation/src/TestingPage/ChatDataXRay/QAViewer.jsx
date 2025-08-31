@@ -7,14 +7,14 @@ const QAViewer = ({ data }) => {
   return (
     <div className="max-w-full mx-auto mt-6 space-y-4 p-2 m-2">
       {/* Question Card */}
-      <div className="bg-gray-200 dark:bg-blue-700 shadow-md rounded-lg overflow-hidden">
+      <div className="bg-blue-200 dark:bg-blue-700 shadow-md rounded-lg overflow-hidden">
         <QAMetadata data={data.q} />
         <pre className="whitespace-pre-wrap break-words m-4">{data.q.content}</pre>
       </div>
 
       {/* Answer Cards */}
       {data.ans.map((answer) => (
-        <div key={answer.id} className="bg-white dark:bg-black shadow-md rounded-lg overflow-hidden">
+        <div key={answer.id} className="bg-gray-200 dark:bg-gray-900 shadow-md rounded-lg overflow-hidden">
           <QAMetadata data={answer} />
           <div className="p-4">
             <MDSectionV1 content={answer.content} />
