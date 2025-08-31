@@ -8,18 +8,29 @@ const QAViewer = ({ data }) => {
     <div className="max-w-full mx-auto mt-6 space-y-4 p-2 m-2">
       {/* Question Card */}
       <div className="bg-gray-200 dark:bg-blue-700 shadow-md rounded-lg overflow-hidden">
-        {/* <MDSectionV1 content={data.q.content} /> */}
+        <QAMetadata data={data.q} />
         <pre className="whitespace-pre-wrap break-words m-10">{data.q.content}</pre>
       </div>
 
       {/* Answer Cards */}
       {data.ans.map((answer) => (
         <div key={answer.id} className="bg-white dark:bg-black shadow-md rounded-lg overflow-hidden p-10">
+          <QAMetadata data={answer} />
           <MDSectionV1 content={answer.content} />
         </div>
       ))}
     </div>
   );
 };
+
+const QAMetadata = ({ data: q }) => (
+  <div className="flex justify-end items-end m-0.5 text-xs gap-2 text-blue-600 dark:text-cyan-300">
+    <span className={q.isUserMessage ? "font-thin" : "font-bold"}>
+      {q.isUserMessage ? "User Query" : "ChatGPT Response"}
+    </span>
+    {q.createdOn && <span>createdOn: {q.createdOn}</span>}
+    {q.updatedOn && <span>updatedOn: {q.updatedOn}</span>}
+  </div>
+);
 
 export default QAViewer;
