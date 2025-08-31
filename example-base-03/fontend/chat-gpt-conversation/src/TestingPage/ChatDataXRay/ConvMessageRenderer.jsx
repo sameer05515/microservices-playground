@@ -1,10 +1,14 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { apiRequest } from "../../common/utils/apiClient/v1";
 import QAViewer from "./QAViewer";
+import { useDispatch } from "react-redux";
+import { hideBackdropV3, showBackdropV3 } from "../../store/v2/backdrop/actions";
 
 const ConvMessageRenderer = ({ slug, convId, onConvClick }) => {
+  const dispatch = useDispatch();
   const [convo, setConvo] = useState(null);
   const fetchItr2 = useCallback(() => {
+    dispatch(showBackdropV3({ title: "Starting search for selected conversation data" }));
     apiRequest({
       url: `http://localhost:3000/analyse-cgpt/api/step-3-fetch-messages-of-conversation/itr1/${slug}/${convId}`,
     })
@@ -12,8 +16,11 @@ const ConvMessageRenderer = ({ slug, convId, onConvClick }) => {
         console.log(resp);
         setConvo(resp.data);
       })
-      .catch((err) => console.error(err));
-  }, [slug, convId]);
+      .catch((err) => console.error(err))
+      .finally(()=>{
+        dispatch(hideBackdropV3());
+      })
+  }, [dispatch, slug, convId]);
 
   useEffect(() => fetchItr2(), [fetchItr2]);
 
