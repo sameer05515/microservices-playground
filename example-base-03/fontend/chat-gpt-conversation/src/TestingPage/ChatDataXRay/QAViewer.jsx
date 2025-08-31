@@ -5,10 +5,11 @@ const QAViewer = ({ data }) => {
   if (!data) return null;
 
   return (
-    <div className="max-w-full mx-auto mt-6 space-y-4">
+    <div className="max-w-full mx-auto mt-6 space-y-4 p-2 m-2">
       {/* Question Card */}
       <div className="bg-gray-200 dark:bg-blue-700 shadow-md rounded-lg overflow-hidden">
-        <MDSectionV1 content={data.q.content} />
+        {/* <MDSectionV1 content={data.q.content} /> */}
+        <pre className="whitespace-pre-wrap break-words">{data.q.content}</pre>
       </div>
 
       {/* Answer Cards */}
