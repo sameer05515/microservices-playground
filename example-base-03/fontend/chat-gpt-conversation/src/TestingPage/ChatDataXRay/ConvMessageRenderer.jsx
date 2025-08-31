@@ -23,11 +23,11 @@ const ConvMessageRenderer = ({ slug, convId }) => {
 
   return (
     <div className="max-w-full mx-auto">
-      <h1 className="text-2xl font-bold mb-4">ConvMessageRenderer</h1>
+      {/* <h1 className="text-2xl font-bold mb-4">ConvMessageRenderer</h1>
 
       <div className="mb-4 text-gray-700 dark:text-gray-200">
         slug: {slug}, convId: {convId}
-      </div>
+      </div> */}
 
       <div className="shadow-md rounded-lg overflow-hidden">
         <div className="bg-gray-200 dark:bg-gray-900 px-4 py-2">
