@@ -22,35 +22,80 @@ const ConvMessageRenderer = ({ slug, convId }) => {
   }
 
   return (
-    <div className="max-w-full mx-auto">
-      {/* <h1 className="text-2xl font-bold mb-4">ConvMessageRenderer</h1>
+    <div className="bg-gray-100 dark:bg-gray-800 flex flex-col h-screen p-6">
+      <div className="container mx-auto shadow-lg rounded-lg flex flex-col h-full">
+        <div className="flex justify-between items-center p-4 h-[10vh] border-b">
+          {/* <a className="font-bold text-2xl text-white hover:opacity-80" href="/">
+            🏠
+          </a> */}
 
-      <div className="mb-4 text-gray-700 dark:text-gray-200">
-        slug: {slug}, convId: {convId}
-      </div> */}
-
-      <div className="shadow-md rounded-lg overflow-hidden">
-        <div className="bg-gray-200 dark:bg-gray-900 px-4 py-2">
-          <h5 className="text-lg font-semibold">{convo.title}</h5>
+          {/* <h4 className="text-lg font-semibold text-gray-700 dark:text-gray-100">Chat Messages</h4> */}
+          <div className="p-4 text-xs text-gray-600 dark:text-gray-100">
+            <p>
+              {/* <span className="font-semibold">ID:</span>  */}
+              {convo.title}
+            </p>
+            <p>
+              <span className="font-semibold">Created On:</span> {convo.createdOn}
+            </p>
+            <p>
+              <span className="font-semibold">Updated On:</span> {convo.updatedOn}
+            </p>
+            <p>
+              <span className="font-semibold">Message Count:</span> {convo.msgCount}
+            </p>
+          </div>
+          <div>
+            <button
+              id="prevConversationBtn"
+              title="Prev Conversation"
+              className="px-4 py-2 bg-gray-300 text-gray-100 dark:text-gray-700 rounded-lg disabled:opacity-50"
+            >
+              ⏪
+            </button>
+            <button
+              id="nextConversationBtn"
+              title="Next Conversation"
+              className="px-4 py-2 bg-gray-300 text-gray-100 dark:text-gray-700 rounded-lg disabled:opacity-50"
+            >
+              ⏩
+            </button>
+          </div>
         </div>
-        <div className="p-4">
-          <p>
-            <span className="font-semibold">ID:</span> {convo.id}
-          </p>
-          <p>
-            <span className="font-semibold">Created On:</span> {convo.createdOn}
-          </p>
-          <p>
-            <span className="font-semibold">Updated On:</span> {convo.updatedOn}
-          </p>
-          <p>
-            <span className="font-semibold">Message Count:</span> {convo.msgCount}
-          </p>
+
+        <div id="root" className="flex-1 p-4 overflow-auto h-[50vh] space-y-4">
+          {convo.messages.map((msg) => (
+            <QAViewer key={msg.q.id} data={msg} />
+          ))}
         </div>
 
-        {convo.messages.map((msg) => (
-          <QAViewer key={msg.q.id} data={msg} />
-        ))}
+        {/* <div className="flex justify-between items-center p-4 h-[10vh] border-t">
+          <div id="pageNavigationBtnContainer">
+            <button
+              id="prevPageBtn"
+              title="Prev Page"
+              className="px-4 py-2 bg-gray-300 text-gray-700 rounded-lg disabled:opacity-50"
+            >
+              ⬅️
+            </button>
+
+            <button
+              id="nextPageBtn"
+              title="Next Page"
+              className="px-4 py-2 bg-gray-300 text-gray-700 rounded-lg disabled:opacity-50"
+            >
+              ➡️
+            </button>
+          </div>
+          <span id="conversationIndex" className="text-xs text-gray-600 dark:text-gray-100"></span>
+          <button
+            id="toggle-theme"
+            className="bg-gray-300 px-3 py-1 rounded-md text-black hover:bg-gray-400 dark:bg-gray-600 dark:text-white dark:hover:bg-gray-500 focus:outline-none"
+            aria-label="Toggle Dark Mode"
+          >
+            🌙 Dark Mode
+          </button>
+        </div> */}
       </div>
     </div>
   );
