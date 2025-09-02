@@ -7,7 +7,7 @@ const QAViewer = ({ data }) => {
   return (
     <div className="max-w-full mx-auto mt-6 space-y-4 p-2 m-2">
       {/* Question Card */}
-      <div className="bg-blue-200 dark:bg-blue-700 shadow-md rounded-lg overflow-hidden">
+      <div className="bg-blue-200 dark:bg-blue-950 shadow-md rounded-lg overflow-hidden">
         <QAMetadata data={data.q} />
         <pre className="whitespace-pre-wrap break-words m-4">{data.q.content}</pre>
       </div>
