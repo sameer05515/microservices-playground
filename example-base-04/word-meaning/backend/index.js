@@ -9,6 +9,7 @@ app.use(bodyParser.json());
 app.use(cors())
 
 const DATA_FILE = 'D:/GIT/my-backup/02-Oct-2025/words/repo.json';
+// const DATA_FILE = './words.json';
 
 // Read data
 const readData = async () => {
