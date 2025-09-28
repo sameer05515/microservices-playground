@@ -1,11 +1,12 @@
-import React, { Suspense, useCallback, useEffect, useState } from "react";
+import { Suspense, useCallback, useEffect, useState } from "react";
 import ChatGPTConversationRenderer from "./SearchResultRenderer/v1";
-import { LATEST_CONVERSATION_FILE } from "../../common/utils/constants"; 
+import { LATEST_CONVERSATION_FILE } from "../../common/utils/constants";
 import ConversationCard from "./ConversationCard/v1";
 import ConversationFileSelector from "./JSONFileSelector/v1";
 import Search from "./Search/v1";
 import Sidebar from "./ConvNamesListSection/v1";
-import { formatUnixTimestamp, getConversationMessages, localSessionManager } from "./UtilityMethods";
+import { localSessionManager } from "./UtilityMethods";
+import { fetchJsonData } from "./fetchJsonData";
 
 // Lazy-loaded components
 // const Search = lazy(() => import("./Search/v1"));
@@ -13,28 +14,7 @@ import { formatUnixTimestamp, getConversationMessages, localSessionManager } fro
 //   import("./ConversationFileSelector/v1")
 // );
 
-// Utility function for fetching data
-const fetchJsonData = async (selectedFile, setJsonData) => {
-  if (!selectedFile) return;
-  try {
-    const response = await fetch(selectedFile);
-    if (!response.ok) throw new Error("Failed to fetch data");
-    const data = await response.json();
 
-    // Transform the data
-    const formattedData = data.map((conv, index) => ({
-      id: `conv_${index + 1}`,
-      title: conv.title,
-      messages: getConversationMessages(conv) || [],
-      createdOn: conv.create_time ? formatUnixTimestamp(conv.create_time) : null,
-      updatedOn: conv.update_time ? formatUnixTimestamp(conv.update_time) : null,
-    }));
-
-    setJsonData(formattedData);
-  } catch (error) {
-    console.error("Error fetching data:", error);
-  }
-};
 
 // Main Dashboard component
 const CGPTDataRendererDashboardV1 = () => {
@@ -132,7 +112,7 @@ const CGPTDataRendererDashboardV1 = () => {
             onItemSelect={handleSelect}
             selectedConv={selectedConv}
             /** **A bug found, where, after hiding sidebar, it is not being shown again. Till the time bug-fix and RCA is availabale, disabling this functionality** */
-            // onHideClick={() => toggleState("showSideBar")}
+            onHideClick={() => toggleState("showSideBar")}
             customSideBarStyle={styles.sidebar}
           />
         )}
