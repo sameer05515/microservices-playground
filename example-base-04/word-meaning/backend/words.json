@@ -11,9 +11,27 @@
       "जय",
       "जीत",
       "विजय",
-      "फ़तह"
+      "फ़तह",
+      "triumph",
+      "triumph\n\nअभिजय",
+      "अभिभावन",
+      "जय",
+      "जयश्री",
+      "जीत",
+      "फतह",
+      "फ़तह",
+      "फ़तह",
+      "विजय",
+      "विजयश्री",
+      "सफलता"
     ],
-    "examples": [],
+    "examples": [
+      "\"a narrow victory\"",
+      "\"clinched a victory\"",
+      "\"convincing victory\"",
+      "\"the agreement was a triumph for common sense\"",
+      "\"the general always gets credit for his army's victory\""
+    ],
     "description": "",
     "createdOn": "2025-09-28T05:43:08.283Z"
   }

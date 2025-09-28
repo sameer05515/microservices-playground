@@ -8,7 +8,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors())
 
-const DATA_FILE = './words.json';
+const DATA_FILE = 'D:/GIT/my-backup/02-Oct-2025/words/repo.json';
 
 // Read data
 const readData = async () => {
@@ -22,7 +22,7 @@ const readData = async () => {
 
 // Write data
 const writeData = async (data) => {
-  await fs.writeFile(DATA_FILE, JSON.stringify(data, null, 2));
+  await fs.writeFile(DATA_FILE, JSON.stringify(data));
 };
 
 // Get all words
