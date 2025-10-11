@@ -61,7 +61,7 @@ const Sidebar = ({
       >
         Hide
       </button>
-      <h2 className="text-xl font-semibold mb-4 text-gray-800">Conversation Names</h2>
+      <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-200">Conversation Names</h2>
       <ul className="space-y-2">
         {conversationNames.map((conv) => (
           <li key={conv.id}>
@@ -69,8 +69,8 @@ const Sidebar = ({
               ref={selectedConv && selectedConv.id!=null ? myRef : null}
               className={`cursor-pointer block p-2 rounded transition-colors ${
                 selectedConv && selectedConv.id === conv.id
-                  ? "font-bold text-lg text-red-600 bg-red-50"
-                  : "text-gray-700 hover:bg-gray-200"
+                  ? "font-bold text-lg text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/20"
+                  : "text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
               }`}
               onClick={() => handleLinkSelection(conv)}
             >
