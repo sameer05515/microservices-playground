@@ -2,43 +2,11 @@ import React, { useState } from "react";
 import ReactMarkdown from "react-markdown";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
-const styles = {
-  container: {
-    padding: "10px",
-    backgroundColor: "#f9f9f9",
-    borderRadius: "8px",
-    border: "1px solid #ddd",
-  },
-  buttonContainer: {
-    display: "flex",
-    justifyContent: "space-between",
-    marginBottom: "10px",
-  },
-  button: {
-    padding: "5px 10px",
-    border: "none",
-    borderRadius: "4px",
-    cursor: "pointer",
-  },
-  copyButton: {
-    backgroundColor: "#007bff",
-    color: "#fff",
-  },
-  goToButton: {
-    backgroundColor: "#28a745",
-    color: "#fff",
-  },
-  copiedMessage: {
-    color: "green",
-    marginBottom: "10px",
-    display: "block",
-  },
-};
 
 // Extracted CopyButton component
 const CopyButton = ({ textToCopy, onCopy }) => (
   <CopyToClipboard text={textToCopy} onCopy={onCopy}>
-    <button style={{ ...styles.button, ...styles.copyButton }}>
+    <button className="px-3 py-1 border-none rounded cursor-pointer bg-blue-500 text-white hover:bg-blue-600 transition-colors">
       Copy to Clipboard
     </button>
   </CopyToClipboard>
@@ -46,7 +14,7 @@ const CopyButton = ({ textToCopy, onCopy }) => (
 
 // Extracted GoToButton component
 const GoToButton = ({ onClick }) => (
-  <button style={{ ...styles.button, ...styles.goToButton }} onClick={onClick}>
+  <button className="px-3 py-1 border-none rounded cursor-pointer bg-green-500 text-white hover:bg-green-600 transition-colors" onClick={onClick}>
     Go to Related Conversation
   </button>
 );
@@ -78,19 +46,19 @@ const MarkdownComponent = ({
 
   return (
     <div
-      className="markdown-body"
-      style={{ ...styles.container, ...additionalStyle }}
+      className="markdown-body p-3 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-300 dark:border-gray-700"
+      style={additionalStyle}
     >
-      <div style={styles.buttonContainer}>
+      <div className="flex justify-between items-center mb-3">
         {showCopyToclipboardButton && (
           <CopyButton textToCopy={markdownText} onCopy={handleCopy} />
         )}
         {showGotoRelatedConversationButton && <GoToButton onClick={onGoToClick} />}
       </div>
 
-      {copied && <span style={styles.copiedMessage}>Copied!</span>}
+      {copied && <span className="text-green-600 mb-3 block text-sm font-medium">Copied!</span>}
 
-      <div style={{ ...reactMarkdownStyles }}>
+      <div className="prose max-w-none dark:prose-invert" style={reactMarkdownStyles}>
         <ReactMarkdown>{markdownText}</ReactMarkdown>
       </div>
     </div>

@@ -13,7 +13,7 @@ import { capitalizeFirstLetter } from "../UtilityMethods";
 // Reusable ToggleButton Component
 const ToggleButton = ({ isVisible, onToggle, title }) => (
     <span
-        style={{ cursor: 'pointer', paddingLeft: '50px' }}
+        className="cursor-pointer pl-12 text-blue-500 hover:text-blue-700 transition-colors"
         title={title}
         onClick={onToggle}
     >
@@ -33,8 +33,8 @@ const ConversationHeader = ({
     showAllNonUserMessages = true,
     onShowAllNonUserMessagesChange = () => {}
 }) => (
-    <div>
-        <h2 style={{ margin: "0" }}>
+    <div className="mb-4">
+        <h2 className="m-0 flex items-center justify-between text-lg font-semibold">
             {title}
             <ToggleButton
                 isVisible={showAllNonUserMessages}
@@ -42,18 +42,33 @@ const ConversationHeader = ({
                 title={showAllNonUserMessages ? "Hide All non-user messages" : "Show All non-user messages"}
             />
         </h2>
-        <div style={{ padding: "5px", fontSize: "12px", borderRadius: "4px", margin: "5px" }}>
-            <span style={{ marginRight: "10px" }}>
+        <div className="p-2 text-xs rounded m-2 bg-gray-100 dark:bg-gray-700">
+            <span className="mr-4">
                 <b>Created:</b> {createdOn}
             </span>
-            <span style={{ marginRight: "10px" }}>
+            <span className="mr-4">
                 <b>Updated:</b> {updatedOn}
             </span>
         </div>
-        <div>
-            <button onClick={() => onPrevClick(conversationId)}>Previous</button>
-            <button onClick={onShowClick}>Show</button>
-            <button onClick={() => onNextClick(conversationId)}>Next</button>
+        <div className="space-x-2">
+            <button 
+                onClick={() => onPrevClick(conversationId)}
+                className="px-3 py-1 bg-blue-500 text-white text-sm rounded hover:bg-blue-600 transition-colors"
+            >
+                Previous
+            </button>
+            <button 
+                onClick={onShowClick}
+                className="px-3 py-1 bg-green-500 text-white text-sm rounded hover:bg-green-600 transition-colors"
+            >
+                Show
+            </button>
+            <button 
+                onClick={() => onNextClick(conversationId)}
+                className="px-3 py-1 bg-blue-500 text-white text-sm rounded hover:bg-blue-600 transition-colors"
+            >
+                Next
+            </button>
         </div>
     </div>
 );
@@ -69,15 +84,15 @@ const MessageItem = ({ message, initialValueForShowMessageText = false }) => {
     }, [initialValueForShowMessageText, message?.author]);
 
     return (
-        <div className="message" style={messageStyles}>
+        <div className="mb-4 p-4 rounded border">
             <div
-                style={
+                className={`p-3 rounded ${
                     message.author === "user"
-                        ? userMessageContentStyles
-                        : otherMessageContentStyles
-                }
+                        ? "bg-yellow-50 dark:bg-yellow-900/20 border-yellow-200 dark:border-yellow-800"
+                        : "bg-purple-50 dark:bg-purple-900/20 border-purple-200 dark:border-purple-800"
+                }`}
             >
-                <div style={authorStyles}>
+                <div className="font-bold mb-2 flex items-center justify-between text-gray-800 dark:text-gray-200">
                     {capitalizeFirstLetter(message.author)}
                     <ToggleButton
                         isVisible={showMessageText}
@@ -118,7 +133,6 @@ const ConversationCard = ({
         <CustomCollapse
             key={conversation.id}
             className="conversation"
-            style={conversationStyles}
             headerText={"Conversation Name : " + conversation.title}
             initiallyCollapsed={initiallyCollapsed}
         >
@@ -140,10 +154,25 @@ const ConversationCard = ({
                     initialValueForShowMessageText={showAllNonUserMessages}
                 />
             ))}
-            <div>
-                <button onClick={() => onPrevClick(conversation.id)}>Previous</button>
-                <button onClick={onShowClick}>Show</button>
-                <button onClick={() => onNextClick(conversation.id)}>Next</button>
+            <div className="mt-4 space-x-2">
+                <button 
+                    onClick={() => onPrevClick(conversation.id)}
+                    className="px-3 py-1 bg-blue-500 text-white text-sm rounded hover:bg-blue-600 transition-colors"
+                >
+                    Previous
+                </button>
+                <button 
+                    onClick={onShowClick}
+                    className="px-3 py-1 bg-green-500 text-white text-sm rounded hover:bg-green-600 transition-colors"
+                >
+                    Show
+                </button>
+                <button 
+                    onClick={() => onNextClick(conversation.id)}
+                    className="px-3 py-1 bg-blue-500 text-white text-sm rounded hover:bg-blue-600 transition-colors"
+                >
+                    Next
+                </button>
             </div>
         </CustomCollapse>
     );
