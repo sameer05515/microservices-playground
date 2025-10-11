@@ -105,7 +105,7 @@ const CGPTDataRendererDashboardV1 = () => {
 
   return (
     <div>
-      <div style={styles.container}>
+      <div className="flex font-sans p-4 mb-5">
         {uiState.showSideBar && (
           <Sidebar
             jsonData={jsonData}
@@ -113,21 +113,36 @@ const CGPTDataRendererDashboardV1 = () => {
             selectedConv={selectedConv}
             /** **A bug found, where, after hiding sidebar, it is not being shown again. Till the time bug-fix and RCA is availabale, disabling this functionality** */
             onHideClick={() => toggleState("showSideBar")}
-            customSideBarStyle={styles.sidebar}
+            customSideBarStyle={{
+              flex: 1,
+              width: "15vw",
+              padding: "20px",
+              borderRight: "1px solid #ccc",
+              overflowY: "auto",
+              position: "fixed",
+              top: 0,
+              bottom: 0,
+            }}
           />
         )}
 
-        <div style={styles.mainContent}>
-          <button onClick={() => toggleState("showSearchSection")}>
+        <div className="flex-2 p-5 ml-[280px] overflow-y-auto fixed w-[75vw] top-0 bottom-0 h-[95vh]">
+          <button 
+            onClick={() => toggleState("showSearchSection")}
+            className="mb-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
+          >
             {uiState.showSearchSection ? "Hide " : "Show "} Search
           </button>
 
           {uiState.showSearchSection && (
             <>
-              <button onClick={() => toggleState("collapseAll")}>
+              <button 
+                onClick={() => toggleState("collapseAll")}
+                className="mb-2 ml-2 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition-colors"
+              >
                 {uiState.collapseAll ? "Expand " : "Collapse "} All Results
               </button>
-              <Suspense fallback={<div>Loading Search...</div>}>
+              <Suspense fallback={<div className="p-4 text-center text-gray-600">Loading Search...</div>}>
                 <Search onSearch={handleSearch} />
               </Suspense>
             </>
@@ -137,7 +152,7 @@ const CGPTDataRendererDashboardV1 = () => {
             <ChatGPTConversationRenderer jsonData={filteredData} collapseAll={uiState.collapseAll} />
           )}
 
-          <Suspense fallback={<div>Loading File Selector...</div>}>
+          <Suspense fallback={<div className="p-4 text-center text-gray-600">Loading File Selector...</div>}>
             <ConversationFileSelector
               initialSelectedFile={LATEST_CONVERSATION_FILE}
               onChange={setSelectedFile}
@@ -159,35 +174,5 @@ const CGPTDataRendererDashboardV1 = () => {
   );
 };
 
-// Styles
-const styles = {
-  container: {
-    display: "flex",
-    fontFamily: "Arial, sans-serif",
-    padding: "15px",
-    marginBottom: "20px",
-  },
-  sidebar: {
-    flex: 1,
-    width: "15vw",
-    padding: "20px",
-    borderRight: "1px solid #ccc",
-    overflowY: "auto",
-    position: "fixed",
-    top: 0,
-    bottom: 0,
-  },
-  mainContent: {
-    flex: 2,
-    padding: "20px",
-    marginLeft: "280px",
-    overflowY: "auto",
-    position: "fixed",
-    width: "75vw",
-    top: 0,
-    bottom: 0,
-    height: "95vh",
-  },
-};
 
 export default CGPTDataRendererDashboardV1;
