@@ -1,17 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, memo, useCallback } from "react";
 import {
-    authorStyles,
-    conversationStyles,
-    messageStyles,
     otherMessageContentStyles,
-    userMessageContentStyles,
+    userMessageContentStyles
 } from "../AIConversationRendererStyles/v1";
 import CustomCollapse from "../CustomCollapse/v1";
 import MarkdownComponent from "../MarkdownComponent/v1";
 import { capitalizeFirstLetter } from "../UtilityMethods";
 
 // Reusable ToggleButton Component
-const ToggleButton = ({ isVisible, onToggle, title }) => (
+const ToggleButton = memo(({ isVisible, onToggle, title }) => (
     <span
         className="cursor-pointer pl-12 text-blue-500 hover:text-blue-700 transition-colors"
         title={title}
@@ -19,10 +16,12 @@ const ToggleButton = ({ isVisible, onToggle, title }) => (
     >
         {isVisible ? "- " : "+ "}
     </span>
-);
+));
+
+ToggleButton.displayName = "ToggleButton";
 
 // Extracted component for ConversationHeader
-const ConversationHeader = ({
+const ConversationHeader = memo(({
     title,
     createdOn,
     updatedOn,
@@ -71,13 +70,19 @@ const ConversationHeader = ({
             </button>
         </div>
     </div>
-);
+));
+
+ConversationHeader.displayName = "ConversationHeader";
 
 // Extracted component for MessageItem
-const MessageItem = ({ message, initialValueForShowMessageText = false }) => {
+const MessageItem = memo(({ message, initialValueForShowMessageText = false }) => {
     const [showMessageText, setShowMessageText] = useState(
         initialValueForShowMessageText || message?.author === "user"
     );
+
+    const toggleShowMessage = useCallback(() => {
+        setShowMessageText((prev) => !prev);
+    }, []);
 
     useEffect(() => {
         setShowMessageText(initialValueForShowMessageText || message?.author === "user");
@@ -96,7 +101,7 @@ const MessageItem = ({ message, initialValueForShowMessageText = false }) => {
                     {capitalizeFirstLetter(message.author)}
                     <ToggleButton
                         isVisible={showMessageText}
-                        onToggle={() => setShowMessageText((prev) => !prev)}
+                        onToggle={toggleShowMessage}
                         title={`${showMessageText ? "Hide " : "Show "} Message Text`}
                     />
                 </div>
@@ -117,10 +122,12 @@ const MessageItem = ({ message, initialValueForShowMessageText = false }) => {
             </div>
         </div>
     );
-};
+});
+
+MessageItem.displayName = "MessageItem";
 
 // Main ConversationCard component
-const ConversationCard = ({
+const ConversationCard = memo(({
     conversation,
     initiallyCollapsed = false,
     onNextClick = () => {},
@@ -128,6 +135,10 @@ const ConversationCard = ({
     onShowClick = () => {},
 }) => {
     const [showAllNonUserMessages, setShowAllNonUserMessages] = useState(true);
+
+    const handleShowAllNonUserMessagesChange = useCallback((value) => {
+        setShowAllNonUserMessages(value);
+    }, []);
 
     return (
         <CustomCollapse
@@ -145,7 +156,7 @@ const ConversationCard = ({
                 onNextClick={onNextClick}
                 conversationId={conversation.id}
                 showAllNonUserMessages={showAllNonUserMessages}
-                onShowAllNonUserMessagesChange={setShowAllNonUserMessages}
+                onShowAllNonUserMessagesChange={handleShowAllNonUserMessagesChange}
             />
             {conversation.messages.map((message, msgIndex) => (
                 <MessageItem
@@ -176,6 +187,8 @@ const ConversationCard = ({
             </div>
         </CustomCollapse>
     );
-};
+});
+
+ConversationCard.displayName = "ConversationCard";
 
 export default ConversationCard;

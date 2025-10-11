@@ -1,27 +1,26 @@
-import { Suspense, useCallback, useEffect, useState } from "react";
+import React, { Suspense, useCallback, useEffect, useMemo, useState, lazy, memo } from "react";
 import ChatGPTConversationRenderer from "./SearchResultRenderer/v1";
 import { LATEST_CONVERSATION_FILE } from "../../common/utils/constants";
 import ConversationCard from "./ConversationCard/v1";
-import ConversationFileSelector from "./JSONFileSelector/v1";
-import Search from "./Search/v1";
 import Sidebar from "./ConvNamesListSection/v1";
 import { localSessionManager } from "./UtilityMethods";
 import { fetchJsonData } from "./fetchJsonData";
 
-// Lazy-loaded components
-// const Search = lazy(() => import("./Search/v1"));
-// const ConversationFileSelector = lazy(() =>
-//   import("./ConversationFileSelector/v1")
-// );
+// Lazy-loaded components for better performance
+const ConversationFileSelector = lazy(() => import("./JSONFileSelector/v1"));
+const Search = lazy(() => import("./Search/v1"));
 
 
 
 // Main Dashboard component
-const CGPTDataRendererDashboardV1 = () => {
+const CGPTDataRendererDashboardV1 = memo(() => {
   const [jsonData, setJsonData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [selectedConv, setSelectedConv] = useState(null);
-  const { setItemForKey, getItemForKey, KEYS } = localSessionManager();
+  
+  // Memoize session manager to prevent unnecessary re-renders
+  const sessionManager = useMemo(() => localSessionManager(), []);
+  const { setItemForKey, getItemForKey, KEYS } = sessionManager;
 
   const [uiState, setUiState] = useState({
     showSearchSection: false,
@@ -98,10 +97,27 @@ const CGPTDataRendererDashboardV1 = () => {
     }
   }, [KEYS.listVisible, KEYS.selectedConversationId, getItemForKey, handleSelect, jsonData]);
 
-  const toggleState = (key) => {
-    setUiState((prev) => ({ ...prev, [key]: !prev[key] }));
-    if (key === "showSideBar") setItemForKey(KEYS.listVisible, !uiState.showSideBar);
-  };
+  const toggleState = useCallback((key) => {
+    setUiState((prev) => {
+      const newState = { ...prev, [key]: !prev[key] };
+      if (key === "showSideBar") {
+        setItemForKey(KEYS.listVisible, newState.showSideBar);
+      }
+      return newState;
+    });
+  }, [setItemForKey, KEYS.listVisible]);
+
+  // Memoize sidebar style to prevent unnecessary re-renders
+  const sidebarStyle = useMemo(() => ({
+    flex: 1,
+    width: "15vw",
+    padding: "20px",
+    borderRight: "1px solid #ccc",
+    overflowY: "auto",
+    position: "fixed",
+    top: 0,
+    bottom: 0,
+  }), []);
 
   return (
     <div>
@@ -113,16 +129,7 @@ const CGPTDataRendererDashboardV1 = () => {
             selectedConv={selectedConv}
             /** **A bug found, where, after hiding sidebar, it is not being shown again. Till the time bug-fix and RCA is availabale, disabling this functionality** */
             onHideClick={() => toggleState("showSideBar")}
-            customSideBarStyle={{
-              flex: 1,
-              width: "15vw",
-              padding: "20px",
-              borderRight: "1px solid #ccc",
-              overflowY: "auto",
-              position: "fixed",
-              top: 0,
-              bottom: 0,
-            }}
+            customSideBarStyle={sidebarStyle}
           />
         )}
 
@@ -172,7 +179,9 @@ const CGPTDataRendererDashboardV1 = () => {
       </div>
     </div>
   );
-};
+});
 
+
+CGPTDataRendererDashboardV1.displayName = "CGPTDataRendererDashboardV1";
 
 export default CGPTDataRendererDashboardV1;

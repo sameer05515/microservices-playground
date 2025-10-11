@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, memo, useCallback } from "react";
 import { FaAngleDown, FaAngleRight } from "react-icons/fa";
 
-const CustomCollapse = ({
+const CustomCollapse = memo(({
   headerText = "No header set",
   style = {},
   initiallyCollapsed = false,
@@ -9,9 +9,10 @@ const CustomCollapse = ({
   children,
 }) => {
   const [isCollapsed, setIsCollapsed] = useState(initiallyCollapsed);
-  const toggleCollapse = () => {
-    setIsCollapsed(!isCollapsed);
-  };
+  
+  const toggleCollapse = useCallback(() => {
+    setIsCollapsed(prev => !prev);
+  }, []);
   useEffect(() => {
     setIsCollapsed((prev) => collapseAll);
   }, [collapseAll]);
@@ -38,6 +39,8 @@ const CustomCollapse = ({
       )}
     </div>
   );
-};
+});
+
+CustomCollapse.displayName = "CustomCollapse";
 
 export default CustomCollapse;

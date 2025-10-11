@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, memo, useCallback } from "react";
 
-const Sidebar = ({
+const Sidebar = memo(({
   jsonData = [],
   onItemSelect = () => { },
   selectedConv: selItem = null,
@@ -42,13 +42,13 @@ const Sidebar = ({
 
   },[selectedConv])
 
-  const handleLinkSelection = (selectedItem) => {
+  const handleLinkSelection = useCallback((selectedItem) => {
     console.log(JSON.stringify(selectedItem));
     // setSelectedLink(selectedItem);
     // navigate(`${selectedItem.topicId}`);
     setSelectedConv(selectedItem);
     onItemSelect(selectedItem);
-  };
+  }, [onItemSelect]);
 
   return (
     <div
@@ -81,8 +81,8 @@ const Sidebar = ({
       </ul>
     </div>
   );
-};
+});
 
-
+Sidebar.displayName = "Sidebar";
 
 export default Sidebar;

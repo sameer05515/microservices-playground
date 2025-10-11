@@ -1,23 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, memo, useCallback } from "react";
 import ReactMarkdown from "react-markdown";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
 
 // Extracted CopyButton component
-const CopyButton = ({ textToCopy, onCopy }) => (
+const CopyButton = memo(({ textToCopy, onCopy }) => (
   <CopyToClipboard text={textToCopy} onCopy={onCopy}>
     <button className="px-3 py-1 border-none rounded cursor-pointer bg-blue-500 text-white hover:bg-blue-600 transition-colors">
       Copy to Clipboard
     </button>
   </CopyToClipboard>
-);
+));
+
+CopyButton.displayName = "CopyButton";
 
 // Extracted GoToButton component
-const GoToButton = ({ onClick }) => (
+const GoToButton = memo(({ onClick }) => (
   <button className="px-3 py-1 border-none rounded cursor-pointer bg-green-500 text-white hover:bg-green-600 transition-colors" onClick={onClick}>
     Go to Related Conversation
   </button>
-);
+));
+
+GoToButton.displayName = "GoToButton";
 
 
 
@@ -27,7 +31,7 @@ const GoToButton = ({ onClick }) => (
  * - Values of `showCopyToclipboardButton` and `showGotoRelatedConversationButton` are kept as `true` to just adding a new functionality and backward support the existing application, where this change is currently not implemented.
  *      - `TBD`: Default value should be false, as per best-practices.
  * */
-const MarkdownComponent = ({
+const MarkdownComponent = memo(({
   markdownText = "",
   additionalStyle = {},
   showCopyToclipboardButton = true,
@@ -37,12 +41,12 @@ const MarkdownComponent = ({
 }) => {
   const [copied, setCopied] = useState(false);
 
-  const handleCopy = () => {
+  const handleCopy = useCallback(() => {
     setCopied(true);
     setTimeout(() => {
       setCopied(false);
     }, 5000);
-  };
+  }, []);
 
   return (
     <div
@@ -63,6 +67,8 @@ const MarkdownComponent = ({
       </div>
     </div>
   );
-};
+});
+
+MarkdownComponent.displayName = "MarkdownComponent";
 
 export default MarkdownComponent;

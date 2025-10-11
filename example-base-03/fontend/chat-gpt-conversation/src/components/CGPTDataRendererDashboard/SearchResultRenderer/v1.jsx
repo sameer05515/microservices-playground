@@ -1,18 +1,8 @@
-import React from "react";
+import React, { memo } from "react";
 import MarkdownComponent from "../MarkdownComponent/v1";
 import CustomCollapse from "../CustomCollapse/v1";
-import {
-    rootStyles,
-    conversationStyles,
-    messageStyles,
-    authorStyles,
-    userMessageContentStyles,
-    otherMessageContentStyles,
-} from "../AIConversationRendererStyles/v1";
 
-const ChatGPTConversationRenderer = ({ jsonData, collapseAll=true }) => {
-
-    
+const ChatGPTConversationRenderer = memo(({ jsonData, collapseAll=true }) => {
 
     return (
         <div className="space-y-4 p-4 bg-white dark:bg-gray-900">
@@ -48,6 +38,8 @@ const ChatGPTConversationRenderer = ({ jsonData, collapseAll=true }) => {
             })}
         </div>
     );
-};
+});
+
+ChatGPTConversationRenderer.displayName = "ChatGPTConversationRenderer";
 
 export default ChatGPTConversationRenderer;

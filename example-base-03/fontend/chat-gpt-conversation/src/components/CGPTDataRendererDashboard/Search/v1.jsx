@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, memo, useCallback } from 'react';
 
-const Search = ({ onSearch }) => {
+const Search = memo(({ onSearch }) => {
   const [searchQuery, setSearchQuery] = useState('');
 
-  const handleChange = (event) => {
+  const handleChange = useCallback((event) => {
     setSearchQuery(event.target.value);
-  };
+  }, []);
 
-  const handleSearch = () => {
+  const handleSearch = useCallback(() => {
     onSearch(searchQuery);
-  };
+  }, [onSearch, searchQuery]);
 
   return (
     <div className="space-y-4">
@@ -30,6 +30,8 @@ const Search = ({ onSearch }) => {
       </div>
     </div>
   );
-};
+});
+
+Search.displayName = "Search";
 
 export default Search;

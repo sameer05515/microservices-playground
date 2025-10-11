@@ -1,35 +1,31 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, memo, useCallback } from 'react'
 import { coversationNames } from '../../../common/utils/constants'; 
 
-const ConversationFileSelector = ({initialSelectedFile='',onChange=()=>{}}) => {
-    
-
-    const handleChange = (event) => {
-        setSelectedValue(event.target.value);
-        console.log(`Selected value: ${event.target.value}`);
-        onChange(event.target.value)
-    };
-
-    const mappedArray = Object.entries(coversationNames).map(
-        ([key, value]) => {
-            return {
-                value: value,
-                label: key,
-            };
-        }
-    );
-
+const ConversationFileSelector = memo(({initialSelectedFile='',onChange=()=>{}}) => {
     const [selectedValue, setSelectedValue] = useState('');
 
-    useEffect(()=>{
+    const handleChange = useCallback((event) => {
+        const newValue = event.target.value;
+        setSelectedValue(newValue);
+        console.log(`Selected value: ${newValue}`);
+        onChange(newValue);
+    }, [onChange]);
+
+    const mappedArray = Object.entries(coversationNames).map(
+        ([key, value]) => ({
+            value: value,
+            label: key,
+        })
+    );
+
+    useEffect(() => {
         if(initialSelectedFile){
-            const option=mappedArray.find(ma=>ma.value===initialSelectedFile);
+            const option = mappedArray.find(ma => ma.value === initialSelectedFile);
             if(option){
-                setSelectedValue(()=>option.value);
+                setSelectedValue(option.value);
             }            
         }
-        
-    },[initialSelectedFile, mappedArray])
+    }, [initialSelectedFile, mappedArray]);
 
 
     // return (
@@ -76,6 +72,8 @@ const ConversationFileSelector = ({initialSelectedFile='',onChange=()=>{}}) => {
             )}
         </div>
     );
-}
+});
 
-export default ConversationFileSelector
+ConversationFileSelector.displayName = "ConversationFileSelector";
+
+export default ConversationFileSelector;
