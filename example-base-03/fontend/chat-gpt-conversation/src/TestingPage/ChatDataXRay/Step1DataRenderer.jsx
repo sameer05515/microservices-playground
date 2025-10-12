@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { apiRequest } from "../../common/utils/apiClient/v1";
 
-const Step1DataRenderer = ({onSlugClick}) => {
+const Step1DataRenderer = ({onSlugClick, onDateWiseSlugClick}) => {
     const [step1Data, setStep1Data] = useState([]);
       const fetchItr2 = () => {
         apiRequest({ url: "http://localhost:3000/analyse-cgpt/api/step-1-fetch-all-snapshot-names/itr2" })
@@ -25,6 +25,7 @@ const Step1DataRenderer = ({onSlugClick}) => {
               <th className="px-4 py-2 text-left border">ID</th>
               <th className="px-4 py-2 text-left border">Slug</th>
               <th className="px-4 py-2 text-left border">Order</th>
+              <th className="px-4 py-2 text-left border">Datewise Message</th>
               <th className="px-4 py-2 text-left border">Location</th>
               <th className="px-4 py-2 text-left border">Is Latest</th>
               <th className="px-4 py-2 text-left border">Created On</th>
@@ -39,6 +40,7 @@ const Step1DataRenderer = ({onSlugClick}) => {
                 <td className="px-4 py-2 border">{item.id}</td>
                 <td className="px-4 py-2 border cursor-pointer" onClick={()=>onSlugClick(item.slug)}>{item.slug}</td>
                 <td className="px-4 py-2 border">{item.order}</td>
+                <td className="px-4 py-2 border cursor-pointer" onClick={()=>onDateWiseSlugClick(item.slug)}>show table</td>
                 <td className="px-4 py-2 border">{item.location}</td>
                 <td className="px-4 py-2 border">{item.isLatest ? "✅" : "❌"}</td>
                 <td className="px-4 py-2 border">{item.createdOn}</td>

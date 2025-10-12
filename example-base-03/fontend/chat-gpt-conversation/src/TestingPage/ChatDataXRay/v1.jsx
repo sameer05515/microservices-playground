@@ -3,6 +3,7 @@ import useSPPNavigation from "../../common/hooks/useSPPNavigation";
 import Step1DataRenderer from "./Step1DataRenderer";
 import Step2DataRenderer from "./Step2DataRenderer";
 import ConvMessageRenderer from "./ConvMessageRenderer";
+import DatewiseMessageTable from "./DatewiseMessageTable";
 
 const ChatDataXRayV1 = () => {
   const { searchParams, goToTestingRoute } = useSPPNavigation();
@@ -16,6 +17,20 @@ const ChatDataXRayV1 = () => {
         search: {
           tester: "ChatDataXRayV1",
           widget: "conv",
+          s: slug,
+        },
+      });
+    },
+    [goToTestingRoute]
+  );
+
+  const showDatewiseSlugTable = useCallback(
+    (slug) => {
+      if (!slug) return;
+      goToTestingRoute({
+        search: {
+          tester: "ChatDataXRayV1",
+          widget: "datewise",
           s: slug,
         },
       });
@@ -39,11 +54,14 @@ const ChatDataXRayV1 = () => {
   );
   return (
     <div>
-      {!widget && <Step1DataRenderer onSlugClick={showConversations} />}
+      {!widget && (
+        <Step1DataRenderer onSlugClick={showConversations} onDateWiseSlugClick={showDatewiseSlugTable} />
+      )}
       {widget === "conv" && <Step2DataRenderer onConvClick={showConversationMessages} slug={slug} />}
       {widget === "conv-messages" && (
         <ConvMessageRenderer slug={slug} convId={convId} onConvClick={showConversationMessages} />
       )}
+      {widget === "datewise" && <DatewiseMessageTable slug={slug} />}
     </div>
   );
 };
