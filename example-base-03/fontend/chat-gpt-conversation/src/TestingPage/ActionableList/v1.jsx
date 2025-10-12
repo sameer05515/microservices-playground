@@ -78,9 +78,7 @@ export default function ActionableListV1() {
   return (
     <div className="min-h-screen bg-gray-50 p-6">
       <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-lg p-6 space-y-6">
-        <h1 className="text-2xl font-bold text-gray-800 mb-4">
-          📋 Actionable Task List
-        </h1>
+        <h1 className="text-2xl font-bold text-gray-800 mb-4">📋 Actionable Task List</h1>
 
         {data.map((cat, catIdx) => (
           <div key={catIdx}>
@@ -112,9 +110,7 @@ export default function ActionableListV1() {
                     transition={{ duration: 0.1 }}
                   >
                     <span
-                      className={`flex-1 cursor-pointer ${
-                        done ? "line-through" : ""
-                      }`}
+                      className={`flex-1 cursor-pointer ${done ? "line-through" : ""}`}
                       onClick={() => toggleTask(catIdx, taskIdx)}
                     >
                       {task}
@@ -122,9 +118,7 @@ export default function ActionableListV1() {
 
                     <div className="flex items-center gap-2">
                       <button
-                        onClick={() =>
-                          openEditModal(catIdx, taskIdx, task)
-                        }
+                        onClick={() => openEditModal(catIdx, taskIdx, task)}
                         className="text-indigo-500 hover:text-indigo-700"
                       >
                         <FiEdit3 size={18} />
