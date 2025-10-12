@@ -52,6 +52,22 @@ const ChatDataXRayV1 = () => {
     },
     [goToTestingRoute]
   );
+
+
+  const showDateMessages = useCallback(
+    (slug, date) => {
+      if (!slug) return;
+      goToTestingRoute({
+        search: {
+          tester: "ChatDataXRayV1",
+          widget: "date-messages",
+          s: slug,
+          c: date,
+        },
+      });
+    },
+    [goToTestingRoute]
+  );
   return (
     <div>
       {!widget && (
@@ -61,7 +77,8 @@ const ChatDataXRayV1 = () => {
       {widget === "conv-messages" && (
         <ConvMessageRenderer slug={slug} convId={convId} onConvClick={showConversationMessages} />
       )}
-      {widget === "datewise" && <DatewiseMessageTable slug={slug} />}
+      {widget === "datewise" && <DatewiseMessageTable slug={slug} onDateClick={showDateMessages} />}
+      {widget==="date-messages" && <p>Will be launched soon</p>}
     </div>
   );
 };
