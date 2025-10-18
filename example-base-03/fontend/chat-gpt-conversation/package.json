@@ -24,7 +24,7 @@
     "redux-thunk": "^3.1.0",
     "rehype-highlight": "^7.0.0",
     "rehype-raw": "^7.0.0",
-    "remark-gfm": "^4.0.0",
+    "remark-gfm": "^4.0.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

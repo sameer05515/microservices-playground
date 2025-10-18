@@ -1,8 +1,4 @@
 import React, { useEffect, useState, memo, useCallback } from "react";
-import {
-    otherMessageContentStyles,
-    userMessageContentStyles
-} from "../AIConversationRendererStyles/v1";
 import CustomCollapse from "../CustomCollapse/v1";
 import MarkdownComponent from "../MarkdownComponent/v1";
 import { capitalizeFirstLetter } from "../UtilityMethods";
@@ -108,15 +104,13 @@ const MessageItem = memo(({ message, initialValueForShowMessageText = false }) =
                 {showMessageText && (
                     <MarkdownComponent
                         markdownText={message.text}
-                        additionalStyle={{
-                            backgroundColor:
-                                message.author === "user"
-                                    ? userMessageContentStyles.backgroundColor
-                                    : otherMessageContentStyles.backgroundColor,
-                        }}
+                        className={`${
+                            message.author === "user"
+                                ? "bg-amber-50 dark:bg-amber-900/20 font-bold"
+                                : "bg-purple-50 dark:bg-purple-900/20 font-normal"
+                        }`}
                         showCopyToclipboardButton={message.author !== "user"}
                         makeFontWeightBold={message?.author === "user"}
-                        reactMarkdownStyles={{ fontWeight: message?.author === "user" ? 'bold' : '' }}
                     />
                 )}
             </div>
@@ -125,6 +119,32 @@ const MessageItem = memo(({ message, initialValueForShowMessageText = false }) =
 });
 
 MessageItem.displayName = "MessageItem";
+
+// Navigation buttons component
+const NavigationButtons = memo(({ onPrevClick, onShowClick, onNextClick, conversationId }) => (
+    <div className="space-x-2">
+        <button 
+            onClick={() => onPrevClick(conversationId)}
+            className="px-3 py-1 bg-blue-500 text-white text-sm rounded hover:bg-blue-600 transition-colors"
+        >
+            Previous
+        </button>
+        <button 
+            onClick={onShowClick}
+            className="px-3 py-1 bg-green-500 text-white text-sm rounded hover:bg-green-600 transition-colors"
+        >
+            Show
+        </button>
+        <button 
+            onClick={() => onNextClick(conversationId)}
+            className="px-3 py-1 bg-blue-500 text-white text-sm rounded hover:bg-blue-600 transition-colors"
+        >
+            Next
+        </button>
+    </div>
+));
+
+NavigationButtons.displayName = "NavigationButtons";
 
 // Main ConversationCard component
 const ConversationCard = memo(({
@@ -140,50 +160,40 @@ const ConversationCard = memo(({
         setShowAllNonUserMessages(value);
     }, []);
 
+    const { id, title, createdOn, updatedOn, messages } = conversation;
+
     return (
         <CustomCollapse
-            key={conversation.id}
+            key={id}
             className="conversation"
-            headerText={"Conversation Name : " + conversation.title}
+            headerText={`Conversation Name: ${title}`}
             initiallyCollapsed={initiallyCollapsed}
         >
             <ConversationHeader
-                title={conversation.title}
-                createdOn={conversation.createdOn}
-                updatedOn={conversation.updatedOn}
+                title={title}
+                createdOn={createdOn}
+                updatedOn={updatedOn}
                 onPrevClick={onPrevClick}
                 onShowClick={onShowClick}
                 onNextClick={onNextClick}
-                conversationId={conversation.id}
+                conversationId={id}
                 showAllNonUserMessages={showAllNonUserMessages}
                 onShowAllNonUserMessagesChange={handleShowAllNonUserMessagesChange}
             />
-            {conversation.messages.map((message, msgIndex) => (
+            {messages.map((message, msgIndex) => (
                 <MessageItem
-                    key={msgIndex}
+                    key={`${id}-msg-${msgIndex}`}
                     message={message}
                     initialValueForShowMessageText={showAllNonUserMessages}
                 />
             ))}
-            <div className="mt-4 space-x-2">
-                <button 
-                    onClick={() => onPrevClick(conversation.id)}
-                    className="px-3 py-1 bg-blue-500 text-white text-sm rounded hover:bg-blue-600 transition-colors"
-                >
-                    Previous
-                </button>
-                <button 
-                    onClick={onShowClick}
-                    className="px-3 py-1 bg-green-500 text-white text-sm rounded hover:bg-green-600 transition-colors"
-                >
-                    Show
-                </button>
-                <button 
-                    onClick={() => onNextClick(conversation.id)}
-                    className="px-3 py-1 bg-blue-500 text-white text-sm rounded hover:bg-blue-600 transition-colors"
-                >
-                    Next
-                </button>
+            <div className="mt-4">
+                <NavigationButtons
+                    onPrevClick={onPrevClick}
+                    onShowClick={onShowClick}
+                    onNextClick={onNextClick}
+                    conversationId={id}
+                />
             </div>
         </CustomCollapse>
     );
