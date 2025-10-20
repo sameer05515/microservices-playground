@@ -53,6 +53,10 @@ import FrenchLearningTrackerV1 from "./FrenchLearningTracker/v1";
 import ActionableListV1 from "./ActionableList/v1";
 import DiwaliFireworksV1 from "./DiwaliFireworks/v1";
 import DiwaliFireworksV2 from "./DiwaliFireworks/v2";
+import DiwaliFireworksV3 from "./DiwaliFireworks/v3";
+import DiwaliFireworksV4 from "./DiwaliFireworks/v4";
+import ChhathPujaScene from "./DiwaliFireworks/v5";
+import ChhathPujaSunset from "./DiwaliFireworks/v6";
 
 // yaha seggregation logic lagana hai ki, asaani se samajh aaye ki kon sa version stable wala hai,
 // abhi yaha bhid bhad dikh rahi hai.
@@ -120,7 +124,11 @@ const Components = {
   FrenchLearningTrackerV1,
   ActionableListV1,
   DiwaliFireworksV1,
-  DiwaliFireworksV2
+  DiwaliFireworksV2,
+  DiwaliFireworksV3,
+  DiwaliFireworksV4,
+  ChhathPujaScene,
+  ChhathPujaSunset
 };
 
 export const componentNames = Object.keys(Components);
