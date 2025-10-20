@@ -51,6 +51,8 @@ import ChatDataXRayV1 from "./ChatDataXRay/v1";
 import TimeZoneClockV1 from "./TimeZoneClock/v1";
 import FrenchLearningTrackerV1 from "./FrenchLearningTracker/v1";
 import ActionableListV1 from "./ActionableList/v1";
+import DiwaliFireworksV1 from "./DiwaliFireworks/v1";
+import DiwaliFireworksV2 from "./DiwaliFireworks/v2";
 
 // yaha seggregation logic lagana hai ki, asaani se samajh aaye ki kon sa version stable wala hai,
 // abhi yaha bhid bhad dikh rahi hai.
@@ -116,7 +118,9 @@ const Components = {
   ChatDataXRayV1,
   TimeZoneClockV1,
   FrenchLearningTrackerV1,
-  ActionableListV1
+  ActionableListV1,
+  DiwaliFireworksV1,
+  DiwaliFireworksV2
 };
 
 export const componentNames = Object.keys(Components);
