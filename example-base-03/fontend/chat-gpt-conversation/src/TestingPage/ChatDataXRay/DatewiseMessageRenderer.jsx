@@ -55,7 +55,7 @@ const DatewiseMessageRenderer = ({ slug, selectedDate, onSelectedDateClick }) =>
           <div>
             <button
               id="prevConversationBtn"
-              title="Prev Conversation"
+              title={`Prev ${convo.prevDate}`}
               className="px-4 py-2 bg-gray-300 text-gray-100 dark:text-gray-700 rounded-lg disabled:opacity-50"
               onClick={() => onSelectedDateClick(slug, convo.prevDate)}
             >
@@ -63,7 +63,7 @@ const DatewiseMessageRenderer = ({ slug, selectedDate, onSelectedDateClick }) =>
             </button>
             <button
               id="nextConversationBtn"
-              title="Next Conversation"
+              title={`Next ${convo.nextDate}`}
               className="px-4 py-2 bg-gray-300 text-gray-100 dark:text-gray-700 rounded-lg disabled:opacity-50"
               onClick={() => onSelectedDateClick(slug, convo.nextDate)}
             >
