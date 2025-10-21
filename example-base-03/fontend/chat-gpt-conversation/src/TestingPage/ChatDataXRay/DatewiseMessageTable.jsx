@@ -36,11 +36,11 @@ const DatewiseMessageTable = ({ slug, onDateClick }) => {
           {step2Data.map((item) => (
             <tr key={item.date} className="">
               {/* <td className="px-4 py-2 border">{item.id}</td> */}
-              <td className="px-4 py-2 border cursor-pointer" onClick={() => onDateClick(slug, item.date)}>
+              <td className="px-4 py-2 border">
                 {item.date}
               </td>
               {/* <td className="px-4 py-2 border">{item.date}</td> */}
-              <td className="px-4 py-2 border">{item.msgCount}</td>
+              <td className="px-4 py-2 border cursor-pointer" onClick={() => onDateClick(slug, item.date)}>{item.msgCount}</td>
               {/* <td className="px-4 py-2 border">{item.msgCount}</td>
               <td className="px-4 py-2 border">{item.messages}</td> */}
             </tr>
