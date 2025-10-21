@@ -40,14 +40,14 @@ const DatewiseMessageRenderer = ({ slug, selectedDate, onSelectedDateClick }) =>
           <div className="p-4 text-xs text-gray-600 dark:text-gray-100">
             <p>
               {/* <span className="font-semibold">ID:</span>  */}
-              {convo.title} ({convo.selectedIndex+1}/{convo.totalConv})
+              {convo.selectedDate} ({convo.selectedIndex+1}/{convo.totalDates})
             </p>
-            <p>
+            {/* <p>
               <span className="font-semibold">Created On:</span> {convo.createdOn}
             </p>
             <p>
               <span className="font-semibold">Updated On:</span> {convo.updatedOn}
-            </p>
+            </p> */}
             <p>
               <span className="font-semibold">Message Count:</span> {convo.msgCount}
             </p>
@@ -57,7 +57,7 @@ const DatewiseMessageRenderer = ({ slug, selectedDate, onSelectedDateClick }) =>
               id="prevConversationBtn"
               title="Prev Conversation"
               className="px-4 py-2 bg-gray-300 text-gray-100 dark:text-gray-700 rounded-lg disabled:opacity-50"
-              onClick={() => onSelectedDateClick(slug, convo.prev)}
+              onClick={() => onSelectedDateClick(slug, convo.prevDate)}
             >
               ⏪
             </button>
@@ -65,7 +65,7 @@ const DatewiseMessageRenderer = ({ slug, selectedDate, onSelectedDateClick }) =>
               id="nextConversationBtn"
               title="Next Conversation"
               className="px-4 py-2 bg-gray-300 text-gray-100 dark:text-gray-700 rounded-lg disabled:opacity-50"
-              onClick={() => onSelectedDateClick(slug, convo.next)}
+              onClick={() => onSelectedDateClick(slug, convo.nextDate)}
             >
               ⏩
             </button>
