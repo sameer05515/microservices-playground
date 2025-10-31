@@ -1,4 +1,4 @@
-import React, { useEffect, useState, memo, useCallback } from "react";
+import React, { useEffect, useState, memo, useCallback, useMemo } from "react";
 import CustomCollapse from "../CustomCollapse/v1";
 import MarkdownComponent from "../MarkdownComponent/v1";
 import { capitalizeFirstLetter } from "../UtilityMethods";
@@ -110,7 +110,6 @@ const MessageItem = memo(({ message, initialValueForShowMessageText = false }) =
                                 : "bg-purple-50 dark:bg-purple-900/20 font-normal"
                         }`}
                         showCopyToclipboardButton={message.author !== "user"}
-                        makeFontWeightBold={message?.author === "user"}
                     />
                 )}
             </div>
@@ -121,28 +120,33 @@ const MessageItem = memo(({ message, initialValueForShowMessageText = false }) =
 MessageItem.displayName = "MessageItem";
 
 // Navigation buttons component
-const NavigationButtons = memo(({ onPrevClick, onShowClick, onNextClick, conversationId }) => (
-    <div className="space-x-2">
-        <button 
-            onClick={() => onPrevClick(conversationId)}
-            className="px-3 py-1 bg-blue-500 text-white text-sm rounded hover:bg-blue-600 transition-colors"
-        >
-            Previous
-        </button>
-        <button 
-            onClick={onShowClick}
-            className="px-3 py-1 bg-green-500 text-white text-sm rounded hover:bg-green-600 transition-colors"
-        >
-            Show
-        </button>
-        <button 
-            onClick={() => onNextClick(conversationId)}
-            className="px-3 py-1 bg-blue-500 text-white text-sm rounded hover:bg-blue-600 transition-colors"
-        >
-            Next
-        </button>
-    </div>
-));
+const NavigationButtons = memo(({ onPrevClick, onShowClick, onNextClick, conversationId }) => {
+    const handlePrev = useCallback(() => onPrevClick(conversationId), [onPrevClick, conversationId]);
+    const handleNext = useCallback(() => onNextClick(conversationId), [onNextClick, conversationId]);
+    
+    return (
+        <div className="space-x-2">
+            <button 
+                onClick={handlePrev}
+                className="px-3 py-1 bg-blue-500 text-white text-sm rounded hover:bg-blue-600 transition-colors"
+            >
+                Previous
+            </button>
+            <button 
+                onClick={onShowClick}
+                className="px-3 py-1 bg-green-500 text-white text-sm rounded hover:bg-green-600 transition-colors"
+            >
+                Show
+            </button>
+            <button 
+                onClick={handleNext}
+                className="px-3 py-1 bg-blue-500 text-white text-sm rounded hover:bg-blue-600 transition-colors"
+            >
+                Next
+            </button>
+        </div>
+    );
+});
 
 NavigationButtons.displayName = "NavigationButtons";
 
@@ -162,6 +166,18 @@ const ConversationCard = memo(({
 
     const { id, title, createdOn, updatedOn, messages } = conversation;
 
+    // Memoize messages rendering
+    const messageList = useMemo(() => 
+        messages.map((message, msgIndex) => (
+            <MessageItem
+                key={`${id}-msg-${msgIndex}`}
+                message={message}
+                initialValueForShowMessageText={showAllNonUserMessages}
+            />
+        )), 
+        [messages, id, showAllNonUserMessages]
+    );
+
     return (
         <CustomCollapse
             key={id}
@@ -180,13 +196,7 @@ const ConversationCard = memo(({
                 showAllNonUserMessages={showAllNonUserMessages}
                 onShowAllNonUserMessagesChange={handleShowAllNonUserMessagesChange}
             />
-            {messages.map((message, msgIndex) => (
-                <MessageItem
-                    key={`${id}-msg-${msgIndex}`}
-                    message={message}
-                    initialValueForShowMessageText={showAllNonUserMessages}
-                />
-            ))}
+            {messageList}
             <div className="mt-4">
                 <NavigationButtons
                     onPrevClick={onPrevClick}

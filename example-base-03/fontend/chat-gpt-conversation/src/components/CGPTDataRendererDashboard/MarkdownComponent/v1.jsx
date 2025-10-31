@@ -1,4 +1,4 @@
-import React, { useState, memo, useCallback, useEffect } from "react";
+import React, { useState, memo, useCallback, useEffect, useMemo } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from 'remark-gfm';
 import { CopyToClipboard } from "react-copy-to-clipboard";
@@ -88,6 +88,34 @@ const MarkdownComponent = memo(({
     setCopied(true);
   }, []);
 
+  // Memoize markdown components to prevent recreation on each render
+  const markdownComponents = useMemo(() => ({
+    table: (props) => (
+      <div className="overflow-x-auto my-4">
+        <table className="min-w-full border-collapse border border-gray-300 dark:border-gray-700" {...props} />
+      </div>
+    ),
+    th: (props) => (
+      <th className="border border-gray-300 dark:border-gray-700 p-2 
+        bg-gray-100 dark:bg-gray-800 font-semibold text-left" 
+        {...props} />
+    ),
+    td: (props) => (
+      <td className="border border-gray-300 dark:border-gray-700 p-2" 
+        {...props} />
+    ),
+    code: ({inline, ...props}) => (
+      inline 
+        ? <code className="bg-gray-200 dark:bg-gray-700 px-1 rounded 
+            text-blue-600 dark:text-blue-400 text-sm" {...props} />
+        : <code {...props} />
+    ),
+    pre: (props) => (
+      <pre className="bg-gray-100 dark:bg-gray-900 p-4 rounded 
+        overflow-x-auto" {...props} />
+    ),
+  }), []);
+
   return (
     <div className={`markdown-body p-3 bg-gray-50 dark:bg-gray-800 
       rounded-lg border border-gray-300 dark:border-gray-700 ${className}`}>
@@ -105,26 +133,19 @@ const MarkdownComponent = memo(({
       </div>
 
       <MarkdownErrorBoundary>
-        <div className="prose dark:prose-invert max-w-none 
-          prose-headings:mt-4 prose-headings:mb-2
-          prose-p:my-2 prose-pre:bg-gray-100 dark:prose-pre:bg-gray-900
-          prose-code:text-blue-600 dark:prose-code:text-blue-400
-          prose-table:border-collapse prose-table:w-full
-          prose-td:border prose-td:p-2 prose-td:dark:border-gray-700
-          prose-th:border prose-th:p-2 prose-th:bg-gray-100 prose-th:dark:bg-gray-800 prose-th:dark:border-gray-700">
-          <ReactMarkdown 
-            remarkPlugins={[remarkGfm]}
-            components={{
-              table: ({node, ...props}) => (
-                <div className="overflow-x-auto my-4">
-                  <table {...props} />
-                </div>
-              )
-            }}
-          >
-            {markdownText}
-          </ReactMarkdown>
-        </div>
+        <ReactMarkdown 
+          remarkPlugins={[remarkGfm]}
+          components={markdownComponents}
+          className="prose dark:prose-invert max-w-none 
+            prose-headings:mt-4 prose-headings:mb-2 prose-headings:text-gray-900 dark:prose-headings:text-gray-100
+            prose-p:my-2 prose-p:text-gray-800 dark:prose-p:text-gray-200
+            prose-code:text-blue-600 dark:prose-code:text-blue-400
+            prose-a:text-blue-600 dark:prose-a:text-blue-400 prose-a:no-underline hover:prose-a:underline
+            prose-strong:text-gray-900 dark:prose-strong:text-gray-100
+            prose-li:text-gray-800 dark:prose-li:text-gray-200"
+        >
+          {markdownText}
+        </ReactMarkdown>
       </MarkdownErrorBoundary>
     </div>
   );
