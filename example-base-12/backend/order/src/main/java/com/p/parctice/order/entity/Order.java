@@ -31,6 +31,7 @@ public class Order {
 
     @ElementCollection
     @Column(name = "product_ids")
+    @Builder.Default
     private List<Long> productIds=new ArrayList<>();
 
     private LocalDateTime orderDate;

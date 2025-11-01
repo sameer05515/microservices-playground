@@ -4,8 +4,6 @@ import com.p.parctice.order.entity.Order;
 import com.p.parctice.order.pojo.OrderPojo;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-
 @Component
 public class OrderMapper {
 
