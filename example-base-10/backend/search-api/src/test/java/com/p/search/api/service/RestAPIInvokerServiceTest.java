@@ -109,6 +109,7 @@ class RestAPIInvokerServiceTest {
 
     @Test
     @DisplayName("Should migrate categories successfully")
+    @SuppressWarnings("unchecked")
     void getAllCategory_Success() {
         // Given
         CategoryV1 categoryV1 = createMockCategoryV1();
@@ -170,6 +171,7 @@ class RestAPIInvokerServiceTest {
 
     @Test
     @DisplayName("Should return empty list when no categories found")
+    @SuppressWarnings("unchecked")
     void getAllCategory_EmptyList() {
         // Given
         ResponseEntity<List<CategoryV1>> emptyResponse = 
@@ -189,6 +191,7 @@ class RestAPIInvokerServiceTest {
 
     @Test
     @DisplayName("Should return empty list when categories response is null")
+    @SuppressWarnings("unchecked")
     void getAllCategory_NullResponse() {
         // Given
         ResponseEntity<List<CategoryV1>> nullResponse = 
@@ -208,6 +211,7 @@ class RestAPIInvokerServiceTest {
 
     @Test
     @DisplayName("Should skip null categories")
+    @SuppressWarnings("unchecked")
     void getAllCategory_SkipNullCategories() {
         // Given
         List<CategoryV1> categoriesWithNull = new ArrayList<>();
@@ -247,6 +251,7 @@ class RestAPIInvokerServiceTest {
 
     @Test
     @DisplayName("Should throw exception when categories API fails")
+    @SuppressWarnings("unchecked")
     void getAllCategory_RestClientException() {
         // Given
         when(restTemplate.exchange(eq("http://example.com/categories"), eq(HttpMethod.GET), 
