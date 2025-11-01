@@ -11,6 +11,8 @@ import lombok.NoArgsConstructor;
 @Builder
 public class SmartContent {
     private String content;
+    @Builder.Default
     private String textOutputType="html";
+    @Builder.Default
     private String textInputType="CKEditor";
 }
