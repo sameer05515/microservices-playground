@@ -1,4 +1,3 @@
-// const axios = require("axios");
 import axios from "axios";
 
 const API_URL = "http://localhost:3005/api/v2/items";
@@ -9,7 +8,7 @@ const fetchItemsWithFilter = async () => {
     const response = await axios.get(API_URL, { params: { category: "Tech" } });
     console.log("Filtered Items:", response.data);
   } catch (error) {
-    console.error("Error fetching items:", error);
+    console.error("Error fetching items (with filter):", error);
   }
 };
 
@@ -19,10 +18,12 @@ const fetchSortedItems = async () => {
     const response = await axios.get(API_URL, { params: { sortBy: "price" } });
     console.log("Sorted Items:", response.data);
   } catch (error) {
-    console.error("Error fetching items:", error);
+    console.error("Error fetching items (with sort):", error);
   }
 };
 
-// Execute requests
-fetchItemsWithFilter();
-fetchSortedItems();
+// Execute requests sequentially for clarity
+(async () => {
+  await fetchItemsWithFilter();
+  await fetchSortedItems();
+})();
