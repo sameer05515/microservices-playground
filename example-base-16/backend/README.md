@@ -118,13 +118,22 @@ You can update the database connection string in `src/main/resources/application
 - Indexes are created automatically based on `@Indexed` annotations
 - No manual database creation required
 
-### API Documentation (Swagger/OpenAPI)
+### API Documentation
+
+The application provides multiple ways to access API documentation:
 
 - **Swagger UI**: `http://localhost:8080/swagger-ui.html`
   - Interactive API documentation
   - Test endpoints directly from the browser
+  
+- **Redoc**: `http://localhost:8080/redoc`
+  - Beautiful, responsive API documentation
+  - Clean, readable interface
+  - Perfect for sharing with stakeholders
+  
 - **OpenAPI JSON**: `http://localhost:8080/v3/api-docs`
   - OpenAPI 3.0 specification in JSON format
+  - Can be imported into Postman, Insomnia, or other API tools
 
 ## Project Structure
 
