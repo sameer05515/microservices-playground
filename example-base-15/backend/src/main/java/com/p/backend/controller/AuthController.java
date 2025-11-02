@@ -5,6 +5,12 @@ import com.p.backend.dto.LoginRequest;
 import com.p.backend.dto.RegisterRequest;
 import com.p.backend.entity.User;
 import com.p.backend.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/auth")
 @Validated
+@Tag(name = "Authentication", description = "API endpoints for user authentication and registration")
 public class AuthController {
 
     private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
@@ -29,6 +36,22 @@ public class AuthController {
         this.passwordEncoder = passwordEncoder;
     }
 
+    @Operation(
+            summary = "Register a new user",
+            description = "Creates a new user account with username, password, and email"
+    )
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "201",
+                    description = "User registered successfully",
+                    content = @Content(schema = @Schema(implementation = AuthResponse.class))
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Invalid input or user already exists",
+                    content = @Content(schema = @Schema(implementation = AuthResponse.class))
+            )
+    })
     @PostMapping("/register")
     public ResponseEntity<AuthResponse> register(@Valid @RequestBody RegisterRequest registerRequest) {
         logger.info("Registration attempt for username: {}", registerRequest.getUsername());
@@ -55,6 +78,22 @@ public class AuthController {
         }
     }
 
+    @Operation(
+            summary = "Login user",
+            description = "Authenticates a user with username and password"
+    )
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Login successful",
+                    content = @Content(schema = @Schema(implementation = AuthResponse.class))
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    description = "Invalid username or password",
+                    content = @Content(schema = @Schema(implementation = AuthResponse.class))
+            )
+    })
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@Valid @RequestBody LoginRequest loginRequest) {
         logger.info("Login attempt for username: {}", loginRequest.getUsername());

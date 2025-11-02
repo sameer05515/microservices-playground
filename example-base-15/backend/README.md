@@ -48,6 +48,14 @@ java -jar target/backend-0.0.1-SNAPSHOT.jar
   - Username: `sa`
   - Password: (leave empty)
 
+### API Documentation (Swagger/OpenAPI)
+
+- **Swagger UI**: `http://localhost:8080/swagger-ui.html`
+  - Interactive API documentation
+  - Test endpoints directly from the browser
+- **OpenAPI JSON**: `http://localhost:8080/v3/api-docs`
+  - OpenAPI 3.0 specification in JSON format
+
 ## Project Structure
 
 ```
@@ -57,6 +65,7 @@ backend/
 │   │   ├── java/com/p/backend/
 │   │   │   ├── BackendApplication.java
 │   │   │   ├── config/
+│   │   │   │   ├── OpenApiConfig.java
 │   │   │   │   └── SecurityConfig.java
 │   │   │   ├── controller/
 │   │   │   │   ├── AuthController.java
@@ -88,4 +97,5 @@ backend/
 - ✅ BCrypt password encoding
 - ✅ Input validation with Jakarta Validation
 - ✅ RESTful API design
+- ✅ Swagger/OpenAPI documentation with interactive UI
 
