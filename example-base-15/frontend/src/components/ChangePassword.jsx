@@ -1,9 +1,11 @@
 import { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { authService } from '../services/authApi';
 
-function ChangePassword({ onBackToDashboard }) {
+function ChangePassword() {
   const { user } = useAuth();
+  const navigate = useNavigate();
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -45,12 +47,10 @@ function ChangePassword({ onBackToDashboard }) {
       setCurrentPassword('');
       setNewPassword('');
       setConfirmPassword('');
-      // Clear success message after 3 seconds
+      // Clear success message after 3 seconds and navigate back
       setTimeout(() => {
         setSuccess('');
-        if (onBackToDashboard) {
-          onBackToDashboard();
-        }
+        navigate('/dashboard');
       }, 3000);
     } else {
       setError(result.error || 'Failed to change password');
@@ -64,27 +64,25 @@ function ChangePassword({ onBackToDashboard }) {
           {/* Header */}
           <div className="bg-white rounded-lg shadow-md p-6 mb-6">
             <div className="flex items-center gap-4">
-              {onBackToDashboard && (
-                <button
-                  onClick={onBackToDashboard}
-                  className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
-                  title="Back to Dashboard"
+              <Link
+                to="/dashboard"
+                className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
+                title="Back to Dashboard"
+              >
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
                 >
-                  <svg
-                    className="w-6 h-6"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M10 19l-7-7m0 0l7-7m-7 7h18"
-                    />
-                  </svg>
-                </button>
-              )}
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M10 19l-7-7m0 0l7-7m-7 7h18"
+                  />
+                </svg>
+              </Link>
               <div>
                 <h1 className="text-3xl font-bold text-gray-900">Change Password</h1>
                 <p className="text-gray-600 mt-1">Update your account password</p>

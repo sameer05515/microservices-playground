@@ -1,7 +1,8 @@
 import { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
-function Register({ onSwitchToLogin }) {
+function Register() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -9,6 +10,7 @@ function Register({ onSwitchToLogin }) {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const { register } = useAuth();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -39,7 +41,9 @@ function Register({ onSwitchToLogin }) {
     const result = await register(username, password, email);
     setLoading(false);
 
-    if (!result.success) {
+    if (result.success) {
+      navigate('/dashboard');
+    } else {
       setError(result.error || 'Registration failed');
     }
   };
@@ -135,12 +139,12 @@ function Register({ onSwitchToLogin }) {
         <div className="mt-6 text-center">
           <p className="text-sm text-gray-600">
             Already have an account?{' '}
-            <button
-              onClick={onSwitchToLogin}
+            <Link
+              to="/login"
               className="text-indigo-600 font-semibold hover:text-indigo-700 hover:underline"
             >
               Login here
-            </button>
+            </Link>
           </p>
         </div>
       </div>
