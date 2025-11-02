@@ -4,6 +4,7 @@ import com.p.backend.dto.AuthResponse;
 import com.p.backend.dto.LoginRequest;
 import com.p.backend.dto.RegisterRequest;
 import com.p.backend.entity.User;
+import com.p.backend.security.JwtTokenProvider;
 import com.p.backend.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -30,10 +31,12 @@ public class AuthController {
 
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
+    private final JwtTokenProvider jwtTokenProvider;
 
-    public AuthController(UserService userService, PasswordEncoder passwordEncoder) {
+    public AuthController(UserService userService, PasswordEncoder passwordEncoder, JwtTokenProvider jwtTokenProvider) {
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
+        this.jwtTokenProvider = jwtTokenProvider;
     }
 
     @Operation(
@@ -103,12 +106,14 @@ public class AuthController {
                 .filter(user -> user.isEnabled())
                 .map(user -> {
                     logger.info("Login successful for user: {}", user.getUsername());
+                    String token = jwtTokenProvider.generateToken(user.getUsername(), user.getRole());
                     AuthResponse response = AuthResponse.builder()
                             .message("Login successful")
                             .username(user.getUsername())
                             .email(user.getEmail())
                             .role(user.getRole())
                             .success(true)
+                            .token(token)
                             .build();
                     return ResponseEntity.ok(response);
                 })
