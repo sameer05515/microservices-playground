@@ -1,12 +1,12 @@
 # Backend - Spring Boot Application
 
-A Spring Boot backend application with authentication and MySQL database.
+A Spring Boot backend application with authentication and MongoDB database.
 
 ## Prerequisites
 
 - Java 21 or higher
 - Maven 3.6+ (or use Maven wrapper)
-- MySQL 8.0+ installed and running on localhost
+- MongoDB 4.4+ installed and running on localhost
 
 ## Running the Application
 
@@ -99,40 +99,24 @@ java -jar target/backend-0.0.1-SNAPSHOT.jar
 
 ### Database Setup
 
-Before running the application, ensure MySQL is running and create a database.
+Before running the application, ensure MongoDB is running on localhost.
 
-**Option 1: Using SQL Scripts (Recommended)**
+**MongoDB Configuration:**
+- **Host**: `localhost:27017`
+- **Database**: `ex_base_16_backend` (will be created automatically on first write)
+- **No authentication required by default** (configure if needed in MongoDB)
 
-Database initialization scripts are available in the `scripts/` directory:
-
-```bash
-# Create database
-mysql -u root -p < scripts/create-database.sql
-
-# Create tables (optional - Hibernate will create them automatically)
-mysql -u root -p ex_base_15_backend < scripts/create-tables.sql
-
-# Create default admin user (optional)
-mysql -u root -p ex_base_15_backend < scripts/create-admin-user.sql
+**MongoDB Connection String:**
+```
+mongodb://localhost:27017/ex_base_16_backend
 ```
 
-**Option 2: Manual Setup**
+You can update the database connection string in `src/main/resources/application.properties`.
 
-```sql
-CREATE DATABASE IF NOT EXISTS ex_base_15_backend
-    CHARACTER SET utf8mb4
-    COLLATE utf8mb4_unicode_ci;
-```
-
-**Database Configuration:**
-- **Host**: `localhost:3306`
-- **Database**: `ex_base_15_backend` (will be created automatically if `createDatabaseIfNotExist=true`)
-- **Username**: `root` (update in `application.properties` if different)
-- **Password**: Update in `application.properties` to match your MySQL password
-
-You can update the database credentials in `src/main/resources/application.properties`.
-
-**Note:** The application is configured to auto-create tables via Hibernate (`spring.jpa.hibernate.ddl-auto=update`), so you may only need to create the database.
+**Note:** 
+- Collections (tables) are created automatically on first insert
+- Indexes are created automatically based on `@Indexed` annotations
+- No manual database creation required
 
 ### API Documentation (Swagger/OpenAPI)
 
@@ -183,7 +167,7 @@ backend/
 
 - ✅ User Registration with validation
 - ✅ User Login with password verification and JWT token generation
-- ✅ MySQL Database (configurable)
+- ✅ MongoDB Database (configurable)
 - ✅ Spring Security with JWT authentication
 - ✅ Role-based access control (RBAC)
 - ✅ BCrypt password encoding
@@ -197,18 +181,23 @@ backend/
 
 By default, new users are created with the `USER` role. To create an admin user:
 
-1. Connect to your MySQL database using any MySQL client (e.g., MySQL Workbench, phpMyAdmin, or command line)
-2. Run this SQL to update a user to ADMIN role:
-   ```sql
-   USE backend_db;
-   UPDATE users SET role = 'ADMIN' WHERE username = 'your_username';
+1. Register a user via `/api/auth/register`
+2. Connect to MongoDB using MongoDB Compass, mongo shell, or any MongoDB client
+3. Update the user's role to ADMIN:
+   ```javascript
+   use ex_base_16_backend
+   db.users.updateOne(
+     { username: "your_username" },
+     { $set: { role: "ADMIN" } }
+   )
    ```
-3. Or register a user via `/api/auth/register`, then update the role:
-   ```sql
-   USE backend_db;
-   UPDATE users SET role = 'ADMIN' WHERE username = 'registered_username';
+   
+   Or using mongo shell command:
+   ```bash
+   mongo ex_base_16_backend --eval 'db.users.updateOne({username: "your_username"}, {$set: {role: "ADMIN"}})'
    ```
-   Note: It's recommended to register the user first (to get a properly BCrypt-encoded password), then update the role.
+
+**Note:** It's recommended to register the user first (to get a properly BCrypt-encoded password), then update the role.
 
 ## Using JWT Tokens
 

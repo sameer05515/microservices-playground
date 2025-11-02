@@ -5,13 +5,13 @@ import com.p.backend.entity.User;
 import com.p.backend.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDateTime;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-@Transactional
 public class UserService {
 
     private final UserRepository userRepository;
@@ -40,6 +40,7 @@ public class UserService {
                 .email(registerRequest.getEmail())
                 .role("USER")
                 .enabled(true)
+                .createdAt(LocalDateTime.now())
                 .build();
 
         return userRepository.save(user);
@@ -62,6 +63,7 @@ public class UserService {
         }
 
         user.setPassword(passwordEncoder.encode(newPassword));
+        user.setUpdatedAt(LocalDateTime.now());
         userRepository.save(user);
     }
 
@@ -74,6 +76,7 @@ public class UserService {
         }
 
         user.setPassword(passwordEncoder.encode(newPassword));
+        user.setUpdatedAt(LocalDateTime.now());
         userRepository.save(user);
     }
 }
