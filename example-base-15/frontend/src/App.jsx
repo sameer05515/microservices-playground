@@ -3,9 +3,11 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 import Login from './components/Login';
 import Register from './components/Register';
 import Dashboard from './components/Dashboard';
+import UserList from './components/UserList';
 
 function AppContent() {
   const [showRegister, setShowRegister] = useState(false);
+  const [currentView, setCurrentView] = useState('dashboard');
   const { user, loading } = useAuth();
 
   if (loading) {
@@ -20,7 +22,10 @@ function AppContent() {
   }
 
   if (user) {
-    return <Dashboard />;
+    if (currentView === 'users') {
+      return <UserList onBackToDashboard={() => setCurrentView('dashboard')} />;
+    }
+    return <Dashboard onNavigateToUsers={() => setCurrentView('users')} />;
   }
 
   return (
