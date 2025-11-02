@@ -1,17 +1,19 @@
 # Example Base 16 - Full Stack Application
 
-A full-stack web application featuring a Spring Boot backend with MySQL database and a React frontend with Tailwind CSS. The application provides user authentication, role-based access control, and user management capabilities.
+Example Base 16 is a ready-to-use full-stack web application that demonstrates a modern architecture combining a Java Spring Boot backend (with MongoDB option) and a React + Tailwind CSS frontend. The project includes user authentication, role-based access control, and comprehensive user management features.
+
+---
 
 ## 🏗️ Architecture
 
 ```
 example-base-16/
-├── backend/          # Spring Boot REST API
+├── backend/          # Java Spring Boot REST API
 │   ├── Java 21
 │   ├── Spring Boot 3.3.1
-│   ├── MySQL Database
+│   ├── MySQL or MongoDB Database (configurable)
 │   ├── JWT Authentication
-│   └── Swagger/OpenAPI
+│   └── Swagger/OpenAPI for API docs
 │
 └── frontend/         # React SPA
     ├── React 18
@@ -20,48 +22,60 @@ example-base-16/
     └── React Router 6
 ```
 
+---
+
 ## 📋 Prerequisites
 
 ### Backend
-- **Java 21** or higher
-- **Maven 3.6+** (or use Maven wrapper)
-- **MySQL 8.0+** installed and running on localhost
+- **Java 21+**
+- **Maven 3.6+** (or Maven Wrapper)
+- **MySQL 8.0+** or **MongoDB 6+** (see `backend/scripts/README.md`)
 - **Port 8080** available
 
 ### Frontend
-- **Node.js 18+** and npm
+- **Node.js 18+** and **npm**
 - **Port 5173** available
+
+---
 
 ## 🚀 Quick Start
 
 ### 1. Database Setup
 
-First, set up the MySQL database:
+Choose your database and run the provided scripts:
 
+**For MySQL:**
 ```bash
-# Create the database
 mysql -u root -p < backend/scripts/create-database.sql
-
-# (Optional) Create tables manually (Hibernate will auto-create them)
-mysql -u root -p ex_base_15_backend < backend/scripts/create-tables.sql
-
-# (Optional) Create default admin user
-mysql -u root -p ex_base_15_backend < backend/scripts/create-admin-user.sql
+mysql -u root -p ex_base_16_backend < backend/scripts/create-tables.sql
+mysql -u root -p ex_base_16_backend < backend/scripts/create-admin-user.sql
 ```
 
-**Default Admin Credentials:**
-- Username: `admin`
-- Password: `admin123`
+**For MongoDB:**  
+See `backend/scripts/README.md`.
 
-⚠️ **Important:** Change the password immediately after first login!
+**Default Admin Credentials:**
+- **Username:** `admin`
+- **Password:** `admin123`
+
+**⚠️ IMPORTANT:** Change the admin password immediately after first login!
 
 ### 2. Backend Configuration
 
-Update database credentials in `backend/src/main/resources/application.properties`:
+Update `backend/src/main/resources/application.properties` as needed:
 
 ```properties
+# For MySQL
+spring.datasource.url=jdbc:mysql://localhost:3306/ex_base_16_backend
 spring.datasource.username=root
-spring.datasource.password=your_mysql_password
+spring.datasource.password=your_password
+
+# For MongoDB (optional)
+# spring.data.mongodb.uri=mongodb://localhost:27017/ex_base_16_backend
+
+# JWT config
+jwt.secret=your-256-bit-secret-key...
+jwt.expiration=86400000
 ```
 
 ### 3. Start Backend
@@ -70,24 +84,22 @@ spring.datasource.password=your_mysql_password
 cd backend
 mvn spring-boot:run
 ```
-
-Backend will be available at `http://localhost:8080`
+Backend API: `http://localhost:8080`
 
 ### 4. Start Frontend
-
-Open a new terminal:
 
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
+Frontend: `http://localhost:5173`
 
-Frontend will be available at `http://localhost:5173`
+---
 
 ## 📁 Project Structure
 
-### Backend Structure
+### Backend
 
 ```
 backend/
@@ -95,176 +107,109 @@ backend/
 │   ├── main/
 │   │   ├── java/com/p/backend/
 │   │   │   ├── BackendApplication.java
-│   │   │   ├── config/
-│   │   │   │   ├── OpenApiConfig.java        # Swagger configuration
-│   │   │   │   ├── SecurityConfig.java       # Spring Security & JWT
-│   │   │   │   └── DatabaseConfig.java       # Database diagnostics
-│   │   │   ├── controller/
-│   │   │   │   ├── AuthController.java       # Authentication endpoints
-│   │   │   │   ├── UserController.java        # User management (Admin)
-│   │   │   │   └── HealthController.java      # Health check
-│   │   │   ├── dto/
-│   │   │   │   ├── AuthResponse.java
-│   │   │   │   ├── LoginRequest.java
-│   │   │   │   ├── RegisterRequest.java
-│   │   │   │   ├── ChangePasswordRequest.java
-│   │   │   │   ├── ChangePasswordResponse.java
-│   │   │   │   ├── ResetPasswordRequest.java
-│   │   │   │   └── UserResponse.java
-│   │   │   ├── entity/
-│   │   │   │   └── User.java                  # User entity
-│   │   │   ├── repository/
-│   │   │   │   └── UserRepository.java        # JPA repository
-│   │   │   ├── security/
-│   │   │   │   ├── JwtTokenProvider.java      # JWT token generation/validation
-│   │   │   │   └── JwtAuthenticationFilter.java  # JWT filter
-│   │   │   └── service/
-│   │   │       └── UserService.java           # Business logic
+│   │   │   ├── config/                        # Configuration beans
+│   │   │   ├── controller/                    # REST endpoints
+│   │   │   ├── dto/                           # Data transfer objects
+│   │   │   ├── entity/                        # JPA Entities / MongoDB Schemas
+│   │   │   ├── repository/                    # JPA/Mongo repositories
+│   │   │   ├── security/                      # JWT and security
+│   │   │   └── service/                       # Business logic
 │   │   └── resources/
-│   │       ├── application.properties         # Configuration
+│   │       ├── application.properties
 │   │       └── db/
-│   │           ├── init.sql                   # Database initialization
-│   │           └── schema.sql                 # Schema definition
+│   │           ├── init.sql
+│   │           └── schema.sql
 │   └── test/
-│       └── java/com/p/backend/
-│           └── BackendApplicationTests.java
 ├── scripts/
 │   ├── create-database.sql
 │   ├── create-tables.sql
 │   ├── create-admin-user.sql
-│   └── drop-database.sql
+│   └── (see README.md for MongoDB scripts)
 └── pom.xml
 ```
 
-### Frontend Structure
+### Frontend
 
 ```
 frontend/
 ├── src/
 │   ├── components/
-│   │   ├── Login.jsx                          # Login page
-│   │   ├── Register.jsx                        # Registration page
-│   │   ├── Dashboard.jsx                      # User dashboard
-│   │   ├── ChangePassword.jsx                 # Change own password
-│   │   ├── UserList.jsx                        # User management (Admin)
-│   │   ├── ResetPassword.jsx                   # Reset user password modal
-│   │   ├── ProtectedRoute.jsx                 # Route protection wrapper
-│   │   └── PublicRoute.jsx                    # Public route wrapper
 │   ├── context/
-│   │   └── AuthContext.jsx                    # Authentication context
 │   ├── services/
-│   │   ├── authApi.js                         # Authentication API calls
-│   │   └── userApi.js                         # User management API calls
-│   ├── App.jsx                                 # Main app with routing
-│   ├── main.jsx                                # Entry point
-│   └── index.css                               # Tailwind CSS
-├── vite.config.js                              # Vite configuration
+│   ├── App.jsx
+│   ├── main.jsx
+│   └── index.css
+├── vite.config.js
 └── package.json
 ```
 
+---
+
 ## 🔌 API Endpoints
 
-### Public Endpoints
+### Public
+| Method | Endpoint                | Description           |
+|--------|-------------------------|-----------------------|
+| POST   | `/api/auth/register`    | User registration     |
+| POST   | `/api/auth/login`       | Obtain JWT token      |
+| GET    | `/api/health`           | Service health check  |
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `GET` | `/api/health` | Health check |
-| `POST` | `/api/auth/register` | Register new user |
-| `POST` | `/api/auth/login` | Login and get JWT token |
+### Protected (require JWT)
+| Method | Endpoint                     | Role       | Description               |
+|--------|------------------------------|------------|---------------------------|
+| POST   | `/api/auth/change-password`  | Any        | Change your password      |
+| GET    | `/api/users`                 | ADMIN      | List all users            |
+| POST   | `/api/users/reset-password`  | ADMIN      | Reset any user password   |
 
-### Protected Endpoints (Require Authentication)
+### API Docs
+- Swagger UI: [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
+- OpenAPI JSON: [http://localhost:8080/v3/api-docs](http://localhost:8080/v3/api-docs)
 
-| Method | Endpoint | Role Required | Description |
-|--------|----------|---------------|-------------|
-| `POST` | `/api/auth/change-password` | Any authenticated user | Change own password |
-| `GET` | `/api/users` | ADMIN | Get all users |
-| `POST` | `/api/users/reset-password` | ADMIN | Reset any user's password |
-
-### API Documentation
-
-- **Swagger UI**: `http://localhost:8080/swagger-ui.html`
-- **OpenAPI JSON**: `http://localhost:8080/v3/api-docs`
+---
 
 ## 🔐 Authentication Flow
 
-1. **Register/Login**: User authenticates and receives JWT token
-2. **Token Storage**: JWT token stored in localStorage
-3. **API Requests**: Token automatically included in `Authorization: Bearer <token>` header
-4. **Token Validation**: Backend validates token on each protected request
-5. **Role-Based Access**: Admin routes check for `ADMIN` role in token
+1. Registration or login via `/api/auth/register` or `/api/auth/login`
+2. JWT token is received & stored in browser localStorage
+3. All API requests include `Authorization: Bearer <token>` header
+4. Backend validates token and role on every protected route
+
+---
 
 ## 🎨 Frontend Routes
 
-| Route | Access | Description |
-|-------|--------|-------------|
-| `/` | Public | Redirects to `/dashboard` |
-| `/login` | Public | Login page |
-| `/register` | Public | Registration page |
-| `/dashboard` | Authenticated | User dashboard |
-| `/change-password` | Authenticated | Change own password |
-| `/users` | ADMIN only | User management page |
+| Route              | Access     | Description                       |
+|--------------------|-----------|-----------------------------------|
+| `/`                | Public    | Redirects to `/dashboard`         |
+| `/login`           | Public    | Login page                        |
+| `/register`        | Public    | User registration                 |
+| `/dashboard`       | Auth      | User dashboard                    |
+| `/change-password` | Auth      | Change your password              |
+| `/users`           | ADMIN     | User management page (Admin only) |
+
+---
 
 ## ✨ Features
 
-### Backend Features
+### Backend
+- User registration, login & JWT authentication
+- BCrypt password hashing
+- Input validation with Jakarta Validation
+- Role-based access control (RBAC): USER, ADMIN
+- API documentation with Swagger & OpenAPI
+- MySQL (JPA) or MongoDB (Spring Data MongoDB)
+- Database scripts for easy setup
 
-- ✅ **User Registration & Authentication**
-  - JWT-based authentication
-  - BCrypt password encoding
-  - Input validation with Jakarta Validation
+### Frontend
+- Modern React 18 SPA, Vite, Tailwind CSS
+- Context API for authentication state
+- JWT token management and route protection
+- Responsive, accessible UI
+- Admin panel for user management
 
-- ✅ **Role-Based Access Control (RBAC)**
-  - USER and ADMIN roles
-  - Protected endpoints based on roles
+---
 
-- ✅ **Password Management**
-  - Users can change their own password
-  - Admins can reset any user's password
-
-- ✅ **User Management**
-  - Admin-only endpoint to view all users
-  - User information display
-
-- ✅ **API Documentation**
-  - Swagger/OpenAPI integration
-  - Interactive API testing
-
-- ✅ **Database**
-  - MySQL database with JPA/Hibernate
-  - Auto table creation
-  - Database initialization scripts
-
-### Frontend Features
-
-- ✅ **Modern React Application**
-  - React 18 with hooks
-  - React Router 6 for navigation
-  - Context API for state management
-
-- ✅ **User Interface**
-  - Tailwind CSS for styling
-  - Responsive design
-  - Loading states and error handling
-
-- ✅ **Authentication**
-  - Login and registration forms
-  - JWT token management
-  - Protected routes
-  - Automatic token refresh on 401 errors
-
-- ✅ **User Management (Admin)**
-  - View all users
-  - Reset user passwords
-  - Role-based UI visibility
-
-- ✅ **Password Management**
-  - Change password functionality
-  - Form validation
-  - Success/error feedback
-
-## 🗄️ Database Schema
-
-### Users Table
+## 🗄️ Database Schema (MySQL)
 
 ```sql
 CREATE TABLE users (
@@ -279,183 +224,168 @@ CREATE TABLE users (
 );
 ```
 
+See `backend/scripts/README.md` for MongoDB collections/scripts.
+
+---
+
 ## 🔧 Configuration
 
-### Backend Configuration
+### Backend
 
-Edit `backend/src/main/resources/application.properties`:
+See and edit `backend/src/main/resources/application.properties`:
 
 ```properties
-# Database
-spring.datasource.url=jdbc:mysql://localhost:3306/ex_base_15_backend
+spring.datasource.url=jdbc:mysql://localhost:3306/ex_base_16_backend
 spring.datasource.username=root
 spring.datasource.password=your_password
 
-# JWT
-jwt.secret=your-256-bit-secret-key...
-jwt.expiration=86400000  # 24 hours
+jwt.secret=your-256-bit-secret-key
+jwt.expiration=86400000
 ```
 
-### Frontend Configuration
+Or for MongoDB:
 
-The frontend is configured to proxy API requests to the backend. Edit `frontend/vite.config.js` if needed:
+```properties
+spring.data.mongodb.uri=mongodb://localhost:27017/ex_base_16_backend
+```
+
+### Frontend
+
+API proxy configuration is available in `frontend/vite.config.js`:
 
 ```javascript
 proxy: {
   "/api": {
     target: "http://localhost:8080",
-    changeOrigin: true,
-  },
+    changeOrigin: true
+  }
 }
 ```
 
+---
+
 ## 📝 Usage Examples
 
-### Register a New User
-
+- **Register User**
 ```bash
 curl -X POST http://localhost:8080/api/auth/register \
   -H "Content-Type: application/json" \
-  -d '{
-    "username": "john_doe",
-    "password": "password123",
-    "email": "john@example.com"
-  }'
+  -d '{"username":"john_doe","password":"password123","email":"john@example.com"}'
 ```
 
-### Login
-
+- **Login**
 ```bash
 curl -X POST http://localhost:8080/api/auth/login \
   -H "Content-Type: application/json" \
-  -d '{
-    "username": "john_doe",
-    "password": "password123"
-  }'
+  -d '{"username":"john_doe","password":"password123"}'
 ```
 
-### Change Password (Authenticated)
-
+- **Change Password**
 ```bash
 curl -X POST http://localhost:8080/api/auth/change-password \
   -H "Content-Type: application/json" \
-  -H "Authorization: Bearer <your-jwt-token>" \
-  -d '{
-    "currentPassword": "password123",
-    "newPassword": "newpassword456",
-    "confirmPassword": "newpassword456"
-  }'
+  -H "Authorization: Bearer <jwt-token>" \
+  -d '{"currentPassword":"password123","newPassword":"newpass456","confirmPassword":"newpass456"}'
 ```
 
-### Get All Users (Admin Only)
-
+- **Get All Users (Admin)**
 ```bash
 curl -X GET http://localhost:8080/api/users \
   -H "Authorization: Bearer <admin-jwt-token>"
 ```
 
-### Reset User Password (Admin Only)
-
+- **Reset User Password (Admin)**
 ```bash
 curl -X POST http://localhost:8080/api/users/reset-password \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer <admin-jwt-token>" \
-  -d '{
-    "username": "john_doe",
-    "newPassword": "newpassword123"
-  }'
+  -d '{"username":"john_doe","newPassword":"newpassword123"}'
 ```
+
+---
 
 ## 🧪 Testing
 
-### Backend Tests
+- **Backend**
+    ```bash
+    cd backend
+    mvn test
+    ```
+- **Frontend Build**
+    ```bash
+    cd frontend
+    npm run build
+    ```
 
-```bash
-cd backend
-mvn test
-```
-
-### Frontend Build
-
-```bash
-cd frontend
-npm run build
-```
+---
 
 ## 🛠️ Development
 
-### Backend Development
+- **Backend**
+    ```bash
+    cd backend
+    mvn spring-boot:run
+    ```
+    - Hot reload via Spring DevTools
+    - API docs at `/swagger-ui.html`
 
-```bash
-cd backend
-mvn spring-boot:run
-```
+- **Frontend**
+    ```bash
+    cd frontend
+    npm run dev
+    ```
+    - HMR enabled
+    - API proxy setup for `/api`
 
-- Hot reload enabled with Spring Boot DevTools
-- Database changes auto-applied via Hibernate
-- Swagger UI available at `/swagger-ui.html`
-
-### Frontend Development
-
-```bash
-cd frontend
-npm run dev
-```
-
-- Hot Module Replacement (HMR) enabled
-- Fast refresh for React components
-- Proxy to backend API at `/api`
+---
 
 ## 📚 Additional Resources
 
-- **Backend README**: See `backend/README.md` for detailed backend documentation
-- **Frontend README**: See `frontend/README.md` for frontend-specific details
-- **Database Scripts**: See `backend/scripts/README.md` for database setup scripts
+- **Backend:** See `backend/README.md` for expanded setup, architecture, and MongoDB details.
+- **Frontend:** See `frontend/README.md` for advanced React usage.
+- **Database:** See `backend/scripts/README.md` for all MySQL and MongoDB scripts and guidance.
+
+---
 
 ## 🔒 Security Features
 
-- **Password Security**: BCrypt hashing with strength 10
-- **JWT Tokens**: Secure token-based authentication
-- **HTTPS Ready**: Configure SSL certificates for production
-- **Input Validation**: Server-side validation on all inputs
-- **SQL Injection Protection**: JPA/Hibernate parameterized queries
-- **XSS Protection**: React's built-in XSS protection
+- Secure password hashing (BCrypt)
+- JWT with strong secret
+- HTTPS ready for production
+- Complete input validation server-side
+- JPA/Hibernate for SQLi protection
+- React for XSS mitigation
+
+---
 
 ## 🚨 Troubleshooting
 
-### Backend Issues
+**Backend**
+- Verify database is running and credentials are correct (`application.properties`).
+- Ensure database `ex_base_16_backend` (or MongoDB collection) exists.
+- Free up port 8080 or change via `server.port=xxxx`.
 
-**Database Connection Failed**
-- Ensure MySQL is running
-- Check database credentials in `application.properties`
-- Verify database `ex_base_15_backend` exists
+**Frontend**
+- Make sure backend is running on the expected port.
+- Check proxy configuration if API calls fail.
+- If JWT token expired: login again for a new one.
 
-**Port 8080 Already in Use**
-- Change port in `application.properties`: `server.port=8081`
-- Update frontend proxy configuration accordingly
-
-### Frontend Issues
-
-**API Calls Failing**
-- Ensure backend is running on port 8080
-- Check browser console for CORS errors
-- Verify proxy configuration in `vite.config.js`
-
-**Token Not Working**
-- Check if token is stored in localStorage
-- Verify token hasn't expired (24 hours default)
-- Re-login to get a new token
+---
 
 ## 📄 License
 
-This project is for educational purposes.
+This project is available for educational and demonstration purposes.
+
+---
 
 ## 👥 Contributing
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Submit a pull request
+1. Fork this repo
+2. Create your feature branch
+3. Commit and push your changes
+4. Submit a PR!
+
+---
 
 ## 🎯 Future Enhancements
 
@@ -463,10 +393,10 @@ This project is for educational purposes.
 - [ ] Password reset via email
 - [ ] User profile management
 - [ ] Two-factor authentication (2FA)
-- [ ] Refresh token mechanism
+- [ ] Refresh token support (JWT)
 - [ ] Rate limiting
 - [ ] API versioning
-- [ ] Unit and integration tests
-- [ ] Docker containerization
+- [ ] Improved test coverage
+- [ ] Docker / Compose deployment
 - [ ] CI/CD pipeline
 
