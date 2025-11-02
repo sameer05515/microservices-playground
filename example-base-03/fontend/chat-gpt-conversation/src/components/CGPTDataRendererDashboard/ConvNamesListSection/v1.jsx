@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, memo, useCallback } from "react";
 
-const Sidebar = ({
+const Sidebar = memo(({
   jsonData = [],
   onItemSelect = () => { },
   selectedConv: selItem = null,
@@ -42,30 +42,36 @@ const Sidebar = ({
 
   },[selectedConv])
 
-  const handleLinkSelection = (selectedItem) => {
+  const handleLinkSelection = useCallback((selectedItem) => {
     console.log(JSON.stringify(selectedItem));
     // setSelectedLink(selectedItem);
     // navigate(`${selectedItem.topicId}`);
     setSelectedConv(selectedItem);
     onItemSelect(selectedItem);
-  };
+  }, [onItemSelect]);
 
   return (
     <div
-      style={{ width: "200px", backgroundColor: "#f0f0f0", padding: "20px", ...customSideBarStyle }}
+      className="w-[200px] bg-gray-100 dark:bg-gray-900 p-5"
+      style={customSideBarStyle}
     >
-      <button onClick={onHideClick}>Hide</button>
-      <h2>Conversation Names</h2>
-      <ul>
+      <button 
+        onClick={onHideClick}
+        className="mb-4 px-3 py-1 bg-red-500 dark:bg-red-900 text-white dark:text-black text-sm rounded hover:bg-red-600 transition-colors"
+      >
+        Hide
+      </button>
+      <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-200">Conversation Names</h2>
+      <ul className="space-y-2">
         {conversationNames.map((conv) => (
           <li key={conv.id}>
             <span
               ref={selectedConv && selectedConv.id!=null ? myRef : null}
-              style={
+              className={`cursor-pointer block p-2 rounded transition-colors ${
                 selectedConv && selectedConv.id === conv.id
-                  ? styles.selected
-                  : {}
-              }
+                  ? "font-bold text-lg text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/20"
+                  : "text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
+              }`}
               onClick={() => handleLinkSelection(conv)}
             >
               {conv.title}
@@ -75,15 +81,8 @@ const Sidebar = ({
       </ul>
     </div>
   );
-};
+});
 
-const styles = {
-  selected: {
-    fontWeight: "bold" /* Make selected link text bold */,
-    fontSize: "22px" /* Increase font size for selected link */,
-    color: "#e91140",
-  },
-};
-
+Sidebar.displayName = "Sidebar";
 
 export default Sidebar;

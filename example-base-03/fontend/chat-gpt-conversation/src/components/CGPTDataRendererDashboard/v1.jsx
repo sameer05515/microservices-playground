@@ -1,47 +1,26 @@
-import React, { Suspense, useCallback, useEffect, useState } from "react";
+import React, { Suspense, useCallback, useEffect, useMemo, useState, lazy, memo } from "react";
 import ChatGPTConversationRenderer from "./SearchResultRenderer/v1";
-import { LATEST_CONVERSATION_FILE } from "../../common/utils/constants"; 
+import { LATEST_CONVERSATION_FILE } from "../../common/utils/constants";
 import ConversationCard from "./ConversationCard/v1";
-import ConversationFileSelector from "./JSONFileSelector/v1";
-import Search from "./Search/v1";
 import Sidebar from "./ConvNamesListSection/v1";
-import { formatUnixTimestamp, getConversationMessages, localSessionManager } from "./UtilityMethods";
+import { localSessionManager } from "./UtilityMethods";
+import { fetchJsonData } from "./fetchJsonData";
 
-// Lazy-loaded components
-// const Search = lazy(() => import("./Search/v1"));
-// const ConversationFileSelector = lazy(() =>
-//   import("./ConversationFileSelector/v1")
-// );
+// Lazy-loaded components for better performance
+const ConversationFileSelector = lazy(() => import("./JSONFileSelector/v1"));
+const Search = lazy(() => import("./Search/v1"));
 
-// Utility function for fetching data
-const fetchJsonData = async (selectedFile, setJsonData) => {
-  if (!selectedFile) return;
-  try {
-    const response = await fetch(selectedFile);
-    if (!response.ok) throw new Error("Failed to fetch data");
-    const data = await response.json();
 
-    // Transform the data
-    const formattedData = data.map((conv, index) => ({
-      id: `conv_${index + 1}`,
-      title: conv.title,
-      messages: getConversationMessages(conv) || [],
-      createdOn: conv.create_time ? formatUnixTimestamp(conv.create_time) : null,
-      updatedOn: conv.update_time ? formatUnixTimestamp(conv.update_time) : null,
-    }));
-
-    setJsonData(formattedData);
-  } catch (error) {
-    console.error("Error fetching data:", error);
-  }
-};
 
 // Main Dashboard component
-const CGPTDataRendererDashboardV1 = () => {
+const CGPTDataRendererDashboardV1 = memo(() => {
   const [jsonData, setJsonData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [selectedConv, setSelectedConv] = useState(null);
-  const { setItemForKey, getItemForKey, KEYS } = localSessionManager();
+  
+  // Memoize session manager to prevent unnecessary re-renders
+  const sessionManager = useMemo(() => localSessionManager(), []);
+  const { setItemForKey, getItemForKey, KEYS } = sessionManager;
 
   const [uiState, setUiState] = useState({
     showSearchSection: false,
@@ -118,36 +97,59 @@ const CGPTDataRendererDashboardV1 = () => {
     }
   }, [KEYS.listVisible, KEYS.selectedConversationId, getItemForKey, handleSelect, jsonData]);
 
-  const toggleState = (key) => {
-    setUiState((prev) => ({ ...prev, [key]: !prev[key] }));
-    if (key === "showSideBar") setItemForKey(KEYS.listVisible, !uiState.showSideBar);
-  };
+  const toggleState = useCallback((key) => {
+    setUiState((prev) => {
+      const newState = { ...prev, [key]: !prev[key] };
+      if (key === "showSideBar") {
+        setItemForKey(KEYS.listVisible, newState.showSideBar);
+      }
+      return newState;
+    });
+  }, [setItemForKey, KEYS.listVisible]);
+
+  // Memoize sidebar style to prevent unnecessary re-renders
+  const sidebarStyle = useMemo(() => ({
+    flex: 1,
+    width: "15vw",
+    padding: "20px",
+    borderRight: "1px solid #ccc",
+    overflowY: "auto",
+    position: "fixed",
+    top: 0,
+    bottom: 0,
+  }), []);
 
   return (
     <div>
-      <div style={styles.container}>
+      <div className="flex font-sans p-4 mb-5">
         {uiState.showSideBar && (
           <Sidebar
             jsonData={jsonData}
             onItemSelect={handleSelect}
             selectedConv={selectedConv}
             /** **A bug found, where, after hiding sidebar, it is not being shown again. Till the time bug-fix and RCA is availabale, disabling this functionality** */
-            // onHideClick={() => toggleState("showSideBar")}
-            customSideBarStyle={styles.sidebar}
+            onHideClick={() => toggleState("showSideBar")}
+            customSideBarStyle={sidebarStyle}
           />
         )}
 
-        <div style={styles.mainContent}>
-          <button onClick={() => toggleState("showSearchSection")}>
+        <div className="flex-2 p-5 ml-[280px] overflow-y-auto fixed w-[75vw] top-0 bottom-0 h-[95vh]">
+          <button 
+            onClick={() => toggleState("showSearchSection")}
+            className="mb-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
+          >
             {uiState.showSearchSection ? "Hide " : "Show "} Search
           </button>
 
           {uiState.showSearchSection && (
             <>
-              <button onClick={() => toggleState("collapseAll")}>
+              <button 
+                onClick={() => toggleState("collapseAll")}
+                className="mb-2 ml-2 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition-colors"
+              >
                 {uiState.collapseAll ? "Expand " : "Collapse "} All Results
               </button>
-              <Suspense fallback={<div>Loading Search...</div>}>
+              <Suspense fallback={<div className="p-4 text-center text-gray-600">Loading Search...</div>}>
                 <Search onSearch={handleSearch} />
               </Suspense>
             </>
@@ -157,7 +159,7 @@ const CGPTDataRendererDashboardV1 = () => {
             <ChatGPTConversationRenderer jsonData={filteredData} collapseAll={uiState.collapseAll} />
           )}
 
-          <Suspense fallback={<div>Loading File Selector...</div>}>
+          <Suspense fallback={<div className="p-4 text-center text-gray-600">Loading File Selector...</div>}>
             <ConversationFileSelector
               initialSelectedFile={LATEST_CONVERSATION_FILE}
               onChange={setSelectedFile}
@@ -177,37 +179,9 @@ const CGPTDataRendererDashboardV1 = () => {
       </div>
     </div>
   );
-};
+});
 
-// Styles
-const styles = {
-  container: {
-    display: "flex",
-    fontFamily: "Arial, sans-serif",
-    padding: "15px",
-    marginBottom: "20px",
-  },
-  sidebar: {
-    flex: 1,
-    width: "15vw",
-    padding: "20px",
-    borderRight: "1px solid #ccc",
-    overflowY: "auto",
-    position: "fixed",
-    top: 0,
-    bottom: 0,
-  },
-  mainContent: {
-    flex: 2,
-    padding: "20px",
-    marginLeft: "280px",
-    overflowY: "auto",
-    position: "fixed",
-    width: "75vw",
-    top: 0,
-    bottom: 0,
-    height: "95vh",
-  },
-};
+
+CGPTDataRendererDashboardV1.displayName = "CGPTDataRendererDashboardV1";
 
 export default CGPTDataRendererDashboardV1;

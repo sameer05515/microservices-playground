@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" x-data="wordApp()" x-init="fetchWords()">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Word CRUD App</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col items-center p-6">
+
+  <!-- Header -->
+  <div class="w-full max-w-2xl flex justify-between items-center mb-6">
+    <h1 class="text-3xl font-bold text-blue-600">📖 Word CRUD App</h1>
+    <button @click="openForm()" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg">
+      ➕ Add Word
+    </button>
+  </div>
+
+  <!-- Words List -->
+  <div class="w-full max-w-2xl">
+    <h2 class="text-2xl font-bold mb-4 text-green-600">Words List</h2>
+    <template x-for="w in words" :key="w.id">
+      <div class="p-4 bg-white rounded-xl shadow border mb-4">
+        <div class="flex justify-between items-center">
+          <h3 class="text-lg font-bold text-gray-800" x-text="w.word"></h3>
+          <div class="space-x-2">
+            <button @click="editWord(w)"
+              class="px-3 py-1 text-sm bg-yellow-400 hover:bg-yellow-500 text-white rounded">
+              ✏️ Edit
+            </button>
+            <button @click="deleteWord(w.id)"
+              class="px-3 py-1 text-sm bg-red-500 hover:bg-red-600 text-white rounded">
+              🗑️ Delete
+            </button>
+          </div>
+        </div>
+        <p class="mt-2"><span class="font-semibold">Meanings:</span> <span x-text="w.meanings.join(', ')"></span></p>
+        <p><span class="font-semibold">Examples:</span> <span x-text="w.examples.join(', ')"></span></p>
+        <p><span class="font-semibold">Description:</span> <span x-text="w.description"></span></p>
+        <p class="text-sm text-gray-500 mt-1">Created On: <span x-text="new Date(w.createdOn).toLocaleString()"></span></p>
+      </div>
+    </template>
+  </div>
+
+  <!-- Modal -->
+  <div x-show="showForm" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+       x-transition>
+    <div class="bg-white rounded-xl shadow-lg p-6 w-full max-w-lg relative">
+      <h2 class="text-xl font-bold mb-4 text-blue-600" x-text="form.id ? 'Edit Word' : 'Add Word'"></h2>
+
+      <input type="text" x-model="form.word" placeholder="Word"
+        class="w-full border rounded-lg p-2 mb-3 focus:ring-2 focus:ring-blue-400"/>
+
+      <textarea x-model="form.meanings" placeholder="Meanings (comma separated)"
+        class="w-full border rounded-lg p-2 mb-3 focus:ring-2 focus:ring-blue-400"></textarea>
+
+      <textarea x-model="form.examples" placeholder="Examples (comma separated)"
+        class="w-full border rounded-lg p-2 mb-3 focus:ring-2 focus:ring-blue-400"></textarea>
+
+      <textarea x-model="form.description" placeholder="Description"
+        class="w-full border rounded-lg p-2 mb-3 focus:ring-2 focus:ring-blue-400"></textarea>
+
+      <div class="flex justify-end space-x-3">
+        <button @click="showForm=false"
+          class="px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-400">Cancel</button>
+        <button @click="saveWord()"
+          class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">💾 Save</button>
+      </div>
+    </div>
+  </div>
+
+<script>
+function wordApp() {
+  return {
+    API: 'http://127.0.0.1:3090/words',
+    words: [],
+    showForm: false,
+    form: { id: '', word: '', meanings: '', examples: '', description: '' },
+
+    async fetchWords() {
+      const res = await fetch(this.API);
+      this.words = await res.json();
+    },
+
+    openForm() {
+      this.form = { id: '', word: '', meanings: '', examples: '', description: '' };
+      this.showForm = true;
+    },
+
+    editWord(w) {
+      this.form = {
+        id: w.id,
+        word: w.word,
+        meanings: w.meanings.join(', '),
+        examples: w.examples.join(', '),
+        description: w.description
+      };
+      this.showForm = true;
+    },
+
+    async saveWord() {
+      if (!this.form.word.trim()) return alert('Word is required');
+
+      const payload = {
+        word: this.form.word.trim(),
+        meanings: this.form.meanings.split(',').map(s => s.trim()).filter(Boolean),
+        examples: this.form.examples.split(',').map(s => s.trim()).filter(Boolean),
+        description: this.form.description.trim()
+      };
+
+      if (this.form.id) {
+        await fetch(`${this.API}/${this.form.id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+      } else {
+        await fetch(this.API, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+      }
+
+      this.showForm = false;
+      await this.fetchWords();
+    },
+
+    async deleteWord(id) {
+      if (confirm('Are you sure you want to delete this word?')) {
+        await fetch(`${this.API}/${id}`, { method: 'DELETE' });
+        await this.fetchWords();
+      }
+    }
+  };
+}
+</script>
+
+</body>
+</html>

@@ -83,16 +83,13 @@ const ConversationCard = () => {
           {(showAllNonUserMessages || message?.author) && (
             <MarkdownComponent
               markdownText={message.text}
-              additionalStyle={
-                {
-                  // backgroundColor: message.author === "user" ? "cornsilk" : "lavenderblush",
-                }
-              }
+              className={`${
+                message.author === "user" 
+                  ? "bg-amber-50 font-bold" 
+                  : "bg-purple-50 font-normal"
+              }`}
               showCopyToclipboardButton={message.author !== "user"}
               makeFontWeightBold={message?.author === "user"}
-              reactMarkdownStyles={{
-                fontWeight: message?.author === "user" ? "bold" : "",
-              }}
             />
           )}
         </div>

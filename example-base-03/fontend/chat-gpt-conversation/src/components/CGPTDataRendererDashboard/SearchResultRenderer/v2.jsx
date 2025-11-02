@@ -31,8 +31,8 @@ const SearchResultRendererV2 = () => {
                 <div
                   className={`border rounded p-3 ${
                     message.author === "user"
-                      ? "bg-cornsilk border-gray-300"
-                      : "bg-lavenderblush border-gray-300"
+                      ? "bg-yellow-50 dark:bg-yellow-900/20 border-yellow-200 dark:border-yellow-800"
+                      : "bg-purple-50 dark:bg-purple-900/20 border-purple-200 dark:border-purple-800"
                   }`}
                 >
                   <MarkdownComponent
