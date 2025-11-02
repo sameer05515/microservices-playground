@@ -7,6 +7,7 @@ import UserList from './components/UserList';
 import ChangePassword from './components/ChangePassword';
 import ProtectedRoute from './components/ProtectedRoute';
 import PublicRoute from './components/PublicRoute';
+import Layout from './components/Layout';
 
 function App() {
   return (
@@ -30,30 +31,25 @@ function App() {
             }
           />
           <Route
-            path="/dashboard"
+            path="/"
             element={
               <ProtectedRoute>
-                <Dashboard />
+                <Layout />
               </ProtectedRoute>
             }
-          />
-          <Route
-            path="/change-password"
-            element={
-              <ProtectedRoute>
-                <ChangePassword />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/users"
-            element={
-              <ProtectedRoute requireAdmin={true}>
-                <UserList />
-              </ProtectedRoute>
-            }
-          />
-          <Route path="/" element={<Navigate to="/dashboard" replace />} />
+          >
+            <Route index element={<Navigate to="/dashboard" replace />} />
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="change-password" element={<ChangePassword />} />
+            <Route
+              path="users"
+              element={
+                <ProtectedRoute requireAdmin={true}>
+                  <UserList />
+                </ProtectedRoute>
+              }
+            />
+          </Route>
           <Route path="*" element={<Navigate to="/dashboard" replace />} />
         </Routes>
       </BrowserRouter>
