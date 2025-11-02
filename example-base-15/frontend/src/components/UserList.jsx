@@ -1,12 +1,15 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { userService } from '../services/userApi';
+import ResetPassword from './ResetPassword';
 
 function UserList({ onBackToDashboard }) {
   const { user } = useAuth();
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [resetPasswordUser, setResetPasswordUser] = useState(null);
+  const [successMessage, setSuccessMessage] = useState('');
 
   useEffect(() => {
     fetchUsers();
@@ -23,6 +26,13 @@ function UserList({ onBackToDashboard }) {
     } else {
       setError(result.error || 'Failed to fetch users');
     }
+  };
+
+  const handleResetPasswordSuccess = (message) => {
+    setSuccessMessage(message);
+    setResetPasswordUser(null);
+    fetchUsers(); // Refresh the list
+    setTimeout(() => setSuccessMessage(''), 5000);
   };
 
   if (user?.role !== 'ADMIN') {
@@ -129,6 +139,28 @@ function UserList({ onBackToDashboard }) {
             </div>
           </div>
 
+          {/* Success Message */}
+          {successMessage && (
+            <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-6">
+              <div className="flex items-center gap-2">
+                <svg
+                  className="w-5 h-5 text-green-600"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+                <p className="text-green-600 font-semibold">{successMessage}</p>
+              </div>
+            </div>
+          )}
+
           {/* Error Message */}
           {error && (
             <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
@@ -183,6 +215,9 @@ function UserList({ onBackToDashboard }) {
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Status
                       </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Actions
+                      </th>
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
@@ -228,6 +263,27 @@ function UserList({ onBackToDashboard }) {
                             {userItem.enabled ? 'Active' : 'Disabled'}
                           </span>
                         </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                          <button
+                            onClick={() => setResetPasswordUser(userItem.username)}
+                            className="text-indigo-600 hover:text-indigo-900 font-semibold flex items-center gap-1"
+                          >
+                            <svg
+                              className="w-4 h-4"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"
+                              />
+                            </svg>
+                            Reset Password
+                          </button>
+                        </td>
                       </tr>
                     ))}
                   </tbody>
@@ -241,6 +297,15 @@ function UserList({ onBackToDashboard }) {
             <div className="mt-4 text-sm text-gray-600 text-center">
               Showing {users.length} user{users.length !== 1 ? 's' : ''}
             </div>
+          )}
+
+          {/* Reset Password Modal */}
+          {resetPasswordUser && (
+            <ResetPassword
+              username={resetPasswordUser}
+              onClose={() => setResetPasswordUser(null)}
+              onSuccess={handleResetPasswordSuccess}
+            />
           )}
         </div>
       </div>

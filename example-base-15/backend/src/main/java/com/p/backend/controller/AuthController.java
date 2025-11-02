@@ -1,6 +1,8 @@
 package com.p.backend.controller;
 
 import com.p.backend.dto.AuthResponse;
+import com.p.backend.dto.ChangePasswordRequest;
+import com.p.backend.dto.ChangePasswordResponse;
 import com.p.backend.dto.LoginRequest;
 import com.p.backend.dto.RegisterRequest;
 import com.p.backend.entity.User;
@@ -11,12 +13,14 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -125,6 +129,76 @@ public class AuthController {
                             .build();
                     return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
                 });
+    }
+
+    @Operation(
+            summary = "Change password",
+            description = "Changes the password for the currently logged-in user. Requires authentication."
+    )
+    @SecurityRequirement(name = "bearerAuth")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Password changed successfully",
+                    content = @Content(schema = @Schema(implementation = ChangePasswordResponse.class))
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Invalid input or password mismatch",
+                    content = @Content(schema = @Schema(implementation = ChangePasswordResponse.class))
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    description = "Unauthorized - Invalid current password or not authenticated",
+                    content = @Content(schema = @Schema(implementation = ChangePasswordResponse.class))
+            )
+    })
+    @PostMapping("/change-password")
+    public ResponseEntity<ChangePasswordResponse> changePassword(
+            @Valid @RequestBody ChangePasswordRequest changePasswordRequest,
+            Authentication authentication) {
+        String username = authentication.getName();
+        logger.info("Password change attempt for user: {}", username);
+
+        try {
+            // Validate that new password and confirmation match
+            if (!changePasswordRequest.getNewPassword().equals(changePasswordRequest.getConfirmPassword())) {
+                logger.warn("Password change failed for user {}: passwords do not match", username);
+                ChangePasswordResponse response = ChangePasswordResponse.builder()
+                        .message("New password and confirmation password do not match")
+                        .success(false)
+                        .build();
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+            }
+
+            userService.changePassword(
+                    username,
+                    changePasswordRequest.getCurrentPassword(),
+                    changePasswordRequest.getNewPassword(),
+                    passwordEncoder
+            );
+
+            logger.info("Password changed successfully for user: {}", username);
+            ChangePasswordResponse response = ChangePasswordResponse.builder()
+                    .message("Password changed successfully")
+                    .success(true)
+                    .build();
+            return ResponseEntity.ok(response);
+
+        } catch (IllegalArgumentException e) {
+            logger.warn("Password change failed for user {}: {}", username, e.getMessage());
+            ChangePasswordResponse response = ChangePasswordResponse.builder()
+                    .message(e.getMessage())
+                    .success(false)
+                    .build();
+            
+            // Check if it's an authentication error (wrong current password)
+            if (e.getMessage().contains("incorrect")) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
+            }
+            
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        }
     }
 }
 

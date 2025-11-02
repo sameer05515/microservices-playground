@@ -4,6 +4,7 @@ import Login from './components/Login';
 import Register from './components/Register';
 import Dashboard from './components/Dashboard';
 import UserList from './components/UserList';
+import ChangePassword from './components/ChangePassword';
 
 function AppContent() {
   const [showRegister, setShowRegister] = useState(false);
@@ -25,7 +26,15 @@ function AppContent() {
     if (currentView === 'users') {
       return <UserList onBackToDashboard={() => setCurrentView('dashboard')} />;
     }
-    return <Dashboard onNavigateToUsers={() => setCurrentView('users')} />;
+    if (currentView === 'change-password') {
+      return <ChangePassword onBackToDashboard={() => setCurrentView('dashboard')} />;
+    }
+    return (
+      <Dashboard
+        onNavigateToUsers={() => setCurrentView('users')}
+        onNavigateToChangePassword={() => setCurrentView('change-password')}
+      />
+    );
   }
 
   return (

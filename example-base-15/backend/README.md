@@ -60,6 +60,43 @@ java -jar target/backend-0.0.1-SNAPSHOT.jar
   - **Role Required**: ADMIN
   - Returns a list of all users (id, username, email, role, enabled status)
 
+- **Reset User Password** (Admin Only): `POST http://localhost:8080/api/users/reset-password`
+  - **Authorization**: Include JWT token in the header: `Authorization: Bearer <token>`
+  - **Role Required**: ADMIN
+  - Request body:
+    ```json
+    {
+      "username": "target_user",
+      "newPassword": "newpassword123"
+    }
+    ```
+  - Response:
+    ```json
+    {
+      "message": "Password reset successfully for user: target_user",
+      "success": true
+    }
+    ```
+
+- **Change Password**: `POST http://localhost:8080/api/auth/change-password`
+  - **Authorization**: Include JWT token in the header: `Authorization: Bearer <token>`
+  - **Required for**: Logged-in users (any role)
+  - Request body:
+    ```json
+    {
+      "currentPassword": "oldpassword123",
+      "newPassword": "newpassword456",
+      "confirmPassword": "newpassword456"
+    }
+    ```
+  - Response:
+    ```json
+    {
+      "message": "Password changed successfully",
+      "success": true
+    }
+    ```
+
 ### Database Setup
 
 Before running the application, ensure MySQL is running and create a database.
@@ -154,6 +191,7 @@ backend/
 - ✅ RESTful API design
 - ✅ Swagger/OpenAPI documentation with interactive UI
 - ✅ Admin-only endpoint for user management
+- ✅ Admin password reset functionality
 
 ## Creating an Admin User
 

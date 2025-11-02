@@ -1,5 +1,7 @@
 package com.p.backend.controller;
 
+import com.p.backend.dto.ChangePasswordResponse;
+import com.p.backend.dto.ResetPasswordRequest;
 import com.p.backend.dto.UserResponse;
 import com.p.backend.entity.User;
 import com.p.backend.service.UserService;
@@ -10,13 +12,13 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -72,6 +74,59 @@ public class UserController {
         
         logger.info("Retrieved {} users", userResponses.size());
         return ResponseEntity.ok(userResponses);
+    }
+
+    @Operation(
+            summary = "Reset user password (Admin only)",
+            description = "Resets the password for a specified user. This endpoint is only accessible to users with ADMIN role."
+    )
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Password reset successfully",
+                    content = @Content(schema = @Schema(implementation = ChangePasswordResponse.class))
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Invalid input or user not found",
+                    content = @Content(schema = @Schema(implementation = ChangePasswordResponse.class))
+            ),
+            @ApiResponse(
+                    responseCode = "403",
+                    description = "Access denied. Admin role required."
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    description = "Unauthorized. Valid JWT token required."
+            )
+    })
+    @PostMapping("/reset-password")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<ChangePasswordResponse> resetPassword(
+            @Valid @RequestBody ResetPasswordRequest resetPasswordRequest) {
+        logger.info("Password reset attempt for user: {} by admin", resetPasswordRequest.getUsername());
+
+        try {
+            userService.resetPasswordByAdmin(
+                    resetPasswordRequest.getUsername(),
+                    resetPasswordRequest.getNewPassword()
+            );
+
+            logger.info("Password reset successfully for user: {}", resetPasswordRequest.getUsername());
+            ChangePasswordResponse response = ChangePasswordResponse.builder()
+                    .message("Password reset successfully for user: " + resetPasswordRequest.getUsername())
+                    .success(true)
+                    .build();
+            return ResponseEntity.ok(response);
+
+        } catch (IllegalArgumentException e) {
+            logger.warn("Password reset failed for user {}: {}", resetPasswordRequest.getUsername(), e.getMessage());
+            ChangePasswordResponse response = ChangePasswordResponse.builder()
+                    .message(e.getMessage())
+                    .success(false)
+                    .build();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        }
     }
 }
 

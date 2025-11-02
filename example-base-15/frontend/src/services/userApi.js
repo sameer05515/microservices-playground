@@ -62,6 +62,33 @@ export const userService = {
       };
     }
   },
+
+  resetPassword: async (username, newPassword) => {
+    try {
+      const response = await userApi.post('/users/reset-password', {
+        username,
+        newPassword,
+      });
+      return { success: true, data: response.data };
+    } catch (error) {
+      if (error.response?.status === 403) {
+        return {
+          success: false,
+          error: 'Access denied. Admin role required.',
+        };
+      }
+      if (error.response?.status === 401) {
+        return {
+          success: false,
+          error: 'Unauthorized. Please login again.',
+        };
+      }
+      return {
+        success: false,
+        error: error.response?.data?.message || error.message || 'Failed to reset password',
+      };
+    }
+  },
 };
 
 export default userApi;

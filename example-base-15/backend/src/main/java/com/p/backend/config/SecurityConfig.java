@@ -34,13 +34,15 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(
-                    "/api/auth/**", 
+                    "/api/auth/login", 
+                    "/api/auth/register",
                     "/api/health", 
                     "/v3/api-docs/**",
                     "/swagger-ui/**",
                     "/swagger-ui.html"
                 ).permitAll()
                 .requestMatchers("/api/users/**").hasRole("ADMIN")
+                .requestMatchers("/api/auth/change-password").authenticated()
                 .anyRequest().authenticated()
             )
             .sessionManagement(session -> 
