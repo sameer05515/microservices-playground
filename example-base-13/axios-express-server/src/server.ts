@@ -5,13 +5,48 @@ import mongoose from "mongoose";
 import { notFoundHandler } from "./middlewares/notFound.middleware.v1";
 import serverRoutes from "./serverRoutes";
 
+// 👉 Swagger dependencies
+import swaggerUi from "swagger-ui-express";
+import swaggerJSDoc from "swagger-jsdoc";
+
 dotenv.config();
 
 const app = express();
 const port = 3005;
 
-// app.use(cors());
-// ✅ Configure CORS properly
+// 👉 Swagger setup
+const swaggerOptions = {
+  swaggerDefinition: {
+    openapi: "3.0.0",
+    info: {
+      title: "Axios Express Server API",
+      version: "1.0.0",
+      description: "API documentation for Axios Express Server example",
+    },
+    servers: [
+      {
+        url: `http://localhost:${port}`,
+      },
+    ],
+    components: {
+      securitySchemes: {
+        BearerAuth: {
+          type: "http",
+          scheme: "bearer",
+          bearerFormat: "JWT",
+        },
+      },
+    },
+    security: [{ BearerAuth: [] }],
+  },
+  apis: ["./src/serverRoutes/*.ts"], // adjust path if needed
+};
+
+const swaggerSpec = swaggerJSDoc(swaggerOptions);
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+// Configure CORS properly
 app.use(
   cors({
     origin: "http://localhost:5173", // 👈 Frontend origin
@@ -42,5 +77,6 @@ mongoose
     console.log("Connected to MongoDB");
     // app.listen(port, () => console.log(`Server running on port ${port}`));
     app.listen(port, () => console.log(`🚀 Server is running on http://localhost:${port}`));
+    console.log(`📚 Swagger UI available at http://localhost:${port}/api-docs`);
   })
   .catch((err) => console.error("MongoDB connection error:", err));
