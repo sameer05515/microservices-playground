@@ -1,141 +1,148 @@
-# Backend - Spring Boot Application
+# Backend - Example Base 16 (Spring Boot, MongoDB, JWT)
 
-A Spring Boot backend application with authentication and MongoDB database.
+This is the backend component of **Example Base 16** — a modern Spring Boot REST API with user authentication, role-based access control (RBAC), secure password hashing, and MongoDB data storage.
 
-## Prerequisites
+---
 
-- Java 21 or higher
-- Maven 3.6+ (or use Maven wrapper)
-- MongoDB 4.4+ installed and running on localhost
+## 🚀 Prerequisites
 
-## Running the Application
+- **Java 21+**
+- **Maven 3.6+** (or Maven wrapper)
+- **MongoDB 6 or above, running locally or remotely**
+- **Port 8080** available
+
+---
+
+## ⚙️ Configuration
+
+All configuration is handled in [`src/main/resources/application.properties`](src/main/resources/application.properties).  
+Default MongoDB connection string (update for your environment if needed):
+
+```
+spring.data.mongodb.uri=mongodb://localhost:27017/ex_base_16_backend
+```
+
+> **Tip:** No manual collection/table creation is necessary. Spring Data MongoDB creates collections automatically as needed.
+
+Default admin credentials are only set if you initialize the DB separately; see project root [README](../README.md) for MySQL/MongoDB setup scripts.
+
+---
+
+## ▶️ Running the Backend
 
 ### Using Maven
 ```bash
 mvn spring-boot:run
 ```
 
-### Using Java directly
+### Using the Packaged JAR
 ```bash
 mvn clean package
-java -jar target/backend-0.0.1-SNAPSHOT.jar
+java -jar target/backend-*.jar
 ```
 
-## Endpoints
+---
 
-### Public Endpoints
+## 📝 API Overview
 
-- **Health Check**: `GET http://localhost:8080/api/health`
-- **Register User**: `POST http://localhost:8080/api/auth/register`
+### 🟢 Public Endpoints
+
+- **Health**:  
+  `GET /api/health`
+
+- **Register**:  
+  `POST /api/auth/register`  
   ```json
   {
-    "username": "john_doe",
+    "username": "jane_doe",
     "password": "password123",
-    "email": "john@example.com"
+    "email": "jane@example.com"
   }
   ```
-- **Login**: `POST http://localhost:8080/api/auth/login`
+  Registers a new user (role: USER).
+
+- **Login**:  
+  `POST /api/auth/login`  
   ```json
   {
-    "username": "john_doe",
+    "username": "jane_doe",
     "password": "password123"
   }
   ```
-  Response includes a JWT token:
+  On success, returns:
   ```json
   {
     "message": "Login successful",
-    "username": "john_doe",
-    "email": "john@example.com",
+    "username": "jane_doe",
+    "email": "jane@example.com",
     "role": "USER",
     "success": true,
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+    "token": "<JWT>"
   }
   ```
 
-### Protected Endpoints (Require Authentication)
+---
 
-- **Get All Users** (Admin Only): `GET http://localhost:8080/api/users`
-  - **Authorization**: Include JWT token in the header: `Authorization: Bearer <token>`
-  - **Role Required**: ADMIN
-  - Returns a list of all users (id, username, email, role, enabled status)
+### 🔒 Protected Endpoints (**Require JWT Authorization**)
 
-- **Reset User Password** (Admin Only): `POST http://localhost:8080/api/users/reset-password`
-  - **Authorization**: Include JWT token in the header: `Authorization: Bearer <token>`
-  - **Role Required**: ADMIN
-  - Request body:
-    ```json
-    {
-      "username": "target_user",
-      "newPassword": "newpassword123"
-    }
-    ```
-  - Response:
-    ```json
-    {
-      "message": "Password reset successfully for user: target_user",
-      "success": true
-    }
-    ```
+**All protected endpoints require the HTTP header:**  
+`Authorization: Bearer <JWT>`
 
-- **Change Password**: `POST http://localhost:8080/api/auth/change-password`
-  - **Authorization**: Include JWT token in the header: `Authorization: Bearer <token>`
-  - **Required for**: Logged-in users (any role)
-  - Request body:
-    ```json
-    {
-      "currentPassword": "oldpassword123",
-      "newPassword": "newpassword456",
-      "confirmPassword": "newpassword456"
-    }
-    ```
-  - Response:
-    ```json
-    {
-      "message": "Password changed successfully",
-      "success": true
-    }
-    ```
+#### Users (Admin Only)
 
-### Database Setup
+- **Get users list:**  
+  `GET /api/users`
+  - Requires `ADMIN` role
+  - Returns all user accounts
 
-Before running the application, ensure MongoDB is running on localhost.
+- **Reset user password:**  
+  `POST /api/users/reset-password`  
+  ```json
+  {
+    "username": "target_user",
+    "newPassword": "replaceme123"
+  }
+  ```
+  - Requires `ADMIN` role
 
-**MongoDB Configuration:**
-- **Host**: `localhost:27017`
-- **Database**: `ex_base_16_backend` (will be created automatically on first write)
-- **No authentication required by default** (configure if needed in MongoDB)
+#### Any logged-in user
 
-**MongoDB Connection String:**
-```
-mongodb://localhost:27017/ex_base_16_backend
-```
+- **Change own password:**  
+  `POST /api/auth/change-password`  
+  ```json
+  {
+    "currentPassword": "oldpass",
+    "newPassword": "newpass",
+    "confirmPassword": "newpass"
+  }
+  ```
 
-You can update the database connection string in `src/main/resources/application.properties`.
+---
 
-**Note:** 
-- Collections (tables) are created automatically on first insert
-- Indexes are created automatically based on `@Indexed` annotations
-- No manual database creation required
+## 🗃️ MongoDB Notes
 
-### API Documentation
+- **Host**: `localhost:27017` (default, configurable)
+- **Database**: `ex_base_16_backend`
+- **No authentication required by default**  
+  (Configure `spring.data.mongodb.uri` for username/password if needed)
+- **Collections** and **indexes** are auto-created by Spring Boot/MongoDB based on entity definitions & `@Indexed` annotation.
 
-The application provides multiple ways to access API documentation:
+---
 
-- **Swagger UI**: `http://localhost:8080/swagger-ui.html`
-  - Interactive API documentation
-  - Test endpoints directly from the browser
-  
-- **Redoc**: `http://localhost:8080/redoc`
-  - Beautiful, responsive API documentation
-  - Clean, readable interface
-  - Perfect for sharing with stakeholders
-  
-- **OpenAPI JSON**: `http://localhost:8080/v3/api-docs`
-  - OpenAPI 3.0 specification in JSON format
-  - Can be imported into Postman, Insomnia, or other API tools
+## 📖 API Documentation
 
-## Project Structure
+Fully interactive documentation & OpenAPI specs are available:
+
+- [Swagger UI](http://localhost:8080/swagger-ui.html)
+  - Browse and test API endpoints
+- [Redoc](http://localhost:8080/redoc)
+  - Clean, readable auto-generated API docs
+- [OpenAPI JSON](http://localhost:8080/v3/api-docs)
+  - Download/open the full OpenAPI 3.0 schema (for Postman, Insomnia, etc)
+
+---
+
+## 📁 Project Structure Overview
 
 ```
 backend/
@@ -143,77 +150,66 @@ backend/
 │   ├── main/
 │   │   ├── java/com/p/backend/
 │   │   │   ├── BackendApplication.java
-│   │   │   ├── config/
-│   │   │   │   ├── OpenApiConfig.java
-│   │   │   │   └── SecurityConfig.java
-│   │   │   ├── security/
-│   │   │   │   ├── JwtAuthenticationFilter.java
-│   │   │   │   └── JwtTokenProvider.java
-│   │   │   ├── controller/
-│   │   │   │   ├── AuthController.java
-│   │   │   │   ├── HealthController.java
-│   │   │   │   └── UserController.java
-│   │   │   ├── dto/
-│   │   │   │   ├── AuthResponse.java
-│   │   │   │   ├── LoginRequest.java
-│   │   │   │   ├── RegisterRequest.java
-│   │   │   │   └── UserResponse.java
-│   │   │   ├── entity/
-│   │   │   │   └── User.java
-│   │   │   ├── repository/
-│   │   │   │   └── UserRepository.java
-│   │   │   └── service/
-│   │   │       └── UserService.java
+│   │   │   ├── config/         # Security, OpenAPI, Database config
+│   │   │   ├── controller/     # REST controllers (auth, users, health)
+│   │   │   ├── dto/            # API request/response POJOs
+│   │   │   ├── entity/         # MongoDB entities (e.g. User)
+│   │   │   ├── repository/     # Spring Data MongoDB repositories
+│   │   │   ├── security/       # JWT auth provider/filter
+│   │   │   └── service/        # Business logic
 │   │   └── resources/
 │   │       └── application.properties
 │   └── test/
 │       └── java/com/p/backend/
-│           └── BackendApplicationTests.java
 └── pom.xml
 ```
 
-## Features
+---
 
-- ✅ User Registration with validation
-- ✅ User Login with password verification and JWT token generation
-- ✅ MongoDB Database (configurable)
-- ✅ Spring Security with JWT authentication
+## 🎯 Key Features
+
+- ✅ User registration & authentication
+- ✅ Secure password hashing (BCrypt)
+- ✅ JWT stateless authentication
 - ✅ Role-based access control (RBAC)
-- ✅ BCrypt password encoding
-- ✅ Input validation with Jakarta Validation
-- ✅ RESTful API design
-- ✅ Swagger/OpenAPI documentation with interactive UI
-- ✅ Admin-only endpoint for user management
-- ✅ Admin password reset functionality
+- ✅ RESTful API
+- ✅ Spring Security
+- ✅ MongoDB backend (collections auto-created)
+- ✅ Jakarta Validation for input
+- ✅ Swagger/OpenAPI documentation
+- ✅ Admin-only endpoints for user management
 
-## Creating an Admin User
+---
 
-By default, new users are created with the `USER` role. To create an admin user:
+## 👑 Creating an Admin User
+
+By default, registered users have the `USER` role. To promote an account to `ADMIN`:
 
 1. Register a user via `/api/auth/register`
-2. Connect to MongoDB using MongoDB Compass, mongo shell, or any MongoDB client
-3. Update the user's role to ADMIN:
-   ```javascript
+2. Use your MongoDB shell or GUI:
+   ```js
    use ex_base_16_backend
    db.users.updateOne(
-     { username: "your_username" },
+     { username: "YOUR_USERNAME" },
      { $set: { role: "ADMIN" } }
    )
    ```
-   
-   Or using mongo shell command:
+   Or with mongo shell:
    ```bash
-   mongo ex_base_16_backend --eval 'db.users.updateOne({username: "your_username"}, {$set: {role: "ADMIN"}})'
+   mongo ex_base_16_backend --eval 'db.users.updateOne({username: "YOUR_USERNAME"}, {$set: {role: "ADMIN"}})'
    ```
+> **Best Practice:** Always register via the API (for password hashing), then update the role in MongoDB.
 
-**Note:** It's recommended to register the user first (to get a properly BCrypt-encoded password), then update the role.
+---
 
-## Using JWT Tokens
+## 🔑 Using JWT tokens
 
-1. **Login** to get a JWT token from `/api/auth/login`
-2. **Use the token** in subsequent requests by adding it to the Authorization header:
+1. **Login** to obtain a JWT via `/api/auth/login`.
+2. **Authenticate** requests by sending:  
    ```
    Authorization: Bearer <your-jwt-token>
    ```
-3. **Admin endpoints** require both a valid token AND the ADMIN role
+3. **Admin endpoints** require both a valid token AND `role: ADMIN`.
+
+---
 
