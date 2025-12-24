@@ -104,6 +104,37 @@ example-base-18/
 
 ### Running the Application
 
+#### Option 1: Using Batch Files (Windows) ⚡
+
+1. **Check Prerequisites**:
+   ```cmd
+   check-prerequisites.bat
+   ```
+
+2. **Install Dependencies** (first time only):
+   ```cmd
+   install-dependencies.bat
+   ```
+
+3. **Start MongoDB** (if not running as a service):
+   ```cmd
+   mongod
+   ```
+
+4. **Start Everything**:
+   ```cmd
+   start-all.bat
+   ```
+   This will start both backend and frontend in separate windows.
+
+   Or start individually:
+   - `start-backend.bat` - Backend only
+   - `start-frontend.bat` - Frontend only
+
+See [README-BATCH-FILES.md](README-BATCH-FILES.md) for detailed batch file documentation.
+
+#### Option 2: Manual Commands
+
 1. **Start MongoDB** (if not already running):
    ```bash
    mongod
