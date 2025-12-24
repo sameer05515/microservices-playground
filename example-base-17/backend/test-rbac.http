@@ -1,0 +1,193 @@
+### RBAC Backend API Test Script
+### Use with REST Client extension in VS Code or similar tools
+
+@baseUrl = http://localhost:3000
+@contentType = application/json
+
+### Variables (update after registration/login)
+@userToken = 
+@adminToken = 
+@managerToken = 
+
+### ============================================
+### PUBLIC ENDPOINTS
+### ============================================
+
+### Health Check
+GET {{baseUrl}}/api/health
+
+### Register User (default role: USER)
+POST {{baseUrl}}/api/auth/register
+Content-Type: {{contentType}}
+
+{
+  "username": "testuser",
+  "email": "testuser@example.com",
+  "password": "password123"
+}
+
+### Register Admin (if allowed)
+POST {{baseUrl}}/api/auth/register
+Content-Type: {{contentType}}
+
+{
+  "username": "admin",
+  "email": "admin@example.com",
+  "password": "admin123",
+  "role": "ADMIN"
+}
+
+### Register Manager
+POST {{baseUrl}}/api/auth/register
+Content-Type: {{contentType}}
+
+{
+  "username": "manager",
+  "email": "manager@example.com",
+  "password": "manager123",
+  "role": "MANAGER"
+}
+
+### Login as User
+POST {{baseUrl}}/api/auth/login
+Content-Type: {{contentType}}
+
+{
+  "email": "testuser@example.com",
+  "password": "password123"
+}
+
+### Login as Admin
+POST {{baseUrl}}/api/auth/login
+Content-Type: {{contentType}}
+
+{
+  "email": "admin@example.com",
+  "password": "admin123"
+}
+
+### Login as Manager
+POST {{baseUrl}}/api/auth/login
+Content-Type: {{contentType}}
+
+{
+  "email": "manager@example.com",
+  "password": "manager123"
+}
+
+### ============================================
+### USER ENDPOINTS (Self-scope)
+### ============================================
+
+### Get Own Profile (any authenticated user)
+GET {{baseUrl}}/api/profile/profile
+Authorization: Bearer {{userToken}}
+
+### Update Own Profile
+PATCH {{baseUrl}}/api/profile/profile
+Authorization: Bearer {{userToken}}
+Content-Type: {{contentType}}
+
+{
+  "username": "updated_username",
+  "email": "updated@example.com"
+}
+
+### Change Own Password
+PATCH {{baseUrl}}/api/profile/password
+Authorization: Bearer {{userToken}}
+Content-Type: {{contentType}}
+
+{
+  "currentPassword": "password123",
+  "newPassword": "newpassword123"
+}
+
+### User Dashboard
+GET {{baseUrl}}/api/profile/dashboard
+Authorization: Bearer {{userToken}}
+
+### ============================================
+### ADMIN ENDPOINTS (Admin only)
+### ============================================
+
+### Get All Users (Admin only)
+GET {{baseUrl}}/api/admin/users
+Authorization: Bearer {{adminToken}}
+
+### Get User by ID (Admin only)
+GET {{baseUrl}}/api/admin/users/USER_ID_HERE
+Authorization: Bearer {{adminToken}}
+
+### Update User Role (Admin only)
+PATCH {{baseUrl}}/api/admin/users/USER_ID_HERE/role
+Authorization: Bearer {{adminToken}}
+Content-Type: {{contentType}}
+
+{
+  "role": "MANAGER"
+}
+
+### Delete User (Admin only)
+DELETE {{baseUrl}}/api/admin/users/USER_ID_HERE
+Authorization: Bearer {{adminToken}}
+
+### Admin Dashboard
+GET {{baseUrl}}/api/admin/dashboard
+Authorization: Bearer {{adminToken}}
+
+### ============================================
+### MANAGER ENDPOINTS (Admin or Manager)
+### ============================================
+
+### Get Limited Users List (Manager can see USER role only)
+GET {{baseUrl}}/api/manage/users
+Authorization: Bearer {{managerToken}}
+
+### Update User (Manager can only update USER accounts)
+PATCH {{baseUrl}}/api/manage/users/USER_ID_HERE
+Authorization: Bearer {{managerToken}}
+Content-Type: {{contentType}}
+
+{
+  "username": "updated_by_manager",
+  "email": "updated@example.com"
+}
+
+### Manager Dashboard
+GET {{baseUrl}}/api/manage/dashboard
+Authorization: Bearer {{managerToken}}
+
+### ============================================
+### RBAC TEST SCENARIOS
+### ============================================
+
+### Test 1: User trying to access Admin endpoint (should fail with 403)
+GET {{baseUrl}}/api/admin/users
+Authorization: Bearer {{userToken}}
+
+### Test 2: User trying to access Manager endpoint (should fail with 403)
+GET {{baseUrl}}/api/manage/users
+Authorization: Bearer {{userToken}}
+
+### Test 3: Manager trying to access Admin endpoint (should fail with 403)
+GET {{baseUrl}}/api/admin/users
+Authorization: Bearer {{managerToken}}
+
+### Test 4: Admin accessing Admin endpoint (should succeed with 200)
+GET {{baseUrl}}/api/admin/users
+Authorization: Bearer {{adminToken}}
+
+### Test 5: Manager accessing Manager endpoint (should succeed with 200)
+GET {{baseUrl}}/api/manage/users
+Authorization: Bearer {{managerToken}}
+
+### Test 6: Manager trying to update Admin account (should fail with 403)
+PATCH {{baseUrl}}/api/manage/users/ADMIN_ID_HERE
+Authorization: Bearer {{managerToken}}
+Content-Type: {{contentType}}
+
+{
+  "username": "hacked_admin"
+}
+
