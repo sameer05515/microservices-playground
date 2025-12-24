@@ -37,11 +37,13 @@ Then response should be 200 OK
 ## 🚀 Quick Start
 
 ### Prerequisites
-- Node.js 18+
+- **For Node.js Backend:** Node.js 18+, npm or yarn
+- **For Spring Boot Backend:** Java 21+, Maven 3.6+
 - MongoDB 6+ (running locally or remotely)
-- npm or yarn
 
-### Backend Setup
+### Backend Setup (Choose One)
+
+#### Option 1: Node.js Backend
 
 1. **Navigate to backend directory:**
    ```bash
@@ -64,7 +66,29 @@ Then response should be 200 OK
    npm run dev
    ```
 
-The backend will start on `http://localhost:3000`
+The Node.js backend will start on `http://localhost:3000`
+
+#### Option 2: Spring Boot Backend
+
+1. **Navigate to backend-spring-boot directory:**
+   ```bash
+   cd backend-spring-boot
+   ```
+
+2. **Configure MongoDB in `application.properties`:**
+   ```
+   spring.data.mongodb.uri=mongodb://localhost:27017/ex_base_17_backend_spring
+   jwt.secret=your_super_secret_jwt_key
+   ```
+
+3. **Start the backend server:**
+   ```bash
+   mvn spring-boot:run
+   ```
+
+The Spring Boot backend will start on `http://localhost:8080`
+
+> **Note:** Both backends provide the same API endpoints and RBAC functionality. Choose based on your preference (Node.js or Java/Spring Boot).
 
 ### Frontend Setup
 
@@ -99,7 +123,7 @@ The frontend will start on `http://localhost:3000` (Next.js default). If port 30
 
 ```
 example-base-17/
-├── backend/
+├── backend/                      # Node.js Backend (Express)
 │   ├── config/
 │   │   └── database.js          # MongoDB connection
 │   ├── middleware/
@@ -114,12 +138,23 @@ example-base-17/
 │   │   └── health.js            # Health check
 │   ├── utils/
 │   │   └── jwt.js               # JWT token generation
-│   ├── .env.example
 │   ├── package.json
 │   ├── server.js                # Main application file
 │   └── README.md                # Detailed backend documentation
 │
-└── frontend-nextjs/
+├── backend-spring-boot/          # Spring Boot Backend (Java)
+│   ├── src/main/java/com/p/backend/
+│   │   ├── config/              # Security, OpenAPI config
+│   │   ├── controller/          # REST controllers
+│   │   ├── dto/                 # Data transfer objects
+│   │   ├── entity/              # MongoDB entities
+│   │   ├── repository/          # Spring Data repositories
+│   │   ├── security/            # JWT & RBAC security
+│   │   └── service/             # Business logic
+│   ├── pom.xml
+│   └── README.md                # Spring Boot documentation
+│
+└── frontend-nextjs/              # Next.js Frontend
     ├── app/                      # Next.js App Router pages
     │   ├── dashboard/           # Role-based dashboards
     │   ├── login/               # Login page
@@ -259,8 +294,11 @@ app.get('/profile', authenticate, handler);
 
 ## 📖 Documentation
 
-- **Backend:** See [backend/README.md](backend/README.md) for detailed API documentation
+- **Node.js Backend:** See [backend/README.md](backend/README.md) for detailed API documentation
+- **Spring Boot Backend:** See [backend-spring-boot/README.md](backend-spring-boot/README.md) for Spring Boot documentation
 - **Frontend:** See [frontend-nextjs/README.md](frontend-nextjs/README.md) for frontend documentation
+
+> **Note:** Both backends are functionally equivalent. The Node.js backend runs on port 3000, while the Spring Boot backend runs on port 8080. Update the frontend's `NEXT_PUBLIC_API_URL` accordingly.
 
 ---
 
