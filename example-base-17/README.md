@@ -39,6 +39,7 @@ Then response should be 200 OK
 ### Prerequisites
 - **For Node.js Backend:** Node.js 18+, npm or yarn
 - **For Spring Boot Backend:** Java 21+, Maven 3.6+
+- **For Python Backend:** Python 3.10+, pip
 - MongoDB 6+ (running locally or remotely)
 
 ### Backend Setup (Choose One)
@@ -88,7 +89,41 @@ The Node.js backend will start on `http://localhost:3000`
 
 The Spring Boot backend will start on `http://localhost:8080`
 
-> **Note:** Both backends provide the same API endpoints and RBAC functionality. Choose based on your preference (Node.js or Java/Spring Boot).
+#### Option 3: Python FastAPI Backend
+
+1. **Navigate to backend-python directory:**
+   ```bash
+   cd backend-python
+   ```
+
+2. **Create and activate virtual environment:**
+   ```bash
+   python -m venv venv
+   # On Windows:
+   venv\Scripts\activate
+   # On macOS/Linux:
+   source venv/bin/activate
+   ```
+
+3. **Install dependencies:**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. **Configure environment:**
+   ```bash
+   cp .env.example .env
+   ```
+   Edit `.env` and set your MongoDB URI and JWT secret.
+
+5. **Start the backend server:**
+   ```bash
+   python run.py
+   ```
+
+The Python backend will start on `http://localhost:8000`
+
+> **Note:** All three backends provide the same API endpoints and RBAC functionality. Choose based on your preference (Node.js, Java/Spring Boot, or Python/FastAPI).
 
 ### Frontend Setup
 
@@ -153,6 +188,21 @@ example-base-17/
 │   │   └── service/             # Business logic
 │   ├── pom.xml
 │   └── README.md                # Spring Boot documentation
+│
+├── backend-python/               # Python FastAPI Backend
+│   ├── app/
+│   │   ├── main.py              # FastAPI application
+│   │   ├── config.py            # Configuration
+│   │   ├── database.py          # MongoDB connection
+│   │   ├── dependencies.py      # Auth & RBAC dependencies
+│   │   ├── models/              # Pydantic models
+│   │   ├── schemas/             # Request/response schemas
+│   │   ├── routers/             # API routes
+│   │   ├── repositories/        # Data access layer
+│   │   └── utils/               # Utilities (JWT, password)
+│   ├── requirements.txt
+│   ├── run.py
+│   └── README.md                # Python documentation
 │
 └── frontend-nextjs/              # Next.js Frontend
     ├── app/                      # Next.js App Router pages
@@ -296,9 +346,15 @@ app.get('/profile', authenticate, handler);
 
 - **Node.js Backend:** See [backend/README.md](backend/README.md) for detailed API documentation
 - **Spring Boot Backend:** See [backend-spring-boot/README.md](backend-spring-boot/README.md) for Spring Boot documentation
+- **Python Backend:** See [backend-python/README.md](backend-python/README.md) for Python/FastAPI documentation
 - **Frontend:** See [frontend-nextjs/README.md](frontend-nextjs/README.md) for frontend documentation
 
-> **Note:** Both backends are functionally equivalent. The Node.js backend runs on port 3000, while the Spring Boot backend runs on port 8080. Update the frontend's `NEXT_PUBLIC_API_URL` accordingly.
+> **Note:** All three backends are functionally equivalent:
+> - Node.js backend runs on port **3000**
+> - Spring Boot backend runs on port **8080**
+> - Python FastAPI backend runs on port **8000**
+> 
+> Update the frontend's `NEXT_PUBLIC_API_URL` accordingly based on which backend you choose to run.
 
 ---
 
