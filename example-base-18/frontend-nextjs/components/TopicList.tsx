@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import type { Topic } from '@/types';
+import MarkdownRenderer from './MarkdownRenderer';
 
 interface TopicListProps {
   topics: Topic[];
@@ -34,9 +35,9 @@ export default function TopicList({ topics, onEdit, onDelete }: TopicListProps) 
                 <h3 className="font-semibold">{topic.title}</h3>
               </div>
               {topic.content && (
-                <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">
-                  {topic.content}
-                </p>
+                <div className="mt-3 p-3 bg-gray-50 dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-700">
+                  <MarkdownRenderer content={topic.content} />
+                </div>
               )}
               {topic.path && (
                 <p className="text-xs text-gray-400 dark:text-gray-500 mt-2">

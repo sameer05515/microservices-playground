@@ -85,6 +85,8 @@ npm start
 - ✅ Success/error message notifications
 - ✅ Loading states
 - ✅ Auto-expand first 2 levels of hierarchy
+- ✅ Markdown rendering with syntax highlighting (Prism)
+- ✅ Code block support with copy functionality
 
 ---
 
@@ -104,7 +106,8 @@ frontend-nextjs/
 │   ├── DirectoryForm.tsx     # Create/edit directory form
 │   ├── TopicForm.tsx         # Create/edit topic form
 │   ├── SearchBar.tsx         # Search input component
-│   └── Modal.tsx             # Reusable modal component
+│   ├── Modal.tsx             # Reusable modal component
+│   └── MarkdownRenderer.tsx  # Markdown renderer with Prism syntax highlighting
 ├── lib/
 │   └── api.ts                # API service layer
 ├── types/
@@ -195,8 +198,14 @@ Search input that queries both directories and topics, displaying results with f
 1. Select a directory
 2. Click "+ Add Topic" or "+Topic" button
 3. Enter topic title (required)
-4. Optionally add content
+4. Optionally add content (Markdown supported with code blocks)
 5. Click "Create"
+
+**Markdown Support:**
+- Write content in Markdown format
+- Code blocks with syntax highlighting (JavaScript, TypeScript, Python, Java, SQL, etc.)
+- Headers, lists, links, blockquotes, and more
+- Copy code button in code blocks
 
 ### Search
 1. Enter search query in search bar

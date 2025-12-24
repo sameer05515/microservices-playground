@@ -67,16 +67,19 @@ export default function TopicForm({ topic, directoryId, onSubmit, onCancel }: To
 
       <div>
         <label htmlFor="content" className="block text-sm font-medium mb-1">
-          Content
+          Content <span className="text-gray-500 text-xs">(Markdown supported)</span>
         </label>
         <textarea
           id="content"
           value={content}
           onChange={(e) => setContent(e.target.value)}
-          rows={6}
-          className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800"
-          placeholder="Topic content (optional)"
+          rows={10}
+          className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 font-mono text-sm"
+          placeholder="Topic content (optional) - Markdown supported with code blocks"
         />
+        <p className="text-xs text-gray-500 mt-1">
+          Supports Markdown syntax including code blocks with syntax highlighting
+        </p>
       </div>
 
       <div className="flex gap-2 justify-end">

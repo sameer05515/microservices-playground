@@ -26,3 +26,191 @@ body {
   }
 }
 
+/* Markdown Content Styles */
+.markdown-content {
+  @apply prose prose-sm max-w-none dark:prose-invert;
+}
+
+.markdown-content h1 {
+  @apply text-2xl font-bold mt-6 mb-4;
+}
+
+.markdown-content h2 {
+  @apply text-xl font-bold mt-5 mb-3;
+}
+
+.markdown-content h3 {
+  @apply text-lg font-semibold mt-4 mb-2;
+}
+
+.markdown-content p {
+  @apply my-3 leading-relaxed;
+}
+
+.markdown-content ul,
+.markdown-content ol {
+  @apply my-3 ml-6;
+}
+
+.markdown-content li {
+  @apply my-1;
+}
+
+.markdown-content a {
+  @apply text-blue-600 dark:text-blue-400 hover:underline;
+}
+
+.markdown-link {
+  @apply text-blue-600 dark:text-blue-400 hover:underline;
+}
+
+.markdown-content strong {
+  @apply font-bold;
+}
+
+.markdown-content em {
+  @apply italic;
+}
+
+.markdown-content code {
+  @apply bg-gray-100 dark:bg-gray-800 px-1.5 py-0.5 rounded text-sm font-mono;
+}
+
+.markdown-content pre {
+  @apply my-4 overflow-x-auto;
+}
+
+.markdown-content pre code {
+  @apply bg-transparent p-0;
+}
+
+.markdown-content blockquote {
+  @apply border-l-4 border-gray-300 dark:border-gray-600 pl-4 my-4 italic text-gray-700 dark:text-gray-300;
+}
+
+.markdown-content table {
+  @apply w-full border-collapse my-4;
+}
+
+.markdown-content th,
+.markdown-content td {
+  @apply border border-gray-300 dark:border-gray-600 px-4 py-2;
+}
+
+.markdown-content th {
+  @apply bg-gray-100 dark:bg-gray-800 font-bold;
+}
+
+/* Code Block Styles */
+.markdown-code-block {
+  @apply my-4 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700;
+}
+
+.markdown-code-header {
+  @apply flex items-center justify-between bg-gray-100 dark:bg-gray-800 px-4 py-2 border-b border-gray-200 dark:border-gray-700;
+}
+
+.markdown-code-lang {
+  @apply text-xs font-mono text-gray-600 dark:text-gray-400;
+}
+
+.markdown-code-copy {
+  @apply text-xs px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors;
+}
+
+.markdown-code-pre {
+  @apply m-0 p-4 overflow-x-auto bg-gray-50 dark:bg-gray-900;
+}
+
+.markdown-code-pre code {
+  @apply text-sm font-mono leading-relaxed;
+  background: transparent !important;
+  padding: 0 !important;
+}
+
+/* Prism Syntax Highlighting - Using Prism Tomorrow Theme Colors */
+.markdown-code-pre {
+  background: #2d2d2d !important;
+  color: #e0e0e0 !important;
+}
+
+.markdown-code-pre .token.comment,
+.markdown-code-pre .token.prolog,
+.markdown-code-pre .token.doctype,
+.markdown-code-pre .token.cdata {
+  color: #6a9955;
+  font-style: italic;
+}
+
+.markdown-code-pre .token.punctuation {
+  color: #d4d4d4;
+}
+
+.markdown-code-pre .token.property,
+.markdown-code-pre .token.tag,
+.markdown-code-pre .token.boolean,
+.markdown-code-pre .token.number,
+.markdown-code-pre .token.constant,
+.markdown-code-pre .token.symbol,
+.markdown-code-pre .token.deleted {
+  color: #569cd6;
+}
+
+.markdown-code-pre .token.selector,
+.markdown-code-pre .token.attr-name,
+.markdown-code-pre .token.string,
+.markdown-code-pre .token.char,
+.markdown-code-pre .token.builtin,
+.markdown-code-pre .token.inserted {
+  color: #ce9178;
+}
+
+.markdown-code-pre .token.operator,
+.markdown-code-pre .token.entity,
+.markdown-code-pre .token.url,
+.markdown-code-pre .language-css .token.string,
+.markdown-code-pre .style .token.string {
+  color: #d4d4d4;
+}
+
+.markdown-code-pre .token.atrule,
+.markdown-code-pre .token.attr-value,
+.markdown-code-pre .token.keyword {
+  color: #569cd6;
+}
+
+.markdown-code-pre .token.function,
+.markdown-code-pre .token.class-name {
+  color: #dcdcaa;
+}
+
+.markdown-code-pre .token.regex,
+.markdown-code-pre .token.important,
+.markdown-code-pre .token.variable {
+  color: #9cdcfe;
+}
+
+/* Light mode adjustments */
+@media (prefers-color-scheme: light) {
+  .markdown-code-pre {
+    background: #f6f8fa !important;
+    color: #24292e !important;
+  }
+  
+  .markdown-code-pre .token.comment {
+    color: #6a737d;
+  }
+  
+  .markdown-code-pre .token.string {
+    color: #032f62;
+  }
+  
+  .markdown-code-pre .token.keyword {
+    color: #d73a49;
+  }
+  
+  .markdown-code-pre .token.function {
+    color: #6f42c1;
+  }
+}
+
