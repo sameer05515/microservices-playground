@@ -246,6 +246,8 @@ GET /api/search?q=spring
 
 - **Backend**: See [backend-spring-boot/README.md](backend-spring-boot/README.md) for detailed backend documentation
 - **Frontend**: See [frontend-nextjs/README.md](frontend-nextjs/README.md) for detailed frontend documentation
+- **Tests**: See [README-TESTS.md](README-TESTS.md) for testing guide and test cases
+- **Batch Files**: See [README-BATCH-FILES.md](README-BATCH-FILES.md) for Windows batch file usage
 
 ---
 
