@@ -18,5 +18,8 @@ public class SearchResponse {
     
     @Builder.Default
     private List<TopicResponse> topics = new ArrayList<>();
+    
+    @Builder.Default
+    private List<QuestionResponse> questions = new ArrayList<>();
 }
 

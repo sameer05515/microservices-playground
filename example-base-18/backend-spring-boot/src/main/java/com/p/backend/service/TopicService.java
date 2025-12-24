@@ -7,6 +7,7 @@ import com.p.backend.entity.Directory;
 import com.p.backend.entity.Topic;
 import com.p.backend.repository.DirectoryRepository;
 import com.p.backend.repository.TopicRepository;
+import com.p.backend.repository.QuestionRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,7 @@ public class TopicService {
 
     private final TopicRepository topicRepository;
     private final DirectoryRepository directoryRepository;
+    private final QuestionRepository questionRepository;
 
     public TopicResponse createTopic(TopicRequest request) {
         Directory directory = directoryRepository.findByIdAndDeletedFalse(request.getDirectoryId())
@@ -71,6 +73,14 @@ public class TopicService {
     public void deleteTopic(String id) {
         Topic topic = topicRepository.findByIdAndDeletedFalse(id)
                 .orElseThrow(() -> new RuntimeException("Topic not found"));
+
+        // Soft delete all questions in this topic
+        List<com.p.backend.entity.Question> questions = questionRepository.findByTopicIdAndDeletedFalse(id);
+        for (com.p.backend.entity.Question question : questions) {
+            question.setDeleted(true);
+            question.setDeletedAt(LocalDateTime.now());
+            questionRepository.save(question);
+        }
 
         topic.setDeleted(true);
         topic.setDeletedAt(LocalDateTime.now());

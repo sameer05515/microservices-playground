@@ -6,6 +6,7 @@ import com.p.backend.dto.UpdateDirectoryRequest;
 import com.p.backend.entity.Directory;
 import com.p.backend.repository.DirectoryRepository;
 import com.p.backend.repository.TopicRepository;
+import com.p.backend.repository.QuestionRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,7 @@ public class DirectoryService {
 
     private final DirectoryRepository directoryRepository;
     private final TopicRepository topicRepository;
+    private final QuestionRepository questionRepository;
 
     public DirectoryResponse createDirectory(DirectoryRequest request) {
         // Validate uniqueness at same level
@@ -117,9 +119,24 @@ public class DirectoryService {
         // Soft delete all topics in this directory
         List<com.p.backend.entity.Topic> topics = topicRepository.findByDirectoryIdAndDeletedFalse(directory.getId());
         for (com.p.backend.entity.Topic topic : topics) {
+            // Soft delete all questions in this topic
+            List<com.p.backend.entity.Question> topicQuestions = questionRepository.findByTopicIdAndDeletedFalse(topic.getId());
+            for (com.p.backend.entity.Question question : topicQuestions) {
+                question.setDeleted(true);
+                question.setDeletedAt(LocalDateTime.now());
+                questionRepository.save(question);
+            }
             topic.setDeleted(true);
             topic.setDeletedAt(LocalDateTime.now());
             topicRepository.save(topic);
+        }
+
+        // Soft delete all questions in this directory
+        List<com.p.backend.entity.Question> directoryQuestions = questionRepository.findByDirectoryIdAndDeletedFalse(directory.getId());
+        for (com.p.backend.entity.Question question : directoryQuestions) {
+            question.setDeleted(true);
+            question.setDeletedAt(LocalDateTime.now());
+            questionRepository.save(question);
         }
 
         // Soft delete this directory

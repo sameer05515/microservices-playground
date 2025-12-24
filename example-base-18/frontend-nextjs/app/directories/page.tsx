@@ -1,19 +1,24 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { directoryApi, topicApi } from '@/lib/api';
-import type { Directory, Topic, DirectoryRequest, TopicRequest, UpdateDirectoryRequest, UpdateTopicRequest, SearchResponse } from '@/types';
+import { directoryApi, topicApi, questionApi } from '@/lib/api';
+import type { Directory, Topic, Question, DirectoryRequest, TopicRequest, UpdateDirectoryRequest, UpdateTopicRequest, QuestionRequest, UpdateQuestionRequest, SearchResponse } from '@/types';
 import DirectoryTree from '@/components/DirectoryTree';
 import TopicList from '@/components/TopicList';
+import QuestionList from '@/components/QuestionList';
 import DirectoryForm from '@/components/DirectoryForm';
 import TopicForm from '@/components/TopicForm';
+import QuestionForm from '@/components/QuestionForm';
 import SearchBar from '@/components/SearchBar';
 import Modal from '@/components/Modal';
+import MarkdownRenderer from '@/components/MarkdownRenderer';
 
 export default function DirectoriesPage() {
   const [hierarchy, setHierarchy] = useState<Directory[]>([]);
   const [selectedDirectory, setSelectedDirectory] = useState<Directory | null>(null);
+  const [selectedTopic, setSelectedTopic] = useState<Topic | null>(null);
   const [topics, setTopics] = useState<Topic[]>([]);
+  const [questions, setQuestions] = useState<Question[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
@@ -21,10 +26,14 @@ export default function DirectoriesPage() {
   // Modal states
   const [showDirectoryForm, setShowDirectoryForm] = useState(false);
   const [showTopicForm, setShowTopicForm] = useState(false);
+  const [showQuestionForm, setShowQuestionForm] = useState(false);
   const [editingDirectory, setEditingDirectory] = useState<Directory | null>(null);
   const [editingTopic, setEditingTopic] = useState<Topic | null>(null);
+  const [editingQuestion, setEditingQuestion] = useState<Question | null>(null);
   const [parentIdForNew, setParentIdForNew] = useState<string | undefined>();
   const [directoryIdForNewTopic, setDirectoryIdForNewTopic] = useState<string | undefined>();
+  const [parentIdForNewQuestion, setParentIdForNewQuestion] = useState<string | undefined>();
+  const [parentTypeForNewQuestion, setParentTypeForNewQuestion] = useState<'directory' | 'topic' | undefined>();
 
   // Search state
   const [searchResults, setSearchResults] = useState<SearchResponse | null>(null);
@@ -37,10 +46,19 @@ export default function DirectoriesPage() {
   useEffect(() => {
     if (selectedDirectory) {
       loadTopics(selectedDirectory.id);
+      loadQuestions(selectedDirectory.id, 'directory');
+      setSelectedTopic(null);
     } else {
       setTopics([]);
+      setQuestions([]);
     }
   }, [selectedDirectory]);
+
+  useEffect(() => {
+    if (selectedTopic) {
+      loadQuestions(selectedTopic.id, 'topic');
+    }
+  }, [selectedTopic]);
 
   const loadHierarchy = async () => {
     try {
@@ -61,6 +79,15 @@ export default function DirectoriesPage() {
       setTopics(data);
     } catch (err: any) {
       console.error('Failed to load topics:', err);
+    }
+  };
+
+  const loadQuestions = async (parentId: string, parentType: 'directory' | 'topic') => {
+    try {
+      const data = await questionApi.getByParent(parentId);
+      setQuestions(data);
+    } catch (err: any) {
+      console.error('Failed to load questions:', err);
     }
   };
 
@@ -271,7 +298,20 @@ export default function DirectoriesPage() {
               </div>
             )}
 
-            {searchResults.directories.length === 0 && searchResults.topics.length === 0 && (
+            {searchResults.questions && searchResults.questions.length > 0 && (
+              <div>
+                <h3 className="text-lg font-semibold mb-3">Questions ({searchResults.questions.length})</h3>
+                <QuestionList
+                  questions={searchResults.questions}
+                  onEdit={openEditQuestionForm}
+                  onDelete={handleDeleteQuestion}
+                />
+              </div>
+            )}
+
+            {searchResults.directories.length === 0 && 
+             searchResults.topics.length === 0 && 
+             (!searchResults.questions || searchResults.questions.length === 0) && (
               <div className="text-center py-8 text-gray-500">No results found</div>
             )}
           </div>
@@ -320,26 +360,72 @@ export default function DirectoriesPage() {
                       <div className="text-xs text-gray-400 mt-1">Path: {selectedDirectory.path}</div>
                     )}
                   </div>
-                  <div className="mb-4">
+                  <div className="mb-4 flex gap-2">
                     <button
                       onClick={() => openTopicForm(selectedDirectory.id)}
                       className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
                     >
                       + Add Topic
                     </button>
+                    <button
+                      onClick={() => openQuestionForm(selectedDirectory.id, 'directory')}
+                      className="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-600"
+                    >
+                      + Add Question
+                    </button>
                   </div>
-                  <div>
+                  <div className="mb-6">
                     <h3 className="text-lg font-semibold mb-3">Topics</h3>
                     <TopicList
                       topics={topics}
-                      onEdit={openEditTopicForm}
+                      onEdit={(topic) => {
+                        setSelectedTopic(topic);
+                        openEditTopicForm(topic);
+                      }}
                       onDelete={handleDeleteTopic}
+                    />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold mb-3">Questions</h3>
+                    <QuestionList
+                      questions={questions}
+                      onEdit={openEditQuestionForm}
+                      onDelete={handleDeleteQuestion}
                     />
                   </div>
                 </>
               ) : (
                 <div className="text-center py-12 text-gray-500">
-                  Select a directory to view its topics
+                  Select a directory to view its topics and questions
+                </div>
+              )}
+              
+              {selectedTopic && (
+                <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+                  <div className="mb-4">
+                    <h2 className="text-xl font-bold mb-2">📄 {selectedTopic.title}</h2>
+                    {selectedTopic.content && (
+                      <div className="p-3 bg-gray-50 dark:bg-gray-900 rounded mb-4">
+                        <MarkdownRenderer content={selectedTopic.content} />
+                      </div>
+                    )}
+                    <div className="flex gap-2 mb-4">
+                      <button
+                        onClick={() => openQuestionForm(selectedTopic.id, 'topic')}
+                        className="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-600"
+                      >
+                        + Add Question
+                      </button>
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-semibold mb-3">Questions</h3>
+                      <QuestionList
+                        questions={questions}
+                        onEdit={openEditQuestionForm}
+                        onDelete={handleDeleteQuestion}
+                      />
+                    </div>
+                  </div>
                 </div>
               )}
             </div>
@@ -386,6 +472,30 @@ export default function DirectoriesPage() {
             setShowTopicForm(false);
             setEditingTopic(null);
             setDirectoryIdForNewTopic(undefined);
+          }}
+        />
+      </Modal>
+
+      <Modal
+        isOpen={showQuestionForm}
+        onClose={() => {
+          setShowQuestionForm(false);
+          setEditingQuestion(null);
+          setParentIdForNewQuestion(undefined);
+          setParentTypeForNewQuestion(undefined);
+        }}
+        title={editingQuestion ? 'Edit Question' : 'Create Question'}
+      >
+        <QuestionForm
+          question={editingQuestion || undefined}
+          parentId={parentIdForNewQuestion}
+          parentType={parentTypeForNewQuestion}
+          onSubmit={editingQuestion ? handleUpdateQuestion : handleCreateQuestion}
+          onCancel={() => {
+            setShowQuestionForm(false);
+            setEditingQuestion(null);
+            setParentIdForNewQuestion(undefined);
+            setParentTypeForNewQuestion(undefined);
           }}
         />
       </Modal>

@@ -45,8 +45,43 @@ export interface UpdateTopicRequest {
   content?: string;
 }
 
+export interface Question {
+  id: string;
+  questionText: string;
+  description?: string;
+  answer?: string;
+  tags?: string[];
+  directoryId?: string;
+  directoryName?: string;
+  topicId?: string;
+  topicName?: string;
+  parentType: 'directory' | 'topic';
+  parentId: string;
+  parentName?: string;
+  path?: string;
+  createdAt: string;
+  updatedAt?: string;
+}
+
+export interface QuestionRequest {
+  questionText: string;
+  description?: string;
+  answer?: string;
+  tags?: string[];
+  parentId: string;
+  parentType: 'directory' | 'topic';
+}
+
+export interface UpdateQuestionRequest {
+  questionText: string;
+  description?: string;
+  answer?: string;
+  tags?: string[];
+}
+
 export interface SearchResponse {
   directories: Directory[];
   topics: Topic[];
+  questions: Question[];
 }
 

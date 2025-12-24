@@ -1,5 +1,5 @@
 import axios from 'axios';
-import type { Directory, Topic, DirectoryRequest, TopicRequest, UpdateDirectoryRequest, UpdateTopicRequest, SearchResponse } from '@/types';
+import type { Directory, Topic, Question, DirectoryRequest, TopicRequest, UpdateDirectoryRequest, UpdateTopicRequest, QuestionRequest, UpdateQuestionRequest, SearchResponse } from '@/types';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080';
 
@@ -93,6 +93,43 @@ export const searchApi = {
   search: async (query: string): Promise<SearchResponse> => {
     const response = await api.get<SearchResponse>('/search', { params: { q: query } });
     return response.data;
+  },
+};
+
+// Question API
+export const questionApi = {
+  create: async (data: QuestionRequest): Promise<Question> => {
+    const response = await api.post<Question>('/questions', data);
+    return response.data;
+  },
+
+  getById: async (id: string): Promise<Question> => {
+    const response = await api.get<Question>(`/questions/${id}`);
+    return response.data;
+  },
+
+  getByDirectory: async (directoryId: string): Promise<Question[]> => {
+    const response = await api.get<Question[]>(`/questions/directory/${directoryId}`);
+    return response.data;
+  },
+
+  getByTopic: async (topicId: string): Promise<Question[]> => {
+    const response = await api.get<Question[]>(`/questions/topic/${topicId}`);
+    return response.data;
+  },
+
+  getByParent: async (parentId: string): Promise<Question[]> => {
+    const response = await api.get<Question[]>(`/questions/parent/${parentId}`);
+    return response.data;
+  },
+
+  update: async (id: string, data: UpdateQuestionRequest): Promise<Question> => {
+    const response = await api.put<Question>(`/questions/${id}`, data);
+    return response.data;
+  },
+
+  delete: async (id: string): Promise<void> => {
+    await api.delete(`/questions/${id}`);
   },
 };
 

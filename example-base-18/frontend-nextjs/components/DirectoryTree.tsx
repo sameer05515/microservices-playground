@@ -11,6 +11,7 @@ interface DirectoryTreeProps {
   onDelete?: (directory: Directory) => void;
   onAddSubDirectory?: (parentId: string) => void;
   onAddTopic?: (directoryId: string) => void;
+  onAddQuestion?: (parentId: string, parentType: 'directory' | 'topic') => void;
   selectedId?: string;
 }
 
@@ -22,6 +23,7 @@ export default function DirectoryTree({
   onDelete,
   onAddSubDirectory,
   onAddTopic,
+  onAddQuestion,
   selectedId,
 }: DirectoryTreeProps) {
   const [expanded, setExpanded] = useState(level < 2); // Auto-expand first 2 levels
@@ -97,6 +99,15 @@ export default function DirectoryTree({
               title="Add Topic"
             >
               +Topic
+            </button>
+          )}
+          {onAddQuestion && (
+            <button
+              onClick={() => onAddQuestion(directory.id, 'directory')}
+              className="px-2 py-1 text-xs bg-purple-500 text-white rounded hover:bg-purple-600"
+              title="Add Question"
+            >
+              +Q
             </button>
           )}
           {onEdit && (
