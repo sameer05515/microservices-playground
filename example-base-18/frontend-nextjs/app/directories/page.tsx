@@ -174,10 +174,69 @@ export default function DirectoriesPage() {
       setSuccess('Topic deleted successfully');
       if (selectedDirectory) {
         await loadTopics(selectedDirectory.id);
+        await loadQuestions(selectedDirectory.id, 'directory');
+      }
+      if (selectedTopic?.id === topic.id) {
+        setSelectedTopic(null);
       }
       setTimeout(() => setSuccess(''), 3000);
     } catch (err: any) {
       setError(err.message || 'Failed to delete topic');
+      setTimeout(() => setError(''), 3000);
+    }
+  };
+
+  const handleCreateQuestion = async (data: QuestionRequest) => {
+    try {
+      await questionApi.create(data);
+      setSuccess('Question created successfully');
+      setShowQuestionForm(false);
+      setParentIdForNewQuestion(undefined);
+      setParentTypeForNewQuestion(undefined);
+      if (selectedDirectory) {
+        await loadQuestions(selectedDirectory.id, 'directory');
+      }
+      if (selectedTopic) {
+        await loadQuestions(selectedTopic.id, 'topic');
+      }
+      setTimeout(() => setSuccess(''), 3000);
+    } catch (err: any) {
+      throw err;
+    }
+  };
+
+  const handleUpdateQuestion = async (data: QuestionRequest) => {
+    if (!editingQuestion) return;
+    try {
+      await questionApi.update(editingQuestion.id, data as UpdateQuestionRequest);
+      setSuccess('Question updated successfully');
+      setShowQuestionForm(false);
+      setEditingQuestion(null);
+      if (selectedDirectory) {
+        await loadQuestions(selectedDirectory.id, 'directory');
+      }
+      if (selectedTopic) {
+        await loadQuestions(selectedTopic.id, 'topic');
+      }
+      setTimeout(() => setSuccess(''), 3000);
+    } catch (err: any) {
+      throw err;
+    }
+  };
+
+  const handleDeleteQuestion = async (question: Question) => {
+    try {
+      await questionApi.delete(question.id);
+      setSuccess('Question deleted successfully');
+      if (selectedDirectory) {
+        await loadQuestions(selectedDirectory.id, 'directory');
+      }
+      if (selectedTopic) {
+        await loadQuestions(selectedTopic.id, 'topic');
+      }
+      setTimeout(() => setSuccess(''), 3000);
+    } catch (err: any) {
+      setError(err.message || 'Failed to delete question');
       setTimeout(() => setError(''), 3000);
     }
   };
@@ -209,6 +268,20 @@ export default function DirectoriesPage() {
     setEditingTopic(topic);
     setDirectoryIdForNewTopic(undefined);
     setShowTopicForm(true);
+  };
+
+  const openQuestionForm = (parentId: string, parentType: 'directory' | 'topic') => {
+    setParentIdForNewQuestion(parentId);
+    setParentTypeForNewQuestion(parentType);
+    setEditingQuestion(null);
+    setShowQuestionForm(true);
+  };
+
+  const openEditQuestionForm = (question: Question) => {
+    setEditingQuestion(question);
+    setParentIdForNewQuestion(undefined);
+    setParentTypeForNewQuestion(undefined);
+    setShowQuestionForm(true);
   };
 
   return (
