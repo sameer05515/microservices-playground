@@ -9,6 +9,7 @@ A Maven-based Java Swing application for performing CRUD (Create, Read, Update, 
 - ✅ **Update** - Modify existing topics
 - ✅ **Delete** - Remove topics with confirmation
 - ✅ **JSON Storage** - All data is saved in `src/main/resources/topics.json`
+- ✅ **Markdown Support** - Write content in Markdown with live preview
 - ✅ **Clean GUI** - User-friendly interface with table and form
 - ✅ **Input Validation** - Validates required fields
 - ✅ **Auto-generated IDs** - UUID-based unique identifiers
@@ -75,7 +76,10 @@ Run the `TopicManagementApp` class directly from your IDE (main method is in `sr
 ### Creating a Topic
 
 1. Enter a **Title** (required)
-2. Enter **Content** (optional)
+2. Enter **Content** in Markdown format (optional)
+   - Use the **Edit** tab to write Markdown
+   - Switch to the **Preview** tab to see rendered HTML
+   - Preview updates automatically as you type
 3. Click the **Create** button
 4. The new topic will appear in the topics list
 
@@ -137,7 +141,24 @@ The `Topic` class contains:
 ## Dependencies
 
 - **Gson 2.10.1** - JSON serialization/deserialization
+- **Flexmark 0.64.8** - Markdown to HTML rendering
 - **Java Swing** - GUI framework (built-in)
+
+## Markdown Support
+
+The application supports full Markdown syntax for topic content:
+
+- **Headers**: `# H1`, `## H2`, `### H3`, etc.
+- **Bold**: `**bold text**` or `__bold text__`
+- **Italic**: `*italic text*` or `_italic text_`
+- **Code**: `` `inline code` `` or code blocks with triple backticks
+- **Links**: `[text](url)`
+- **Lists**: Ordered and unordered lists
+- **Tables**: Markdown table syntax
+- **Blockquotes**: `> quoted text`
+- And more standard Markdown features
+
+The **Preview** tab shows a live, styled HTML rendering of your Markdown content. The preview updates automatically as you type in the **Edit** tab.
 
 ## Troubleshooting
 

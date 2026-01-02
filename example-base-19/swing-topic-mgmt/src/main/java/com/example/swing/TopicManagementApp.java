@@ -2,8 +2,11 @@ package com.example.swing;
 
 import com.example.swing.model.Topic;
 import com.example.swing.service.TopicService;
+import com.example.swing.util.MarkdownRenderer;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -20,6 +23,8 @@ public class TopicManagementApp extends JFrame {
     private DefaultTableModel tableModel;
     private JTextField titleField;
     private JTextArea contentArea;
+    private JEditorPane previewPane;
+    private JTabbedPane contentTabbedPane;
     private JButton createButton;
     private JButton updateButton;
     private JButton deleteButton;
@@ -102,7 +107,7 @@ public class TopicManagementApp extends JFrame {
     private JPanel createFormPanel() {
         JPanel panel = new JPanel(new BorderLayout(5, 5));
         panel.setBorder(BorderFactory.createTitledBorder("Topic Details"));
-        panel.setPreferredSize(new Dimension(350, 0));
+        panel.setPreferredSize(new Dimension(400, 0));
 
         // Form fields
         JPanel formPanel = new JPanel(new GridBagLayout());
@@ -121,23 +126,56 @@ public class TopicManagementApp extends JFrame {
         titleField = new JTextField(20);
         formPanel.add(titleField, gbc);
 
-        // Content area
+        // Content area with Markdown support
         gbc.gridx = 0;
         gbc.gridy = 1;
         gbc.fill = GridBagConstraints.NONE;
         gbc.weightx = 0;
-        formPanel.add(new JLabel("Content:"), gbc);
+        formPanel.add(new JLabel("Content (Markdown):"), gbc);
 
         gbc.gridx = 1;
         gbc.gridy = 1;
         gbc.fill = GridBagConstraints.BOTH;
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
+        
+        // Create tabbed pane for Edit and Preview
+        contentTabbedPane = new JTabbedPane();
+        
+        // Edit tab - Text area for markdown input
         contentArea = new JTextArea(10, 20);
         contentArea.setLineWrap(true);
         contentArea.setWrapStyleWord(true);
-        JScrollPane contentScroll = new JScrollPane(contentArea);
-        formPanel.add(contentScroll, gbc);
+        contentArea.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
+        JScrollPane editScroll = new JScrollPane(contentArea);
+        contentTabbedPane.addTab("Edit", editScroll);
+        
+        // Preview tab - HTML renderer for markdown preview
+        previewPane = new JEditorPane();
+        previewPane.setContentType("text/html");
+        previewPane.setEditable(false);
+        JScrollPane previewScroll = new JScrollPane(previewPane);
+        contentTabbedPane.addTab("Preview", previewScroll);
+        
+        // Add document listener to update preview in real-time
+        contentArea.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                updatePreview();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                updatePreview();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                updatePreview();
+            }
+        });
+        
+        formPanel.add(contentTabbedPane, gbc);
 
         panel.add(formPanel, BorderLayout.CENTER);
 
@@ -213,6 +251,7 @@ public class TopicManagementApp extends JFrame {
             if (topic != null) {
                 titleField.setText(topic.getTitle());
                 contentArea.setText(topic.getContent() != null ? topic.getContent() : "");
+                updatePreview();
                 updateButton.setEnabled(true);
                 deleteButton.setEnabled(true);
                 createButton.setEnabled(false);
@@ -226,10 +265,21 @@ public class TopicManagementApp extends JFrame {
         selectedTopicId = null;
         titleField.setText("");
         contentArea.setText("");
+        updatePreview();
         updateButton.setEnabled(false);
         deleteButton.setEnabled(false);
         createButton.setEnabled(true);
         topicTable.clearSelection();
+    }
+    
+    /**
+     * Update the markdown preview pane
+     */
+    private void updatePreview() {
+        String markdown = contentArea.getText();
+        String html = MarkdownRenderer.markdownToHtml(markdown);
+        previewPane.setText(html);
+        previewPane.setCaretPosition(0); // Scroll to top
     }
 
     private void updateStatus(String message) {
