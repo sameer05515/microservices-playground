@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const path = require("path");
 const bodyParser = require("body-parser");
 const conversationService = require("./conversation/conversation.service");
-const conversationLPS= require('./conversation/conversation.lps');
+const conversationLPS = require("./conversation/conversation.lps");
 
 
 
@@ -18,10 +18,7 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "../public")));
 app.use(bodyParser.json());
 
-mongoose.connect(MONGODB_URI, { // Use process.env.MONGODB_URI
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-});
+mongoose.connect(MONGODB_URI);
 
 // Define a route to render the chat interface
 app.get("/", (req, res) => {
@@ -30,29 +27,24 @@ app.get("/", (req, res) => {
 
 // POST endpoint to handle the question and return the answer
 app.post("/answer", async (req, res) => {
-    const questionText = req.body.questionText;
-    // Capitalize the question text
-    const answerText = questionText.toUpperCase();
-
+    const raw = req.body?.questionText;
+    const questionText = typeof raw === "string" ? raw.trim() : "";
+    if (!questionText) {
+        return res.status(400).json({ error: "questionText is required and must be a non-empty string" });
+    }
 
     try {
-        // do NLP
         const answerText = await conversationLPS.doNaturalLP(questionText);
-        // Create a conversation record
-        const conversation = await conversationService.createConversation(
-            questionText,
-            answerText
-        );
-        // Send back the capitalized answer and original question along with the conversation ID
+        const conversation = await conversationService.createConversation(questionText, answerText);
         res.json({
             answerText: conversation.answerText,
             questionText: conversation.questionText,
             _id: conversation._id,
-            uniqueId: conversation.uniqueId
+            uniqueId: conversation.uniqueId,
         });
     } catch (e) {
         console.error(e);
-        res.sendStatus(500); // Send internal server error status
+        res.status(500).json({ error: "Failed to process question" });
     }
 });
 

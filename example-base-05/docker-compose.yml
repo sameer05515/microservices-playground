@@ -6,10 +6,14 @@ services:
       context: ./backend-ejs-app
     ports:
       - "3002:3002"
+    environment:
+      BACKEND_URL: http://backend-app:3001
     volumes:
       - ./backend-ejs-app:/app
     networks:
       - backend_network
+    depends_on:
+      - backend-app
 
   backend-app:
     build:

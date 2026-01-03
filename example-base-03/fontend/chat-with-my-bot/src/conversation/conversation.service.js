@@ -25,12 +25,11 @@ async function updateConversation(uniqueId, questionText, answerText) {
 }
 
 async function deleteConversation(uniqueId) {
-    const conversation = await getConversationById(uniqueId);
-    if (!conversation) {
+    const deleted = await Conversation.findOneAndDelete({ uniqueId });
+    if (!deleted) {
         throw new Error('Conversation not found');
     }
-    await conversation.remove();
-    return conversation;
+    return deleted;
 }
 
 module.exports = {

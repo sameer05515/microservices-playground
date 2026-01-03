@@ -1,0 +1,132 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "epub-gen-express",
+    "description": "HTTP API: Markdown plus metadata to `application/epub+zip`. The browser UI at `/` is HTML and not described by this specification.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "/",
+      "description": "This server (use the same host and port you opened in the browser)"
+    }
+  ],
+  "tags": [
+    { "name": "Health", "description": "Liveness" },
+    { "name": "EPUB", "description": "E-book generation" }
+  ],
+  "paths": {
+    "/health": {
+      "get": {
+        "tags": ["Health"],
+        "summary": "Health check",
+        "operationId": "healthCheck",
+        "responses": {
+          "200": {
+            "description": "Service is running",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "example": "ok"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/epub": {
+      "post": {
+        "tags": ["EPUB"],
+        "summary": "Generate EPUB from Markdown",
+        "operationId": "createEpub",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["markdown"],
+                "properties": {
+                  "markdown": {
+                    "type": "string",
+                    "description": "Markdown body (GFM). Fenced code blocks are syntax-highlighted in the EPUB."
+                  },
+                  "filename": {
+                    "type": "string",
+                    "description": "Suggested download name; reduced to a safe basename; `.epub` appended if missing.",
+                    "example": "my-book.epub"
+                  },
+                  "title": {
+                    "type": "string",
+                    "description": "Publication title. Defaults to the filename stem or `Untitled`."
+                  },
+                  "author": {
+                    "type": "string",
+                    "description": "Author. Defaults to `anonymous`."
+                  }
+                }
+              },
+              "examples": {
+                "minimal": {
+                  "summary": "Minimal",
+                  "value": {
+                    "markdown": "# Hello\n\nSome **bold** text.\n\n```js\nconst n = 1;\n```",
+                    "filename": "demo.epub"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "EPUB 3 package",
+            "content": {
+              "application/epub+zip": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            },
+            "headers": {
+              "Content-Disposition": {
+                "description": "`attachment` with `filename`",
+                "schema": { "type": "string" }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid or empty markdown",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          },
+          "500": {
+            "description": "EPUB build or send failure",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Error": {
+        "type": "object",
+        "properties": {
+          "error": { "type": "string" },
+          "detail": { "type": "string" }
+        }
+      }
+    }
+  }
+}

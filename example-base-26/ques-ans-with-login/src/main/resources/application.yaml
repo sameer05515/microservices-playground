@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: ques-ans-with-login
+
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/authdb
+
+server:
+  port: 8083
+
+jwt:
+  secret: ${JWT_SECRET:8f4d9c2a7b6e5f1d3c8a9b2e7d6f4c1a8e5b3d9f2c7a6e4b}
+  expiration: 900000 # 15 minutes

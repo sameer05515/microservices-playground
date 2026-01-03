@@ -120,6 +120,11 @@ chat-gpt-conversation/
 4. **Navigate**: Use next/previous buttons to move between conversations
 5. **View Details**: Conversations are displayed with proper formatting, markdown rendering, and syntax highlighting
 
+## Documentation Index
+
+- `docs/SNAPSHOT_SOURCES.md` - detailed guide for snapshot source modeling (file vs folder shards), expected contracts, and verification steps.
+- `docs/REVIEW_NOTES.md` - focused technical review findings, risk summary, and regression checklist.
+
 ### Data Format
 
 The application expects JSON files in the `public/data/` directory with the following structure:

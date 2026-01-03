@@ -13,8 +13,7 @@ RUN npm install
 # Copy backend application files
 COPY . .
 
-# Expose port 3001
-EXPOSE 3001
+EXPOSE 3002
 
 # Command to run the application
 CMD ["node", "server.js"]
