@@ -54,9 +54,32 @@ mvn exec:java
 
 ---
 
+### 3. Swing MP3 Player
+A media player application for playing MP3 audio files.
+
+**Location:** `swing-mp3-player/`
+
+**Features:**
+- File selection dialog for MP3 files
+- Play, Pause, and Stop controls
+- Progress bar and time display
+- Volume control slider
+- Current file information display
+- Clean and intuitive GUI
+
+**Quick Start:**
+```bash
+cd swing-mp3-player
+mvn exec:java
+```
+
+**Documentation:** See [swing-mp3-player/README.md](swing-mp3-player/README.md) for detailed information.
+
+---
+
 ## 🛠️ Prerequisites
 
-Both projects require:
+All projects require:
 - **Java 17** or higher
 - **Maven 3.6+** (or use Maven wrapper)
 
@@ -93,6 +116,16 @@ example-base-19/
             │                   └── MarkdownRenderer.java
             └── resources/
                 └── topics.json
+└── swing-mp3-player/            # MP3 audio player
+    ├── pom.xml
+    ├── README.md
+    └── src/
+        └── main/
+            └── java/
+                └── com/
+                    └── example/
+                        └── swing/
+                            └── MP3PlayerApp.java
 ```
 
 ## 🚀 Building All Projects
@@ -109,6 +142,11 @@ cd ..
 cd swing-topic-mgmt
 mvn clean compile
 cd ..
+
+# Build MP3 player
+cd swing-mp3-player
+mvn clean compile
+cd ..
 ```
 
 ## 📚 Technologies Used
@@ -121,6 +159,11 @@ cd ..
 - **Java Swing** - GUI framework
 - **Gson 2.10.1** - JSON serialization/deserialization
 - **Flexmark 0.64.8** - Markdown to HTML rendering
+- **Maven** - Build tool
+
+### Swing MP3 Player
+- **Java Swing** - GUI framework
+- **JLayer 1.0.1** - MP3 audio playback library
 - **Maven** - Build tool
 
 ## 🎯 Learning Objectives
@@ -149,12 +192,19 @@ These projects demonstrate:
    - HTML rendering
    - Live preview functionality
 
+5. **Media Playback**
+   - Audio file handling
+   - Playback controls
+   - Progress tracking
+   - Volume control
+
 ## 📝 Notes
 
-- Both applications use Java 17
-- All data is stored locally in JSON format
-- The topic management app includes a live Markdown preview
-- Both projects follow standard Maven directory structure
+- All applications use Java 17
+- All data is stored locally (JSON format for topic management)
+- The topic management app includes a live Markdown preview and theme toggle
+- The MP3 player uses JLayer library for audio playback
+- All projects follow standard Maven directory structure
 
 ## 🔗 Related Examples
 
