@@ -1,0 +1,161 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, system-ui, Arial, sans-serif;
+  background: #f5f7fb;
+  color: #172033;
+}
+
+button, input, textarea {
+  font: inherit;
+}
+
+.container {
+  width: min(900px, calc(100% - 32px));
+  margin: 48px auto;
+}
+
+header {
+  margin-bottom: 28px;
+}
+
+header h1 {
+  margin: 0 0 6px;
+  font-size: 36px;
+}
+
+header p {
+  margin: 0;
+  color: #687386;
+}
+
+.todo-form,
+.todo-item,
+.status,
+.error,
+.empty {
+  background: white;
+  border: 1px solid #e2e7ef;
+  border-radius: 12px;
+}
+
+.todo-form {
+  padding: 20px;
+  margin-bottom: 28px;
+}
+
+.todo-form input,
+.todo-form textarea {
+  width: 100%;
+  border: 1px solid #d4dbe6;
+  border-radius: 8px;
+  padding: 11px 12px;
+  margin-bottom: 12px;
+  outline: none;
+}
+
+.todo-form input:focus,
+.todo-form textarea:focus {
+  border-color: #526dff;
+}
+
+.form-actions,
+.todo-actions {
+  display: flex;
+  gap: 8px;
+}
+
+button {
+  border: 0;
+  border-radius: 8px;
+  padding: 9px 14px;
+  cursor: pointer;
+  background: #526dff;
+  color: white;
+}
+
+button:disabled {
+  opacity: .55;
+  cursor: not-allowed;
+}
+
+button.secondary {
+  background: #e9edf5;
+  color: #273247;
+}
+
+button.danger {
+  background: #e45151;
+}
+
+.list-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.list-header h2 {
+  margin: 0;
+}
+
+.list-header span {
+  color: #687386;
+}
+
+.todo-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 16px;
+  margin-bottom: 10px;
+}
+
+.todo-main {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.todo-main input {
+  margin-top: 5px;
+}
+
+.todo-item h3 {
+  margin: 0 0 5px;
+}
+
+.todo-item p {
+  margin: 0;
+  color: #687386;
+  white-space: pre-wrap;
+}
+
+.completed h3 {
+  text-decoration: line-through;
+  color: #8791a1;
+}
+
+.status,
+.error,
+.empty {
+  padding: 20px;
+}
+
+.error {
+  color: #a52c2c;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 650px) {
+  .todo-item {
+    flex-direction: column;
+  }
+
+  .todo-actions {
+    justify-content: flex-end;
+  }
+}

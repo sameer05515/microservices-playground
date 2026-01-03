@@ -1,0 +1,51 @@
+server:
+  port: 8088
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      server:
+        webflux:
+          routes:
+            - id: auth-service
+              uri: lb://AUTH-SERVICE
+              predicates:
+                - Path=/api/auth/**
+            - id: todo-service
+              uri: lb://TODO-SERVICE
+              predicates:
+                - Path=/api/todos/**
+              filters:
+                - name: CircuitBreaker
+                  args:
+                    name: todoServiceCircuitBreaker
+                    fallbackUri: forward:/fallback/todo
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_URL:http://localhost:8761/eureka/}
+    register-with-eureka: true
+    fetch-registry: true
+  instance:
+    prefer-ip-address: true
+resilience4j:
+  circuitbreaker:
+    instances:
+      todoServiceCircuitBreaker:
+        slidingWindowType: COUNT_BASED
+        slidingWindowSize: 10
+        minimumNumberOfCalls: 5
+        failureRateThreshold: 50
+        waitDurationInOpenState: 10s
+        permittedNumberOfCallsInHalfOpenState: 3
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+  timelimiter:
+    instances:
+      todoServiceCircuitBreaker:
+        timeoutDuration: 3s
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus

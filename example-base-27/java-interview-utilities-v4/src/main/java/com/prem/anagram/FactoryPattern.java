@@ -1,0 +1,2 @@
+package com.prem.anagram;
+public class FactoryPattern {interface Shape{String draw();}static class Circle implements Shape{public String draw(){return "Circle";}}static class Square implements Shape{public String draw(){return "Square";}}public static Shape create(String type){return switch(type.toLowerCase()){case "circle"->new Circle();case "square"->new Square();default->throw new IllegalArgumentException("Unknown shape");};}}

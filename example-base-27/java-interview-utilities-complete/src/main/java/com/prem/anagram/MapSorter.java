@@ -1,0 +1,17 @@
+package com.prem.anagram;
+import java.util.Comparator;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.stream.Collectors;
+public class MapSorter {
+    public static <K,V extends Comparable<? super V>> Map<K,V> sortByValue(Map<K,V> input) {
+        if(input==null) return Map.of();
+        return input.entrySet().stream().sorted(Map.Entry.comparingByValue())
+            .collect(Collectors.toMap(Map.Entry::getKey,Map.Entry::getValue,(a,b)->a,LinkedHashMap::new));
+    }
+    public static <K,V extends Comparable<? super V>> Map<K,V> sortByValueDescending(Map<K,V> input) {
+        if(input==null) return Map.of();
+        return input.entrySet().stream().sorted(Map.Entry.<K,V>comparingByValue(Comparator.reverseOrder()))
+            .collect(Collectors.toMap(Map.Entry::getKey,Map.Entry::getValue,(a,b)->a,LinkedHashMap::new));
+    }
+}

@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Markdown → EPUB</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = { darkMode: "media" };
+    </script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github.min.css"
+      media="(prefers-color-scheme: light)"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github-dark.min.css"
+      media="(prefers-color-scheme: dark)"
+      crossorigin="anonymous"
+    />
+    <style>
+      .preview h1 {
+        font-size: 1.375rem;
+        font-weight: 600;
+        margin: 1rem 0 0.5rem;
+      }
+      .preview h2 {
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin: 0.875rem 0 0.45rem;
+      }
+      .preview h3 {
+        font-size: 1.05rem;
+        font-weight: 600;
+        margin: 0.75rem 0 0.35rem;
+      }
+      .preview p {
+        margin: 0.5rem 0;
+      }
+      .preview ul,
+      .preview ol {
+        margin: 0.5rem 0;
+        padding-left: 1.35rem;
+      }
+      .preview pre {
+        margin: 0.75rem 0;
+      }
+      .preview table {
+        margin: 0.75rem 0;
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.9rem;
+      }
+      .preview th,
+      .preview td {
+        border: 1px solid rgb(148 163 184 / 0.5);
+        padding: 0.35rem 0.5rem;
+      }
+      .preview blockquote {
+        margin: 0.75rem 0;
+        padding-left: 0.85rem;
+        border-left: 3px solid rgb(100 116 139 / 0.6);
+        color: rgb(100 116 139);
+      }
+      @media (prefers-color-scheme: dark) {
+        .preview th,
+        .preview td {
+          border-color: rgb(71 85 105 / 0.8);
+        }
+        .preview blockquote {
+          border-left-color: rgb(100 116 139 / 0.8);
+          color: rgb(148 163 184);
+        }
+      }
+    </style>
+  </head>
+  <body
+    class="min-h-full bg-slate-100 text-slate-900 antialiased dark:bg-slate-950 dark:text-slate-100"
+  >
+    <div class="mx-auto max-w-6xl px-4 py-8">
+      <header class="mb-8">
+        <h1 class="text-2xl font-semibold tracking-tight">Markdown → EPUB</h1>
+        <p class="mt-1 max-w-2xl text-sm text-slate-600 dark:text-slate-400">
+          <span class="font-medium text-slate-800 dark:text-slate-200">Web UI:</span>
+          Tailwind CSS + highlight.js preview.
+          <span class="font-medium text-slate-800 dark:text-slate-200">EPUB:</span>
+          embedded GitHub-style highlight.js theme (no CDN inside the book).
+        </p>
+      </header>
+
+      <div class="grid gap-8 lg:grid-cols-2 lg:items-start">
+        <form id="epub-form" novalidate class="space-y-4">
+          <div>
+            <label
+              for="markdown"
+              class="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400"
+              >Markdown</label
+            >
+            <textarea
+              id="markdown"
+              name="markdown"
+              required
+              spellcheck="false"
+              placeholder="# Chapter one&#10;&#10;```js&#10;const x = 1;&#10;```"
+              class="min-h-[220px] w-full rounded-lg border border-slate-300 bg-white px-3 py-2 font-mono text-sm text-slate-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30 dark:border-slate-600 dark:bg-slate-900 dark:text-slate-100 dark:focus:border-blue-400 dark:focus:ring-blue-400/25"
+            ></textarea>
+          </div>
+
+          <div class="grid gap-4 sm:grid-cols-2">
+            <div class="sm:col-span-2">
+              <label
+                for="filename"
+                class="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400"
+                >File name</label
+              >
+              <input
+                id="filename"
+                name="filename"
+                type="text"
+                value="my-book.epub"
+                autocomplete="off"
+                class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30 dark:border-slate-600 dark:bg-slate-900 dark:text-slate-100"
+              />
+            </div>
+            <div>
+              <label
+                for="title"
+                class="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400"
+                >Title (optional)</label
+              >
+              <input
+                id="title"
+                name="title"
+                type="text"
+                placeholder="Book title"
+                autocomplete="off"
+                class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30 dark:border-slate-600 dark:bg-slate-900 dark:text-slate-100"
+              />
+            </div>
+            <div>
+              <label
+                for="author"
+                class="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400"
+                >Author (optional)</label
+              >
+              <input
+                id="author"
+                name="author"
+                type="text"
+                placeholder="Author name"
+                autocomplete="off"
+                class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30 dark:border-slate-600 dark:bg-slate-900 dark:text-slate-100"
+              />
+            </div>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-3 pt-1">
+            <button
+              type="submit"
+              id="submit-btn"
+              class="rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-60 dark:focus:ring-offset-slate-950"
+            >
+              Generate EPUB
+            </button>
+            <p class="min-h-[1.25rem] text-sm text-slate-600 dark:text-slate-400" id="status" aria-live="polite"></p>
+          </div>
+        </form>
+
+        <div>
+          <span
+            class="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400"
+            >Preview</span
+          >
+          <div
+            id="preview"
+            class="preview max-h-[min(70vh,720px)] overflow-auto rounded-xl border border-slate-200 bg-white p-4 text-sm shadow-sm dark:border-slate-700 dark:bg-slate-900/80"
+          ></div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      (function () {
+        var form = document.getElementById("epub-form");
+        var btn = document.getElementById("submit-btn");
+        var statusEl = document.getElementById("status");
+        var mdEl = document.getElementById("markdown");
+        var previewEl = document.getElementById("preview");
+        var previewTimer;
+
+        function setStatus(text, kind) {
+          statusEl.textContent = text || "";
+          statusEl.className =
+            "min-h-[1.25rem] text-sm " +
+            (kind === "error"
+              ? "font-medium text-red-600 dark:text-red-400"
+              : "text-slate-600 dark:text-slate-400");
+        }
+
+        function parseFilenameFromDisposition(header, fallback) {
+          if (!header) return fallback;
+          var m = /filename\*=UTF-8''([^;\n]+)/i.exec(header);
+          if (m) return decodeURIComponent(m[1].trim());
+          m = /filename="([^"]+)"/i.exec(header);
+          if (m) return m[1];
+          m = /filename=([^;\n]+)/i.exec(header);
+          if (m) return m[1].replace(/^["']|["']$/g, "").trim();
+          return fallback;
+        }
+
+        function downloadBlob(blob, filename) {
+          var url = URL.createObjectURL(blob);
+          var a = document.createElement("a");
+          a.href = url;
+          a.download = filename || "book.epub";
+          a.rel = "noopener";
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          URL.revokeObjectURL(url);
+        }
+
+        function updatePreview() {
+          var raw = mdEl.value || "";
+          if (!raw.trim()) {
+            previewEl.innerHTML =
+              '<p class="text-slate-400 dark:text-slate-500">Start typing markdown…</p>';
+            return;
+          }
+          try {
+            previewEl.innerHTML = marked.parse(raw, { async: false });
+            if (window.hljs) {
+              previewEl.querySelectorAll("pre code").forEach(function (el) {
+                hljs.highlightElement(el);
+              });
+            }
+          } catch (e) {
+            previewEl.innerHTML =
+              '<p class="text-red-600 dark:text-red-400">Preview error: ' +
+              String(e.message || e) +
+              "</p>";
+          }
+        }
+
+        mdEl.addEventListener("input", function () {
+          clearTimeout(previewTimer);
+          previewTimer = setTimeout(updatePreview, 200);
+        });
+        updatePreview();
+
+        form.addEventListener("submit", function (e) {
+          e.preventDefault();
+          var markdown = mdEl.value;
+          if (!markdown.trim()) {
+            setStatus("Please enter some markdown.", "error");
+            return;
+          }
+
+          var payload = {
+            markdown: markdown,
+            filename: document.getElementById("filename").value || "book.epub",
+            title: document.getElementById("title").value || undefined,
+            author: document.getElementById("author").value || undefined,
+          };
+
+          btn.disabled = true;
+          setStatus("Generating…");
+
+          fetch("/epub", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          })
+            .then(function (res) {
+              var ct = res.headers.get("Content-Type") || "";
+              if (!res.ok) {
+                if (ct.indexOf("application/json") !== -1) {
+                  return res.json().then(function (j) {
+                    throw new Error(j.error || j.detail || res.statusText);
+                  });
+                }
+                throw new Error(res.statusText || "Request failed");
+              }
+              var fname = parseFilenameFromDisposition(
+                res.headers.get("Content-Disposition"),
+                payload.filename
+              );
+              return res.blob().then(function (blob) {
+                return { blob: blob, filename: fname };
+              });
+            })
+            .then(function (x) {
+              downloadBlob(x.blob, x.filename);
+              setStatus("Download started.");
+            })
+            .catch(function (err) {
+              setStatus(err.message || "Something went wrong.", "error");
+            })
+            .then(function () {
+              btn.disabled = false;
+            });
+        });
+      })();
+    </script>
+  </body>
+</html>

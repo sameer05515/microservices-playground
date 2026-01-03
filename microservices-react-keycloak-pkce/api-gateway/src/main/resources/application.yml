@@ -1,0 +1,47 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: api-gateway
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8089/realms/microservices
+  cloud:
+    gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: [http://localhost:5173]
+            allowedMethods: [GET,POST,PUT,DELETE,OPTIONS]
+            allowedHeaders: ['*']
+      routes:
+        - id: order-service
+          uri: lb://ORDER-SERVICE
+          predicates: [Path=/api/orders/**]
+          filters:
+            - StripPrefix=1
+            - name: CircuitBreaker
+              args: {name: gatewayOrderService, fallbackUri: forward:/fallback/order}
+        - id: product-service
+          uri: lb://PRODUCT-SERVICE
+          predicates: [Path=/api/products/**]
+          filters:
+            - StripPrefix=1
+            - name: CircuitBreaker
+              args: {name: gatewayProductService, fallbackUri: forward:/fallback/product}
+      httpclient:
+        connect-timeout: 2000
+        response-timeout: 3s
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+    register-with-eureka: true
+    fetch-registry: true
+resilience4j:
+  circuitbreaker:
+    instances:
+      gatewayOrderService: {slidingWindowType: COUNT_BASED, slidingWindowSize: 10, minimumNumberOfCalls: 5, failureRateThreshold: 50, waitDurationInOpenState: 10s}
+      gatewayProductService: {slidingWindowType: COUNT_BASED, slidingWindowSize: 10, minimumNumberOfCalls: 5, failureRateThreshold: 50, waitDurationInOpenState: 10s}

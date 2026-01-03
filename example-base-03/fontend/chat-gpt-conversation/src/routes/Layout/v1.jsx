@@ -1,12 +1,12 @@
 import { Outlet } from "react-router-dom";
 // import GlobalBreadcrumbV2 from "../GlobalBreadcrumb/v2";
-import HorizontalMenu from "./Sidebar/v1";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleViewMode } from "../../store/v2/application-states/actions";
 import {
   selectApplicationStateIsDarkModeActive,
   selectApplicationStateSelectedModuleName,
 } from "../../store/v2/selectors";
-import { toggleViewMode } from "../../store/v2/application-states/actions";
+import HorizontalMenu from "./Sidebar/v1";
 
 const LayoutV1 = () => {
   const dispatch = useDispatch();

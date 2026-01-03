@@ -2,11 +2,11 @@ import React, { useCallback } from "react";
 import { FiMoon, FiSun } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
+import useThemeManager from "../../../common/hooks/useThemeManager";
 import { getIcon } from "../../../common/utils/IconCollection";
 import { setSelectedModuleName } from "../../../store/v2/application-states/actions";
-import { links } from "./utils";
-import useThemeManager from "../../../common/hooks/useThemeManager";
 import { selectApplicationStateIsDarkModeActive } from "../../../store/v2/selectors";
+import { links } from "./utils";
 
 const SidebarV3 = () => {
   const dispatch = useDispatch();
@@ -21,7 +21,7 @@ const SidebarV3 = () => {
     (linkHeader = "") => {
       dispatch(setSelectedModuleName({ moduleName: linkHeader }));
     },
-    [dispatch]
+    [dispatch],
   );
 
   const toggleMode = () => {

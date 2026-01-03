@@ -1,0 +1,2 @@
+package com.prem.anagram;
+public class StackUsingArray {private final int[]a;private int top=-1;public StackUsingArray(int capacity){a=new int[capacity];}public void push(int x){if(top==a.length-1)throw new IllegalStateException("Stack full");a[++top]=x;}public int pop(){if(top<0)throw new IllegalStateException("Stack empty");return a[top--];}public int peek(){if(top<0)throw new IllegalStateException("Stack empty");return a[top];}public boolean isEmpty(){return top<0;}}

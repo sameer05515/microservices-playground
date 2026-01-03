@@ -1,0 +1,12 @@
+{
+  "name": "node-arithmetic-operations",
+  "version": "1.0.0",
+  "description": "JavaScript Node.js project demonstrating arithmetic operations",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "node --test"
+  },
+  "keywords": ["javascript", "nodejs", "arithmetic"],
+  "license": "MIT"
+}

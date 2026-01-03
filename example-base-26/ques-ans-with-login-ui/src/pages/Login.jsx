@@ -1,0 +1,125 @@
+import { useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+
+import { useAuth } from "../context/AuthContext";
+
+export default function Login() {
+
+    const navigate = useNavigate();
+
+    const location = useLocation();
+
+    const resetSuccess =
+        new URLSearchParams(location.search)
+            .get("reset") === "success";
+
+    const sessionExpired =
+        new URLSearchParams(location.search)
+            .get("reason") === "session-expired";
+
+    const { login } = useAuth();
+
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false);
+
+    const handleSubmit = async (event) => {
+
+        event.preventDefault();
+
+        setError("");
+        setLoading(true);
+
+        try {
+
+            await login(email, password);
+
+            navigate("/dashboard");
+
+        } catch (error) {
+
+            setError(
+                error.response?.data?.message ||
+                "Invalid email or password"
+            );
+
+        } finally {
+
+            setLoading(false);
+        }
+    };
+
+    return (
+        <div className="auth-container">
+
+            <form
+                className="auth-form"
+                onSubmit={handleSubmit}
+            >
+
+                <h1>Login</h1>
+
+                {resetSuccess && (
+                    <div className="success">
+                        Password reset successfully. Please login with your new password.
+                    </div>
+                )}
+
+                {sessionExpired && (
+                    <div className="warning">
+                        Your session has expired.
+                        Please login again.
+                    </div>
+                )}
+
+                {error && (
+                    <div className="error">
+                        {error}
+                    </div>
+                )}
+
+                <input
+                    type="email"
+                    placeholder="Email"
+                    value={email}
+                    onChange={(e) =>
+                        setEmail(e.target.value)
+                    }
+                    required
+                />
+
+                <input
+                    type="password"
+                    placeholder="Password"
+                    value={password}
+                    onChange={(e) =>
+                        setPassword(e.target.value)
+                    }
+                    required
+                />
+
+                <button
+                    type="submit"
+                    disabled={loading}
+                >
+                    {loading ? "Logging in..." : "Login"}
+                </button>
+
+                <p>
+                    <Link to="/forgot-password">Forgot Password?</Link>
+                </p>
+
+                <p>
+                    Don't have an account?{" "}
+                    <Link to="/signup">
+                        Signup
+                    </Link>
+                </p>
+
+            </form>
+
+        </div>
+    );
+}

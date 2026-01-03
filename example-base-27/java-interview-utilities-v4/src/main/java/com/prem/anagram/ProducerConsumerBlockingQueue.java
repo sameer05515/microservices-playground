@@ -1,0 +1,3 @@
+package com.prem.anagram;
+import java.util.concurrent.BlockingQueue;import java.util.concurrent.LinkedBlockingQueue;
+public class ProducerConsumerBlockingQueue {public static void demo() throws InterruptedException {BlockingQueue<Integer>q=new LinkedBlockingQueue<>(10);Thread producer=new Thread(()->{try{for(int i=1;i<=5;i++)q.put(i);}catch(InterruptedException e){Thread.currentThread().interrupt();}});Thread consumer=new Thread(()->{try{for(int i=1;i<=5;i++)System.out.println("Consumed: "+q.take());}catch(InterruptedException e){Thread.currentThread().interrupt();}});producer.start();consumer.start();producer.join();consumer.join();}}

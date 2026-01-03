@@ -1,0 +1,84 @@
+import { useEffect, useState } from "react";
+import { productApi } from "../api/api";
+export default function Products() {
+  const [p, setP] = useState([]),
+    [f, setF] = useState({ name: "", price: "", stock: "" }),
+    [msg, setMsg] = useState("");
+  const load = async () => {
+    try {
+      setP((await productApi.list()).data);
+    } catch (e) {
+      setMsg(e.message);
+    }
+  };
+  useEffect(() => {
+    load();
+  }, []);
+  const create = async (e) => {
+    e.preventDefault();
+    try {
+      await productApi.create({ name: f.name, price: Number(f.price), stock: Number(f.stock) });
+      setF({ name: "", price: "", stock: "" });
+      setMsg("Product created successfully.");
+      load();
+    } catch (e) {
+      setMsg(e.response?.data?.message || e.message);
+    }
+  };
+  return (
+    <section>
+      <h2>Products</h2>
+      <p>Create products and inspect stock.</p>
+      <form className="card form" onSubmit={create}>
+        <input
+          placeholder="Product name"
+          value={f.name}
+          onChange={(e) => setF({ ...f, name: e.target.value })}
+          required
+        />
+        <input
+          type="number"
+          min="0"
+          step="0.01"
+          placeholder="Price"
+          value={f.price}
+          onChange={(e) => setF({ ...f, price: e.target.value })}
+          required
+        />
+        <input
+          type="number"
+          min="0"
+          placeholder="Stock"
+          value={f.stock}
+          onChange={(e) => setF({ ...f, stock: e.target.value })}
+          required
+        />
+        <button>Create Product</button>
+      </form>
+      {msg && <div className="msg">{msg}</div>}
+      <div className="card">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Price</th>
+              <th>Stock</th>
+            </tr>
+          </thead>
+          <tbody>
+            {p.map((x) => (
+              <tr key={x.id}>
+                <td className="mono">{x.id}</td>
+                <td>{x.name}</td>
+                <td>₹{Number(x.price).toLocaleString("en-IN")}</td>
+                <td>{x.stock}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        {!p.length && <p className="muted">No products found.</p>}
+      </div>
+    </section>
+  );
+}

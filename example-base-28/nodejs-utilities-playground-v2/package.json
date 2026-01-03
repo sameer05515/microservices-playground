@@ -1,0 +1,12 @@
+{
+  "name": "nodejs-utilities-playground",
+  "version": "2.0.0",
+  "description": "Independent Node.js utilities and DSA/interview programs",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "node --test"
+  },
+  "keywords": ["nodejs", "javascript", "dsa", "algorithms", "interview"],
+  "license": "MIT"
+}

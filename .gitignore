@@ -28,6 +28,7 @@ replay_pid*
 **/node_modules
 **/dist/
 **/target/
+**/jar-storage/
 
 # testing
 **/coverage

@@ -1,0 +1,2 @@
+package com.prem.anagram;
+public class NumberOfIslands {public static int count(char[][]g){if(g==null)return 0;int count=0;for(int r=0;r<g.length;r++)for(int c=0;c<g[r].length;c++)if(g[r][c]=='1'){count++;sink(g,r,c);}return count;}private static void sink(char[][]g,int r,int c){if(r<0||r>=g.length||c<0||c>=g[r].length||g[r][c]!='1')return;g[r][c]='0';sink(g,r+1,c);sink(g,r-1,c);sink(g,r,c+1);sink(g,r,c-1);}}

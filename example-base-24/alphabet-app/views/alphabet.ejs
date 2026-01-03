@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= letter %></title>
+  <style>
+    body { text-align:center; font-family: Arial; }
+    img { width:250px; margin:20px; }
+    .nav a {
+      margin:10px;
+      padding:10px 20px;
+      background:#2196F3;
+      color:white;
+      text-decoration:none;
+      border-radius:8px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1><%= letter %> for <%= wordMap %></h1>
+
+  <img src="/images/<%= letter %>.png" alt="<%= letter %>">
+
+  <div class="nav">
+    <% if(prev) { %>
+      <a href="/alphabet/<%= prev %>">⬅ Prev</a>
+    <% } %>
+
+    <a href="/">🏠 Home</a>
+
+    <% if(next) { %>
+      <a href="/alphabet/<%= next %>">Next ➡</a>
+    <% } %>
+  </div>
+
+</body>
+</html>

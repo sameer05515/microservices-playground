@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: todo-backend
+  template:
+    metadata:
+      labels:
+        app: todo-backend
+    spec:
+      containers:
+        - name: todo-backend
+          image: example-base-23/todo-backend:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3401
+          env:
+            - name: PORT
+              value: "3401"
+            - name: TODO_FILE
+              value: /data/todo.json
+          volumeMounts:
+            - name: todo-data
+              mountPath: /data
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 3401
+            initialDelaySeconds: 3
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 3401
+            initialDelaySeconds: 10
+            periodSeconds: 10
+      volumes:
+        - name: todo-data
+          persistentVolumeClaim:
+            claimName: todo-data
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: todo-backend
+spec:
+  type: ClusterIP
+  selector:
+    app: todo-backend
+  ports:
+    - port: 3401
+      targetPort: 3401

@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eureka-server
+  namespace: todo-platform
+spec:
+  replicas: 1
+  selector: {matchLabels: {app: eureka-server}}
+  template:
+    metadata: {labels: {app: eureka-server}}
+    spec:
+      containers:
+        - name: eureka-server
+          image: todo-platform/eureka-server:1.0.0
+          ports: [{containerPort: 8761}]
+          readinessProbe:
+            httpGet: {path: /actuator/health, port: 8761}
+            initialDelaySeconds: 15
+            periodSeconds: 10
+          livenessProbe:
+            httpGet: {path: /actuator/health, port: 8761}
+            initialDelaySeconds: 30
+            periodSeconds: 15
+---
+apiVersion: v1
+kind: Service
+metadata: {name: eureka-server, namespace: todo-platform}
+spec:
+  selector: {app: eureka-server}
+  ports: [{port: 8761, targetPort: 8761}]

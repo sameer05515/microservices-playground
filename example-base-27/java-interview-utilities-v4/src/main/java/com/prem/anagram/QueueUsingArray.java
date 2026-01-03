@@ -1,0 +1,2 @@
+package com.prem.anagram;
+public class QueueUsingArray {private final int[]a;private int front=0,size=0;public QueueUsingArray(int c){a=new int[c];}public void offer(int x){if(size==a.length)throw new IllegalStateException("Queue full");a[(front+size)%a.length]=x;size++;}public int poll(){if(size==0)throw new IllegalStateException("Queue empty");int x=a[front];front=(front+1)%a.length;size--;return x;}public boolean isEmpty(){return size==0;}}
