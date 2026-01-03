@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: ques-ans-api
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/questiondb
+
+
+
+
+
+server:
+  port: 8080

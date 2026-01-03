@@ -1,0 +1,76 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-service
+  namespace: todo-platform
+spec:
+  replicas: 1
+  selector: {matchLabels: {app: todo-service}}
+  template:
+    metadata: {labels: {app: todo-service}}
+    spec:
+      containers:
+        - name: todo-service
+          image: todo-platform/todo-service:1.0.0
+          ports: [{containerPort: 8080}]
+          env:
+            - name: TODO_DB_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: todo-config
+                  key: TODO_DB_URL
+            - name: TODO_DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: todo-secrets
+                  key: TODO_DB_USERNAME
+            - name: TODO_DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: todo-secrets
+                  key: TODO_DB_PASSWORD
+            - name: EUREKA_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: todo-config
+                  key: EUREKA_URL
+            - name: REDIS_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: todo-config
+                  key: REDIS_HOST
+            - name: REDIS_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: todo-config
+                  key: REDIS_PORT
+            - name: KAFKA_BOOTSTRAP_SERVERS
+              valueFrom:
+                configMapKeyRef:
+                  name: todo-config
+                  key: KAFKA_BOOTSTRAP_SERVERS
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: todo-secrets
+                  key: JWT_SECRET
+          readinessProbe:
+            httpGet: {path: /actuator/health/readiness, port: 8080}
+            initialDelaySeconds: 15
+            periodSeconds: 10
+          livenessProbe:
+            httpGet: {path: /actuator/health/liveness, port: 8080}
+            initialDelaySeconds: 30
+            periodSeconds: 15
+          resources:
+            requests: {cpu: "100m", memory: "256Mi"}
+            limits: {cpu: "500m", memory: "768Mi"}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: todo-service
+  namespace: todo-platform
+spec:
+  selector: {app: todo-service}
+  ports: [{port: 8080, targetPort: 8080}]

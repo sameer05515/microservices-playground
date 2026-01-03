@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Learn Alphabets</title>
+  <style>
+    body { text-align:center; font-family: Arial; }
+    .grid { display:grid; grid-template-columns: repeat(6, 1fr); gap:10px; padding:20px; }
+    a {
+      padding:20px;
+      background:#4CAF50;
+      color:white;
+      text-decoration:none;
+      font-size:24px;
+      border-radius:10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>📚 Learn Alphabets</h1>
+  <div class="grid">
+    <% alphabets.forEach(letter => { %>
+      <a href="/alphabet/<%= letter %>"><%= letter %></a>
+    <% }) %>
+  </div>
+</body>
+</html>

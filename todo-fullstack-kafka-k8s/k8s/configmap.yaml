@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: todo-config
+  namespace: todo-platform
+data:
+  EUREKA_URL: http://eureka-server:8761/eureka/
+  TODO_DB_URL: jdbc:mysql://todo-mysql:3306/todo_db?useSSL=false&serverTimezone=UTC
+  AUTH_DB_URL: jdbc:mysql://auth-mysql:3306/auth_db?useSSL=false&serverTimezone=UTC
+  REDIS_HOST: redis
+  REDIS_PORT: "6379"
+  KAFKA_BOOTSTRAP_SERVERS: kafka:9092

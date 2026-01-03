@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: jsp-demo
+
+
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
+
+server:
+  port: 8082
+
+

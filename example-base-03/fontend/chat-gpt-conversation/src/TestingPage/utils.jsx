@@ -57,6 +57,7 @@ import DiwaliFireworksV3 from "./DiwaliFireworks/v3";
 import DiwaliFireworksV4 from "./DiwaliFireworks/v4";
 import ChhathPujaScene from "./DiwaliFireworks/v5";
 import ChhathPujaSunset from "./DiwaliFireworks/v6";
+import WikipediaLayout from "./WikipediaLayout/v1";
 
 // yaha seggregation logic lagana hai ki, asaani se samajh aaye ki kon sa version stable wala hai,
 // abhi yaha bhid bhad dikh rahi hai.
@@ -128,7 +129,8 @@ const Components = {
   DiwaliFireworksV3,
   DiwaliFireworksV4,
   ChhathPujaScene,
-  ChhathPujaSunset
+  ChhathPujaSunset,
+  WikipediaLayout
 };
 
 export const componentNames = Object.keys(Components);

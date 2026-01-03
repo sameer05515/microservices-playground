@@ -1,0 +1,76 @@
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: todo-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: todo_db
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3306:3306"
+    volumes:
+      - todo_mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  redis:
+    image: redis:7-alpine
+    container_name: todo-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - todo_redis_data:/data
+    command: ["redis-server", "--appendonly", "yes"]
+
+  backend:
+    build:
+      context: ./backend
+    container_name: todo-api
+    restart: unless-stopped
+    environment:
+      DB_URL: jdbc:mysql://mysql:3306/todo_db?useSSL=false&serverTimezone=UTC
+      DB_USERNAME: root
+      DB_PASSWORD: root
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      JWT_SECRET: change-this-secret-key-to-at-least-32-characters-long
+    ports:
+      - "8080:8080"
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_started
+
+  prometheus:
+    image: prom/prometheus:v3.5.0
+    container_name: todo-prometheus
+    restart: unless-stopped
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./observability/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    depends_on:
+      - backend
+
+  grafana:
+    image: grafana/grafana:12.1.1
+    container_name: todo-grafana
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      - todo_grafana_data:/var/lib/grafana
+      - ./observability/grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./observability/grafana/dashboards:/var/lib/grafana/dashboards:ro
+    depends_on:
+      - prometheus
+
+volumes:
+  todo_mysql_data:
+  todo_redis_data:
+  todo_grafana_data:

@@ -36,10 +36,10 @@
         });
 
         function sendQuestion() {
-            const questionText = textarea.value.trim(); // Get the text from textarea
-            if(!questionText || !questionText.length>0){
+            const questionText = textarea.value.trim();
+            if (!questionText) {
                 console.log('Empty text kyu de diye? Ab hum process kya kare??');
-                return "";
+                return;
             }
             fetch('/answer', {
                 method: 'POST',
@@ -48,16 +48,17 @@
                 },
                 body: JSON.stringify({ questionText })
             })
-            .then(response => response.json())
-            .then(data => {
-                // Display question and answer in labels
+            .then(async (response) => {
+                const data = await response.json().catch(() => ({}));
+                if (!response.ok) {
+                    const msg = data.error || response.statusText || 'Request failed';
+                    throw new Error(msg);
+                }
                 questionLabel.innerText = 'Question: ' + data.questionText;
                 answerLabel.innerText = 'Answer: ' + data.answerText;
-                // Clear textarea
-                //textarea.value = '';
                 textarea.style.height = 'auto';
             })
-            .catch(error => console.error('Error:', error));
+            .catch((error) => console.error('Error:', error));
         }
     </script>
 </body>

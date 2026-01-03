@@ -1,0 +1,20 @@
+{
+  "name": "oauth2-ui",
+  "private": true,
+  "version": "0.0.2",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --port 5174",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "keycloak-js": "^26.3.0",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^5.0.2",
+    "vite": "^7.1.3"
+  }
+}

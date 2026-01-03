@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth-service
+  namespace: todo-platform
+spec:
+  replicas: 1
+  selector: {matchLabels: {app: auth-service}}
+  template:
+    metadata: {labels: {app: auth-service}}
+    spec:
+      containers:
+        - name: auth-service
+          image: todo-platform/auth-service:1.0.0
+          ports: [{containerPort: 8081}]
+          env:
+            - name: AUTH_DB_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: todo-config
+                  key: AUTH_DB_URL
+            - name: AUTH_DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: todo-secrets
+                  key: AUTH_DB_USERNAME
+            - name: AUTH_DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: todo-secrets
+                  key: AUTH_DB_PASSWORD
+            - name: EUREKA_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: todo-config
+                  key: EUREKA_URL
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: todo-secrets
+                  key: JWT_SECRET
+          readinessProbe:
+            httpGet: {path: /actuator/health/readiness, port: 8081}
+            initialDelaySeconds: 15
+            periodSeconds: 10
+          livenessProbe:
+            httpGet: {path: /actuator/health/liveness, port: 8081}
+            initialDelaySeconds: 30
+            periodSeconds: 15
+          resources:
+            requests: {cpu: "100m", memory: "256Mi"}
+            limits: {cpu: "500m", memory: "768Mi"}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: auth-service
+  namespace: todo-platform
+spec:
+  selector: {app: auth-service}
+  ports: [{port: 8081, targetPort: 8081}]

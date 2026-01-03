@@ -1,0 +1,16 @@
+server:
+  port: ${SERVER_PORT:8081}
+spring:
+  application:
+    name: product-service
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8089/realms/microservices
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+    register-with-eureka: true
+    fetch-registry: true
