@@ -6,6 +6,7 @@ import org.apache.pdfbox.rendering.PDFRenderer;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -22,6 +23,21 @@ import java.util.stream.Collectors;
  */
 public class PDFViewerApp extends JFrame {
     private static final String PDF_FOLDER = "D:\\Prem\\comics";
+    
+    // Modern color scheme
+    private static final Color BG_PRIMARY = new Color(245, 247, 250);
+    private static final Color BG_SECONDARY = Color.WHITE;
+    private static final Color BG_PANEL = new Color(250, 252, 255);
+    private static final Color TEXT_PRIMARY = new Color(33, 37, 41);
+    private static final Color TEXT_SECONDARY = new Color(108, 117, 125);
+    private static final Color ACCENT = new Color(0, 123, 255);
+    private static final Color ACCENT_HOVER = new Color(0, 105, 217);
+    private static final Color BORDER = new Color(222, 226, 230);
+    private static final Color SELECTION = new Color(0, 123, 255);
+    private static final Color SELECTION_BG = new Color(230, 244, 255);
+    private static final Font FONT_PRIMARY = new Font("Segoe UI", Font.PLAIN, 13);
+    private static final Font FONT_BOLD = new Font("Segoe UI", Font.BOLD, 13);
+    private static final Font FONT_TITLE = new Font("Segoe UI", Font.BOLD, 14);
     
     private JList<File> pdfList;
     private DefaultListModel<File> listModel;
@@ -50,11 +66,15 @@ public class PDFViewerApp extends JFrame {
     private void initializeGUI() {
         setTitle("PDF Viewer");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new BorderLayout(10, 10));
+        
+        // Set modern background
+        getContentPane().setBackground(BG_PRIMARY);
+        setLayout(new BorderLayout());
 
-        // Create main panel
-        JPanel mainPanel = new JPanel(new BorderLayout(10, 10));
-        mainPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        // Create main panel with modern styling
+        JPanel mainPanel = new JPanel(new BorderLayout(0, 0));
+        mainPanel.setBackground(BG_PRIMARY);
+        mainPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 
         // Left panel - PDF list
         mainPanel.add(createPDFListPanel(), BorderLayout.WEST);
@@ -74,21 +94,45 @@ public class PDFViewerApp extends JFrame {
     }
 
     private JPanel createPDFListPanel() {
-        JPanel panel = new JPanel(new BorderLayout(5, 5));
-        panel.setBorder(BorderFactory.createTitledBorder("PDF Files"));
-        panel.setPreferredSize(new Dimension(300, 0));
+        JPanel panel = new JPanel(new BorderLayout(0, 0));
+        panel.setBackground(BG_SECONDARY);
+        panel.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(BORDER, 1),
+            BorderFactory.createEmptyBorder(15, 15, 15, 15)
+        ));
+        panel.setPreferredSize(new Dimension(320, 0));
 
-        // Folder label
-        folderLabel = new JLabel("Folder: " + currentFolder);
-        folderLabel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        // Header with title
+        JPanel headerPanel = new JPanel(new BorderLayout());
+        headerPanel.setBackground(BG_SECONDARY);
+        headerPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 12, 0));
+        
+        JLabel titleLabel = new JLabel("PDF Files");
+        titleLabel.setFont(FONT_TITLE);
+        titleLabel.setForeground(TEXT_PRIMARY);
+        headerPanel.add(titleLabel, BorderLayout.NORTH);
+        
+        // Folder label with modern styling
+        folderLabel = new JLabel("<html><div style='color: #6c757d; font-size: 11px;'>" + 
+                                  truncatePath(currentFolder, 35) + "</div></html>");
+        folderLabel.setFont(FONT_PRIMARY);
+        folderLabel.setForeground(TEXT_SECONDARY);
+        folderLabel.setBorder(BorderFactory.createEmptyBorder(5, 0, 0, 0));
         folderLabel.setToolTipText(currentFolder);
-        panel.add(folderLabel, BorderLayout.NORTH);
+        headerPanel.add(folderLabel, BorderLayout.CENTER);
+        
+        panel.add(headerPanel, BorderLayout.NORTH);
 
-        // PDF list
+        // PDF list with modern styling
         listModel = new DefaultListModel<>();
         pdfList = new JList<>(listModel);
         pdfList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         pdfList.setCellRenderer(new PDFListCellRenderer());
+        pdfList.setBackground(BG_SECONDARY);
+        pdfList.setSelectionBackground(SELECTION_BG);
+        pdfList.setSelectionForeground(SELECTION);
+        pdfList.setFont(FONT_PRIMARY);
+        pdfList.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         pdfList.addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
                 handlePDFSelection();
@@ -96,18 +140,21 @@ public class PDFViewerApp extends JFrame {
         });
         
         JScrollPane listScrollPane = new JScrollPane(pdfList);
-        listScrollPane.setPreferredSize(new Dimension(300, 600));
+        listScrollPane.setPreferredSize(new Dimension(300, 500));
+        listScrollPane.setBorder(BorderFactory.createLineBorder(BORDER, 1));
+        listScrollPane.getViewport().setBackground(BG_SECONDARY);
+        styleScrollPane(listScrollPane);
         panel.add(listScrollPane, BorderLayout.CENTER);
 
-        // Buttons panel
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 5));
+        // Buttons panel with modern styling
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
+        buttonPanel.setBackground(BG_SECONDARY);
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
         
-        refreshButton = new JButton("Refresh");
-        refreshButton.addActionListener(e -> loadPDFsFromFolder());
-        buttonPanel.add(refreshButton);
+        refreshButton = createModernButton("🔄 Refresh", e -> loadPDFsFromFolder());
+        changeFolderButton = createModernButton("📁 Change Folder", e -> changeFolder());
 
-        changeFolderButton = new JButton("Change Folder");
-        changeFolderButton.addActionListener(e -> changeFolder());
+        buttonPanel.add(refreshButton);
         buttonPanel.add(changeFolderButton);
 
         panel.add(buttonPanel, BorderLayout.SOUTH);
@@ -116,14 +163,35 @@ public class PDFViewerApp extends JFrame {
     }
 
     private JPanel createPDFDisplayPanel() {
-        JPanel panel = new JPanel(new BorderLayout());
-        panel.setBorder(BorderFactory.createTitledBorder("PDF Viewer"));
+        JPanel panel = new JPanel(new BorderLayout(0, 0));
+        panel.setBackground(BG_SECONDARY);
+        panel.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(BORDER, 1),
+            BorderFactory.createEmptyBorder(15, 15, 15, 15)
+        ));
 
-        // PDF display area
+        // Header
+        JPanel headerPanel = new JPanel(new BorderLayout());
+        headerPanel.setBackground(BG_SECONDARY);
+        headerPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 12, 0));
+        
+        JLabel titleLabel = new JLabel("PDF Viewer");
+        titleLabel.setFont(FONT_TITLE);
+        titleLabel.setForeground(TEXT_PRIMARY);
+        headerPanel.add(titleLabel, BorderLayout.WEST);
+        
+        panel.add(headerPanel, BorderLayout.NORTH);
+
+        // PDF display area with modern styling
         pdfDisplayPanel = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
+                Graphics2D g2d = (Graphics2D) g;
+                g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+                g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+                
                 if (pdfRenderer != null && currentPage >= 0 && currentPage < totalPages) {
                     try {
                         BufferedImage image = pdfRenderer.renderImageWithDPI(currentPage, 150);
@@ -145,60 +213,98 @@ public class PDFViewerApp extends JFrame {
                         int x = (panelWidth - scaledWidth) / 2;
                         int y = (panelHeight - scaledHeight) / 2;
 
-                        g.drawImage(image, x, y, scaledWidth, scaledHeight, null);
+                        // Draw shadow effect
+                        g2d.setColor(new Color(0, 0, 0, 30));
+                        g2d.fillRoundRect(x + 3, y + 3, scaledWidth, scaledHeight, 8, 8);
+                        
+                        // Draw image with rounded corners
+                        g2d.setClip(new RoundRectangle2D.Float(x, y, scaledWidth, scaledHeight, 8, 8));
+                        g2d.drawImage(image, x, y, scaledWidth, scaledHeight, null);
+                        g2d.setClip(null);
+                        
+                        // Draw border
+                        g2d.setColor(BORDER);
+                        g2d.setStroke(new BasicStroke(1));
+                        g2d.drawRoundRect(x, y, scaledWidth, scaledHeight, 8, 8);
                     } catch (IOException e) {
-                        g.setColor(Color.RED);
-                        g.drawString("Error rendering PDF page: " + e.getMessage(), 10, 20);
+                        g2d.setColor(new Color(220, 53, 69));
+                        g2d.setFont(FONT_PRIMARY);
+                        g2d.drawString("Error rendering PDF page: " + e.getMessage(), 20, 30);
                     }
                 } else {
-                    g.setColor(Color.GRAY);
-                    g.drawString("No PDF selected", 10, 20);
+                    // Modern empty state
+                    g2d.setColor(TEXT_SECONDARY);
+                    g2d.setFont(FONT_PRIMARY);
+                    FontMetrics fm = g2d.getFontMetrics();
+                    String message = "No PDF selected";
+                    int x = (getWidth() - fm.stringWidth(message)) / 2;
+                    int y = getHeight() / 2;
+                    g2d.drawString(message, x, y);
                 }
             }
         };
-        pdfDisplayPanel.setBackground(Color.WHITE);
+        pdfDisplayPanel.setBackground(new Color(248, 249, 250));
         pdfDisplayPanel.setPreferredSize(new Dimension(800, 600));
 
         pdfScrollPane = new JScrollPane(pdfDisplayPanel);
         pdfScrollPane.setPreferredSize(new Dimension(800, 600));
+        pdfScrollPane.setBorder(BorderFactory.createLineBorder(BORDER, 1));
+        pdfScrollPane.getViewport().setBackground(new Color(248, 249, 250));
+        styleScrollPane(pdfScrollPane);
         panel.add(pdfScrollPane, BorderLayout.CENTER);
 
         return panel;
     }
 
     private JPanel createControlPanel() {
-        JPanel panel = new JPanel(new BorderLayout(10, 5));
-        panel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        JPanel panel = new JPanel(new BorderLayout(0, 0));
+        panel.setBackground(BG_SECONDARY);
+        panel.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createMatteBorder(1, 0, 0, 0, BORDER),
+            BorderFactory.createEmptyBorder(15, 15, 15, 15)
+        ));
 
-        // Navigation buttons
-        JPanel navPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 5));
+        // Navigation buttons with modern styling
+        JPanel navPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 12, 0));
+        navPanel.setBackground(BG_SECONDARY);
         
-        previousPageButton = new JButton("◀ Previous");
+        previousPageButton = createModernButton("◀ Previous", e -> goToPreviousPage());
         previousPageButton.setEnabled(false);
-        previousPageButton.addActionListener(e -> goToPreviousPage());
         navPanel.add(previousPageButton);
 
+        // Modern page counter
+        JPanel pageCounterPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 0));
+        pageCounterPanel.setBackground(BG_SECONDARY);
+        
         currentPageLabel = new JLabel("Page: 0");
-        currentPageLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 12));
-        navPanel.add(currentPageLabel);
+        currentPageLabel.setFont(FONT_BOLD);
+        currentPageLabel.setForeground(TEXT_PRIMARY);
+        pageCounterPanel.add(currentPageLabel);
 
         JLabel separator = new JLabel(" / ");
-        navPanel.add(separator);
+        separator.setFont(FONT_PRIMARY);
+        separator.setForeground(TEXT_SECONDARY);
+        pageCounterPanel.add(separator);
 
         totalPagesLabel = new JLabel("0");
-        totalPagesLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 12));
-        navPanel.add(totalPagesLabel);
+        totalPagesLabel.setFont(FONT_BOLD);
+        totalPagesLabel.setForeground(TEXT_PRIMARY);
+        pageCounterPanel.add(totalPagesLabel);
+        
+        navPanel.add(pageCounterPanel);
 
-        nextPageButton = new JButton("Next ▶");
+        nextPageButton = createModernButton("Next ▶", e -> goToNextPage());
         nextPageButton.setEnabled(false);
-        nextPageButton.addActionListener(e -> goToNextPage());
         navPanel.add(nextPageButton);
 
         panel.add(navPanel, BorderLayout.CENTER);
 
-        // File info
+        // File info with modern styling
         JLabel infoLabel = new JLabel("Select a PDF from the list to view");
+        infoLabel.setFont(FONT_PRIMARY);
+        infoLabel.setForeground(TEXT_SECONDARY);
         infoLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        infoLabel.setBorder(BorderFactory.createEmptyBorder(8, 0, 0, 0));
         panel.add(infoLabel, BorderLayout.SOUTH);
 
         return panel;
@@ -237,7 +343,9 @@ public class PDFViewerApp extends JFrame {
                 }
             }
 
-            folderLabel.setText("Folder: " + currentFolder + " (" + pdfFiles.size() + " PDFs)");
+            folderLabel.setText("<html><div style='color: #6c757d; font-size: 11px;'>" + 
+                               truncatePath(currentFolder, 35) + " <span style='color: #007bff;'>(" + 
+                               pdfFiles.size() + " PDFs)</span></div></html>");
             folderLabel.setToolTipText(currentFolder);
 
         } catch (IOException e) {
@@ -342,17 +450,142 @@ public class PDFViewerApp extends JFrame {
     }
 
     /**
-     * Custom cell renderer for PDF list
+     * Create a modern styled button
      */
-    private static class PDFListCellRenderer extends DefaultListCellRenderer {
+    private JButton createModernButton(String text, java.awt.event.ActionListener listener) {
+        JButton button = new JButton(text) {
+            @Override
+            protected void paintComponent(Graphics g) {
+                Graphics2D g2d = (Graphics2D) g.create();
+                g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                
+                if (getModel().isPressed()) {
+                    g2d.setColor(ACCENT_HOVER);
+                } else if (getModel().isRollover()) {
+                    g2d.setColor(ACCENT_HOVER);
+                } else {
+                    g2d.setColor(ACCENT);
+                }
+                
+                if (isEnabled()) {
+                    g2d.fillRoundRect(0, 0, getWidth(), getHeight(), 6, 6);
+                } else {
+                    g2d.setColor(BORDER);
+                    g2d.fillRoundRect(0, 0, getWidth(), getHeight(), 6, 6);
+                }
+                
+                g2d.dispose();
+                super.paintComponent(g);
+            }
+        };
+        
+        button.setFont(FONT_PRIMARY);
+        button.setForeground(Color.WHITE);
+        button.setBackground(ACCENT);
+        button.setBorderPainted(false);
+        button.setFocusPainted(false);
+        button.setContentAreaFilled(false);
+        button.setOpaque(false);
+        button.setPreferredSize(new Dimension(120, 35));
+        button.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        button.addActionListener(listener);
+        
+        return button;
+    }
+    
+    /**
+     * Style scroll pane with modern appearance
+     */
+    private void styleScrollPane(JScrollPane scrollPane) {
+        scrollPane.getVerticalScrollBar().setUI(new javax.swing.plaf.basic.BasicScrollBarUI() {
+            @Override
+            protected void configureScrollBarColors() {
+                this.thumbColor = new Color(200, 200, 200);
+                this.trackColor = new Color(245, 245, 245);
+            }
+            
+            @Override
+            protected JButton createDecreaseButton(int orientation) {
+                return createZeroButton();
+            }
+            
+            @Override
+            protected JButton createIncreaseButton(int orientation) {
+                return createZeroButton();
+            }
+            
+            private JButton createZeroButton() {
+                JButton button = new JButton();
+                button.setPreferredSize(new Dimension(0, 0));
+                button.setMinimumSize(new Dimension(0, 0));
+                button.setMaximumSize(new Dimension(0, 0));
+                return button;
+            }
+        });
+        
+        scrollPane.getHorizontalScrollBar().setUI(new javax.swing.plaf.basic.BasicScrollBarUI() {
+            @Override
+            protected void configureScrollBarColors() {
+                this.thumbColor = new Color(200, 200, 200);
+                this.trackColor = new Color(245, 245, 245);
+            }
+            
+            @Override
+            protected JButton createDecreaseButton(int orientation) {
+                return createZeroButton();
+            }
+            
+            @Override
+            protected JButton createIncreaseButton(int orientation) {
+                return createZeroButton();
+            }
+            
+            private JButton createZeroButton() {
+                JButton button = new JButton();
+                button.setPreferredSize(new Dimension(0, 0));
+                button.setMinimumSize(new Dimension(0, 0));
+                button.setMaximumSize(new Dimension(0, 0));
+                return button;
+            }
+        });
+    }
+    
+    /**
+     * Truncate path for display
+     */
+    private String truncatePath(String path, int maxLength) {
+        if (path.length() <= maxLength) {
+            return path;
+        }
+        return "..." + path.substring(path.length() - maxLength + 3);
+    }
+    
+    /**
+     * Custom cell renderer for PDF list with modern styling
+     */
+    private class PDFListCellRenderer extends DefaultListCellRenderer {
         @Override
         public Component getListCellRendererComponent(JList<?> list, Object value, int index,
                                                       boolean isSelected, boolean cellHasFocus) {
             super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+            
             if (value instanceof File) {
                 File file = (File) value;
-                setText(file.getName());
+                setText("📄 " + file.getName());
                 setToolTipText(file.getAbsolutePath());
+                setFont(FONT_PRIMARY);
+                setBorder(BorderFactory.createCompoundBorder(
+                    BorderFactory.createEmptyBorder(8, 12, 8, 12),
+                    BorderFactory.createMatteBorder(0, 0, 1, 0, BORDER)
+                ));
+                
+                if (isSelected) {
+                    setBackground(SELECTION_BG);
+                    setForeground(SELECTION);
+                } else {
+                    setBackground(BG_SECONDARY);
+                    setForeground(TEXT_PRIMARY);
+                }
             }
             return this;
         }
