@@ -33,6 +33,21 @@ Demonstrates the Abstract Factory Pattern for integrating multiple database syst
 
 **See**: [abstract-factory-demonstrate/README.md](abstract-factory-demonstrate/README.md)
 
+### 3. Builder Pattern (`builder-pattern-demonstrate/`)
+
+Demonstrates the Builder Pattern for constructing complex REST API responses.
+
+**Key Features:**
+- Manual Builder Pattern implementation
+- Lombok @Builder usage
+- Fluent Builder Pattern
+- Step Builder Pattern for very complex objects
+- Complex REST API response models
+- Comparison with traditional approaches (constructors, setters)
+- REST API examples showing Builder advantages
+
+**See**: [builder-pattern-demonstrate/README.md](builder-pattern-demonstrate/README.md)
+
 ## Quick Start
 
 ### Singleton Pattern Demo
@@ -48,6 +63,14 @@ mvn spring-boot:run
 ```bash
 cd abstract-factory-demonstrate
 # Configure database in application.properties
+mvn spring-boot:run
+# Visit http://localhost:8080/swagger-ui.html
+```
+
+### Builder Pattern Demo
+
+```bash
+cd builder-pattern-demonstrate
 mvn spring-boot:run
 # Visit http://localhost:8080/swagger-ui.html
 ```
@@ -68,6 +91,7 @@ These projects help you understand:
 |---------|----------|------------|-------------|
 | **Singleton** | Single instance requirement | Low | Logging, Configuration, Database connections |
 | **Abstract Factory** | Multiple related product families | Medium | Database integration, UI frameworks, Cross-platform support |
+| **Builder** | Complex object construction | Low-Medium | REST API responses, Configuration objects, DTOs with many optional fields |
 
 ## Prerequisites
 
