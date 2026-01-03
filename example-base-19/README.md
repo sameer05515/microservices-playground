@@ -101,6 +101,30 @@ mvn exec:java
 
 ---
 
+### 5. Swing PDF Viewer
+A PDF viewer application that lists PDFs from a folder and displays selected PDFs with page navigation.
+
+**Location:** `swing-pdf-viewer/`
+
+**Features:**
+- Lists all PDF files from a folder (default: `D:\Prem\comics`)
+- PDF display with automatic scaling
+- Page navigation (Previous/Next)
+- Page counter (current page / total pages)
+- Change folder functionality
+- Refresh to reload PDF list
+- Clean split-pane layout
+
+**Quick Start:**
+```bash
+cd swing-pdf-viewer
+mvn exec:java
+```
+
+**Documentation:** See [swing-pdf-viewer/README.md](swing-pdf-viewer/README.md) for detailed information.
+
+---
+
 ## 🛠️ Prerequisites
 
 All projects require:
@@ -160,6 +184,16 @@ example-base-19/
                     └── example/
                         └── swing/
                             └── VideoPlayerApp.java
+└── swing-pdf-viewer/             # PDF viewer
+    ├── pom.xml
+    ├── README.md
+    └── src/
+        └── main/
+            └── java/
+                └── com/
+                    └── example/
+                        └── swing/
+                            └── PDFViewerApp.java
 ```
 
 ## 🚀 Building All Projects
@@ -186,6 +220,11 @@ cd ..
 cd swing-video-player
 mvn clean compile
 cd ..
+
+# Build PDF viewer
+cd swing-pdf-viewer
+mvn clean compile
+cd ..
 ```
 
 ## 📚 Technologies Used
@@ -208,6 +247,11 @@ cd ..
 ### Swing Video Player
 - **Java Swing** - GUI framework
 - **JavaFX 17.0.2** - Media playback engine (Controls, Media, Swing integration)
+- **Maven** - Build tool
+
+### Swing PDF Viewer
+- **Java Swing** - GUI framework
+- **Apache PDFBox 3.0.3** - PDF rendering and manipulation library
 - **Maven** - Build tool
 
 ## 🎯 Learning Objectives
@@ -244,6 +288,13 @@ These projects demonstrate:
    - Volume control
    - JavaFX MediaPlayer integration with Swing
 
+6. **PDF Viewing**
+   - PDF file listing from folders
+   - PDF rendering and display
+   - Page navigation
+   - Automatic scaling and zoom
+   - Apache PDFBox integration
+
 ## 📝 Notes
 
 - All applications use Java 17
@@ -251,6 +302,7 @@ These projects demonstrate:
 - The topic management app includes a live Markdown preview and theme toggle
 - The MP3 player uses JLayer library for audio playback
 - The video player uses JavaFX MediaPlayer embedded in Swing via JFXPanel
+- The PDF viewer uses Apache PDFBox for rendering PDFs and lists PDFs from a configurable folder
 - All projects follow standard Maven directory structure
 
 ## 🔗 Related Examples
