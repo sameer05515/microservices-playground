@@ -10,6 +10,7 @@ A Maven-based Java Swing application for performing CRUD (Create, Read, Update, 
 - ✅ **Delete** - Remove topics with confirmation
 - ✅ **JSON Storage** - All data is saved in `src/main/resources/topics.json`
 - ✅ **Markdown Support** - Write content in Markdown with live preview
+- ✅ **Theme Toggle** - Switch between light and dark themes
 - ✅ **Clean GUI** - User-friendly interface with table and form
 - ✅ **Input Validation** - Validates required fields
 - ✅ **Auto-generated IDs** - UUID-based unique identifiers
@@ -72,6 +73,18 @@ java -jar target/swing-topic-mgmt-1.0.0.jar
 Run the `TopicManagementApp` class directly from your IDE (main method is in `src/main/java/com/example/swing/TopicManagementApp.java`).
 
 ## Usage
+
+### Theme Toggle
+
+The application supports both **Light** and **Dark** themes. Use the theme toggle button (🌙/☀️) in the toolbar to switch between themes. The theme applies to:
+- All panels and backgrounds
+- Text fields and text areas
+- Tables and table selections
+- Markdown preview pane
+- Buttons and borders
+- Scrollbars
+
+The theme preference is maintained during your session.
 
 ### Creating a Topic
 

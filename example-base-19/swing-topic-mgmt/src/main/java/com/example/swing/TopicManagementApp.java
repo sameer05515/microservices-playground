@@ -3,8 +3,10 @@ package com.example.swing;
 import com.example.swing.model.Topic;
 import com.example.swing.service.TopicService;
 import com.example.swing.util.MarkdownRenderer;
+import com.example.swing.util.Theme;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
@@ -29,7 +31,13 @@ public class TopicManagementApp extends JFrame {
     private JButton updateButton;
     private JButton deleteButton;
     private JButton clearButton;
+    private JButton themeToggleButton;
+    private JPanel mainPanel;
+    private JPanel topicListPanel;
+    private JPanel formPanel;
+    private JPanel statusBar;
     private String selectedTopicId;
+    private Theme currentTheme = Theme.LIGHT;
 
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
@@ -44,25 +52,48 @@ public class TopicManagementApp extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout(10, 10));
 
+        // Create toolbar with theme toggle
+        JToolBar toolBar = createToolBar();
+        add(toolBar, BorderLayout.NORTH);
+
         // Create main panel
-        JPanel mainPanel = new JPanel(new BorderLayout(10, 10));
+        mainPanel = new JPanel(new BorderLayout(10, 10));
         mainPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         // Left panel - Topic list
-        mainPanel.add(createTopicListPanel(), BorderLayout.CENTER);
+        topicListPanel = createTopicListPanel();
+        mainPanel.add(topicListPanel, BorderLayout.CENTER);
 
         // Right panel - Form
-        mainPanel.add(createFormPanel(), BorderLayout.EAST);
+        formPanel = createFormPanel();
+        mainPanel.add(formPanel, BorderLayout.EAST);
 
         add(mainPanel, BorderLayout.CENTER);
 
         // Status bar
-        add(createStatusBar(), BorderLayout.SOUTH);
+        statusBar = createStatusBar();
+        add(statusBar, BorderLayout.SOUTH);
+
+        // Apply initial theme
+        applyTheme(currentTheme);
 
         pack();
         setLocationRelativeTo(null);
         setMinimumSize(new Dimension(900, 600));
         setSize(1000, 650);
+    }
+
+    private JToolBar createToolBar() {
+        JToolBar toolBar = new JToolBar();
+        toolBar.setFloatable(false);
+        
+        themeToggleButton = new JButton("🌙 Dark Mode");
+        themeToggleButton.addActionListener(e -> toggleTheme());
+        toolBar.add(themeToggleButton);
+        
+        toolBar.addSeparator();
+        
+        return toolBar;
     }
 
     private JPanel createTopicListPanel() {
@@ -277,9 +308,201 @@ public class TopicManagementApp extends JFrame {
      */
     private void updatePreview() {
         String markdown = contentArea.getText();
-        String html = MarkdownRenderer.markdownToHtml(markdown);
+        String html = MarkdownRenderer.markdownToHtml(markdown, currentTheme);
         previewPane.setText(html);
         previewPane.setCaretPosition(0); // Scroll to top
+    }
+
+    /**
+     * Toggle between light and dark theme
+     */
+    private void toggleTheme() {
+        currentTheme = currentTheme.toggle();
+        applyTheme(currentTheme);
+        updatePreview(); // Update preview with new theme
+        themeToggleButton.setText(currentTheme == Theme.LIGHT ? "🌙 Dark Mode" : "☀️ Light Mode");
+    }
+
+    /**
+     * Apply theme to all components
+     */
+    private void applyTheme(Theme theme) {
+        // Apply to main frame
+        getContentPane().setBackground(theme.getBackground());
+        
+        // Apply to main panel
+        mainPanel.setBackground(theme.getPanelBackground());
+        mainPanel.setForeground(theme.getText());
+        
+        // Apply to topic list panel
+        if (topicListPanel != null) {
+            applyThemeToPanel(topicListPanel, theme);
+        }
+        
+        // Apply to form panel
+        if (formPanel != null) {
+            applyThemeToPanel(formPanel, theme);
+        }
+        
+        // Apply to status bar
+        if (statusBar != null) {
+            statusBar.setBackground(theme.getPanelBackground());
+            statusBar.setForeground(theme.getText());
+            for (Component comp : statusBar.getComponents()) {
+                if (comp instanceof JLabel) {
+                    comp.setForeground(theme.getText());
+                }
+            }
+        }
+        
+        // Apply to table
+        if (topicTable != null) {
+            topicTable.setBackground(theme.getTableBackground());
+            topicTable.setForeground(theme.getText());
+            topicTable.setSelectionBackground(theme.getTableSelection());
+            topicTable.setSelectionForeground(theme.getText());
+            topicTable.setGridColor(theme.getBorder());
+        }
+        
+        // Apply to text fields
+        if (titleField != null) {
+            titleField.setBackground(theme.getTextFieldBackground());
+            titleField.setForeground(theme.getText());
+            titleField.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(theme.getBorder(), 1),
+                BorderFactory.createEmptyBorder(5, 5, 5, 5)
+            ));
+        }
+        
+        // Apply to text area
+        if (contentArea != null) {
+            contentArea.setBackground(theme.getTextFieldBackground());
+            contentArea.setForeground(theme.getText());
+            contentArea.setCaretColor(theme.getText());
+            contentArea.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(theme.getBorder(), 1),
+                BorderFactory.createEmptyBorder(5, 5, 5, 5)
+            ));
+        }
+        
+        // Apply to preview pane
+        if (previewPane != null) {
+            previewPane.setBackground(theme.getTextFieldBackground());
+            previewPane.setForeground(theme.getText());
+        }
+        
+        // Apply to tabbed pane
+        if (contentTabbedPane != null) {
+            contentTabbedPane.setBackground(theme.getPanelBackground());
+            contentTabbedPane.setForeground(theme.getText());
+        }
+        
+        // Apply to buttons
+        applyThemeToButtons(theme);
+        
+        // Apply to scroll panes
+        applyThemeToScrollPanes(theme);
+        
+        // Update borders for titled borders
+        updateTitledBorders(theme);
+        
+        // Force repaint
+        repaint();
+    }
+
+    /**
+     * Apply theme to a panel and all its child components
+     */
+    private void applyThemeToPanel(Container panel, Theme theme) {
+        panel.setBackground(theme.getPanelBackground());
+        panel.setForeground(theme.getText());
+        
+        for (Component comp : panel.getComponents()) {
+            if (comp instanceof JLabel) {
+                comp.setForeground(theme.getText());
+            } else if (comp instanceof JButton) {
+                // Buttons are handled separately
+            } else if (comp instanceof Container) {
+                applyThemeToPanel((Container) comp, theme);
+            }
+        }
+    }
+
+    /**
+     * Apply theme to all buttons
+     */
+    private void applyThemeToButtons(Theme theme) {
+        for (Component comp : getContentPane().getComponents()) {
+            applyThemeToButtonsRecursive(comp, theme);
+        }
+    }
+
+    private void applyThemeToButtonsRecursive(Component comp, Theme theme) {
+        if (comp instanceof JButton) {
+            JButton btn = (JButton) comp;
+            btn.setBackground(theme == Theme.DARK ? new Color(60, 60, 60) : new Color(240, 240, 240));
+            btn.setForeground(theme.getText());
+            btn.setBorderPainted(true);
+        } else if (comp instanceof Container) {
+            for (Component child : ((Container) comp).getComponents()) {
+                applyThemeToButtonsRecursive(child, theme);
+            }
+        }
+    }
+
+    /**
+     * Apply theme to scroll panes
+     */
+    private void applyThemeToScrollPanes(Theme theme) {
+        applyThemeToScrollPanesRecursive(getContentPane(), theme);
+    }
+
+    private void applyThemeToScrollPanesRecursive(Component comp, Theme theme) {
+        if (comp instanceof JScrollPane) {
+            JScrollPane scrollPane = (JScrollPane) comp;
+            scrollPane.getViewport().setBackground(theme.getTextFieldBackground());
+            
+            // Customize scrollbar colors
+            JScrollBar vScrollBar = scrollPane.getVerticalScrollBar();
+            if (vScrollBar != null) {
+                vScrollBar.setBackground(theme.getScrollbarTrack());
+                vScrollBar.setForeground(theme.getScrollbarThumb());
+            }
+            
+            JScrollBar hScrollBar = scrollPane.getHorizontalScrollBar();
+            if (hScrollBar != null) {
+                hScrollBar.setBackground(theme.getScrollbarTrack());
+                hScrollBar.setForeground(theme.getScrollbarThumb());
+            }
+        } else if (comp instanceof Container) {
+            for (Component child : ((Container) comp).getComponents()) {
+                applyThemeToScrollPanesRecursive(child, theme);
+            }
+        }
+    }
+
+    /**
+     * Update titled borders to match theme
+     */
+    private void updateTitledBorders(Theme theme) {
+        updateTitledBordersRecursive(getContentPane(), theme);
+    }
+
+    private void updateTitledBordersRecursive(Component comp, Theme theme) {
+        if (comp instanceof JPanel) {
+            JPanel panel = (JPanel) comp;
+            Border border = panel.getBorder();
+            if (border instanceof javax.swing.border.TitledBorder) {
+                javax.swing.border.TitledBorder titledBorder = (javax.swing.border.TitledBorder) border;
+                titledBorder.setTitleColor(theme.getText());
+            }
+        }
+        
+        if (comp instanceof Container) {
+            for (Component child : ((Container) comp).getComponents()) {
+                updateTitledBordersRecursive(child, theme);
+            }
+        }
     }
 
     private void updateStatus(String message) {
