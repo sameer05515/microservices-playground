@@ -77,6 +77,30 @@ mvn exec:java
 
 ---
 
+### 4. Swing Video Player
+A media player application for playing video files using JavaFX MediaPlayer embedded in Swing.
+
+**Location:** `swing-video-player/`
+
+**Features:**
+- File selection dialog for video files (MP4, AVI, MOV, MKV, WMV, FLV, WebM, M4V)
+- Play, Pause, and Stop controls
+- Progress bar with click-to-seek functionality
+- Time display (current time and total duration)
+- Volume control slider
+- Video display area
+- Clean and intuitive GUI
+
+**Quick Start:**
+```bash
+cd swing-video-player
+mvn exec:java
+```
+
+**Documentation:** See [swing-video-player/README.md](swing-video-player/README.md) for detailed information.
+
+---
+
 ## 🛠️ Prerequisites
 
 All projects require:
@@ -126,6 +150,16 @@ example-base-19/
                     └── example/
                         └── swing/
                             └── MP3PlayerApp.java
+└── swing-video-player/           # Video player
+    ├── pom.xml
+    ├── README.md
+    └── src/
+        └── main/
+            └── java/
+                └── com/
+                    └── example/
+                        └── swing/
+                            └── VideoPlayerApp.java
 ```
 
 ## 🚀 Building All Projects
@@ -147,6 +181,11 @@ cd ..
 cd swing-mp3-player
 mvn clean compile
 cd ..
+
+# Build video player
+cd swing-video-player
+mvn clean compile
+cd ..
 ```
 
 ## 📚 Technologies Used
@@ -164,6 +203,11 @@ cd ..
 ### Swing MP3 Player
 - **Java Swing** - GUI framework
 - **JLayer 1.0.1** - MP3 audio playback library
+- **Maven** - Build tool
+
+### Swing Video Player
+- **Java Swing** - GUI framework
+- **JavaFX 17.0.2** - Media playback engine (Controls, Media, Swing integration)
 - **Maven** - Build tool
 
 ## 🎯 Learning Objectives
@@ -193,10 +237,12 @@ These projects demonstrate:
    - Live preview functionality
 
 5. **Media Playback**
-   - Audio file handling
+   - Audio file handling (MP3)
+   - Video file handling (MP4, AVI, MOV, etc.)
    - Playback controls
-   - Progress tracking
+   - Progress tracking with seek functionality
    - Volume control
+   - JavaFX MediaPlayer integration with Swing
 
 ## 📝 Notes
 
@@ -204,6 +250,7 @@ These projects demonstrate:
 - All data is stored locally (JSON format for topic management)
 - The topic management app includes a live Markdown preview and theme toggle
 - The MP3 player uses JLayer library for audio playback
+- The video player uses JavaFX MediaPlayer embedded in Swing via JFXPanel
 - All projects follow standard Maven directory structure
 
 ## 🔗 Related Examples
