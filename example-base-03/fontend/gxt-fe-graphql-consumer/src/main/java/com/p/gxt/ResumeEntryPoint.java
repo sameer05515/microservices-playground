@@ -13,10 +13,6 @@ import com.sencha.gxt.widget.core.client.ContentPanel;
 import com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer;
 import com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer.VerticalLayoutData;
 import com.sencha.gxt.widget.core.client.form.TextField;
-import com.sencha.gxt.widget.core.client.toolbar.ToolBar;
-import com.sencha.gxt.widget.core.client.toolbar.ToolBar.ToolBarAppearance;
-import com.sencha.gxt.widget.core.client.toolbar.ToolBar.ToolBarResources;
-import com.sencha.gxt.widget.core.client.toolbar.ToolBar.ToolBarStrings;
 
 public class ResumeEntryPoint implements EntryPoint {
 

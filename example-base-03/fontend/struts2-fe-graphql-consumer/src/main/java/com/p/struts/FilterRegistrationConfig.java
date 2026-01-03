@@ -1,5 +1,6 @@
 package com.p.struts;
 
+import jakarta.servlet.Filter;
 import org.apache.struts2.dispatcher.filter.StrutsPrepareAndExecuteFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -13,10 +14,13 @@ import java.util.Collections;
 public class FilterRegistrationConfig {
 
     @Bean
-    public FilterRegistrationBean<StrutsPrepareAndExecuteFilter> filterRegistrationBean() {
-        FilterRegistrationBean<StrutsPrepareAndExecuteFilter> registrationBean = new FilterRegistrationBean<StrutsPrepareAndExecuteFilter>();
+    @SuppressWarnings("unchecked")
+    public FilterRegistrationBean<Filter> filterRegistrationBean() {
+        FilterRegistrationBean<Filter> registrationBean = new FilterRegistrationBean<>();
         StrutsPrepareAndExecuteFilter struts = new StrutsPrepareAndExecuteFilter();
-        registrationBean.setFilter(struts);
+        // Cast required due to javax.servlet.Filter (Struts2) vs jakarta.servlet.Filter (Spring Boot 3.x) mismatch
+        // At runtime, the filter interfaces are compatible
+        registrationBean.setFilter((Filter) struts);
         registrationBean.setUrlPatterns(Arrays.asList("/*"));
         registrationBean.setOrder(1);
         registrationBean.setInitParameters(Collections.singletonMap("actionPackages", "example.actions"));

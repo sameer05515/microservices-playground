@@ -1,0 +1,311 @@
+# Example Base 19 - Swing Applications
+
+This directory contains Maven-based Java Swing applications demonstrating various GUI development patterns and features.
+
+## 📁 Projects
+
+### 1. Swing Sum Calculator
+A simple calculator application that adds two integers.
+
+**Location:** `swing-sum-calculator/`
+
+**Features:**
+- Clean and intuitive GUI
+- Two input fields for integers
+- Calculate button to compute the sum
+- Result display field
+- Input validation with error messages
+- System look and feel
+
+**Quick Start:**
+```bash
+cd swing-sum-calculator
+mvn exec:java
+```
+
+**Documentation:** See [swing-sum-calculator/README.md](swing-sum-calculator/README.md) for detailed information.
+
+---
+
+### 2. Swing Topic Management (CRUD)
+A full-featured CRUD application for managing topics with Markdown support.
+
+**Location:** `swing-topic-mgmt/`
+
+**Features:**
+- ✅ **Create** - Add new topics with title and content
+- ✅ **Read** - View all topics in a table with details
+- ✅ **Update** - Modify existing topics
+- ✅ **Delete** - Remove topics with confirmation
+- ✅ **JSON Storage** - All data is saved in `src/main/resources/topics.json`
+- ✅ **Markdown Support** - Write content in Markdown with live preview
+- ✅ **Clean GUI** - User-friendly interface with table and form
+- ✅ **Input Validation** - Validates required fields
+- ✅ **Auto-generated IDs** - UUID-based unique identifiers
+- ✅ **Timestamps** - Automatic creation and update timestamps
+
+**Quick Start:**
+```bash
+cd swing-topic-mgmt
+mvn exec:java
+```
+
+**Documentation:** See [swing-topic-mgmt/README.md](swing-topic-mgmt/README.md) for detailed information.
+
+---
+
+### 3. Swing MP3 Player
+A media player application for playing MP3 audio files.
+
+**Location:** `swing-mp3-player/`
+
+**Features:**
+- File selection dialog for MP3 files
+- Play, Pause, and Stop controls
+- Progress bar and time display
+- Volume control slider
+- Current file information display
+- Clean and intuitive GUI
+
+**Quick Start:**
+```bash
+cd swing-mp3-player
+mvn exec:java
+```
+
+**Documentation:** See [swing-mp3-player/README.md](swing-mp3-player/README.md) for detailed information.
+
+---
+
+### 4. Swing Video Player
+A media player application for playing video files using JavaFX MediaPlayer embedded in Swing.
+
+**Location:** `swing-video-player/`
+
+**Features:**
+- File selection dialog for video files (MP4, AVI, MOV, MKV, WMV, FLV, WebM, M4V)
+- Play, Pause, and Stop controls
+- Progress bar with click-to-seek functionality
+- Time display (current time and total duration)
+- Volume control slider
+- Video display area
+- Clean and intuitive GUI
+
+**Quick Start:**
+```bash
+cd swing-video-player
+mvn exec:java
+```
+
+**Documentation:** See [swing-video-player/README.md](swing-video-player/README.md) for detailed information.
+
+---
+
+### 5. Swing PDF Viewer
+A PDF viewer application that lists PDFs from a folder and displays selected PDFs with page navigation.
+
+**Location:** `swing-pdf-viewer/`
+
+**Features:**
+- Lists all PDF files from a folder (default: `D:\Prem\comics`)
+- PDF display with automatic scaling
+- Page navigation (Previous/Next)
+- Page counter (current page / total pages)
+- Change folder functionality
+- Refresh to reload PDF list
+- Clean split-pane layout
+
+**Quick Start:**
+```bash
+cd swing-pdf-viewer
+mvn exec:java
+```
+
+**Documentation:** See [swing-pdf-viewer/README.md](swing-pdf-viewer/README.md) for detailed information.
+
+---
+
+## 🛠️ Prerequisites
+
+All projects require:
+- **Java 17** or higher
+- **Maven 3.6+** (or use Maven wrapper)
+
+## 📋 Project Structure
+
+```
+example-base-19/
+├── README.md                    # This file
+├── swing-sum-calculator/        # Simple sum calculator
+│   ├── pom.xml
+│   ├── README.md
+│   └── src/
+│       └── main/
+│           └── java/
+│               └── com/
+│                   └── example/
+│                       └── swing/
+│                           └── SumCalculator.java
+└── swing-topic-mgmt/            # Topic CRUD with Markdown
+    ├── pom.xml
+    ├── README.md
+    └── src/
+        └── main/
+            ├── java/
+            │   └── com/
+            │       └── example/
+            │           └── swing/
+            │               ├── TopicManagementApp.java
+            │               ├── model/
+            │               │   └── Topic.java
+            │               ├── service/
+            │               │   └── TopicService.java
+            │               └── util/
+            │                   └── MarkdownRenderer.java
+            └── resources/
+                └── topics.json
+└── swing-mp3-player/            # MP3 audio player
+    ├── pom.xml
+    ├── README.md
+    └── src/
+        └── main/
+            └── java/
+                └── com/
+                    └── example/
+                        └── swing/
+                            └── MP3PlayerApp.java
+└── swing-video-player/           # Video player
+    ├── pom.xml
+    ├── README.md
+    └── src/
+        └── main/
+            └── java/
+                └── com/
+                    └── example/
+                        └── swing/
+                            └── VideoPlayerApp.java
+└── swing-pdf-viewer/             # PDF viewer
+    ├── pom.xml
+    ├── README.md
+    └── src/
+        └── main/
+            └── java/
+                └── com/
+                    └── example/
+                        └── swing/
+                            └── PDFViewerApp.java
+```
+
+## 🚀 Building All Projects
+
+To build all projects:
+
+```bash
+# Build sum calculator
+cd swing-sum-calculator
+mvn clean compile
+cd ..
+
+# Build topic management
+cd swing-topic-mgmt
+mvn clean compile
+cd ..
+
+# Build MP3 player
+cd swing-mp3-player
+mvn clean compile
+cd ..
+
+# Build video player
+cd swing-video-player
+mvn clean compile
+cd ..
+
+# Build PDF viewer
+cd swing-pdf-viewer
+mvn clean compile
+cd ..
+```
+
+## 📚 Technologies Used
+
+### Swing Sum Calculator
+- **Java Swing** - GUI framework
+- **Maven** - Build tool
+
+### Swing Topic Management
+- **Java Swing** - GUI framework
+- **Gson 2.10.1** - JSON serialization/deserialization
+- **Flexmark 0.64.8** - Markdown to HTML rendering
+- **Maven** - Build tool
+
+### Swing MP3 Player
+- **Java Swing** - GUI framework
+- **JLayer 1.0.1** - MP3 audio playback library
+- **Maven** - Build tool
+
+### Swing Video Player
+- **Java Swing** - GUI framework
+- **JavaFX 17.0.2** - Media playback engine (Controls, Media, Swing integration)
+- **Maven** - Build tool
+
+### Swing PDF Viewer
+- **Java Swing** - GUI framework
+- **Apache PDFBox 3.0.3** - PDF rendering and manipulation library
+- **Maven** - Build tool
+
+## 🎯 Learning Objectives
+
+These projects demonstrate:
+
+1. **Basic Swing GUI Development**
+   - Window creation and layout management
+   - Event handling
+   - Input validation
+   - User feedback (dialogs, messages)
+
+2. **Advanced Swing Features**
+   - Table components for data display
+   - Tabbed panes for multiple views
+   - HTML rendering in Swing components
+   - Real-time updates
+
+3. **Data Persistence**
+   - JSON file storage
+   - CRUD operations
+   - Data serialization/deserialization
+
+4. **Markdown Processing**
+   - Markdown parsing
+   - HTML rendering
+   - Live preview functionality
+
+5. **Media Playback**
+   - Audio file handling (MP3)
+   - Video file handling (MP4, AVI, MOV, etc.)
+   - Playback controls
+   - Progress tracking with seek functionality
+   - Volume control
+   - JavaFX MediaPlayer integration with Swing
+
+6. **PDF Viewing**
+   - PDF file listing from folders
+   - PDF rendering and display
+   - Page navigation
+   - Automatic scaling and zoom
+   - Apache PDFBox integration
+
+## 📝 Notes
+
+- All applications use Java 17
+- All data is stored locally (JSON format for topic management)
+- The topic management app includes a live Markdown preview and theme toggle
+- The MP3 player uses JLayer library for audio playback
+- The video player uses JavaFX MediaPlayer embedded in Swing via JFXPanel
+- The PDF viewer uses Apache PDFBox for rendering PDFs and lists PDFs from a configurable folder
+- All projects follow standard Maven directory structure
+
+## 🔗 Related Examples
+
+For more examples, check out other `example-base-*` directories in the parent repository.
+

@@ -73,9 +73,13 @@ const ConvMessageRenderer = ({ slug, convId, onConvClick }) => {
         </div>
 
         <div id="root" className="flex-1 p-4 overflow-auto h-[50vh] space-y-4">
-          {convo.messages.map((msg) => (
-            <QAViewer key={msg.q.id} data={msg} />
-          ))}
+          {Array.isArray(convo.messages)
+            ? convo.messages
+                .filter((msg) => msg && msg.q && msg.q.id)
+                .map((msg, index) => (
+                  <QAViewer key={msg.q.id || `msg-${index}`} data={msg} />
+                ))
+            : null}
         </div>
 
         {/* <div className="flex justify-between items-center p-4 h-[10vh] border-t">
