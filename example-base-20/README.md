@@ -48,6 +48,21 @@ Demonstrates the Builder Pattern for constructing complex REST API responses.
 
 **See**: [builder-pattern-demonstrate/README.md](builder-pattern-demonstrate/README.md)
 
+### 4. Exception Handling (`exception-handling-demonstrate/`)
+
+Demonstrates custom exception handling with @ControllerAdvice and @ExceptionHandler.
+
+**Key Features:**
+- Custom exception classes (InvalidEmailException, ResourceNotFoundException, etc.)
+- BaseException for reusable exception structure
+- GlobalExceptionHandler with @ControllerAdvice
+- Custom ErrorResponse DTO with dynamic parameters
+- Centralized and consistent exception management
+- Reusable and scalable structure
+- REST API examples demonstrating exception handling
+
+**See**: [exception-handling-demonstrate/README.md](exception-handling-demonstrate/README.md)
+
 ## Quick Start
 
 ### Singleton Pattern Demo
@@ -75,6 +90,14 @@ mvn spring-boot:run
 # Visit http://localhost:8080/swagger-ui.html
 ```
 
+### Exception Handling Demo
+
+```bash
+cd exception-handling-demonstrate
+mvn spring-boot:run
+# Visit http://localhost:8080/swagger-ui.html
+```
+
 ## Learning Objectives
 
 These projects help you understand:
@@ -87,11 +110,12 @@ These projects help you understand:
 
 ## Pattern Comparison
 
-| Pattern | Use Case | Complexity | When to Use |
-|---------|----------|------------|-------------|
+| Pattern/Technique | Use Case | Complexity | When to Use |
+|-------------------|----------|------------|-------------|
 | **Singleton** | Single instance requirement | Low | Logging, Configuration, Database connections |
 | **Abstract Factory** | Multiple related product families | Medium | Database integration, UI frameworks, Cross-platform support |
 | **Builder** | Complex object construction | Low-Medium | REST API responses, Configuration objects, DTOs with many optional fields |
+| **Exception Handling** | Error management | Medium | REST APIs, Service layer, Validation, Business logic errors |
 
 ## Prerequisites
 
