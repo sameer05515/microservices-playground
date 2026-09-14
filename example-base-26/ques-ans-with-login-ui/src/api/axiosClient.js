@@ -1,58 +1,158 @@
 import axios from "axios";
 
 const axiosClient = axios.create({
+
     baseURL: import.meta.env.VITE_API_BASE_URL,
+
     headers: {
         "Content-Type": "application/json",
     },
+
+    withCredentials: true,
 });
 
+
+/*
+ * Add access token.
+ */
 axiosClient.interceptors.request.use(
     (config) => {
 
-        const token = localStorage.getItem("accessToken");
+        const token =
+            localStorage.getItem("accessToken");
 
         if (token) {
-            config.headers.Authorization = `Bearer ${token}`;
+
+            config.headers.Authorization =
+                `Bearer ${token}`;
         }
 
         return config;
     },
+
     (error) => Promise.reject(error)
 );
 
+
+let refreshPromise = null;
+
+
 /*
- * Handle authentication errors globally.
+ * Handle API responses.
  */
 axiosClient.interceptors.response.use(
+
     (response) => response,
 
-    (error) => {
+    async (error) => {
 
-        const status = error.response?.status;
+        const originalRequest =
+            error.config;
 
-        if (status === 401 || status === 403) {
+        const status =
+            error.response?.status;
+
+
+        /*
+         * Only expired/invalid authentication.
+         */
+        if (
+            status !== 401 ||
+            originalRequest?._retry
+        ) {
+
+            return Promise.reject(error);
+        }
+
+
+        /*
+         * Never refresh the refresh request itself.
+         */
+        if (
+            originalRequest.url
+                ?.includes("/auth/refresh")
+        ) {
+
+            localStorage.removeItem(
+                "accessToken"
+            );
+
+            window.location.href =
+                "/login?reason=session-expired";
+
+            return Promise.reject(error);
+        }
+
+
+        originalRequest._retry = true;
+
+
+        try {
 
             /*
-             * JWT is probably expired/invalid.
+             * If another request is already
+             * refreshing, reuse that request.
              */
-            localStorage.removeItem("accessToken");
+            if (!refreshPromise) {
+
+                refreshPromise =
+                    axiosClient
+                        .post("/auth/refresh")
+                        .finally(() => {
+
+                            refreshPromise = null;
+                        });
+            }
+
+
+            const refreshResponse =
+                await refreshPromise;
+
+
+            const newAccessToken =
+                refreshResponse.data.accessToken;
+
+
+            localStorage.setItem(
+                "accessToken",
+                newAccessToken
+            );
+
 
             /*
-             * Redirect user to login.
+             * Retry original request.
              */
+            originalRequest.headers =
+                originalRequest.headers || {};
+
+            originalRequest.headers.Authorization =
+                `Bearer ${newAccessToken}`;
+
+
+            return axiosClient(
+                originalRequest
+            );
+
+        } catch (refreshError) {
+
+            /*
+             * Refresh token is also invalid/expired.
+             *
+             * User must login again.
+             */
+            localStorage.removeItem(
+                "accessToken"
+            );
+
             window.location.href =
                 "/login?reason=session-expired";
 
             return Promise.reject(
-                new Error(
-                    "Your session has expired. Please login again."
-                )
+                refreshError
             );
         }
-
-        return Promise.reject(error);
     }
 );
+
 
 export default axiosClient;

@@ -1,14 +1,17 @@
 package com.p.ques.service;
 
 import com.p.ques.dto.AuthResponse;
+import com.p.ques.dto.TokenResponse;
 import com.p.ques.dto.ChangePasswordRequest;
 import com.p.ques.dto.LoginRequest;
 import com.p.ques.dto.SignupRequest;
 import com.p.ques.entity.User;
+import com.p.ques.entity.RefreshToken;
 import com.p.ques.repository.UserRepository;
 import com.p.ques.security.JwtService;
 
 import com.p.ques.security.TokenBlacklistService;
+import com.p.ques.security.RefreshTokenService;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.security.authentication.AuthenticationManager;
@@ -29,75 +32,131 @@ public class AuthService {
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
     private final TokenBlacklistService tokenBlacklistService;
+    private final RefreshTokenService refreshTokenService;
 
-    public AuthResponse signup(SignupRequest request) {
+    public TokenResponse signup(SignupRequest request) {
 
-        String email = request.email().trim().toLowerCase();
+    String email =
+            request.email()
+                    .trim()
+                    .toLowerCase();
 
-        if (userRepository.existsByEmail(email)) {
-            throw new IllegalArgumentException("User already exists");
-        }
-
-        User user = User.builder()
-                .name(request.name())
-                .email(email)
-                .password(passwordEncoder.encode(request.password()))
-                .createdAt(Instant.now())
-                .updatedAt(Instant.now())
-                .build();
-
-        userRepository.save(user);
-
-        String token = jwtService.generateToken(user);
-
-        return new AuthResponse(token);
+    if (userRepository.existsByEmail(email)) {
+        throw new IllegalArgumentException(
+                "User already exists"
+        );
     }
 
-    public AuthResponse login(LoginRequest request) {
+    User user = User.builder()
+            .name(request.name())
+            .email(email)
+            .password(
+                    passwordEncoder.encode(
+                            request.password()
+                    )
+            )
+            .createdAt(Instant.now())
+            .updatedAt(Instant.now())
+            .build();
 
-        String email = request.email().trim().toLowerCase();
+    userRepository.save(user);
 
-        Authentication authentication =
-                authenticationManager.authenticate(
-                        new UsernamePasswordAuthenticationToken(
-                                email,
-                                request.password()
-                        )
-                );
+    String accessToken =
+            jwtService.generateToken(user);
 
-        SecurityContextHolder
-                .getContext()
-                .setAuthentication(authentication);
+    String refreshToken =
+            refreshTokenService.createRefreshToken(user);
 
-        User user = userRepository.findByEmail(email)
-                .orElseThrow(() ->
-                        new IllegalArgumentException("User not found"));
+    return new TokenResponse(
+            accessToken,
+            refreshToken
+    );
+}
 
-        String token = jwtService.generateToken(user);
+    public TokenResponse login(LoginRequest request) {
 
-        return new AuthResponse(token);
+    String email =
+            request.email()
+                    .trim()
+                    .toLowerCase();
+
+    Authentication authentication =
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            email,
+                            request.password()
+                    )
+            );
+
+    SecurityContextHolder
+            .getContext()
+            .setAuthentication(authentication);
+
+    User user =
+            userRepository.findByEmail(email)
+                    .orElseThrow(() ->
+                            new IllegalArgumentException(
+                                    "User not found"
+                            )
+                    );
+
+    String accessToken =
+            jwtService.generateToken(user);
+
+    String refreshToken =
+            refreshTokenService.createRefreshToken(user);
+
+    return new TokenResponse(
+            accessToken,
+            refreshToken
+    );
+}
+
+
+public TokenResponse refresh(String rawRefreshToken) {
+
+    RefreshToken refreshToken =
+            refreshTokenService.validate(
+                    rawRefreshToken
+            );
+
+    User user =
+            userRepository.findById(
+                    refreshToken.getUserId()
+            ).orElseThrow(() ->
+                    new IllegalArgumentException(
+                            "User not found"
+                    )
+            );
+
+    /*
+     * Rotate refresh token.
+     */
+    refreshTokenService.revoke(
+            rawRefreshToken
+    );
+
+    String newAccessToken =
+            jwtService.generateToken(user);
+
+    String newRefreshToken =
+            refreshTokenService.createRefreshToken(user);
+
+    return new TokenResponse(
+            newAccessToken,
+            newRefreshToken
+    );
+}
+public void logout(String refreshToken) {
+
+    if (refreshToken != null &&
+            !refreshToken.isBlank()) {
+
+        refreshTokenService.revoke(
+                refreshToken
+        );
     }
-
-    public void logout(String authorizationHeader) {
-
-        if (authorizationHeader == null ||
-                !authorizationHeader.startsWith("Bearer ")) {
-
-            throw new IllegalArgumentException("Invalid Authorization header");
-        }
-
-        String token = authorizationHeader.substring(7);
-
-        /*
-         * JWTs are stateless.
-         *
-         * If we want logout to immediately invalidate
-         * the token, JwtService/TokenBlacklistService
-         * needs to keep track of revoked tokens.
-         */
-//        jwtService.revokeToken(token);
-        tokenBlacklistService.revoke(token);
-    }
+}
 
     public void changePassword(ChangePasswordRequest request) {
 

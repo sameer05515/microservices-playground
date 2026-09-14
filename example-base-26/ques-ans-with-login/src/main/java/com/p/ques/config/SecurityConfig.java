@@ -2,6 +2,8 @@ package com.p.ques.config;
 
 import com.p.ques.security.JwtAuthenticationFilter;
 
+import jakarta.servlet.http.HttpServletResponse;
+
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.context.annotation.Bean;
@@ -40,33 +42,53 @@ public class SecurityConfig {
             HttpSecurity http) throws Exception {
 
         http
-                /*
-                 * Enable CORS.
-                 */
                 .cors(cors -> {})
 
-                /*
-                 * JWT based REST API.
-                 */
                 .csrf(AbstractHttpConfigurer::disable)
 
-                /*
-                 * No HTTP session.
-                 */
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(
                                 SessionCreationPolicy.STATELESS
                         )
                 )
 
-                /*
-                 * Authorization rules.
-                 */
+                .exceptionHandling(exception -> exception
+
+                        /*
+                         * Authentication required but
+                         * user is not authenticated.
+                         *
+                         * Return 401.
+                         */
+                        .authenticationEntryPoint(
+                                (request, response, authException) -> {
+
+                                    response.setStatus(
+                                            HttpServletResponse.SC_UNAUTHORIZED
+                                    );
+                                }
+                        )
+
+                        /*
+                         * User is authenticated but
+                         * doesn't have sufficient permissions.
+                         *
+                         * Return 403.
+                         */
+                        .accessDeniedHandler(
+                                (request, response, accessDeniedException) -> {
+
+                                    response.setStatus(
+                                            HttpServletResponse.SC_FORBIDDEN
+                                    );
+                                }
+                        )
+                )
+
                 .authorizeHttpRequests(auth -> auth
 
                         /*
-                         * IMPORTANT:
-                         * Allow browser CORS preflight requests.
+                         * CORS preflight
                          */
                         .requestMatchers(
                                 HttpMethod.OPTIONS,
@@ -74,22 +96,20 @@ public class SecurityConfig {
                         ).permitAll()
 
                         /*
-                         * Public authentication APIs.
+                         * Public APIs
                          */
                         .requestMatchers(
                                 "/api/auth/signup",
-                                "/api/auth/login"
+                                "/api/auth/login",
+                                "/api/auth/refresh"
                         ).permitAll()
 
                         /*
-                         * Everything else requires JWT.
+                         * Everything else protected
                          */
                         .anyRequest().authenticated()
                 )
 
-                /*
-                 * JWT filter.
-                 */
                 .addFilterBefore(
                         jwtAuthenticationFilter,
                         UsernamePasswordAuthenticationFilter.class
@@ -98,6 +118,19 @@ public class SecurityConfig {
         return http.build();
     }
 
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(
+            AuthenticationConfiguration configuration)
+            throws Exception {
+
+        return configuration.getAuthenticationManager();
+    }
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
@@ -105,18 +138,12 @@ public class SecurityConfig {
         CorsConfiguration configuration =
                 new CorsConfiguration();
 
-        /*
-         * React/Vite application.
-         */
         configuration.setAllowedOrigins(
                 List.of(
                         "http://localhost:5174"
                 )
         );
 
-        /*
-         * HTTP methods allowed from React.
-         */
         configuration.setAllowedMethods(
                 List.of(
                         "GET",
@@ -128,9 +155,6 @@ public class SecurityConfig {
                 )
         );
 
-        /*
-         * Request headers allowed from React.
-         */
         configuration.setAllowedHeaders(
                 List.of(
                         "Authorization",
@@ -138,20 +162,6 @@ public class SecurityConfig {
                 )
         );
 
-        /*
-         * Response headers that browser JavaScript
-         * is allowed to access.
-         */
-        configuration.setExposedHeaders(
-                List.of(
-                        "Authorization"
-                )
-        );
-
-        /*
-         * Not strictly required for localStorage JWT,
-         * but okay to keep if we later use cookies.
-         */
         configuration.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source =
@@ -163,21 +173,5 @@ public class SecurityConfig {
         );
 
         return source;
-    }
-
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-
-        return new BCryptPasswordEncoder();
-    }
-
-
-    @Bean
-    public AuthenticationManager authenticationManager(
-            AuthenticationConfiguration configuration)
-            throws Exception {
-
-        return configuration.getAuthenticationManager();
     }
 }

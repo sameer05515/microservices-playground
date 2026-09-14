@@ -11,18 +11,24 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+
 import org.springframework.stereotype.Component;
+
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
 @Component
 @RequiredArgsConstructor
-public class JwtAuthenticationFilter extends OncePerRequestFilter {
+public class JwtAuthenticationFilter
+        extends OncePerRequestFilter {
 
     private final JwtService jwtService;
+
     private final UserDetailsService userDetailsService;
+
     private final TokenBlacklistService tokenBlacklistService;
 
     @Override
@@ -36,9 +42,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 request.getHeader("Authorization");
 
         /*
-         * No Authorization header.
-         *
-         * Let Spring Security continue processing the request.
+         * No JWT.
          */
         if (authorizationHeader == null ||
                 !authorizationHeader.startsWith("Bearer ")) {
@@ -47,15 +51,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             return;
         }
 
-        /*
-         * Extract JWT.
-         *
-         * "Bearer eyJhbGciOiJIUzI1Ni..."
-         *          ↑
-         *          token starts here
-         */
-        String token = authorizationHeader.substring(7);
+        String token =
+                authorizationHeader.substring(7);
 
+        /*
+         * Token was explicitly logged out.
+         */
         if (tokenBlacklistService.isRevoked(token)) {
 
             filterChain.doFilter(request, response);
@@ -66,76 +67,65 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         try {
 
-            username = jwtService.extractUsername(token);
+            username =
+                    jwtService.extractUsername(token);
 
         } catch (Exception e) {
 
             /*
-             * Invalid/malformed JWT.
+             * Invalid JWT.
              *
-             * Don't authenticate the request.
+             * Don't authenticate.
+             *
+             * SecurityConfig will eventually
+             * return 401 for protected endpoints.
              */
             filterChain.doFilter(request, response);
             return;
         }
 
         /*
-         * Only authenticate if there isn't already
-         * an authentication in SecurityContext.
+         * Don't overwrite existing authentication.
          */
         if (username != null &&
                 SecurityContextHolder
                         .getContext()
                         .getAuthentication() == null) {
 
-            UserDetails userDetails;
-
             try {
 
-                userDetails =
-                        userDetailsService.loadUserByUsername(username);
+                UserDetails userDetails =
+                        userDetailsService
+                                .loadUserByUsername(username);
+
+                if (jwtService.isTokenValid(
+                        token,
+                        userDetails)) {
+
+                    UsernamePasswordAuthenticationToken authentication =
+                            new UsernamePasswordAuthenticationToken(
+                                    userDetails,
+                                    null,
+                                    userDetails.getAuthorities()
+                            );
+
+                    authentication.setDetails(
+                            new WebAuthenticationDetailsSource()
+                                    .buildDetails(request)
+                    );
+
+                    SecurityContextHolder
+                            .getContext()
+                            .setAuthentication(
+                                    authentication
+                            );
+                }
 
             } catch (Exception e) {
 
                 /*
-                 * User doesn't exist anymore.
+                 * Don't authenticate.
                  */
-                filterChain.doFilter(request, response);
-                return;
-            }
-
-            /*
-             * Validate:
-             *
-             * 1. JWT username == UserDetails username
-             * 2. JWT hasn't expired
-             * 3. JWT signature is valid
-             */
-            if (jwtService.isTokenValid(
-                    token,
-                    userDetails)) {
-
-                UsernamePasswordAuthenticationToken authentication =
-                        new UsernamePasswordAuthenticationToken(
-                                userDetails,
-                                null,
-                                userDetails.getAuthorities()
-                        );
-
-                authentication.setDetails(
-                        new WebAuthenticationDetailsSource()
-                                .buildDetails(request)
-                );
-
-                /*
-                 * This is the most important line.
-                 *
-                 * From this point onwards Spring Security
-                 * considers the request authenticated.
-                 */
-                SecurityContextHolder
-                        .getContext()
-                        .setAuthentication(authentication);
             }
         }
 
