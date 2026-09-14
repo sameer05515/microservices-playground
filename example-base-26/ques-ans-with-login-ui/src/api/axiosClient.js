@@ -21,4 +21,38 @@ axiosClient.interceptors.request.use(
     (error) => Promise.reject(error)
 );
 
+/*
+ * Handle authentication errors globally.
+ */
+axiosClient.interceptors.response.use(
+    (response) => response,
+
+    (error) => {
+
+        const status = error.response?.status;
+
+        if (status === 401 || status === 403) {
+
+            /*
+             * JWT is probably expired/invalid.
+             */
+            localStorage.removeItem("accessToken");
+
+            /*
+             * Redirect user to login.
+             */
+            window.location.href =
+                "/login?reason=session-expired";
+
+            return Promise.reject(
+                new Error(
+                    "Your session has expired. Please login again."
+                )
+            );
+        }
+
+        return Promise.reject(error);
+    }
+);
+
 export default axiosClient;

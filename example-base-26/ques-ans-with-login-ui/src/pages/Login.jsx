@@ -1,11 +1,17 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import { useAuth } from "../context/AuthContext";
 
 export default function Login() {
 
     const navigate = useNavigate();
+
+    const location = useLocation();
+
+    const sessionExpired =
+        new URLSearchParams(location.search)
+            .get("reason") === "session-expired";
 
     const { login } = useAuth();
 
@@ -50,6 +56,13 @@ export default function Login() {
             >
 
                 <h1>Login</h1>
+
+                {sessionExpired && (
+                    <div className="warning">
+                        Your session has expired.
+                        Please login again.
+                    </div>
+                )}
 
                 {error && (
                     <div className="error">
