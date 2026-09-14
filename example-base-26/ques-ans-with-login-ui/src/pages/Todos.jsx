@@ -188,9 +188,9 @@ export default function Todos() {
                         </span>
 
                         <button
-                            onClick={() =>
-                                handleDelete(todo.id)
-                            }
+                            // onClick={() =>
+                            //     handleDelete(todo.id)
+                            // }
                         >
                             Delete
                         </button>
