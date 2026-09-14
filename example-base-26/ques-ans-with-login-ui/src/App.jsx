@@ -13,6 +13,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
 import ChangePassword from "./pages/ChangePassword";
+import Todos from "./pages/Todos";
 
 export default function App() {
 
@@ -45,6 +46,11 @@ export default function App() {
                         <Route
                             path="/change-password"
                             element={<ChangePassword />}
+                        />
+
+                        <Route
+                            path="/todos"
+                            element={<Todos />}
                         />
 
                     </Route>

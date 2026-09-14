@@ -17,6 +17,10 @@ export default function Dashboard() {
 
             <div className="actions">
 
+                <Link to="/todos">
+                    My Todos
+                </Link>
+
                 <Link to="/change-password">
                     Change Password
                 </Link>

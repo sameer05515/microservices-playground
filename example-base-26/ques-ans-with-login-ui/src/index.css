@@ -99,3 +99,61 @@ body {
 .actions a {
     padding: 10px 15px;
 }
+
+
+/**======================================*/
+
+.todo-container {
+    width: 600px;
+    margin: 50px auto;
+}
+
+.todo-form {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.todo-form input {
+    flex: 1;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.todo-form button {
+    padding: 10px 20px;
+}
+
+.todo-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.todo-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 15px;
+
+    background: white;
+
+    border-radius: 5px;
+
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+}
+
+.todo-item span {
+    flex: 1;
+}
+
+.todo-item .completed {
+    text-decoration: line-through;
+    opacity: 0.5;
+}
+
+.todo-item button {
+    cursor: pointer;
+}
