@@ -1,8 +1,16 @@
 import axios from "axios";
 
+
+const API_BASE_URL =
+    import.meta.env.VITE_API_BASE_URL;
+
+
+/*
+ * Normal API client.
+ */
 const axiosClient = axios.create({
 
-    baseURL: import.meta.env.VITE_API_BASE_URL,
+    baseURL: API_BASE_URL,
 
     headers: {
         "Content-Type": "application/json",
@@ -13,7 +21,25 @@ const axiosClient = axios.create({
 
 
 /*
- * Add access token.
+ * Separate client for refresh token.
+ *
+ * IMPORTANT:
+ * No response interceptor here.
+ */
+const refreshClient = axios.create({
+
+    baseURL: API_BASE_URL,
+
+    headers: {
+        "Content-Type": "application/json",
+    },
+
+    withCredentials: true,
+});
+
+
+/*
+ * Add access token to normal requests.
  */
 axiosClient.interceptors.request.use(
     (config) => {
@@ -38,7 +64,7 @@ let refreshPromise = null;
 
 
 /*
- * Handle API responses.
+ * Handle authentication errors.
  */
 axiosClient.interceptors.response.use(
 
@@ -54,31 +80,12 @@ axiosClient.interceptors.response.use(
 
 
         /*
-         * Only expired/invalid authentication.
+         * Only handle 401.
          */
         if (
             status !== 401 ||
             originalRequest?._retry
         ) {
-
-            return Promise.reject(error);
-        }
-
-
-        /*
-         * Never refresh the refresh request itself.
-         */
-        if (
-            originalRequest.url
-                ?.includes("/auth/refresh")
-        ) {
-
-            localStorage.removeItem(
-                "accessToken"
-            );
-
-            window.location.href =
-                "/login?reason=session-expired";
 
             return Promise.reject(error);
         }
@@ -90,13 +97,12 @@ axiosClient.interceptors.response.use(
         try {
 
             /*
-             * If another request is already
-             * refreshing, reuse that request.
+             * Only one refresh request at a time.
              */
             if (!refreshPromise) {
 
                 refreshPromise =
-                    axiosClient
+                    refreshClient
                         .post("/auth/refresh")
                         .finally(() => {
 
@@ -136,9 +142,7 @@ axiosClient.interceptors.response.use(
         } catch (refreshError) {
 
             /*
-             * Refresh token is also invalid/expired.
-             *
-             * User must login again.
+             * Refresh token expired/invalid.
              */
             localStorage.removeItem(
                 "accessToken"
