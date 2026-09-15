@@ -16,7 +16,50 @@ import ChangePassword from "./pages/ChangePassword";
 import Todos from "./pages/Todos";
 import Header from "./components/Header";
 
+import QuestionsPage from "./pages/QuestionsPage";
+import TagsPage from "./pages/TagsPage";
+
+import { exportAllData } from "./services/exportService";
+
 export default function App() {
+
+    const handleExport = async () => {
+
+        try {
+
+            const blob = await exportAllData();
+
+            const url =
+                window.URL.createObjectURL(blob);
+
+            const link =
+                document.createElement("a");
+
+            link.href = url;
+
+            link.download =
+                "question-bank.json";
+
+            document.body.appendChild(link);
+
+            link.click();
+
+            link.remove();
+
+            window.URL.revokeObjectURL(url);
+
+        } catch (error) {
+
+            console.error(
+                "Export failed:",
+                error
+            );
+
+            alert(
+                "Failed to export questions and tags."
+            );
+        }
+    };
 
     return (
         <BrowserRouter>
@@ -57,6 +100,16 @@ export default function App() {
                             path="/todos"
                             element={<Todos />}
                         />
+
+                        <Route
+                        path="/questions"
+                        element={<QuestionsPage />}
+                    />
+
+                    <Route
+                        path="/tags"
+                        element={<TagsPage />}
+                    />
 
                     </Route>
 
