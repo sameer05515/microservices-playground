@@ -17,7 +17,7 @@ import {
     getTags,
 } from "../services/tagService";
 
-import "./QuestionsPage.css";
+// import "./QuestionsPage.css";
 
 function App() {
 

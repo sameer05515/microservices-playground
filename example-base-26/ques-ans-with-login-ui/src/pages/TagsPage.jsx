@@ -10,7 +10,7 @@ import {
     deleteTag,
 } from "../services/tagService";
 
-import "./QuestionsPage.css";
+// import "./QuestionsPage.css";
 
 function TagsPage() {
 
