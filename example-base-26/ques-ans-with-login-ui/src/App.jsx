@@ -14,6 +14,7 @@ import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
 import ChangePassword from "./pages/ChangePassword";
 import Todos from "./pages/Todos";
+import Header from "./components/Header";
 
 export default function App() {
 
@@ -22,7 +23,11 @@ export default function App() {
 
             <AuthProvider>
 
+                <Header />
+
                 <Routes>
+
+
 
                     {/* Public */}
                     <Route

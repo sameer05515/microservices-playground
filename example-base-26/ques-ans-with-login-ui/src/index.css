@@ -169,3 +169,78 @@ body {
 .todo-item button {
     cursor: pointer;
 }
+
+
+/**===========================*/
+
+.app-header {
+    height: 64px;
+
+    display: flex;
+    align-items: center;
+
+    padding: 0 24px;
+
+    background: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.app-logo {
+    font-size: 22px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    margin-right: 40px;
+}
+
+.app-nav {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+
+    flex: 1;
+}
+
+.nav-link {
+    text-decoration: none;
+
+    color: #6b7280;
+
+    font-size: 15px;
+    font-weight: 500;
+
+    padding: 8px 4px;
+}
+
+.nav-link:hover {
+    color: #111827;
+}
+
+.nav-link.active {
+    color: #2563eb;
+}
+
+.logout-button {
+    border: none;
+
+    padding: 8px 16px;
+
+    border-radius: 6px;
+
+    background: #ef4444;
+    color: white;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    cursor: pointer;
+}
+
+.logout-button:hover {
+    background: #dc2626;
+}
