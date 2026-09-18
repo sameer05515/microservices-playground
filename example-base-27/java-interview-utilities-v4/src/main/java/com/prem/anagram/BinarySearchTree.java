@@ -1,0 +1,2 @@
+package com.prem.anagram;
+public class BinarySearchTree {public static class Node{public int data;public Node left,right;public Node(int d){data=d;}}public static Node insert(Node r,int x){if(r==null)return new Node(x);if(x<r.data)r.left=insert(r.left,x);else if(x>r.data)r.right=insert(r.right,x);return r;}public static boolean search(Node r,int x){while(r!=null){if(r.data==x)return true;r=x<r.data?r.left:r.right;}return false;}}

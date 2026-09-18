@@ -1,0 +1,2 @@
+package com.prem.anagram;
+public class BuilderPattern {public static class User{private final String name;private final int age;private User(Builder b){name=b.name;age=b.age;}public String getName(){return name;}public int getAge(){return age;}public static class Builder{private String name;private int age;public Builder name(String n){name=n;return this;}public Builder age(int a){age=a;return this;}public User build(){return new User(this);}}}}

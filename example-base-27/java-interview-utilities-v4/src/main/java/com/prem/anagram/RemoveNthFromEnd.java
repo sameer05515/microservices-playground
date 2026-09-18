@@ -1,0 +1,2 @@
+package com.prem.anagram;
+public class RemoveNthFromEnd { public static class Node{public int data;public Node next;public Node(int d){data=d;}} public static Node remove(Node head,int n){Node dummy=new Node(0);dummy.next=head;Node fast=dummy,slow=dummy;for(int i=0;i<n;i++){if(fast.next==null)return head;fast=fast.next;}while(fast.next!=null){fast=fast.next;slow=slow.next;}slow.next=slow.next.next;return dummy.next;} }
