@@ -22,7 +22,7 @@ const sortRows=(rows,key,dir)=>[...rows].sort((a,b)=>{
 
 function App(){
  const [path,setPath]=useState('');
- const [ignoredFolders,setIgnoredFolders]=useState(['.git','node_modules','.idea']);
+ const [ignoredFolders,setIgnoredFolders]=useState(['.git','node_modules','.idea','.mvn','venv','target']);
  const [ignoreInput,setIgnoreInput]=useState('');
  const [job,setJob]=useState(null),[loading,setLoading]=useState(false),[error,setError]=useState('');
  const [page,setPage]=useState(0),[rowsPerPage,setRowsPerPage]=useState(10);
