@@ -1,0 +1,4 @@
+body { margin: 0; background: #f6f8fb; }
+.group-header { padding: 18px; cursor: pointer; }
+.group-header:hover { background: #f8fafc; }
+.path-cell { word-break: break-all; min-width: 280px; }
