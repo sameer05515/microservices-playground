@@ -1,0 +1,5 @@
+import Empty from './Empty'
+
+function History({ items, onRefresh }) { return <section className="card"><div className="section-title"><div><h1>Execution History</h1><p>Request, response, failure and timing logs.</p></div><button onClick={onRefresh}>Refresh</button></div><div className="history">{items.map(x => <article className="history-row" key={x.id}><div className="service-head"><strong>{x.serviceName}</strong><span className={x.status === 'SUCCESS' ? 'badge ok' : 'badge fail'}>{x.status}</span></div><div className="muted">{x.endpointPath} · {x.className}.{x.methodName} · {x.executionTimeMs} ms · {x.executedAt ? new Date(x.executedAt).toLocaleString() : ''}</div><div className="log-grid"><div><h4>Request</h4><pre>{JSON.stringify(x.requestArguments ?? [],null,2)}</pre></div><div><h4>{x.status === 'SUCCESS' ? 'Response' : 'Error'}</h4><pre>{x.status === 'SUCCESS' ? JSON.stringify(x.response,null,2) : x.errorMessage}</pre></div></div></article>)}{!items.length && <Empty text="No executions recorded yet." />}</div></section> }
+
+export default History
