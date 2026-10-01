@@ -1,0 +1,1 @@
+feat: expose JavaServices as configurable REST endpoints

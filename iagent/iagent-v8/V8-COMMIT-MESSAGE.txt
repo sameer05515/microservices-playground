@@ -1,0 +1,9 @@
+feat: add database connections and DbServices
+
+- add Add Connection tab with JDBC connection testing
+- persist tested database connection metadata in MongoDB
+- add DbServices tab for reusable SQL queries
+- persist DbService definitions in MongoDB
+- execute saved DbServices against configured databases
+- return query rows/columns or update counts
+- include MySQL and PostgreSQL JDBC drivers
