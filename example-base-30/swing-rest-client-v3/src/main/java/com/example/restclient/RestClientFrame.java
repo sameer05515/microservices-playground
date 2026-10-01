@@ -1,0 +1,83 @@
+package com.example.restclient;
+
+import com.fasterxml.jackson.databind.*;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.text.JTextComponent;
+import java.awt.*;
+import java.awt.datatransfer.StringSelection;
+import java.net.URI;
+import java.net.http.*;
+import java.nio.charset.StandardCharsets;
+import java.time.Duration;
+import java.util.*;
+import java.util.List;
+
+public class RestClientFrame extends JFrame {
+ private final JComboBox<String> method=new JComboBox<>(new String[]{"GET","POST","PUT","PATCH","DELETE"});
+ private final JComboBox<String> auth=new JComboBox<>(new String[]{"No Auth","Bearer Token","Basic Auth","OAuth2 Bearer Token"});
+ private final JComboBox<String> env=new JComboBox<>(new String[]{"local","dev","prod"});
+ private final JTextField url=new JTextField("{{baseUrl}}/todos/1");
+ private final JTextField token=new JTextField(), user=new JTextField(), clientId=new JTextField(), clientSecret=new JTextField(), tokenUrl=new JTextField();
+ private final JPasswordField password=new JPasswordField();
+ private final DefaultTableModel params=model(), headers=model();
+ private final JTable paramTable=new JTable(params), headerTable=new JTable(headers);
+ private final JTextArea body=new JTextArea(), response=new JTextArea(), raw=new JTextArea();
+ private final DefaultListModel<String> history=new DefaultListModel<>(), collectionNames=new DefaultListModel<>();
+ private final JList<String> historyList=new JList<>(history), collectionList=new JList<>(collectionNames);
+ private final Map<String,Map<String,String>> environments=new LinkedHashMap<>();
+ private final List<RequestData> collections=new ArrayList<>();
+ private final ObjectMapper mapper=new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
+ private final HttpClient http=HttpClient.newBuilder().connectTimeout(Duration.ofSeconds(15)).followRedirects(HttpClient.Redirect.NORMAL).build();
+ private final JLabel status=new JLabel("Ready"), time=new JLabel("-"), bytes=new JLabel("-");
+ private boolean dark=false;
+
+ public RestClientFrame(){
+  setTitle("Swing REST Client V3");setDefaultCloseOperation(EXIT_ON_CLOSE);setSize(1400,850);setMinimumSize(new Dimension(1050,650));setLocationRelativeTo(null);
+  setIconImage(icon()); initEnv(); build();
+  params.addRow(new Object[]{true,"userId","1"});headers.addRow(new Object[]{true,"Accept","application/json"});
+ }
+ private DefaultTableModel model(){return new DefaultTableModel(new Object[]{"Enabled","Key","Value"},0){public Class<?> getColumnClass(int c){return c==0?Boolean.class:String.class;}};}
+ private void initEnv(){environments.put("local",new LinkedHashMap<>(Map.of("baseUrl","http://localhost:8080","token","")));environments.put("dev",new LinkedHashMap<>(Map.of("baseUrl","https://dev.example.com","token","")));environments.put("prod",new LinkedHashMap<>(Map.of("baseUrl","https://api.example.com","token","")));}
+ private Image icon(){java.awt.image.BufferedImage i=new java.awt.image.BufferedImage(64,64,java.awt.image.BufferedImage.TYPE_INT_ARGB);Graphics2D g=i.createGraphics();g.setColor(new Color(25,118,210));g.fillRoundRect(2,2,60,60,15,15);g.setColor(Color.WHITE);g.setFont(new Font("Monospaced",Font.BOLD,25));g.drawString("{ }",8,39);g.dispose();return i;}
+ private void build(){JPanel r=new JPanel(new BorderLayout(8,8));r.setBorder(new EmptyBorder(8,8,8,8));setContentPane(r);r.add(top(),BorderLayout.NORTH);JSplitPane s=new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,side(),work());s.setDividerLocation(270);r.add(s,BorderLayout.CENTER);r.add(bar(),BorderLayout.SOUTH);}
+ private JPanel top(){
+  JPanel p=new JPanel(new BorderLayout(8,8));JLabel title=new JLabel("  Swing REST Client V3");title.setFont(new Font("SansSerif",Font.BOLD,18));
+  JPanel mid=new JPanel(new FlowLayout(FlowLayout.LEFT,5,0));mid.add(new JLabel("Environment:"));mid.add(env);JButton ee=new JButton("Edit Environments");ee.addActionListener(e->editEnv());mid.add(ee);JButton th=new JButton("Toggle Theme");th.addActionListener(e->theme());mid.add(th);
+  JPanel a=new JPanel(new FlowLayout(FlowLayout.RIGHT,5,0));JButton send=new JButton("Send");send.addActionListener(e->send());JButton save=new JButton("Save");save.addActionListener(e->save());JButton ex=new JButton("Export");ex.addActionListener(e->exportCol());JButton im=new JButton("Import");im.addActionListener(e->importCol());JButton cp=new JButton("Copy Response");cp.addActionListener(e->copy(response.getText()));a.add(send);a.add(save);a.add(ex);a.add(im);a.add(cp);p.add(title,BorderLayout.WEST);p.add(mid,BorderLayout.CENTER);p.add(a,BorderLayout.EAST);return p;
+ }
+ private JComponent side(){JTabbedPane t=new JTabbedPane();JPanel h=new JPanel(new BorderLayout(5,5));h.add(new JScrollPane(historyList));JButton c=new JButton("Clear History");c.addActionListener(e->history.clear());h.add(c,BorderLayout.SOUTH);JPanel s=new JPanel(new BorderLayout(5,5));s.add(new JScrollPane(collectionList));collectionList.addListSelectionListener(e->{if(!e.getValueIsAdjusting())load(collectionList.getSelectedIndex());});JButton rm=new JButton("Remove");rm.addActionListener(e->{int i=collectionList.getSelectedIndex();if(i>=0){collectionNames.remove(i);collections.remove(i);}});s.add(rm,BorderLayout.SOUTH);t.addTab("History",h);t.addTab("Collections",s);return t;}
+ private JComponent work(){JPanel p=new JPanel(new BorderLayout(6,6));JPanel l=new JPanel(new BorderLayout(5,5));method.setPreferredSize(new Dimension(100,34));l.add(method,BorderLayout.WEST);l.add(url,BorderLayout.CENTER);JButton b=new JButton("Send");b.addActionListener(e->send());l.add(b,BorderLayout.EAST);p.add(l,BorderLayout.NORTH);JSplitPane s=new JSplitPane(JSplitPane.VERTICAL_SPLIT,requestTabs(),responseTabs());s.setResizeWeight(.42);p.add(s);return p;}
+ private JComponent requestTabs(){JTabbedPane t=new JTabbedPane();t.addTab("Query Params",tableTab(paramTable,params));t.addTab("Headers",tableTab(headerTable,headers));body.setFont(new Font(Font.MONOSPACED,Font.PLAIN,14));body.setText("{\n  \"title\": \"Learn Spring Boot\",\n  \"completed\": false\n}");t.addTab("Body",new JScrollPane(body));t.addTab("Authorization",authTab());return t;}
+ private JPanel tableTab(JTable table,DefaultTableModel m){JPanel p=new JPanel(new BorderLayout(5,5));table.setRowHeight(27);p.add(new JScrollPane(table));JPanel b=new JPanel(new FlowLayout(FlowLayout.LEFT));JButton a=new JButton("+ Add");a.addActionListener(e->m.addRow(new Object[]{true,"",""}));JButton d=new JButton("- Remove");d.addActionListener(e->{int i=table.getSelectedRow();if(i>=0)m.removeRow(i);});b.add(a);b.add(d);p.add(b,BorderLayout.SOUTH);return p;}
+ private JPanel authTab(){JPanel p=new JPanel(new GridBagLayout());GridBagConstraints c=new GridBagConstraints();c.insets=new Insets(4,7,4,7);c.fill=GridBagConstraints.HORIZONTAL;c.weightx=1;String[] labels={"Auth Type","Bearer / OAuth2 Token","Username","Password","OAuth Client ID","OAuth Client Secret","OAuth Token URL"};JComponent[] fields={auth,token,user,password,clientId,clientSecret,tokenUrl};for(int i=0;i<labels.length;i++){c.gridx=0;c.gridy=i;p.add(new JLabel(labels[i]),c);c.gridx=1;p.add(fields[i],c);}JButton et=new JButton("Use Environment Token");et.addActionListener(e->token.setText(environments.get(env.getSelectedItem()).getOrDefault("token","")));c.gridx=1;c.gridy=labels.length;p.add(et,c);return p;}
+ private JComponent responseTabs(){JTabbedPane t=new JTabbedPane();response.setEditable(false);raw.setEditable(false);response.setFont(new Font(Font.MONOSPACED,Font.PLAIN,14));raw.setFont(new Font(Font.MONOSPACED,Font.PLAIN,13));t.addTab("Pretty JSON",new JScrollPane(response));t.addTab("Raw",new JScrollPane(raw));return t;}
+ private JPanel bar(){JPanel p=new JPanel(new FlowLayout(FlowLayout.LEFT,15,2));p.add(new JLabel("Status:"));p.add(status);p.add(new JLabel("Time:"));p.add(time);p.add(new JLabel("Size:"));p.add(bytes);return p;}
+ private Map<String,String> vals(DefaultTableModel m){Map<String,String>x=new LinkedHashMap<>();for(int i=0;i<m.getRowCount();i++)if(Boolean.TRUE.equals(m.getValueAt(i,0))){String k=String.valueOf(m.getValueAt(i,1)).trim(),v=String.valueOf(m.getValueAt(i,2)).trim();if(!k.isBlank())x.put(k,v);}return x;}
+ private String resolve(String s){Map<String,String>v=environments.get(env.getSelectedItem());if(v!=null)for(var e:v.entrySet())s=s.replace("{{"+e.getKey()+"}}",e.getValue());return s;}
+ private String finalUrl(){String u=resolve(url.getText().trim());Map<String,String>q=vals(params);if(q.isEmpty())return u;StringBuilder x=new StringBuilder(u.contains("?")?"&":"?");for(var e:q.entrySet()){if(x.length()>1)x.append('&');x.append(java.net.URLEncoder.encode(e.getKey(),StandardCharsets.UTF_8)).append('=').append(java.net.URLEncoder.encode(resolve(e.getValue()),StandardCharsets.UTF_8));}return u+x;}
+ private void send(){
+  String m=""+method.getSelectedItem(),u=finalUrl();if(!u.startsWith("http://")&&!u.startsWith("https://")){JOptionPane.showMessageDialog(this,"URL must start with http:// or https://");return;}busy(true);
+  new SwingWorker<Result,Void>(){
+   protected Result doInBackground()throws Exception{long st=System.currentTimeMillis();HttpRequest.Builder b=HttpRequest.newBuilder().uri(URI.create(u)).timeout(Duration.ofSeconds(30));vals(headers).forEach((k,v)->b.header(k,resolve(v)));auth(b);String bd=resolve(body.getText());if(m.equals("GET")||m.equals("DELETE"))b.method(m,HttpRequest.BodyPublishers.noBody());else{if(!bd.isBlank())b.header("Content-Type","application/json");b.method(m,bd.isBlank()?HttpRequest.BodyPublishers.noBody():HttpRequest.BodyPublishers.ofString(bd));}HttpResponse<String>r=http.send(b.build(),HttpResponse.BodyHandlers.ofString());return new Result(r.statusCode(),r.body(),System.currentTimeMillis()-st);}
+   protected void done(){try{Result r=get();status.setText(""+r.code);time.setText(r.ms+" ms");bytes.setText(r.body.getBytes(StandardCharsets.UTF_8).length+" bytes");raw.setText(r.body);response.setText(pretty(r.body));response.setCaretPosition(0);history.insertElementAt(m+"  "+u+"  ["+r.code+"]",0);if(history.size()>50)history.removeElementAt(50);}catch(Exception e){status.setText("ERROR");response.setText(e.getClass().getSimpleName()+": "+e.getMessage());}finally{busy(false);}}
+  }.execute();
+ }
+ private void auth(HttpRequest.Builder b){String a=""+auth.getSelectedItem();if(a.equals("Bearer Token")||a.equals("OAuth2 Bearer Token")){if(!token.getText().isBlank())b.header("Authorization","Bearer "+resolve(token.getText()));}else if(a.equals("Basic Auth")){String x=user.getText()+":"+new String(password.getPassword());b.header("Authorization","Basic "+Base64.getEncoder().encodeToString(x.getBytes(StandardCharsets.UTF_8)));}}
+ private String pretty(String x){try{return mapper.writeValueAsString(mapper.readTree(x));}catch(Exception e){return x;}}
+ private RequestData current(String n){return new RequestData(n,""+method.getSelectedItem(),url.getText(),vals(params),vals(headers),body.getText(),""+auth.getSelectedItem(),token.getText(),user.getText(),new String(password.getPassword()));}
+ private void save(){String n=JOptionPane.showInputDialog(this,"Request name:","Save Request",JOptionPane.PLAIN_MESSAGE);if(n==null||n.isBlank())return;collections.add(current(n));collectionNames.addElement(n);}
+ private void load(int i){if(i<0||i>=collections.size())return;RequestData r=collections.get(i);method.setSelectedItem(r.method);url.setText(r.url);fill(params,r.params);fill(headers,r.headers);body.setText(r.body);auth.setSelectedItem(r.authType);token.setText(r.token);user.setText(r.username);password.setText(r.password);}
+ private void fill(DefaultTableModel m,Map<String,String>x){m.setRowCount(0);x.forEach((k,v)->m.addRow(new Object[]{true,k,v}));}
+ private void exportCol(){JFileChooser c=new JFileChooser();if(c.showSaveDialog(this)!=JFileChooser.APPROVE_OPTION)return;try{mapper.writeValue(c.getSelectedFile(),collections);}catch(Exception e){JOptionPane.showMessageDialog(this,e.getMessage());}}
+ private void importCol(){JFileChooser c=new JFileChooser();if(c.showOpenDialog(this)!=JFileChooser.APPROVE_OPTION)return;try{RequestData[]a=mapper.readValue(c.getSelectedFile(),RequestData[].class);for(RequestData r:a){collections.add(r);collectionNames.addElement(r.name);}}catch(Exception e){JOptionPane.showMessageDialog(this,e.getMessage());}}
+ private void editEnv(){JTextArea a=new JTextArea(12,60);try{a.setText(mapper.writeValueAsString(environments));}catch(Exception ignored){}if(JOptionPane.showConfirmDialog(this,new JScrollPane(a),"Environments JSON",JOptionPane.OK_CANCEL_OPTION)==JOptionPane.OK_OPTION)try{Map<String,Map<String,String>>x=mapper.readValue(a.getText(),Map.class);environments.clear();x.forEach((k,v)->{Map<String,String>m=new LinkedHashMap<>();v.forEach((q,w)->m.put(q,String.valueOf(w)));environments.put(k,m);});env.removeAllItems();environments.keySet().forEach(env::addItem);}catch(Exception e){JOptionPane.showMessageDialog(this,"Invalid JSON: "+e.getMessage());}}
+ private void theme(){dark=!dark;Color b=dark?new Color(35,38,43):UIManager.getColor("Panel.background"),f=dark?Color.WHITE:Color.BLACK;theme(getContentPane(),b,f);repaint();}
+ private void theme(Component c,Color b,Color f){if(c instanceof JComponent j)j.setBackground(b);if(c instanceof JLabel l)l.setForeground(f);if(c instanceof JTextComponent t){t.setBackground(b);t.setForeground(f);}if(c instanceof Container x)for(Component q:x.getComponents())theme(q,b,f);}
+ private void copy(String x){Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(x),null);}
+ private void busy(boolean x){method.setEnabled(!x);url.setEnabled(!x);paramTable.setEnabled(!x);headerTable.setEnabled(!x);body.setEnabled(!x);status.setText(x?"Sending...":status.getText());setCursor(x?Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR):Cursor.getDefaultCursor());}
+ public static class RequestData{public String name,method,url,body,authType,token,username,password;public Map<String,String>params=new LinkedHashMap<>(),headers=new LinkedHashMap<>();public RequestData(){}public RequestData(String n,String m,String u,Map<String,String>p,Map<String,String>h,String b,String a,String t,String un,String pw){name=n;method=m;url=u;params=p;headers=h;body=b;authType=a;token=t;username=un;password=pw;}}
+ private record Result(int code,String body,long ms){}
+}
