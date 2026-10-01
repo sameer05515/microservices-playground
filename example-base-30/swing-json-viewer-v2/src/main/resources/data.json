@@ -1,0 +1,211 @@
+{
+  "companies": [
+    {
+      "id": "cmp-001",
+      "name": "Comviva ",
+      "industry": "Information Technology",
+      "location": "Gurugram",
+      "createdAt": "2026-09-30T05:00:00.000Z"
+    },
+    {
+      "id": "cmp-1790746377046-e9uxy",
+      "name": "Zycus Infotech Pvt Ltd",
+      "industry": "Information Technology",
+      "location": "Bangalore",
+      "createdAt": "2026-09-30T05:32:57.046Z"
+    },
+    {
+      "id": "cmp-1790746410335-rkipk",
+      "name": "EVC Ventures ",
+      "industry": "Information Technology",
+      "location": "Gurugram",
+      "createdAt": "2026-09-30T05:33:30.335Z"
+    },
+    {
+      "id": "cmp-1790746438087-3qtk7",
+      "name": "RSystems International Pvt Ltd",
+      "industry": "Information Technology",
+      "location": "Noida",
+      "createdAt": "2026-09-30T05:33:58.087Z"
+    },
+    {
+      "id": "cmp-1790746466036-9vbea",
+      "name": "Dhani Stocks Ltd. (formerly Indiabulls) ",
+      "industry": "Information Technology",
+      "location": "Gurugram",
+      "createdAt": "2026-09-30T05:34:26.036Z"
+    },
+    {
+      "id": "cmp-1790746495700-rjuwr",
+      "name": "Concentrix Daksh Services Pvt Ltd. ",
+      "industry": "Information Technology",
+      "location": "Gurugram",
+      "createdAt": "2026-09-30T05:34:55.700Z"
+    },
+    {
+      "id": "cmp-1790746528173-ocd7u",
+      "name": "Novelvox Software India Pvt Ltd",
+      "industry": "Information Technology",
+      "location": "Faridabad",
+      "createdAt": "2026-09-30T05:35:28.173Z"
+    },
+    {
+      "id": "cmp-1790746550269-vvmi8",
+      "name": "HCL Infosystems Ltd",
+      "industry": "Information Technology",
+      "location": "Noida",
+      "createdAt": "2026-09-30T05:35:50.269Z"
+    },
+    {
+      "id": "cmp-1790746574787-s0h9t",
+      "name": "GreenApple WebWare ",
+      "industry": "Information Technology",
+      "location": "New Delhi",
+      "createdAt": "2026-09-30T05:36:14.787Z"
+    }
+  ],
+  "projects": [
+    {
+      "id": "prj-001",
+      "companyId": "cmp-001",
+      "name": "Mobiquity One Issuing",
+      "description": "# mobiquity® Pay\r\n\r\n**mobiquity® Pay** is a flagship digital wallet and mobile money platform developed by **Comviva** that enables banks, businesses, and telecom operators to deliver comprehensive digital financial services.\r\n\r\n## Key Features and Capabilities\r\n\r\n### 💳 Digital Wallets & Stored Value\r\n\r\nPowers **white-label mobile wallets** linked to a mobile number or email, allowing both unbanked and banked users to securely store funds.\r\n\r\n### 📱 Omnichannel Payments\r\n\r\nSupports diverse payment modes, including:\r\n\r\n* QR Codes\r\n* NFC\r\n* USSD\r\n* Companion Cards\r\n* Online and offline retail payments\r\n\r\n### 💰 Micro-Financial Services\r\n\r\nProvides access to a range of financial services, including:\r\n\r\n* Savings\r\n* Micro-loans\r\n* Insurance\r\n* Instant bill payments\r\n\r\n### 🏢 Enterprise & Bulk Disbursements\r\n\r\nEnables governments and businesses to automate:\r\n\r\n* Salary credits\r\n* Cash subsidies\r\n* Relief-aid disbursements\r\n* Other bulk payments\r\n\r\n### 🔌 Open API & Cloud-Native Architecture\r\n\r\nBuilt using a **microservices-based architecture** with more than **1,000 open API integrations**, enabling connectivity with:\r\n\r\n* Third-party fintech ecosystems\r\n* Public cloud platforms\r\n* Private cloud platforms\r\n* External financial services\r\n\r\n---\r\n\r\n## 🌍 Global Scale and Impact\r\n\r\n| Metric                   | Scale                               |\r\n| ------------------------ | ----------------------------------- |\r\n| **Global Reach**         | Deployed across **45–50 countries** |\r\n| **Major Deployments**    | More than **60 deployments**        |\r\n| **Registered Consumers** | More than **140 million**           |\r\n| **Architecture**         | Cloud-native, microservices-based   |\r\n| **API Ecosystem**        | 1,000+ open API integrations        |\r\n\r\n### 🏆 Industry Recognition\r\n\r\nmobiquity® Pay has received industry recognition, including:\r\n\r\n* Consecutive wins at the **Juniper Research Future Digital Awards**\r\n* Inclusion in the **Gartner Market Guide for Digital Commerce Payment Platforms**\r\n\r\n---\r\n\r\n## 🔍 Areas for Further Details\r\n\r\nFurther information can be provided on:\r\n\r\n* **Technical Architecture & Deployment Models**\r\n* **Telecom Operator vs. Banking Use Cases**\r\n* **Merchant Integration Requirements**\r\n* **API & Integration Architecture**\r\n* **Cloud-Native Deployment**\r\n* **Microservices Architecture**\r\n",
+      "status": "IN_PROGRESS",
+      "startDate": "2026-09-01",
+      "endDate": "2026-12-31",
+      "createdAt": "2026-09-30T05:00:00.000Z"
+    },
+    {
+      "id": "prj-1790746902512-1hber",
+      "companyId": "cmp-1790746377046-e9uxy",
+      "name": "ESGLythouse",
+      "description": "# Lythouse\r\n\r\n### The ESG & Sustainability Platform\r\n\r\n**Lythouse** is an enterprise software platform designed to help **Chief Sustainability Officers (CSOs)** and global enterprises automate **sustainability reporting** and **risk management**.\r\n\r\nBacked by a landmark investment from **Zycus**, the platform provides several modular tools designed to address different aspects of ESG and sustainability management.\r\n\r\n---\r\n\r\n## 🌱 Key Modules\r\n\r\n### 1. Carbon Analyzer\r\n\r\nUses **AI-powered spend classification** to automatically:\r\n\r\n* Retrieve relevant sustainability data\r\n* Classify organizational spend\r\n* Calculate **Scope 1 emissions**\r\n* Calculate **Scope 2 emissions**\r\n* Calculate **Scope 3 emissions**\r\n\r\n---\r\n\r\n### 2. Green Supplier Network\r\n\r\nHelps organizations build and manage a more sustainable supply chain by enabling them to:\r\n\r\n* Discover sustainable suppliers\r\n* Evaluate supplier sustainability\r\n* Track supply-chain emissions\r\n* Improve supplier sustainability visibility\r\n\r\n---\r\n\r\n### 3. ESG Report Studio\r\n\r\nHelps organizations streamline their **ESG reporting and compliance** with global sustainability frameworks, including:\r\n\r\n* **CSRD** — Corporate Sustainability Reporting Directive\r\n* **GRI** — Global Reporting Initiative\r\n* **SASB** — Sustainability Accounting Standards Board\r\n* **TCFD** — Task Force on Climate-related Financial Disclosures\r\n\r\n---\r\n\r\n### 4. Goal Navigator\r\n\r\nHelps organizations manage their sustainability objectives by:\r\n\r\n* Aligning stakeholders around sustainability goals\r\n* Tracking progress against defined goals\r\n* Maintaining audit trails\r\n* Supporting transparency and accountability\r\n* Helping prevent **greenwashing**\r\n\r\n---\r\n\r\n## 🧩 Platform Overview\r\n\r\n```text\r\n                         Lythouse\r\n            ESG & Sustainability Platform\r\n                         │\r\n       ┌─────────────────┼─────────────────┐\r\n       │                 │                 │\r\n       ▼                 ▼                 ▼\r\n┌──────────────┐  ┌────────────────┐  ┌────────────────┐\r\n│    Carbon    │  │     Green      │  │      ESG       │\r\n│   Analyzer   │  │    Supplier    │  │ Report Studio  │\r\n│              │  │    Network     │  │                │\r\n└──────────────┘  └────────────────┘  └────────────────┘\r\n       │                 │                 │\r\n       │                 │                 │\r\n       └─────────────────┼─────────────────┘\r\n                         ▼\r\n                  ┌───────────────┐\r\n                  │ Goal Navigator│\r\n                  └───────────────┘\r\n                         │\r\n                         ▼\r\n             Sustainability Management\r\n```\r\n\r\n## 🎯 Core Purpose\r\n\r\nLythouse brings together **carbon management, sustainable procurement, ESG reporting, compliance, and sustainability goal management** into a modular enterprise platform.\r\n",
+      "status": "COMPLETED",
+      "startDate": "2026-09-30",
+      "endDate": "2026-12-31",
+      "createdAt": "2026-09-30T05:41:42.512Z"
+    },
+    {
+      "id": "prj-1790746929080-yofp4",
+      "companyId": "cmp-1790746410335-rkipk",
+      "name": "IITD Admin",
+      "description": "For **IITD Admin**, I would describe your contribution like this:\r\n\r\n### IITD Admin — Key Contributions\r\n\r\n* Developed **REST APIs for the Admin module** using Java and Spring Boot.\r\n* Integrated the newly developed APIs with the **React.js frontend**.\r\n* Worked on backend–frontend integration, including API request/response handling and error handling.\r\n* Upgraded **Spring Security from 2.x to Spring Security 3.3.6**, adapting the existing security configuration and resolving compatibility changes introduced by the upgrade.\r\n\r\n### Interview version\r\n\r\nIn the IITD Admin project, I worked on both backend and frontend integration.\r\n\r\nOn the backend, I developed REST APIs for the Admin module using Java and Spring Boot. On the frontend, I integrated these APIs with the React application and handled the API request and response flows.\r\n\r\nOne of the major technical tasks I worked on was upgrading Spring Security from version 2.x to 3.3.6. This involved updating the existing security configuration and making the required changes to accommodate the newer Spring Security APIs and configuration approach.\r\n\r\nThis upgrade was particularly important because Spring Security 3.x introduced significant changes compared with the older configuration approach, so I had to identify and resolve the compatibility issues while ensuring that the existing authentication and authorization behavior continued to work.\r\n\r\n**Resume-style keywords:** `Java | Spring Boot | Spring Security 3.3.6 | REST API | React.js | API Integration | Security Upgrade`\r\n",
+      "status": "PLANNED",
+      "startDate": "",
+      "endDate": "",
+      "createdAt": "2026-09-30T05:42:09.080Z"
+    },
+    {
+      "id": "prj-1790746958828-dwcvp",
+      "companyId": "cmp-1790746438087-3qtk7",
+      "name": "Ephesoft Transact",
+      "description": "# Ephesoft Transact\r\n\r\n### Enterprise Intelligent Document Processing (IDP) Platform\r\n\r\n[**Ephesoft Transact**](https://ephesoft.com/) is an **enterprise Intelligent Document Processing (IDP) platform**—now part of Kofax/Tungsten Automation—that uses **AI and machine learning** to capture, classify, and extract data from unstructured digital and physical documents.\r\n\r\n---\r\n\r\n## 🚀 Core Capabilities\r\n\r\n### 1. 📄 Data Extraction\r\n\r\nEphesoft Transact uses advanced **OCR** and the proprietary **Semantik AI Engine** to extract information from complex documents.\r\n\r\nIt can process:\r\n\r\n* Printed text\r\n* Handwriting\r\n* Cursive text\r\n* Complex tables\r\n* Unstructured documents\r\n* Documents without rigid templates\r\n\r\n---\r\n\r\n### 2. ⚙️ Workflow Automation\r\n\r\nTransact manages a **6-step document processing pipeline**:\r\n\r\n```text\r\n1. Ingestion\r\n      ↓\r\n2. Image Processing\r\n      ↓\r\n3. Classification\r\n      ↓\r\n4. Data Extraction\r\n      ↓\r\n5. Validation\r\n      ↓\r\n6. Export\r\n```\r\n\r\nThis workflow enables organizations to automate document processing from initial ingestion through final data export.\r\n\r\n---\r\n\r\n### 3. ☁️ Flexible Deployment\r\n\r\nEphesoft Transact supports multiple deployment models:\r\n\r\n* **Cloud**\r\n* **On-Premises**\r\n* **Hybrid**\r\n\r\nThe platform provides:\r\n\r\n* Web-based accessibility\r\n* Open APIs\r\n* ERP integration\r\n* CRM integration\r\n* Enterprise system integration\r\n\r\n---\r\n\r\n### 4. 🏢 Key Use Cases\r\n\r\nEphesoft Transact can automate various document-intensive business processes, including:\r\n\r\n* **Invoice Processing**\r\n* **Customer Onboarding**\r\n* **Mailroom Automation**\r\n* **ID Verification**\r\n* Document classification and data extraction\r\n\r\n---\r\n\r\n## 🏗️ High-Level Processing Flow\r\n\r\n```text\r\n                 Documents\r\n                     │\r\n                     ▼\r\n              ┌─────────────┐\r\n              │  Ingestion  │\r\n              └──────┬──────┘\r\n                     ▼\r\n          ┌─────────────────────┐\r\n          │  Image Processing   │\r\n          └──────────┬──────────┘\r\n                     ▼\r\n              ┌─────────────┐\r\n              │Classification│\r\n              └──────┬──────┘\r\n                     ▼\r\n             ┌──────────────┐\r\n             │ Data Extract │\r\n             └──────┬───────┘\r\n                    ▼\r\n             ┌──────────────┐\r\n             │  Validation  │\r\n             └──────┬───────┘\r\n                    ▼\r\n             ┌──────────────┐\r\n             │    Export    │\r\n             └──────┬───────┘\r\n                    ▼\r\n          ERP / CRM / Enterprise\r\n               Applications\r\n```\r\n\r\n## 🎯 Business Value\r\n\r\nEphesoft Transact combines **AI, machine learning, OCR, document classification, and automated workflows** to transform unstructured documents into usable structured data and integrate that data with enterprise applications.\r\n",
+      "status": "PLANNED",
+      "startDate": "",
+      "endDate": "",
+      "createdAt": "2026-09-30T05:42:38.828Z"
+    },
+    {
+      "id": "prj-1790746982781-cn50n",
+      "companyId": "cmp-1790746466036-9vbea",
+      "name": "Shubhweb",
+      "description": "# Shubhweb\r\n\r\n### Indiabulls Securities Web Platform\r\n\r\n**Shubhweb** is a comprehensive **web-based trading platform** designed to provide users with a seamless digital trading experience.\r\n\r\nThe platform provides access to **real-time streaming market data**, advanced charting capabilities, and an intuitive, elegant user interface.\r\n\r\n## Key Capabilities\r\n\r\n* 📈 **Real-Time Market Data**\r\n\r\n  * Streaming market data\r\n  * Live market updates\r\n  * Real-time trading information\r\n\r\n* 📊 **Advanced Charts**\r\n\r\n  * Interactive financial charts\r\n  * Market trend visualization\r\n  * Technical analysis support\r\n\r\n* 💻 **Web-Based Trading**\r\n\r\n  * Browser-based trading experience\r\n  * User-friendly trading interface\r\n  * Responsive web application\r\n\r\n* 🎨 **Modern User Experience**\r\n\r\n  * Elegant and intuitive UI\r\n  * Easy navigation\r\n  * Designed for a smooth trading workflow\r\n\r\n## Platform Overview\r\n\r\n```text\r\n                 Shubhweb\r\n                    │\r\n        Indiabulls Securities\r\n         Web Trading Platform\r\n                    │\r\n        ┌───────────┼───────────┐\r\n        │           │           │\r\n        ▼           ▼           ▼\r\n   Market Data   Advanced    Trading\r\n    Streaming     Charts      Features\r\n        │           │           │\r\n        └───────────┼───────────┘\r\n                    ▼\r\n             Web Application\r\n                    │\r\n                    ▼\r\n               End Users\r\n```\r\n\r\n## 🎯 Objective\r\n\r\nThe platform aims to provide a **modern, responsive, and feature-rich online trading experience** by combining real-time market information, advanced visualization, and an elegant web interface.\r\n",
+      "status": "PLANNED",
+      "startDate": "",
+      "endDate": "",
+      "createdAt": "2026-09-30T05:43:02.781Z"
+    },
+    {
+      "id": "prj-1790747014974-brto7",
+      "companyId": "cmp-1790746495700-rjuwr",
+      "name": "Zetta",
+      "description": "# Zetta\r\n\r\n### Concentrix\r\n\r\nI worked on the **Zetta project at Concentrix for approximately 4.5 years**, contributing to backend API development, frontend integration, CI/CD, cloud storage, and automated testing.\r\n\r\n## Key Contributions\r\n\r\n* **REST API Development**\r\n\r\n  * Designed and developed REST APIs using Java and Spring Boot.\r\n  * Implemented business logic and backend services based on project requirements.\r\n\r\n* **React Frontend Integration**\r\n\r\n  * Integrated backend APIs with the **React.js frontend**.\r\n  * Worked closely with frontend components to ensure smooth API communication and data flow.\r\n\r\n* **Jenkins Configuration**\r\n\r\n  * Configured **Jenkins** for the project.\r\n  * Supported automated build and deployment workflows through CI/CD pipelines.\r\n\r\n* **AWS S3 Integration**\r\n\r\n  * Developed functionality to **upload data/files to Amazon S3**.\r\n  * Integrated the application with AWS S3 for cloud-based data storage.\r\n\r\n* **Unit Testing**\r\n\r\n  * Developed **unit test cases** for backend functionality.\r\n  * Validated APIs and business logic through automated tests.\r\n\r\n## Technology Stack\r\n\r\n```text\r\nJava\r\nSpring Boot\r\nREST APIs\r\nReact.js\r\nJenkins\r\nAWS S3\r\nJUnit\r\n```\r\n\r\n## High-Level Architecture\r\n\r\n```text\r\n                  ┌─────────────────────┐\r\n                  │     React.js        │\r\n                  │      Frontend       │\r\n                  └──────────┬──────────┘\r\n                             │\r\n                             │ REST APIs\r\n                             ▼\r\n                  ┌─────────────────────┐\r\n                  │   Spring Boot       │\r\n                  │     Backend         │\r\n                  └──────────┬──────────┘\r\n                             │\r\n                  ┌──────────┴──────────┐\r\n                  │                     │\r\n                  ▼                     ▼\r\n          ┌──────────────┐       ┌──────────────┐\r\n          │   Business   │       │   AWS S3     │\r\n          │    Logic     │       │ File Storage │\r\n          └──────────────┘       └──────────────┘\r\n\r\n                  ┌─────────────────────┐\r\n                  │       Jenkins       │\r\n                  │    CI/CD Pipeline   │\r\n                  └─────────────────────┘\r\n```\r\n\r\n## Role & Responsibilities\r\n\r\n* Backend API development\r\n* React.js API integration\r\n* Jenkins CI/CD configuration\r\n* AWS S3 integration and data upload\r\n* Unit test development\r\n* Debugging and maintenance of application features\r\n\r\n## Project Experience\r\n\r\n**Duration:** Approximately 4.5 years\r\n**Organization:** Concentrix\r\n**Project:** Zetta\r\n",
+      "status": "PLANNED",
+      "startDate": "",
+      "endDate": "",
+      "createdAt": "2026-09-30T05:43:34.974Z"
+    },
+    {
+      "id": "prj-1790747031279-15ulz",
+      "companyId": "cmp-1790746528173-ocd7u",
+      "name": "iAgent",
+      "description": "# iAgent\r\n\r\n### Novelvox\r\n\r\nI worked on the **iAgent project at Novelvox**, primarily contributing to backend API development and React.js frontend integration. The project involved building APIs that enabled users to dynamically work with Java JAR files, inspect Java classes and methods, create Java services, and configure JDBC connections.\r\n\r\n## Key Contributions\r\n\r\n* **JAR File Upload**\r\n\r\n  * Developed APIs to upload **Java JAR files to the server**.\r\n  * Implemented server-side processing of uploaded JAR files.\r\n\r\n* **Java Class Discovery**\r\n\r\n  * Developed APIs to retrieve **all public classes** available within an uploaded JAR file.\r\n  * Enabled users to select and inspect classes dynamically.\r\n\r\n* **Java Method Discovery**\r\n\r\n  * Developed APIs to retrieve **public methods** of a selected Java class.\r\n  * Exposed method information required for subsequent service creation.\r\n\r\n* **JavaService Creation**\r\n\r\n  * Developed functionality to create a **JavaService from a selected Java method**.\r\n  * Integrated the complete flow from JAR upload → class selection → method selection → JavaService creation.\r\n\r\n* **JDBC Connection Management**\r\n\r\n  * Developed APIs to create a **new JDBC connection** using connection details provided by the user.\r\n  * Supported dynamic database connection configuration.\r\n\r\n* **React.js UI Development**\r\n\r\n  * Developed React.js UI components for integrating and consuming the backend APIs.\r\n  * Created UI flows for JAR upload, class selection, method selection, JavaService creation, and JDBC configuration.\r\n\r\n## High-Level Workflow\r\n\r\n```text\r\n                 ┌─────────────────────┐\r\n                 │      React.js       │\r\n                 │         UI          │\r\n                 └──────────┬──────────┘\r\n                            │\r\n                       REST APIs\r\n                            │\r\n                            ▼\r\n                 ┌─────────────────────┐\r\n                 │    iAgent Backend   │\r\n                 └──────────┬──────────┘\r\n                            │\r\n          ┌─────────────────┼─────────────────┐\r\n          │                 │                 │\r\n          ▼                 ▼                 ▼\r\n   ┌─────────────┐   ┌─────────────┐   ┌─────────────┐\r\n   │ JAR Upload  │   │ Class/Method│   │    JDBC     │\r\n   │             │   │ Discovery   │   │ Connection  │\r\n   └──────┬──────┘   └──────┬──────┘   └─────────────┘\r\n          │                 │\r\n          ▼                 ▼\r\n   ┌─────────────┐   ┌─────────────┐\r\n   │ Uploaded JAR│   │ JavaService  │\r\n   │   on Server │   │   Creation   │\r\n   └─────────────┘   └─────────────┘\r\n```\r\n\r\n## Key Functional Flow\r\n\r\n```text\r\nUpload JAR\r\n    │\r\n    ▼\r\nDiscover Public Classes\r\n    │\r\n    ▼\r\nSelect Java Class\r\n    │\r\n    ▼\r\nDiscover Public Methods\r\n    │\r\n    ▼\r\nSelect Method\r\n    │\r\n    ▼\r\nCreate JavaService\r\n```\r\n\r\n## Technology Stack\r\n\r\n```text\r\nJava\r\nSpring Boot / REST APIs\r\nReact.js\r\nJava Reflection / JAR Processing\r\nJDBC\r\n```\r\n\r\n## Role & Responsibilities\r\n\r\n* REST API development\r\n* Java JAR file processing\r\n* Public class and method discovery\r\n* JavaService creation\r\n* JDBC connection configuration\r\n* React.js UI development\r\n* Backend API and frontend integration\r\n* End-to-end feature implementation\r\n",
+      "status": "PLANNED",
+      "startDate": "",
+      "endDate": "",
+      "createdAt": "2026-09-30T05:43:51.279Z"
+    },
+    {
+      "id": "prj-1790747056398-cbt0x",
+      "companyId": "cmp-1790746550269-vvmi8",
+      "name": "CIPA/Ciprus",
+      "description": "",
+      "status": "PLANNED",
+      "startDate": "",
+      "endDate": "",
+      "createdAt": "2026-09-30T05:44:16.398Z"
+    },
+    {
+      "id": "prj-1790747081428-fl54h",
+      "companyId": "cmp-1790746574787-s0h9t",
+      "name": "OSCART",
+      "description": "",
+      "status": "PLANNED",
+      "startDate": "",
+      "endDate": "",
+      "createdAt": "2026-09-30T05:44:41.428Z"
+    }
+  ],
+  "projectDetails": [
+    {
+      "id": "dtl-001",
+      "projectId": "prj-001",
+      "technology": "Java, Spring Boot, React",
+      "teamSize": 20,
+      "budget": 1500000,
+      "clientName": "Comviva",
+      "notes": "This is useful for your **Mobiquity One Issuing** project description. Based on what you provided, I would frame your personal contribution separately from the overall product capabilities.\r\n\r\n### Mobiquity One Issuing — Your Contribution\r\n\r\n**Project:** Mobiquity One Issuing\r\n**Company:** Comviva\r\n**Role:** Senior Technical Lead / Java Full Stack Developer\r\n\r\n**Key responsibilities:**\r\n\r\n* Developed and enhanced **REST APIs** for the Mobiquity One Issuing platform.\r\n* Worked on **Java / Spring Boot** based backend development.\r\n* Implemented **Redis** for distributed caching and performance optimization.\r\n* Wrote **JUnit test cases** for backend components and APIs.\r\n* Used **Cursor AI** as a development assistant for generating, improving, and reviewing JUnit test cases and development code.\r\n* Worked in a **microservices-based architecture**.\r\n* Worked with API-level business logic and integration requirements.\r\n* Participated in debugging, code enhancement, testing, and maintenance activities.\r\n\r\n### Interview-ready explanation\r\n\r\nIf an interviewer asks:\r\n\r\n> **\"Tell me about your work on Mobiquity One Issuing.\"**\r\n\r\nYou can say:\r\n\r\nI worked on the Mobiquity One Issuing project at Comviva, which is part of the Mobiquity digital financial services platform.\r\n\r\nMy primary responsibilities were backend development, API development, Redis implementation, and unit testing.\r\n\r\nI worked mainly with Java and Spring Boot to develop and enhance REST APIs. I also worked on Redis-based caching to improve application performance and reduce unnecessary database calls.\r\n\r\nAnother important part of my work was writing JUnit test cases for the APIs and service-layer components. I used Cursor as an AI-assisted development tool to help generate and improve test cases, while I reviewed and validated the generated code based on the project's business logic and existing codebase.\r\n\r\nThe application follows a microservices-oriented architecture, so I also had to consider API contracts, service-to-service communication, caching, error handling, and testability while making changes.\r\n\r\nOverall, my work involved taking requirements, implementing backend APIs, optimizing selected flows using Redis, and ensuring the changes were covered through unit tests.\r\n\r\n### One important interview point\r\n\r\nDon't say:\r\n\r\n> \"Cursor wrote my JUnit tests.\"\r\n\r\nInstead say:\r\n\r\n> **\"I used Cursor as an AI-assisted development tool to accelerate JUnit test development. I reviewed, modified, and validated the generated tests against the business requirements and existing implementation.\"**\r\n\r\nThat demonstrates that **you understand the code and testing**, rather than simply relying on an AI tool.\r\n",
+      "createdAt": "2026-09-30T05:00:00.000Z"
+    },
+    {
+      "id": "dtl-1790747649751-bsfeh",
+      "projectId": "prj-1790746902512-1hber",
+      "technology": "Java, Spring Boot, React",
+      "teamSize": 20,
+      "budget": 0,
+      "clientName": "Zycus",
+      "notes": "For **ESG Lighthouse at Zycus**, I would present your contribution like this:\r\n\r\n### ESG Lighthouse — Zycus\r\n\r\n**Key Contributions**\r\n\r\n* Developed **REST APIs** using Java and Spring Boot for the ESG Lighthouse application.\r\n* Integrated the backend APIs with the **React.js frontend**.\r\n* Implemented and integrated **Keycloak** for authentication and authorization.\r\n* Configured the application to use **OAuth 2.0 / OpenID Connect** based authentication through Keycloak.\r\n* Worked on securing backend APIs and controlling access based on authenticated users and authorization roles.\r\n\r\n### Interview version\r\n\r\nIn the ESG Lighthouse project at Zycus, I worked mainly on backend API development, React integration, and application security.\r\n\r\nI developed REST APIs using Java and Spring Boot and integrated those APIs with the React.js frontend.\r\n\r\nI also worked on integrating Keycloak for authentication and authorization. Keycloak was used as the identity and access management solution, while the backend APIs were secured using the authentication information provided through Keycloak.\r\n\r\nMy work involved both implementing the APIs and making sure that the frontend and backend worked correctly with the authentication and authorization flow.\r\n\r\nFor your overall **project experience**, you now have three strong areas to discuss:\r\n\r\n```text\r\nComviva\r\n└── Mobiquity One Issuing\r\n    ├── REST API Development\r\n    ├── Redis\r\n    └── JUnit + Cursor-assisted testing\r\n\r\nEVC Ventures\r\n└── IITD Admin\r\n    ├── REST API Development\r\n    ├── React Integration\r\n    └── Spring Security 2.x → 3.3.6\r\n\r\nZycus\r\n└── ESG Lighthouse\r\n    ├── REST API Development\r\n    ├── React Integration\r\n    └── Keycloak Authentication & Authorization\r\n```\r\n",
+      "createdAt": "2026-09-30T05:54:09.751Z"
+    },
+    {
+      "id": "dtl-1790757469773-ak7k2",
+      "projectId": "prj-1790746929080-yofp4",
+      "technology": "Java, Spring Boot, React",
+      "teamSize": 20,
+      "budget": 0,
+      "clientName": "IIT Delhi",
+      "notes": "Yes. Then the **IITD Admin** project description should be stronger because it demonstrates microservices and platform-level architecture, not just API development.\r\n\r\n### IITD Admin — Microservices Project\r\n\r\nThe IITD Admin application is a **microservices-based application** consisting of an API Gateway, Config Server, DB Login service, and five business microservices.\r\n\r\n### Key Contributions\r\n\r\n* Developed **REST APIs for the Admin module** using Java and Spring Boot.\r\n* Integrated the backend APIs with the **React.js frontend**.\r\n* Worked within a **microservices architecture consisting of 5 business microservices**.\r\n* Worked with the **API Gateway** for routing client requests to the appropriate microservices.\r\n* Worked with the **Config Server** for centralized configuration management across microservices.\r\n* Worked with the **DB Login service** as part of the application's authentication/login architecture.\r\n* Upgraded **Spring Security from 2.x to 3.3.6**, making the required security configuration and compatibility changes.\r\n* Worked on backend–frontend API integration and troubleshooting across the microservices environment.\r\n\r\n### Architecture you can explain in an interview\r\n\r\n```text\r\n                    ┌─────────────────┐\r\n                    │   React.js UI   │\r\n                    └────────┬────────┘\r\n                             │\r\n                             ▼\r\n                    ┌─────────────────┐\r\n                    │   API Gateway   │\r\n                    └────────┬────────┘\r\n                             │\r\n              ┌──────────────┼──────────────┐\r\n              │              │              │\r\n              ▼              ▼              ▼\r\n        ┌──────────┐   ┌──────────┐   ┌──────────┐\r\n        │ Service 1│   │ Service 2│   │ Service 3│\r\n        └──────────┘   └──────────┘   └──────────┘\r\n              │              │              │\r\n              ▼              ▼              ▼\r\n        ┌──────────┐   ┌──────────┐\r\n        │ Service 4│   │ Service 5│\r\n        └──────────┘   └──────────┘\r\n\r\n                    ▲\r\n                    │\r\n          ┌───────────────────┐\r\n          │   Config Server   │\r\n          │ Centralized Config│\r\n          └───────────────────┘\r\n\r\n          ┌───────────────────┐\r\n          │    DB Login       │\r\n          │ Login/Auth Flow   │\r\n          └───────────────────┘\r\n```\r\n\r\n### Strong interview answer\r\n\r\nI worked on the IITD Admin project, which follows a microservices architecture.\r\n\r\nThe application had an API Gateway, Config Server, a DB Login service, and five business microservices. The React frontend communicated with the backend through the API Gateway, which routed requests to the appropriate microservice.\r\n\r\nMy primary responsibility was developing REST APIs for the Admin module using Java and Spring Boot and integrating those APIs with the React frontend.\r\n\r\nI also worked on the application's Spring Security setup and upgraded Spring Security from the 2.x version to 3.3.6. During the upgrade, I made the required security configuration changes and resolved compatibility issues introduced by the newer Spring Security version.\r\n\r\nBecause the application consisted of multiple microservices, the development also involved understanding service boundaries, gateway routing, centralized configuration through Config Server, and communication between the frontend and backend services.\r\n\r\nThis gives you a good **system-design discussion point** in interviews: **React → API Gateway → 5 Microservices → DB**, with **Config Server** providing centralized configuration and **DB Login** handling the login-related flow.\r\n",
+      "createdAt": "2026-09-30T08:37:49.773Z"
+    },
+    {
+      "id": "dtl-1790757596234-9vun8",
+      "projectId": "prj-1790746958828-dwcvp",
+      "technology": "Java, Spring Boot, React",
+      "teamSize": 50,
+      "budget": 0,
+      "clientName": "RSystem",
+      "notes": "For **Ephesoft Transact**, I would describe your contribution like this:\r\n\r\n### Ephesoft Transact\r\n\r\n**Project Type:** Multi-module Java application\r\n**Frontend:** Angular\r\n\r\n### Key Contributions\r\n\r\n* Developed **REST APIs** for the application using Java.\r\n* Worked within a **multi-module Java project**, contributing to the relevant backend modules.\r\n* Worked with the **Angular frontend** as part of the overall application integration.\r\n* Developed **Python-based test cases** to validate application functionality.\r\n* Worked as a **Scrum Master**, facilitating Scrum ceremonies and coordinating the development team's activities.\r\n* Participated in sprint planning, daily stand-ups, sprint reviews, retrospectives, and tracking of sprint-level activities.\r\n\r\n### Interview version\r\n\r\nI worked on Ephesoft Transact, which is a multi-module Java application with an Angular frontend.\r\n\r\nMy primary development responsibility was to develop REST APIs on the Java backend. I worked within the existing multi-module structure and also collaborated around the Angular frontend integration.\r\n\r\nApart from Java development, I also worked on writing Python-based test cases for testing the application functionality.\r\n\r\nI also took responsibility as a Scrum Master for the team. In that role, I facilitated Scrum ceremonies such as daily stand-ups, sprint planning, sprint reviews and retrospectives, and helped coordinate the team's sprint activities and track progress.\r\n\r\nYour project experience is now shaping up nicely:\r\n\r\n```text\r\nComviva\r\n└── Mobiquity One Issuing\r\n    ├── Java / Spring Boot APIs\r\n    ├── Redis\r\n    └── JUnit + Cursor-assisted testing\r\n\r\nZycus\r\n└── ESG Lighthouse\r\n    ├── Java / Spring Boot APIs\r\n    ├── React Integration\r\n    └── Keycloak Authentication & Authorization\r\n\r\nIITD Admin\r\n└── Microservices\r\n    ├── API Gateway\r\n    ├── Config Server\r\n    ├── DB Login\r\n    ├── 5 Microservices\r\n    ├── REST APIs\r\n    ├── React Integration\r\n    └── Spring Security 2.x → 3.3.6\r\n\r\nEphesoft Transact\r\n└── Multi-module Java Application\r\n    ├── Java APIs\r\n    ├── Angular Frontend\r\n    ├── Python Test Cases\r\n    └── Scrum Master\r\n```\r\n",
+      "createdAt": "2026-09-30T08:39:56.234Z"
+    },
+    {
+      "id": "dtl-1790758589353-2vyfd",
+      "projectId": "prj-1790746982781-cn50n",
+      "technology": "Java, Spring Boot, React",
+      "teamSize": 30,
+      "budget": 0,
+      "clientName": "Dhani stocks",
+      "notes": "For **Shubhweb at Dhani Stocks**, I would position your role as both **hands-on developer and Team Lead**:\r\n\r\n### Shubhweb — Dhani Stocks\r\n\r\n**Key Contributions**\r\n\r\n* Developed **REST APIs** for the Shubhweb application.\r\n* Integrated the backend APIs with the **React.js frontend**.\r\n* Worked as a **Team Lead**, coordinating development activities and supporting the team in technical implementation.\r\n* **Mentored junior developers**, helping them understand requirements, coding practices, debugging, and development tasks.\r\n* Developed and maintained **unit test cases** to improve code quality and test coverage.\r\n* Participated in code reviews and provided technical guidance to team members.\r\n\r\n### Interview version\r\n\r\nI worked on the Shubhweb project at Dhani Stocks as a developer as well as a Team Lead.\r\n\r\nMy development responsibilities included creating REST APIs and integrating those APIs with the React.js frontend.\r\n\r\nAlong with development, I was responsible for leading the team technically. I mentored junior developers, helped them with implementation and debugging, and provided guidance during development.\r\n\r\nI also wrote unit test cases for the application to ensure that the implemented functionality was properly tested and to maintain code quality.\r\n\r\nSo my role in this project was a combination of hands-on development, technical leadership, mentoring, and testing.\r\n\r\nYour experience portfolio now has a good progression:\r\n\r\n```text\r\nShubhweb — Dhani Stocks\r\n│\r\n├── REST API Development\r\n├── React Integration\r\n├── Unit Testing\r\n├── Team Lead\r\n└── Junior Developer Mentoring\r\n```\r\n\r\nThis is especially useful for your **Team Lead / Technical Lead / Java Architect** profile because it shows that your experience wasn't limited to coding—you also had **technical leadership and mentoring responsibilities**.\r\n",
+      "createdAt": "2026-09-30T08:56:29.353Z"
+    }
+  ]
+}
