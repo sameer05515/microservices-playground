@@ -1,0 +1,14 @@
+services:
+  mongodb:
+    image: mongo:8
+    container_name: todo-mongodb
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: todo_db
+    volumes:
+      - todo_mongo_data:/data/db
+
+volumes:
+  todo_mongo_data:
