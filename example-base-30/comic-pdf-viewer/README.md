@@ -30,6 +30,8 @@ D:\comics
 ```powershell
 mvn clean compile
 mvn exec:java
+
+mvn exec:java "-Dexec.mainClass=com.comicviewer.Main"
 ```
 
 Or run:
