@@ -1,0 +1,1 @@
+feat: add JavaService execution history and enforce unique service names and endpoints

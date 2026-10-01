@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: iagent-backend
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/iagent
+      auto-index-creation: true
+server:
+  port: 8080
+spring.servlet:
+  multipart:
+    max-file-size: 100MB
+    max-request-size: 100MB
+iagent:
+  jar-storage-path: ./jar-storage
