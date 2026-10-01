@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<soapenv:Envelope
+    xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+    xmlns:arr="http://example.com/arithmetic">
+    <soapenv:Header/>
+    <soapenv:Body>
+        <arr:divideRequest>
+            <arr:a>100</arr:a>
+            <arr:b>4</arr:b>
+        </arr:divideRequest>
+    </soapenv:Body>
+</soapenv:Envelope>
