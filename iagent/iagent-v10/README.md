@@ -93,3 +93,7 @@ MongoDB: `mongodb://localhost:27017/iagent`
 
 ## JDBC support
 The backend includes MySQL and PostgreSQL JDBC drivers. The JDBC URL determines which driver is used. For another database, add that vendor's JDBC driver dependency to `backend/pom.xml`.
+
+### V10 MongoDB startup fix
+
+If upgrading from an earlier V8/V9 database, old `db_services` documents may contain `endpointPath: null`. MongoDB cannot create a normal unique index on that field when multiple existing documents contain null. V10 disables automatic MongoDB index creation for this reason and performs DbService name/endpoint uniqueness validation in the application layer. Existing DbService data is therefore preserved.

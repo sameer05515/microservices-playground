@@ -1,7 +1,6 @@
 package com.iagent.db.model;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.Instant;
@@ -11,8 +10,8 @@ import java.util.List;
 @Document(collection = "db_services")
 public class DbService {
     @Id private String id;
-    @Indexed(unique = true) private String serviceName;
-    @Indexed(unique = true) private String endpointPath;
+    private String serviceName;
+    private String endpointPath;
     private String connectionId;
     private String query;
     private List<String> parameterNames = new ArrayList<>();

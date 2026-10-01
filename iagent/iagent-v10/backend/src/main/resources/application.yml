@@ -4,7 +4,7 @@ spring:
   data:
     mongodb:
       uri: mongodb://localhost:27017/iagent
-      auto-index-creation: true
+      auto-index-creation: false
 server:
   port: 8080
 spring.servlet:
