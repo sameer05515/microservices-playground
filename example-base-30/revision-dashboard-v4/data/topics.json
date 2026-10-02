@@ -1,0 +1,3346 @@
+[
+  {
+    "id": 1,
+    "category": "Core Java",
+    "title": "OOP & SOLID",
+    "difficulty": "Easy",
+    "description": "Abstraction, encapsulation, inheritance, polymorphism and SOLID.",
+    "questions": [
+      "Explain SOLID.",
+      "Composition vs inheritance?",
+      "Where did you apply SOLID?"
+    ],
+    "tags": [
+      "java",
+      "oop",
+      "solid"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 2,
+    "category": "Core Java",
+    "title": "Object Class",
+    "difficulty": "Easy",
+    "description": "toString, equals, hashCode, clone and object contracts.",
+    "questions": [
+      "Why override hashCode with equals?",
+      "equals contract?",
+      "Why is clone problematic?"
+    ],
+    "tags": [
+      "java",
+      "object"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 3,
+    "category": "Core Java",
+    "title": "equals() & hashCode()",
+    "difficulty": "Medium",
+    "description": "Equality contract and hash-based collections.",
+    "questions": [
+      "What if equals is overridden but hashCode is not?",
+      "Why equal objects need equal hash codes?"
+    ],
+    "tags": [
+      "java",
+      "collections"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 4,
+    "category": "Core Java",
+    "title": "String & String Pool",
+    "difficulty": "Medium",
+    "description": "String immutability, pool, intern and StringBuilder/StringBuffer.",
+    "questions": [
+      "Why is String immutable?",
+      "String vs StringBuilder?",
+      "What does intern do?"
+    ],
+    "tags": [
+      "string",
+      "immutable"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 5,
+    "category": "Core Java",
+    "title": "Immutable Classes",
+    "difficulty": "Medium",
+    "description": "Design truly immutable classes and defensive copying.",
+    "questions": [
+      "How do you create an immutable class?",
+      "Why final fields?",
+      "Why defensive copies?"
+    ],
+    "tags": [
+      "immutable",
+      "java"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 6,
+    "category": "Core Java",
+    "title": "Collections Framework",
+    "difficulty": "Medium",
+    "description": "List, Set, Map, Queue and common implementations.",
+    "questions": [
+      "ArrayList vs LinkedList?",
+      "HashSet internals?",
+      "TreeSet vs HashSet?"
+    ],
+    "tags": [
+      "collections"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 7,
+    "category": "Core Java",
+    "title": "HashMap Internals",
+    "difficulty": "Hard",
+    "description": "Buckets, hashing, collisions, resize, load factor and treeification.",
+    "questions": [
+      "How does put work?",
+      "What causes collisions?",
+      "When does treeification happen?"
+    ],
+    "tags": [
+      "hashmap",
+      "collections"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 8,
+    "category": "Core Java",
+    "title": "Hashtable vs ConcurrentHashMap",
+    "difficulty": "Hard",
+    "description": "Thread-safe maps and concurrency trade-offs.",
+    "questions": [
+      "HashMap vs Hashtable vs ConcurrentHashMap?",
+      "Why ConcurrentHashMap?"
+    ],
+    "tags": [
+      "concurrency",
+      "collections"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 9,
+    "category": "Core Java",
+    "title": "Generics",
+    "difficulty": "Medium",
+    "description": "Type safety, bounded types, wildcards and type erasure.",
+    "questions": [
+      "extends vs super?",
+      "What is type erasure?",
+      "Generic method vs generic class?"
+    ],
+    "tags": [
+      "generics"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 10,
+    "category": "Core Java",
+    "title": "Comparable & Comparator",
+    "difficulty": "Easy",
+    "description": "Natural ordering and custom sorting.",
+    "questions": [
+      "Comparable vs Comparator?",
+      "How do chained comparators work?"
+    ],
+    "tags": [
+      "sorting"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 11,
+    "category": "Core Java",
+    "title": "Java 8 Functional Interfaces",
+    "difficulty": "Medium",
+    "description": "Predicate, Function, Consumer, Supplier and custom functional interfaces.",
+    "questions": [
+      "What is a functional interface?",
+      "Predicate vs Function?"
+    ],
+    "tags": [
+      "java8",
+      "lambda"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 12,
+    "category": "Core Java",
+    "title": "Streams API",
+    "difficulty": "Hard",
+    "description": "Intermediate/terminal operations, collectors and parallel streams.",
+    "questions": [
+      "map vs flatMap?",
+      "Intermediate vs terminal?",
+      "When not to use parallelStream?"
+    ],
+    "tags": [
+      "streams",
+      "java8"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 13,
+    "category": "Core Java",
+    "title": "Optional",
+    "difficulty": "Medium",
+    "description": "Null-safe API design and common Optional operations.",
+    "questions": [
+      "orElse vs orElseGet?",
+      "When should Optional not be used?"
+    ],
+    "tags": [
+      "optional"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 14,
+    "category": "Core Java",
+    "title": "Exception Handling",
+    "difficulty": "Medium",
+    "description": "Checked/unchecked exceptions, custom exceptions and best practices.",
+    "questions": [
+      "Checked vs unchecked?",
+      "finally behavior?",
+      "How design global errors?"
+    ],
+    "tags": [
+      "exceptions"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 15,
+    "category": "Core Java",
+    "title": "Multithreading Basics",
+    "difficulty": "Hard",
+    "description": "Thread lifecycle, synchronization, race conditions and deadlocks.",
+    "questions": [
+      "Race condition?",
+      "Deadlock conditions?",
+      "synchronized behavior?"
+    ],
+    "tags": [
+      "threads",
+      "concurrency"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 16,
+    "category": "Core Java",
+    "title": "ExecutorService",
+    "difficulty": "Hard",
+    "description": "Thread pools, Callable, Future, shutdown and scheduling.",
+    "questions": [
+      "Runnable vs Callable?",
+      "How does a pool work?",
+      "shutdown vs shutdownNow?"
+    ],
+    "tags": [
+      "executor",
+      "threads"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 17,
+    "category": "Core Java",
+    "title": "CompletableFuture",
+    "difficulty": "Hard",
+    "description": "Async composition, exception handling and combining futures.",
+    "questions": [
+      "thenApply vs thenCompose?",
+      "allOf vs anyOf?",
+      "How handle async exceptions?"
+    ],
+    "tags": [
+      "async",
+      "java8"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 18,
+    "category": "Core Java",
+    "title": "Java Memory Model",
+    "difficulty": "Hard",
+    "description": "Heap, stack, visibility, happens-before and volatile.",
+    "questions": [
+      "What is happens-before?",
+      "What does volatile guarantee?"
+    ],
+    "tags": [
+      "jmm",
+      "volatile"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 19,
+    "category": "Core Java",
+    "title": "Garbage Collection",
+    "difficulty": "Hard",
+    "description": "Generational GC, heap regions, GC pressure and common collectors.",
+    "questions": [
+      "Young vs old generation?",
+      "What causes memory leaks in Java?"
+    ],
+    "tags": [
+      "gc",
+      "jvm"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 20,
+    "category": "JVM",
+    "title": "JVM Architecture",
+    "difficulty": "Hard",
+    "description": "Class loading, runtime areas, execution engine and native interface.",
+    "questions": [
+      "ClassLoader hierarchy?",
+      "Heap vs stack?",
+      "What does JIT do?"
+    ],
+    "tags": [
+      "jvm",
+      "internals"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 21,
+    "category": "JVM",
+    "title": "ClassLoader",
+    "difficulty": "Hard",
+    "description": "Bootstrap, platform, application loaders and delegation.",
+    "questions": [
+      "Parent delegation model?",
+      "Why custom ClassLoader?"
+    ],
+    "tags": [
+      "classloader"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 22,
+    "category": "Spring",
+    "title": "IoC & Dependency Injection",
+    "difficulty": "Medium",
+    "description": "Spring container, dependency injection and constructor injection.",
+    "questions": [
+      "What is IoC?",
+      "Why constructor injection?"
+    ],
+    "tags": [
+      "spring",
+      "ioc",
+      "di"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 23,
+    "category": "Spring",
+    "title": "Bean Scopes",
+    "difficulty": "Medium",
+    "description": "Singleton, prototype, request and session scopes.",
+    "questions": [
+      "What are bean scopes?",
+      "Singleton vs prototype?"
+    ],
+    "tags": [
+      "spring",
+      "beans"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 24,
+    "category": "Spring",
+    "title": "Bean Lifecycle",
+    "difficulty": "Medium",
+    "description": "Instantiation, dependency injection, post processors and destruction.",
+    "questions": [
+      "@PostConstruct vs @PreDestroy?",
+      "BeanPostProcessor?"
+    ],
+    "tags": [
+      "spring",
+      "lifecycle"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 25,
+    "category": "Spring",
+    "title": "@Configuration & @Bean",
+    "difficulty": "Medium",
+    "description": "Explicit bean configuration and proxy behavior.",
+    "questions": [
+      "@Bean vs @Component?",
+      "What does proxyBeanMethods do?"
+    ],
+    "tags": [
+      "spring",
+      "configuration"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 26,
+    "category": "Spring",
+    "title": "AOP",
+    "difficulty": "Hard",
+    "description": "Cross-cutting concerns, proxies, advice, pointcuts and aspects.",
+    "questions": [
+      "What is AOP?",
+      "JDK proxy vs CGLIB?",
+      "Around advice?"
+    ],
+    "tags": [
+      "aop",
+      "spring"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 27,
+    "category": "Spring Boot",
+    "title": "Auto Configuration",
+    "difficulty": "Medium",
+    "description": "Starters, conditions, auto-configuration and application context.",
+    "questions": [
+      "How does auto-configuration work?",
+      "@ConditionalOnBean?"
+    ],
+    "tags": [
+      "springboot"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 28,
+    "category": "Spring Boot",
+    "title": "REST API Design",
+    "difficulty": "Medium",
+    "description": "HTTP methods, status codes, validation and API versioning.",
+    "questions": [
+      "PUT vs PATCH?",
+      "How version APIs?",
+      "What makes RESTful?"
+    ],
+    "tags": [
+      "rest",
+      "api"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 29,
+    "category": "Spring Boot",
+    "title": "Validation",
+    "difficulty": "Medium",
+    "description": "Bean Validation, groups and custom validators.",
+    "questions": [
+      "@Valid vs @Validated?",
+      "How create custom constraint?"
+    ],
+    "tags": [
+      "validation"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 30,
+    "category": "Spring Boot",
+    "title": "Exception Handling",
+    "difficulty": "Medium",
+    "description": "Global exception handling and structured API errors.",
+    "questions": [
+      "@ControllerAdvice?",
+      "How design error response?"
+    ],
+    "tags": [
+      "exception",
+      "rest"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 31,
+    "category": "Spring Boot",
+    "title": "Actuator",
+    "difficulty": "Easy",
+    "description": "Health, metrics, info and operational endpoints.",
+    "questions": [
+      "Which actuator endpoints are useful in production?",
+      "How secure actuator?"
+    ],
+    "tags": [
+      "actuator",
+      "monitoring"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 32,
+    "category": "Spring Data",
+    "title": "JPA Entity Lifecycle",
+    "difficulty": "Hard",
+    "description": "Persistence context, states, dirty checking and flush.",
+    "questions": [
+      "Entity states?",
+      "What is dirty checking?",
+      "flush vs commit?"
+    ],
+    "tags": [
+      "jpa",
+      "hibernate"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 33,
+    "category": "Spring Data",
+    "title": "Lazy vs Eager Loading",
+    "difficulty": "Hard",
+    "description": "Association fetching and common ORM pitfalls.",
+    "questions": [
+      "LazyInitializationException?",
+      "N+1 problem?"
+    ],
+    "tags": [
+      "jpa",
+      "hibernate"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 34,
+    "category": "Spring Data",
+    "title": "Transactions",
+    "difficulty": "Hard",
+    "description": "@Transactional, propagation, isolation and rollback.",
+    "questions": [
+      "What does @Transactional do?",
+      "Propagation types?",
+      "Isolation levels?"
+    ],
+    "tags": [
+      "transaction",
+      "spring"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 35,
+    "category": "Spring Data",
+    "title": "Optimistic vs Pessimistic Locking",
+    "difficulty": "Hard",
+    "description": "Concurrency control for database updates.",
+    "questions": [
+      "Version column?",
+      "When use pessimistic locking?"
+    ],
+    "tags": [
+      "locking",
+      "jpa"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 36,
+    "category": "Security",
+    "title": "Spring Security Filter Chain",
+    "difficulty": "Hard",
+    "description": "Security filters, authentication and authorization flow.",
+    "questions": [
+      "How does filter chain work?",
+      "Where does authentication happen?"
+    ],
+    "tags": [
+      "security"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 37,
+    "category": "Security",
+    "title": "JWT Authentication",
+    "difficulty": "Hard",
+    "description": "Access tokens, claims, validation and stateless authentication.",
+    "questions": [
+      "Where validate JWT?",
+      "Access token contents?",
+      "How handle expiry?"
+    ],
+    "tags": [
+      "jwt",
+      "security"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 38,
+    "category": "Security",
+    "title": "Refresh Tokens",
+    "difficulty": "Hard",
+    "description": "Refresh rotation, revocation and secure persistence.",
+    "questions": [
+      "Where store refresh tokens?",
+      "How revoke them?",
+      "Token rotation?"
+    ],
+    "tags": [
+      "jwt",
+      "security"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 39,
+    "category": "Security",
+    "title": "OAuth2 & OIDC",
+    "difficulty": "Hard",
+    "description": "Authorization code flow, ID token, access token and identity provider.",
+    "questions": [
+      "OAuth2 vs OIDC?",
+      "Authorization Code flow?"
+    ],
+    "tags": [
+      "oauth2",
+      "oidc"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 40,
+    "category": "Security",
+    "title": "RBAC",
+    "difficulty": "Medium",
+    "description": "Role and permission based authorization.",
+    "questions": [
+      "ROLE_USER vs permission?",
+      "Method security annotations?"
+    ],
+    "tags": [
+      "rbac",
+      "security"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 41,
+    "category": "Microservices",
+    "title": "Microservices Fundamentals",
+    "difficulty": "Medium",
+    "description": "Bounded contexts, independent deployment and service ownership.",
+    "questions": [
+      "When should you not use microservices?",
+      "Database per service?"
+    ],
+    "tags": [
+      "microservices"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 42,
+    "category": "Microservices",
+    "title": "API Gateway",
+    "difficulty": "Medium",
+    "description": "Routing, authentication, rate limiting and cross-cutting concerns.",
+    "questions": [
+      "Gateway vs load balancer?",
+      "What belongs at gateway?"
+    ],
+    "tags": [
+      "gateway"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 43,
+    "category": "Microservices",
+    "title": "Service Discovery",
+    "difficulty": "Medium",
+    "description": "Client-side/server-side discovery and registry concepts.",
+    "questions": [
+      "Why service discovery?",
+      "Eureka vs DNS?"
+    ],
+    "tags": [
+      "discovery"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 44,
+    "category": "Microservices",
+    "title": "OpenFeign",
+    "difficulty": "Medium",
+    "description": "Declarative HTTP clients and service-to-service calls.",
+    "questions": [
+      "Feign vs RestClient?",
+      "How handle errors/timeouts?"
+    ],
+    "tags": [
+      "feign"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 45,
+    "category": "Microservices",
+    "title": "Resilience4j",
+    "difficulty": "Hard",
+    "description": "Circuit breaker, retry, timeout, rate limiter and bulkhead.",
+    "questions": [
+      "Circuit breaker states?",
+      "Why can retry be dangerous?"
+    ],
+    "tags": [
+      "resilience4j"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 46,
+    "category": "Microservices",
+    "title": "Saga Pattern",
+    "difficulty": "Hard",
+    "description": "Distributed transactions through choreography or orchestration.",
+    "questions": [
+      "Why Saga?",
+      "Choreography vs orchestration?"
+    ],
+    "tags": [
+      "saga",
+      "distributed"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 47,
+    "category": "Microservices",
+    "title": "Outbox Pattern",
+    "difficulty": "Hard",
+    "description": "Reliable event publishing with transactional outbox.",
+    "questions": [
+      "Why dual-write is dangerous?",
+      "How does outbox work?"
+    ],
+    "tags": [
+      "outbox",
+      "events"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 48,
+    "category": "Microservices",
+    "title": "Idempotency",
+    "difficulty": "Hard",
+    "description": "Safe retries and duplicate request handling.",
+    "questions": [
+      "How make payment API idempotent?",
+      "Idempotency key?"
+    ],
+    "tags": [
+      "idempotency"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 49,
+    "category": "Messaging",
+    "title": "Kafka Fundamentals",
+    "difficulty": "Hard",
+    "description": "Topics, partitions, brokers, offsets and replication.",
+    "questions": [
+      "How does Kafka scale?",
+      "Partition vs topic?"
+    ],
+    "tags": [
+      "kafka"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 50,
+    "category": "Messaging",
+    "title": "Kafka Consumer Groups",
+    "difficulty": "Hard",
+    "description": "Parallel consumption, partition assignment and offsets.",
+    "questions": [
+      "What is a consumer group?",
+      "Can two consumers read same partition?"
+    ],
+    "tags": [
+      "kafka"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 51,
+    "category": "Messaging",
+    "title": "Kafka Delivery Semantics",
+    "difficulty": "Hard",
+    "description": "At-most-once, at-least-once and effectively-once processing.",
+    "questions": [
+      "What causes duplicate messages?",
+      "How handle retries?"
+    ],
+    "tags": [
+      "kafka",
+      "messaging"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 52,
+    "category": "Messaging",
+    "title": "DLQ & Retry",
+    "difficulty": "Medium",
+    "description": "Dead-letter queues, retry topics and poison messages.",
+    "questions": [
+      "When send to DLQ?",
+      "Retry vs DLQ?"
+    ],
+    "tags": [
+      "dlq",
+      "messaging"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 53,
+    "category": "Caching",
+    "title": "Redis Basics",
+    "difficulty": "Medium",
+    "description": "Key-value model, TTL, data structures and caching.",
+    "questions": [
+      "Why Redis?",
+      "TTL?",
+      "Redis data types?"
+    ],
+    "tags": [
+      "redis",
+      "cache"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 54,
+    "category": "Caching",
+    "title": "Caching Strategies",
+    "difficulty": "Hard",
+    "description": "Cache-aside, write-through, write-behind and invalidation.",
+    "questions": [
+      "Cache-aside flow?",
+      "Cache stampede?"
+    ],
+    "tags": [
+      "cache"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 55,
+    "category": "Caching",
+    "title": "Distributed Locking",
+    "difficulty": "Hard",
+    "description": "Coordination using Redis and trade-offs.",
+    "questions": [
+      "Why distributed lock?",
+      "What is lock expiry?"
+    ],
+    "tags": [
+      "redis",
+      "distributed"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 56,
+    "category": "System Design",
+    "title": "Load Balancing",
+    "difficulty": "Medium",
+    "description": "L4/L7 load balancing and scaling strategies.",
+    "questions": [
+      "L4 vs L7?",
+      "Round robin vs least connections?"
+    ],
+    "tags": [
+      "systemdesign"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 57,
+    "category": "System Design",
+    "title": "CDN",
+    "difficulty": "Medium",
+    "description": "Edge caching, static assets and origin servers.",
+    "questions": [
+      "Why CDN?",
+      "Cache invalidation?"
+    ],
+    "tags": [
+      "cdn",
+      "systemdesign"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 58,
+    "category": "System Design",
+    "title": "Database Indexing",
+    "difficulty": "Hard",
+    "description": "B-tree indexes, composite indexes and query optimization.",
+    "questions": [
+      "How does an index work?",
+      "Column order in composite index?"
+    ],
+    "tags": [
+      "database",
+      "index"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 59,
+    "category": "System Design",
+    "title": "Database Replication",
+    "difficulty": "Hard",
+    "description": "Primary/replica architecture and read scaling.",
+    "questions": [
+      "Replication lag?",
+      "Read-after-write consistency?"
+    ],
+    "tags": [
+      "database",
+      "replication"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 60,
+    "category": "System Design",
+    "title": "Sharding",
+    "difficulty": "Hard",
+    "description": "Horizontal partitioning and shard key design.",
+    "questions": [
+      "When shard?",
+      "Good shard key properties?"
+    ],
+    "tags": [
+      "database",
+      "sharding"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 61,
+    "category": "System Design",
+    "title": "CAP Theorem",
+    "difficulty": "Hard",
+    "description": "Consistency, availability and partition tolerance.",
+    "questions": [
+      "Explain CAP practically.",
+      "CP vs AP?"
+    ],
+    "tags": [
+      "cap",
+      "distributed"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 62,
+    "category": "System Design",
+    "title": "Consistency Models",
+    "difficulty": "Hard",
+    "description": "Strong, eventual and causal consistency.",
+    "questions": [
+      "Eventual consistency example?",
+      "How handle stale reads?"
+    ],
+    "tags": [
+      "consistency"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 63,
+    "category": "System Design",
+    "title": "Rate Limiting",
+    "difficulty": "Hard",
+    "description": "Token bucket, leaky bucket and distributed rate limiting.",
+    "questions": [
+      "Token bucket vs leaky bucket?",
+      "Where enforce rate limits?"
+    ],
+    "tags": [
+      "ratelimit"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 64,
+    "category": "System Design",
+    "title": "Distributed Locks",
+    "difficulty": "Hard",
+    "description": "Coordination and mutual exclusion across instances.",
+    "questions": [
+      "Redis lock vs DB lock?",
+      "What if lock holder crashes?"
+    ],
+    "tags": [
+      "distributed"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 65,
+    "category": "System Design",
+    "title": "Notification System",
+    "difficulty": "Hard",
+    "description": "Design email/SMS/push notification pipeline.",
+    "questions": [
+      "How scale notifications?",
+      "Why use queues?"
+    ],
+    "tags": [
+      "systemdesign"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 66,
+    "category": "System Design",
+    "title": "URL Shortener",
+    "difficulty": "Medium",
+    "description": "High-scale key generation, redirects, cache and persistence.",
+    "questions": [
+      "How generate short IDs?",
+      "How scale reads?"
+    ],
+    "tags": [
+      "systemdesign"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 67,
+    "category": "System Design",
+    "title": "Food Delivery System",
+    "difficulty": "Hard",
+    "description": "Location, order, payment, driver assignment and events.",
+    "questions": [
+      "How design order state?",
+      "How handle concurrent updates?"
+    ],
+    "tags": [
+      "systemdesign"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 68,
+    "category": "AWS",
+    "title": "IAM",
+    "difficulty": "Medium",
+    "description": "Users, roles, policies and least privilege.",
+    "questions": [
+      "Role vs user?",
+      "How apply least privilege?"
+    ],
+    "tags": [
+      "aws",
+      "iam"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 69,
+    "category": "AWS",
+    "title": "EC2",
+    "difficulty": "Easy",
+    "description": "Compute instances, security groups and autoscaling concepts.",
+    "questions": [
+      "Security group vs NACL?",
+      "What is an AMI?"
+    ],
+    "tags": [
+      "aws",
+      "ec2"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 70,
+    "category": "AWS",
+    "title": "S3",
+    "difficulty": "Easy",
+    "description": "Object storage, buckets, lifecycle and versioning.",
+    "questions": [
+      "S3 consistency?",
+      "Presigned URL?"
+    ],
+    "tags": [
+      "aws",
+      "s3"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 71,
+    "category": "AWS",
+    "title": "RDS",
+    "difficulty": "Medium",
+    "description": "Managed relational databases, backups and replicas.",
+    "questions": [
+      "RDS Multi-AZ vs read replica?",
+      "When use RDS?"
+    ],
+    "tags": [
+      "aws",
+      "rds"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 72,
+    "category": "AWS",
+    "title": "VPC Networking",
+    "difficulty": "Hard",
+    "description": "Subnets, route tables, internet/NAT gateways and security.",
+    "questions": [
+      "Public vs private subnet?",
+      "Why NAT Gateway?"
+    ],
+    "tags": [
+      "aws",
+      "vpc"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 73,
+    "category": "AWS",
+    "title": "SQS & SNS",
+    "difficulty": "Medium",
+    "description": "Queues, fanout, retries and asynchronous integration.",
+    "questions": [
+      "SQS vs SNS?",
+      "Visibility timeout?"
+    ],
+    "tags": [
+      "aws",
+      "messaging"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 74,
+    "category": "AWS",
+    "title": "CloudWatch",
+    "difficulty": "Easy",
+    "description": "Logs, metrics, alarms and operational monitoring.",
+    "questions": [
+      "How monitor Spring Boot?",
+      "Metric vs log?"
+    ],
+    "tags": [
+      "aws",
+      "monitoring"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 75,
+    "category": "AWS",
+    "title": "ECS / EKS",
+    "difficulty": "Hard",
+    "description": "Container orchestration on AWS.",
+    "questions": [
+      "ECS vs EKS?",
+      "When choose Kubernetes?"
+    ],
+    "tags": [
+      "aws",
+      "containers"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 76,
+    "category": "AWS",
+    "title": "Lambda",
+    "difficulty": "Medium",
+    "description": "Serverless compute and event-driven processing.",
+    "questions": [
+      "Cold start?",
+      "When Lambda is a poor fit?"
+    ],
+    "tags": [
+      "aws",
+      "serverless"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 77,
+    "category": "DevOps",
+    "title": "Docker",
+    "difficulty": "Medium",
+    "description": "Images, containers, Dockerfile, networking and volumes.",
+    "questions": [
+      "Image vs container?",
+      "CMD vs ENTRYPOINT?"
+    ],
+    "tags": [
+      "docker"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 78,
+    "category": "DevOps",
+    "title": "Docker Compose",
+    "difficulty": "Easy",
+    "description": "Multi-container local development.",
+    "questions": [
+      "depends_on behavior?",
+      "Compose networking?"
+    ],
+    "tags": [
+      "docker",
+      "compose"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 79,
+    "category": "DevOps",
+    "title": "Kubernetes Architecture",
+    "difficulty": "Hard",
+    "description": "Cluster, control plane, nodes, pods and controllers.",
+    "questions": [
+      "Pod vs Deployment?",
+      "What does kubelet do?"
+    ],
+    "tags": [
+      "k8s"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 80,
+    "category": "DevOps",
+    "title": "Kubernetes Services",
+    "difficulty": "Medium",
+    "description": "ClusterIP, NodePort and LoadBalancer services.",
+    "questions": [
+      "ClusterIP vs NodePort?",
+      "How does service discovery work?"
+    ],
+    "tags": [
+      "k8s"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 81,
+    "category": "DevOps",
+    "title": "Kubernetes Config & Secrets",
+    "difficulty": "Medium",
+    "description": "External configuration and sensitive values.",
+    "questions": [
+      "ConfigMap vs Secret?",
+      "How inject environment variables?"
+    ],
+    "tags": [
+      "k8s"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 82,
+    "category": "DevOps",
+    "title": "Kubernetes Probes",
+    "difficulty": "Medium",
+    "description": "Liveness, readiness and startup probes.",
+    "questions": [
+      "Liveness vs readiness?",
+      "When use startup probe?"
+    ],
+    "tags": [
+      "k8s"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 83,
+    "category": "DevOps",
+    "title": "Kubernetes Scaling",
+    "difficulty": "Hard",
+    "description": "HPA, resource requests/limits and replicas.",
+    "questions": [
+      "How does HPA work?",
+      "Requests vs limits?"
+    ],
+    "tags": [
+      "k8s",
+      "scaling"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 84,
+    "category": "DevOps",
+    "title": "CI/CD GitHub Actions",
+    "difficulty": "Medium",
+    "description": "Build, test, package and deploy automation.",
+    "questions": [
+      "CI vs CD?",
+      "How manage secrets?"
+    ],
+    "tags": [
+      "cicd"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 85,
+    "category": "Testing",
+    "title": "JUnit 5",
+    "difficulty": "Medium",
+    "description": "Unit testing, lifecycle, parameterized tests and assertions.",
+    "questions": [
+      "JUnit 4 vs 5?",
+      "Parameterized tests?"
+    ],
+    "tags": [
+      "junit",
+      "testing"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 86,
+    "category": "Testing",
+    "title": "Mockito",
+    "difficulty": "Medium",
+    "description": "Mocks, stubs, spies and interaction verification.",
+    "questions": [
+      "Mock vs Spy?",
+      "when vs doReturn?"
+    ],
+    "tags": [
+      "mockito",
+      "testing"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 87,
+    "category": "Testing",
+    "title": "Spring Boot Testing",
+    "difficulty": "Hard",
+    "description": "@SpringBootTest, MockMvc, slices and integration tests.",
+    "questions": [
+      "MockMvc vs WebTestClient?",
+      "@WebMvcTest vs @SpringBootTest?"
+    ],
+    "tags": [
+      "spring",
+      "testing"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 88,
+    "category": "Database",
+    "title": "SQL Joins",
+    "difficulty": "Medium",
+    "description": "Inner, left, right and self joins.",
+    "questions": [
+      "INNER vs LEFT JOIN?",
+      "Find duplicate records?"
+    ],
+    "tags": [
+      "sql"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 89,
+    "category": "Database",
+    "title": "SQL Window Functions",
+    "difficulty": "Hard",
+    "description": "ROW_NUMBER, RANK, LAG, LEAD and partitioning.",
+    "questions": [
+      "RANK vs DENSE_RANK?",
+      "Top N per group?"
+    ],
+    "tags": [
+      "sql",
+      "analytics"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 90,
+    "category": "Database",
+    "title": "Transactions & ACID",
+    "difficulty": "Hard",
+    "description": "Atomicity, consistency, isolation and durability.",
+    "questions": [
+      "Explain ACID.",
+      "Isolation anomalies?"
+    ],
+    "tags": [
+      "sql",
+      "acid"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 91,
+    "category": "Database",
+    "title": "Normalization",
+    "difficulty": "Medium",
+    "description": "1NF, 2NF, 3NF and denormalization trade-offs.",
+    "questions": [
+      "Why normalize?",
+      "When denormalize?"
+    ],
+    "tags": [
+      "database"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 92,
+    "category": "Core Java",
+    "title": "Java Records",
+    "difficulty": "Easy",
+    "description": "Compact immutable data carriers.",
+    "questions": [
+      "What problem do records solve?",
+      "Can a record extend a class?"
+    ],
+    "tags": [
+      "java-records"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 93,
+    "category": "Core Java",
+    "title": "Sealed Classes",
+    "difficulty": "Medium",
+    "description": "Restrict which classes may extend or implement a type.",
+    "questions": [
+      "What is a sealed class?",
+      "Sealed vs final?"
+    ],
+    "tags": [
+      "sealed-classes"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 94,
+    "category": "Core Java",
+    "title": "Pattern Matching",
+    "difficulty": "Medium",
+    "description": "Modern Java pattern matching for instanceof and switch.",
+    "questions": [
+      "How does pattern matching reduce casting?",
+      "What are switch patterns?"
+    ],
+    "tags": [
+      "pattern-matching"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 95,
+    "category": "Core Java",
+    "title": "WeakHashMap",
+    "difficulty": "Hard",
+    "description": "Maps whose entries can disappear after garbage collection.",
+    "questions": [
+      "When is WeakHashMap useful?",
+      "What happens after GC?"
+    ],
+    "tags": [
+      "weakhashmap"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 96,
+    "category": "Core Java",
+    "title": "CopyOnWriteArrayList",
+    "difficulty": "Hard",
+    "description": "Thread-safe list optimized for many reads and few writes.",
+    "questions": [
+      "When is it appropriate?",
+      "Why are writes expensive?"
+    ],
+    "tags": [
+      "copyonwritearraylist"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 97,
+    "category": "Core Java",
+    "title": "BlockingQueue",
+    "difficulty": "Hard",
+    "description": "Producer-consumer coordination with blocking queues.",
+    "questions": [
+      "ArrayBlockingQueue vs LinkedBlockingQueue?",
+      "How does take() behave?"
+    ],
+    "tags": [
+      "blockingqueue"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 98,
+    "category": "Core Java",
+    "title": "ReadWriteLock",
+    "difficulty": "Hard",
+    "description": "Separate read and write locking for concurrent access.",
+    "questions": [
+      "When is ReadWriteLock useful?",
+      "Why can it be slower?"
+    ],
+    "tags": [
+      "readwritelock"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 99,
+    "category": "Core Java",
+    "title": "Atomic Classes & CAS",
+    "difficulty": "Hard",
+    "description": "Lock-free atomic operations using compare-and-swap.",
+    "questions": [
+      "What is CAS?",
+      "AtomicInteger vs synchronized?"
+    ],
+    "tags": [
+      "atomic-classes-cas"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 100,
+    "category": "Core Java",
+    "title": "ForkJoinPool",
+    "difficulty": "Hard",
+    "description": "Work-stealing framework for parallel tasks.",
+    "questions": [
+      "How does work stealing work?",
+      "Relation to parallel streams?"
+    ],
+    "tags": [
+      "forkjoinpool"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 101,
+    "category": "Core Java",
+    "title": "Virtual Threads",
+    "difficulty": "Hard",
+    "description": "Lightweight JVM threads for high-concurrency blocking workloads.",
+    "questions": [
+      "Platform vs virtual threads?",
+      "When should virtual threads be avoided?"
+    ],
+    "tags": [
+      "virtual-threads"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 102,
+    "category": "JVM",
+    "title": "JIT Compilation",
+    "difficulty": "Hard",
+    "description": "Runtime compilation and optimization of hot bytecode.",
+    "questions": [
+      "What is hot code?",
+      "What optimizations can JIT perform?"
+    ],
+    "tags": [
+      "jit-compilation"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 103,
+    "category": "JVM",
+    "title": "Metaspace",
+    "difficulty": "Medium",
+    "description": "Native-memory area storing class metadata.",
+    "questions": [
+      "Metaspace vs PermGen?",
+      "What causes Metaspace OOM?"
+    ],
+    "tags": [
+      "metaspace"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 104,
+    "category": "JVM",
+    "title": "GC Tuning",
+    "difficulty": "Hard",
+    "description": "Heap sizing, allocation behavior and collector trade-offs.",
+    "questions": [
+      "Throughput vs latency GC?",
+      "How diagnose GC pressure?"
+    ],
+    "tags": [
+      "gc-tuning"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 105,
+    "category": "JVM",
+    "title": "Thread Dump Analysis",
+    "difficulty": "Hard",
+    "description": "Diagnose blocked, waiting and deadlocked threads.",
+    "questions": [
+      "How identify a deadlock?",
+      "What does BLOCKED mean?"
+    ],
+    "tags": [
+      "thread-dump-analysis"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 106,
+    "category": "JVM",
+    "title": "Heap Dump Analysis",
+    "difficulty": "Hard",
+    "description": "Investigate memory leaks and retained objects.",
+    "questions": [
+      "What is a dominator tree?",
+      "How find a memory leak?"
+    ],
+    "tags": [
+      "heap-dump-analysis"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 107,
+    "category": "Spring",
+    "title": "ApplicationContext",
+    "difficulty": "Hard",
+    "description": "Spring container lifecycle, bean lookup and context refresh.",
+    "questions": [
+      "BeanFactory vs ApplicationContext?",
+      "What happens during refresh?"
+    ],
+    "tags": [
+      "applicationcontext"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 108,
+    "category": "Spring",
+    "title": "BeanFactoryPostProcessor",
+    "difficulty": "Hard",
+    "description": "Modify bean definitions before bean instantiation.",
+    "questions": [
+      "BeanPostProcessor vs BeanFactoryPostProcessor?",
+      "Where is each used?"
+    ],
+    "tags": [
+      "beanfactorypostprocessor"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 109,
+    "category": "Spring",
+    "title": "BeanPostProcessor",
+    "difficulty": "Hard",
+    "description": "Intercept bean creation before and after initialization.",
+    "questions": [
+      "How does Spring create proxies?",
+      "How does @Autowired processing work?"
+    ],
+    "tags": [
+      "beanpostprocessor"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 110,
+    "category": "Spring",
+    "title": "Circular Dependencies",
+    "difficulty": "Hard",
+    "description": "Understand circular references and constructor injection.",
+    "questions": [
+      "Why are constructor cycles problematic?",
+      "How would you redesign one?"
+    ],
+    "tags": [
+      "circular-dependencies"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 111,
+    "category": "Spring",
+    "title": "Application Events",
+    "difficulty": "Medium",
+    "description": "Decoupled in-process communication using Spring events.",
+    "questions": [
+      "How use ApplicationEventPublisher?",
+      "Synchronous vs asynchronous events?"
+    ],
+    "tags": [
+      "application-events"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 112,
+    "category": "Spring",
+    "title": "Scheduling",
+    "difficulty": "Medium",
+    "description": "Scheduled jobs using fixed rate, fixed delay and cron.",
+    "questions": [
+      "fixedRate vs fixedDelay?",
+      "How prevent overlapping jobs?"
+    ],
+    "tags": [
+      "scheduling"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 113,
+    "category": "Spring",
+    "title": "Caching Abstraction",
+    "difficulty": "Medium",
+    "description": "Spring Cache annotations and cache providers.",
+    "questions": [
+      "@Cacheable vs @CachePut?",
+      "When does @CacheEvict run?"
+    ],
+    "tags": [
+      "caching-abstraction"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 114,
+    "category": "Spring Boot",
+    "title": "Configuration Properties",
+    "difficulty": "Medium",
+    "description": "Type-safe externalized configuration.",
+    "questions": [
+      "@Value vs @ConfigurationProperties?",
+      "How validate configuration?"
+    ],
+    "tags": [
+      "configuration-properties"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 115,
+    "category": "Spring Boot",
+    "title": "Custom Auto Configuration",
+    "difficulty": "Hard",
+    "description": "Build reusable Spring Boot auto-configuration.",
+    "questions": [
+      "How create auto-configuration?",
+      "What is @ConditionalOnMissingBean?"
+    ],
+    "tags": [
+      "custom-auto-configuration"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 116,
+    "category": "Spring Boot",
+    "title": "Observability",
+    "difficulty": "Hard",
+    "description": "Logs, metrics, traces and correlation IDs.",
+    "questions": [
+      "Logs vs metrics vs traces?",
+      "What is distributed tracing?"
+    ],
+    "tags": [
+      "observability"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 117,
+    "category": "Spring Boot",
+    "title": "Graceful Shutdown",
+    "difficulty": "Medium",
+    "description": "Allow in-flight requests to complete during shutdown.",
+    "questions": [
+      "Why graceful shutdown?",
+      "How configure it?"
+    ],
+    "tags": [
+      "graceful-shutdown"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 118,
+    "category": "Spring MVC",
+    "title": "DispatcherServlet",
+    "difficulty": "Hard",
+    "description": "Front controller and Spring MVC request pipeline.",
+    "questions": [
+      "What does DispatcherServlet do?",
+      "HandlerMapping vs HandlerAdapter?"
+    ],
+    "tags": [
+      "dispatcherservlet"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 119,
+    "category": "Spring MVC",
+    "title": "Filters vs Interceptors",
+    "difficulty": "Hard",
+    "description": "Compare servlet filters with Spring MVC interceptors.",
+    "questions": [
+      "Filter vs HandlerInterceptor?",
+      "Where should auth logic live?"
+    ],
+    "tags": [
+      "filters-vs-interceptors"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 120,
+    "category": "Spring MVC",
+    "title": "Argument Resolvers",
+    "difficulty": "Hard",
+    "description": "Custom controller method argument resolution.",
+    "questions": [
+      "How does @AuthenticationPrincipal work?",
+      "How create a custom resolver?"
+    ],
+    "tags": [
+      "argument-resolvers"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 121,
+    "category": "Spring Data",
+    "title": "N+1 Query Problem",
+    "difficulty": "Hard",
+    "description": "Detect and fix excessive ORM queries.",
+    "questions": [
+      "How identify N+1?",
+      "JOIN FETCH vs EntityGraph?"
+    ],
+    "tags": [
+      "n-1-query-problem"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 122,
+    "category": "Spring Data",
+    "title": "EntityGraph",
+    "difficulty": "Hard",
+    "description": "Control JPA fetching declaratively.",
+    "questions": [
+      "Why use @EntityGraph?",
+      "EntityGraph vs JOIN FETCH?"
+    ],
+    "tags": [
+      "entitygraph"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 123,
+    "category": "Spring Data",
+    "title": "Specifications",
+    "difficulty": "Hard",
+    "description": "Build dynamic queries with Spring Data Specifications.",
+    "questions": [
+      "When are Specifications useful?",
+      "How compose predicates?"
+    ],
+    "tags": [
+      "specifications"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 124,
+    "category": "Spring Data",
+    "title": "Pagination & Sorting",
+    "difficulty": "Medium",
+    "description": "Efficient paginated REST APIs and database queries.",
+    "questions": [
+      "Page vs Slice?",
+      "Offset vs cursor pagination?"
+    ],
+    "tags": [
+      "pagination-sorting"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 125,
+    "category": "Security",
+    "title": "CSRF",
+    "difficulty": "Hard",
+    "description": "Cross-site request forgery protection.",
+    "questions": [
+      "Why is CSRF different from CORS?",
+      "When can CSRF be disabled?"
+    ],
+    "tags": [
+      "csrf"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 126,
+    "category": "Security",
+    "title": "CORS",
+    "difficulty": "Medium",
+    "description": "Cross-origin browser security and Spring configuration.",
+    "questions": [
+      "What is a preflight?",
+      "CORS vs CSRF?"
+    ],
+    "tags": [
+      "cors"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 127,
+    "category": "Security",
+    "title": "OAuth2 Authorization Code + PKCE",
+    "difficulty": "Hard",
+    "description": "Secure authorization flow for browser/public clients.",
+    "questions": [
+      "Why PKCE?",
+      "What is code verifier?"
+    ],
+    "tags": [
+      "oauth2-authorization-code-pkce"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 128,
+    "category": "Security",
+    "title": "Client Credentials Flow",
+    "difficulty": "Medium",
+    "description": "Machine-to-machine OAuth2 authentication.",
+    "questions": [
+      "When use client credentials?",
+      "How differs from authorization code?"
+    ],
+    "tags": [
+      "client-credentials-flow"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 129,
+    "category": "Security",
+    "title": "Method-Level Security",
+    "difficulty": "Medium",
+    "description": "Authorize service methods with Spring Security annotations.",
+    "questions": [
+      "@PreAuthorize vs @Secured?",
+      "How use SpEL safely?"
+    ],
+    "tags": [
+      "method-level-security"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 130,
+    "category": "Microservices",
+    "title": "Service-to-Service Authentication",
+    "difficulty": "Hard",
+    "description": "Authenticate internal calls using OAuth2/JWT or workload identity.",
+    "questions": [
+      "Should every service validate tokens?",
+      "Gateway-only vs defense in depth?"
+    ],
+    "tags": [
+      "service-to-service-authentication"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 131,
+    "category": "Microservices",
+    "title": "Distributed Tracing",
+    "difficulty": "Hard",
+    "description": "Trace a request across multiple services.",
+    "questions": [
+      "Trace ID vs span ID?",
+      "How propagate trace context?"
+    ],
+    "tags": [
+      "distributed-tracing"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 132,
+    "category": "Microservices",
+    "title": "Correlation ID",
+    "difficulty": "Medium",
+    "description": "Correlate logs across services for one request.",
+    "questions": [
+      "Where generate correlation IDs?",
+      "How propagate through Kafka?"
+    ],
+    "tags": [
+      "correlation-id"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 133,
+    "category": "Microservices",
+    "title": "Timeout Design",
+    "difficulty": "Hard",
+    "description": "Bounded timeouts across service dependencies.",
+    "questions": [
+      "How avoid timeout cascading?",
+      "Why are bounded timeouts important?"
+    ],
+    "tags": [
+      "timeout-design"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 134,
+    "category": "Microservices",
+    "title": "Bulkhead Pattern",
+    "difficulty": "Hard",
+    "description": "Isolate resources so one dependency cannot exhaust a service.",
+    "questions": [
+      "Thread-pool vs semaphore bulkhead?",
+      "When use bulkheads?"
+    ],
+    "tags": [
+      "bulkhead-pattern"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 135,
+    "category": "Microservices",
+    "title": "Backpressure",
+    "difficulty": "Hard",
+    "description": "Prevent fast producers from overwhelming slower consumers.",
+    "questions": [
+      "Where can backpressure be applied?",
+      "How does reactive backpressure work?"
+    ],
+    "tags": [
+      "backpressure"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 136,
+    "category": "Microservices",
+    "title": "API Versioning",
+    "difficulty": "Medium",
+    "description": "Path, header and media-type versioning strategies.",
+    "questions": [
+      "How deprecate an API version?",
+      "Which strategy is easiest to operate?"
+    ],
+    "tags": [
+      "api-versioning"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 137,
+    "category": "Messaging",
+    "title": "Kafka Partition Ordering",
+    "difficulty": "Hard",
+    "description": "Understand Kafka ordering guarantees within partitions.",
+    "questions": [
+      "Can Kafka guarantee global ordering?",
+      "How choose a partition key?"
+    ],
+    "tags": [
+      "kafka-partition-ordering"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 138,
+    "category": "Messaging",
+    "title": "Kafka Rebalancing",
+    "difficulty": "Hard",
+    "description": "Consumer group membership and partition reassignment.",
+    "questions": [
+      "What triggers a rebalance?",
+      "How reduce rebalance impact?"
+    ],
+    "tags": [
+      "kafka-rebalancing"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 139,
+    "category": "Messaging",
+    "title": "Kafka Transactions",
+    "difficulty": "Hard",
+    "description": "Transactional producers and exactly-once processing concepts.",
+    "questions": [
+      "What is an idempotent producer?",
+      "What does exactly-once mean?"
+    ],
+    "tags": [
+      "kafka-transactions"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 140,
+    "category": "Messaging",
+    "title": "Kafka Schema Evolution",
+    "difficulty": "Hard",
+    "description": "Backward and forward compatibility of event schemas.",
+    "questions": [
+      "Why use schema registry?",
+      "Backward vs forward compatibility?"
+    ],
+    "tags": [
+      "kafka-schema-evolution"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 141,
+    "category": "Messaging",
+    "title": "Kafka Retention & Compaction",
+    "difficulty": "Medium",
+    "description": "Time-based retention and key-based log compaction.",
+    "questions": [
+      "Retention vs compaction?",
+      "When use compacted topics?"
+    ],
+    "tags": [
+      "kafka-retention-compaction"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 142,
+    "category": "Messaging",
+    "title": "RabbitMQ Fundamentals",
+    "difficulty": "Medium",
+    "description": "Exchanges, queues, bindings and acknowledgements.",
+    "questions": [
+      "Direct vs topic exchange?",
+      "Ack vs nack?"
+    ],
+    "tags": [
+      "rabbitmq-fundamentals"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 143,
+    "category": "Caching",
+    "title": "Redis Pub/Sub vs Streams",
+    "difficulty": "Hard",
+    "description": "Compare transient Pub/Sub with durable Redis Streams.",
+    "questions": [
+      "When choose Redis Streams?",
+      "Can Pub/Sub be replayed?"
+    ],
+    "tags": [
+      "redis-pub-sub-vs-streams"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 144,
+    "category": "Caching",
+    "title": "Redis Persistence",
+    "difficulty": "Medium",
+    "description": "RDB, AOF and persistence trade-offs.",
+    "questions": [
+      "RDB vs AOF?",
+      "What happens after restart?"
+    ],
+    "tags": [
+      "redis-persistence"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 145,
+    "category": "Caching",
+    "title": "Redis Cluster",
+    "difficulty": "Hard",
+    "description": "Partitioning and high availability across Redis nodes.",
+    "questions": [
+      "How does Redis Cluster shard keys?",
+      "What are hash tags?"
+    ],
+    "tags": [
+      "redis-cluster"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 146,
+    "category": "System Design",
+    "title": "API Gateway vs BFF",
+    "difficulty": "Medium",
+    "description": "Compare a generic gateway with frontend-specific backends.",
+    "questions": [
+      "When use BFF?",
+      "Can one system use multiple BFFs?"
+    ],
+    "tags": [
+      "api-gateway-vs-bff"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 147,
+    "category": "System Design",
+    "title": "WebSocket Architecture",
+    "difficulty": "Hard",
+    "description": "Scale real-time bidirectional communication.",
+    "questions": [
+      "How scale WebSockets?",
+      "Sticky sessions vs shared state?"
+    ],
+    "tags": [
+      "websocket-architecture"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 148,
+    "category": "System Design",
+    "title": "SSE vs WebSocket",
+    "difficulty": "Medium",
+    "description": "Compare server-sent events with WebSockets.",
+    "questions": [
+      "When use SSE?",
+      "When use WebSocket?"
+    ],
+    "tags": [
+      "sse-vs-websocket"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 149,
+    "category": "System Design",
+    "title": "Distributed ID Generation",
+    "difficulty": "Hard",
+    "description": "Snowflake-style IDs, UUIDs and database sequences.",
+    "questions": [
+      "How generate IDs without a bottleneck?",
+      "UUID vs Snowflake?"
+    ],
+    "tags": [
+      "distributed-id-generation"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 150,
+    "category": "System Design",
+    "title": "Hot Partition",
+    "difficulty": "Hard",
+    "description": "Detect and mitigate uneven load across partitions.",
+    "questions": [
+      "What creates a hot partition?",
+      "How spread hot keys?"
+    ],
+    "tags": [
+      "hot-partition"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 151,
+    "category": "System Design",
+    "title": "Cache Stampede",
+    "difficulty": "Hard",
+    "description": "Prevent many requests from rebuilding expired cache simultaneously.",
+    "questions": [
+      "How prevent stampede?",
+      "What is cache warming?"
+    ],
+    "tags": [
+      "cache-stampede"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 152,
+    "category": "System Design",
+    "title": "Search Architecture",
+    "difficulty": "Hard",
+    "description": "Design large-scale search using inverted indexes.",
+    "questions": [
+      "Why not SQL LIKE at scale?",
+      "What is an inverted index?"
+    ],
+    "tags": [
+      "search-architecture"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 153,
+    "category": "System Design",
+    "title": "Payment System",
+    "difficulty": "Hard",
+    "description": "Idempotency, ledger, retries and reconciliation.",
+    "questions": [
+      "How prevent duplicate charges?",
+      "What is a payment ledger?"
+    ],
+    "tags": [
+      "payment-system"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 154,
+    "category": "System Design",
+    "title": "Distributed Scheduler",
+    "difficulty": "Hard",
+    "description": "Schedule jobs safely across multiple service instances.",
+    "questions": [
+      "How prevent duplicate execution?",
+      "Leader election vs distributed lock?"
+    ],
+    "tags": [
+      "distributed-scheduler"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 155,
+    "category": "System Design",
+    "title": "Audit Logging",
+    "difficulty": "Medium",
+    "description": "Immutable audit trail for security and business operations.",
+    "questions": [
+      "What should an audit event contain?",
+      "How protect audit logs?"
+    ],
+    "tags": [
+      "audit-logging"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 156,
+    "category": "Database",
+    "title": "Composite Indexes",
+    "difficulty": "Hard",
+    "description": "Index column ordering, selectivity and query patterns.",
+    "questions": [
+      "Why does column order matter?",
+      "What is leftmost-prefix rule?"
+    ],
+    "tags": [
+      "composite-indexes"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 157,
+    "category": "Database",
+    "title": "Query Execution Plan",
+    "difficulty": "Hard",
+    "description": "Read EXPLAIN plans and diagnose slow SQL.",
+    "questions": [
+      "What inspect in EXPLAIN?",
+      "Index scan vs sequential scan?"
+    ],
+    "tags": [
+      "query-execution-plan"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 158,
+    "category": "Database",
+    "title": "Isolation Levels",
+    "difficulty": "Hard",
+    "description": "Read committed, repeatable read, serializable and anomalies.",
+    "questions": [
+      "Which anomalies does each level prevent?",
+      "What is phantom read?"
+    ],
+    "tags": [
+      "isolation-levels"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 159,
+    "category": "Database",
+    "title": "Connection Pooling",
+    "difficulty": "Hard",
+    "description": "Reuse database connections with a pool such as HikariCP.",
+    "questions": [
+      "Why pool connections?",
+      "What happens when pool is exhausted?"
+    ],
+    "tags": [
+      "connection-pooling"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 160,
+    "category": "Database",
+    "title": "Database Migration",
+    "difficulty": "Medium",
+    "description": "Version-controlled schema changes using Flyway or Liquibase.",
+    "questions": [
+      "Why migrations?",
+      "How make migrations backward compatible?"
+    ],
+    "tags": [
+      "database-migration"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 161,
+    "category": "AWS",
+    "title": "ALB vs NLB",
+    "difficulty": "Hard",
+    "description": "Compare AWS layer-7 and layer-4 load balancing.",
+    "questions": [
+      "When use ALB?",
+      "When use NLB?"
+    ],
+    "tags": [
+      "alb-vs-nlb"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 162,
+    "category": "AWS",
+    "title": "Auto Scaling",
+    "difficulty": "Medium",
+    "description": "Scale compute capacity based on demand and metrics.",
+    "questions": [
+      "Target tracking vs step scaling?",
+      "How avoid scaling oscillation?"
+    ],
+    "tags": [
+      "auto-scaling"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 163,
+    "category": "AWS",
+    "title": "CloudFront",
+    "difficulty": "Medium",
+    "description": "AWS CDN, caching and origin integration.",
+    "questions": [
+      "CloudFront vs S3 hosting?",
+      "How invalidate cache?"
+    ],
+    "tags": [
+      "cloudfront"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 164,
+    "category": "AWS",
+    "title": "Secrets Manager vs Parameter Store",
+    "difficulty": "Medium",
+    "description": "Securely store secrets and configuration.",
+    "questions": [
+      "When use Secrets Manager?",
+      "How rotate secrets?"
+    ],
+    "tags": [
+      "secrets-manager-vs-parameter-store"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 165,
+    "category": "AWS",
+    "title": "ECS Fargate",
+    "difficulty": "Medium",
+    "description": "Run containers without managing worker EC2 nodes.",
+    "questions": [
+      "Fargate vs EC2 launch type?",
+      "How configure task resources?"
+    ],
+    "tags": [
+      "ecs-fargate"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 166,
+    "category": "AWS",
+    "title": "EKS Architecture",
+    "difficulty": "Hard",
+    "description": "Managed Kubernetes control plane and AWS integrations.",
+    "questions": [
+      "What does AWS manage?",
+      "How do worker nodes join?"
+    ],
+    "tags": [
+      "eks-architecture"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 167,
+    "category": "AWS",
+    "title": "EventBridge",
+    "difficulty": "Medium",
+    "description": "Event bus for event-driven AWS integrations.",
+    "questions": [
+      "EventBridge vs SNS?",
+      "What is event routing?"
+    ],
+    "tags": [
+      "eventbridge"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 168,
+    "category": "AWS",
+    "title": "Step Functions",
+    "difficulty": "Hard",
+    "description": "Orchestrate long-running workflows and integrations.",
+    "questions": [
+      "Step Functions vs Saga?",
+      "Standard vs Express workflows?"
+    ],
+    "tags": [
+      "step-functions"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 169,
+    "category": "DevOps",
+    "title": "Multi-Stage Docker Builds",
+    "difficulty": "Medium",
+    "description": "Create smaller production images with builder/runtime stages.",
+    "questions": [
+      "Why multi-stage builds?",
+      "How reduce image size?"
+    ],
+    "tags": [
+      "multi-stage-docker-builds"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 170,
+    "category": "DevOps",
+    "title": "Docker Security",
+    "difficulty": "Hard",
+    "description": "Non-root containers, scanning and minimal base images.",
+    "questions": [
+      "Why avoid root?",
+      "How scan images?"
+    ],
+    "tags": [
+      "docker-security"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 171,
+    "category": "DevOps",
+    "title": "Kubernetes Ingress",
+    "difficulty": "Hard",
+    "description": "HTTP routing from external traffic to services.",
+    "questions": [
+      "Ingress vs Service?",
+      "How does TLS termination work?"
+    ],
+    "tags": [
+      "kubernetes-ingress"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 172,
+    "category": "DevOps",
+    "title": "Kubernetes StatefulSet",
+    "difficulty": "Hard",
+    "description": "Stable identities and storage for stateful workloads.",
+    "questions": [
+      "Deployment vs StatefulSet?",
+      "Why stable network identity?"
+    ],
+    "tags": [
+      "kubernetes-statefulset"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 173,
+    "category": "DevOps",
+    "title": "Persistent Volumes",
+    "difficulty": "Medium",
+    "description": "Persistent storage lifecycle in Kubernetes.",
+    "questions": [
+      "PV vs PVC?",
+      "What is StorageClass?"
+    ],
+    "tags": [
+      "persistent-volumes"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 174,
+    "category": "DevOps",
+    "title": "Helm",
+    "difficulty": "Medium",
+    "description": "Package and template Kubernetes deployments.",
+    "questions": [
+      "Why Helm?",
+      "Values vs templates?"
+    ],
+    "tags": [
+      "helm"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 175,
+    "category": "DevOps",
+    "title": "Canary Deployment",
+    "difficulty": "Hard",
+    "description": "Gradually route traffic to a new application version.",
+    "questions": [
+      "How measure canary health?",
+      "How rollback quickly?"
+    ],
+    "tags": [
+      "canary-deployment"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 176,
+    "category": "Testing",
+    "title": "Test Pyramid",
+    "difficulty": "Easy",
+    "description": "Balance unit, integration and end-to-end tests.",
+    "questions": [
+      "Why not only E2E tests?",
+      "What makes a good unit test?"
+    ],
+    "tags": [
+      "test-pyramid"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 177,
+    "category": "Testing",
+    "title": "Testcontainers",
+    "difficulty": "Hard",
+    "description": "Run real infrastructure dependencies in disposable containers.",
+    "questions": [
+      "Why Testcontainers?",
+      "Unit vs integration testing?"
+    ],
+    "tags": [
+      "testcontainers"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 178,
+    "category": "Testing",
+    "title": "Contract Testing",
+    "difficulty": "Hard",
+    "description": "Verify service contracts without full end-to-end environments.",
+    "questions": [
+      "What problem does it solve?",
+      "Consumer-driven contracts?"
+    ],
+    "tags": [
+      "contract-testing"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 179,
+    "category": "Testing",
+    "title": "Performance Testing",
+    "difficulty": "Medium",
+    "description": "Load, stress, spike and endurance testing.",
+    "questions": [
+      "Load vs stress?",
+      "Which API metrics matter?"
+    ],
+    "tags": [
+      "performance-testing"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 180,
+    "category": "React",
+    "title": "React Hooks",
+    "difficulty": "Medium",
+    "description": "useState, useEffect, useMemo, useCallback and custom hooks.",
+    "questions": [
+      "When useMemo?",
+      "useMemo vs useCallback?"
+    ],
+    "tags": [
+      "react-hooks"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 181,
+    "category": "React",
+    "title": "React Query / Server State",
+    "difficulty": "Hard",
+    "description": "Caching, fetching, invalidation and synchronization of server data.",
+    "questions": [
+      "Client vs server state?",
+      "Why invalidate queries?"
+    ],
+    "tags": [
+      "react-query-server-state"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 182,
+    "category": "React",
+    "title": "React Performance",
+    "difficulty": "Hard",
+    "description": "Memoization, rendering behavior and list optimization.",
+    "questions": [
+      "Why does a component re-render?",
+      "React.memo vs useMemo?"
+    ],
+    "tags": [
+      "react-performance"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 183,
+    "category": "React",
+    "title": "React Router",
+    "difficulty": "Medium",
+    "description": "Nested routes, params and protected routes.",
+    "questions": [
+      "How implement protected routes?",
+      "What is nested routing?"
+    ],
+    "tags": [
+      "react-router"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 184,
+    "category": "JavaScript",
+    "title": "Event Loop",
+    "difficulty": "Hard",
+    "description": "Call stack, task queue and microtask queue.",
+    "questions": [
+      "Promise callback vs setTimeout?",
+      "Why is JS effectively single-threaded?"
+    ],
+    "tags": [
+      "event-loop"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 185,
+    "category": "JavaScript",
+    "title": "Promises & async/await",
+    "difficulty": "Medium",
+    "description": "Promise composition and asynchronous error handling.",
+    "questions": [
+      "Promise.all vs allSettled?",
+      "How propagate async errors?"
+    ],
+    "tags": [
+      "promises-async-await"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 186,
+    "category": "JavaScript",
+    "title": "Closures",
+    "difficulty": "Medium",
+    "description": "Lexical scope and functions retaining outer variables.",
+    "questions": [
+      "What is a closure?",
+      "Practical use cases?"
+    ],
+    "tags": [
+      "closures"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 187,
+    "category": "Architecture",
+    "title": "Clean Architecture",
+    "difficulty": "Hard",
+    "description": "Separate business rules from infrastructure and delivery mechanisms.",
+    "questions": [
+      "What are dependency direction rules?",
+      "Where should business logic live?"
+    ],
+    "tags": [
+      "clean-architecture"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 188,
+    "category": "Architecture",
+    "title": "Hexagonal Architecture",
+    "difficulty": "Hard",
+    "description": "Ports and adapters for isolating domain logic.",
+    "questions": [
+      "What are ports and adapters?",
+      "How does it improve testability?"
+    ],
+    "tags": [
+      "hexagonal-architecture"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 189,
+    "category": "Architecture",
+    "title": "DDD Bounded Context",
+    "difficulty": "Hard",
+    "description": "Define domain boundaries and avoid accidental coupling.",
+    "questions": [
+      "What is a bounded context?",
+      "How identify service boundaries?"
+    ],
+    "tags": [
+      "ddd-bounded-context"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 190,
+    "category": "Architecture",
+    "title": "CQRS",
+    "difficulty": "Hard",
+    "description": "Separate command and query models when useful.",
+    "questions": [
+      "When is CQRS justified?",
+      "CQRS vs CRUD?"
+    ],
+    "tags": [
+      "cqrs"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 191,
+    "category": "Architecture",
+    "title": "Event-Driven Architecture",
+    "difficulty": "Hard",
+    "description": "Loosely coupled systems around domain events.",
+    "questions": [
+      "Event notification vs event-carried state?",
+      "What are consistency implications?"
+    ],
+    "tags": [
+      "event-driven-architecture"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  },
+  {
+    "id": 192,
+    "category": "Architecture",
+    "title": "12-Factor Application",
+    "difficulty": "Medium",
+    "description": "Principles for portable cloud-native applications.",
+    "questions": [
+      "Why externalize configuration?",
+      "Which factors matter for Spring Boot?"
+    ],
+    "tags": [
+      "12-factor-application"
+    ],
+    "done": false,
+    "important": false,
+    "notes": ""
+  }
+]
