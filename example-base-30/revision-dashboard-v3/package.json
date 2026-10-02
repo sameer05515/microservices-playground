@@ -1,0 +1,14 @@
+{
+  "name": "revision-dashboard-v3",
+  "version": "3.0.0",
+  "private": true,
+  "description": "Node.js + Express + Alpine.js + Tailwind CSS revision dashboard with JSON persistence",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
