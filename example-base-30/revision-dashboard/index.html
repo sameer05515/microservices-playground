@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Revision Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'ui-sans-serif', 'system-ui'] }
+        }
+      }
+    }
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+
+<body class="min-h-screen bg-slate-100 text-slate-800 dark:bg-slate-950 dark:text-slate-100">
+<div x-data="revisionApp()" x-init="init()" class="min-h-screen">
+
+  <header class="sticky top-0 z-20 border-b border-slate-200 bg-white/90 backdrop-blur dark:border-slate-800 dark:bg-slate-900/90">
+    <div class="mx-auto max-w-7xl px-4 py-4 sm:px-6">
+      <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+        <div>
+          <h1 class="text-2xl font-bold tracking-tight">🚀 Revision Dashboard</h1>
+          <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">
+            Java → Spring Boot → Microservices → System Design → AWS
+          </p>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <button @click="dark = !dark; saveTheme()"
+            class="rounded-lg border px-3 py-2 text-sm hover:bg-slate-100 dark:border-slate-700 dark:hover:bg-slate-800">
+            <span x-text="dark ? '☀️ Light' : '🌙 Dark'"></span>
+          </button>
+          <button @click="resetProgress()"
+            class="rounded-lg border border-red-200 px-3 py-2 text-sm text-red-600 hover:bg-red-50 dark:border-red-900 dark:hover:bg-red-950">
+            Reset Progress
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-7xl px-4 py-6 sm:px-6">
+
+    <!-- Stats -->
+    <section class="grid grid-cols-2 gap-4 md:grid-cols-4">
+      <div class="rounded-2xl bg-white p-5 shadow-sm dark:bg-slate-900">
+        <div class="text-sm text-slate-500">Total Topics</div>
+        <div class="mt-2 text-3xl font-bold" x-text="topics.length"></div>
+      </div>
+      <div class="rounded-2xl bg-white p-5 shadow-sm dark:bg-slate-900">
+        <div class="text-sm text-slate-500">Completed</div>
+        <div class="mt-2 text-3xl font-bold text-emerald-600" x-text="completedCount"></div>
+      </div>
+      <div class="rounded-2xl bg-white p-5 shadow-sm dark:bg-slate-900">
+        <div class="text-sm text-slate-500">Remaining</div>
+        <div class="mt-2 text-3xl font-bold text-amber-600" x-text="topics.length - completedCount"></div>
+      </div>
+      <div class="rounded-2xl bg-white p-5 shadow-sm dark:bg-slate-900">
+        <div class="text-sm text-slate-500">Progress</div>
+        <div class="mt-2 text-3xl font-bold" x-text="progress + '%'"></div>
+      </div>
+    </section>
+
+    <!-- Progress -->
+    <section class="mt-6 rounded-2xl bg-white p-5 shadow-sm dark:bg-slate-900">
+      <div class="flex items-center justify-between">
+        <h2 class="font-semibold">Overall Progress</h2>
+        <span class="text-sm font-semibold text-indigo-600" x-text="progress + '%'"></span>
+      </div>
+      <div class="mt-3 h-3 overflow-hidden rounded-full bg-slate-200 dark:bg-slate-700">
+        <div class="h-full rounded-full bg-indigo-600 transition-all duration-500"
+             :style="`width:${progress}%`"></div>
+      </div>
+    </section>
+
+    <!-- Filters -->
+    <section class="mt-6 rounded-2xl bg-white p-5 shadow-sm dark:bg-slate-900">
+      <div class="grid gap-3 md:grid-cols-4">
+        <input x-model="search"
+          class="rounded-lg border border-slate-300 bg-white px-3 py-2 outline-none focus:border-indigo-500 dark:border-slate-700 dark:bg-slate-800"
+          placeholder="🔍 Search topics...">
+
+        <select x-model="category"
+          class="rounded-lg border border-slate-300 bg-white px-3 py-2 dark:border-slate-700 dark:bg-slate-800">
+          <option value="All">All Categories</option>
+          <template x-for="c in categories" :key="c">
+            <option :value="c" x-text="c"></option>
+          </template>
+        </select>
+
+        <select x-model="status"
+          class="rounded-lg border border-slate-300 bg-white px-3 py-2 dark:border-slate-700 dark:bg-slate-800">
+          <option value="All">All Status</option>
+          <option value="Pending">Pending</option>
+          <option value="Completed">Completed</option>
+        </select>
+
+        <select x-model="difficulty"
+          class="rounded-lg border border-slate-300 bg-white px-3 py-2 dark:border-slate-700 dark:bg-slate-800">
+          <option value="All">All Difficulty</option>
+          <option value="Easy">Easy</option>
+          <option value="Medium">Medium</option>
+          <option value="Hard">Hard</option>
+        </select>
+      </div>
+    </section>
+
+    <!-- Topics -->
+    <section class="mt-6">
+      <div class="mb-4 flex items-center justify-between">
+        <h2 class="text-lg font-bold">Revision Topics</h2>
+        <span class="text-sm text-slate-500" x-text="filteredTopics.length + ' topics'"></span>
+      </div>
+
+      <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+        <template x-for="topic in filteredTopics" :key="topic.id">
+          <article class="rounded-2xl border bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:border-slate-800 dark:bg-slate-900"
+                   :class="topic.done ? 'border-emerald-300 dark:border-emerald-800' : ''">
+
+            <div class="flex items-start justify-between gap-3">
+              <div>
+                <div class="mb-2 flex flex-wrap gap-2">
+                  <span class="rounded-full bg-indigo-50 px-2.5 py-1 text-xs font-medium text-indigo-700 dark:bg-indigo-950 dark:text-indigo-300"
+                        x-text="topic.category"></span>
+                  <span class="rounded-full px-2.5 py-1 text-xs font-medium"
+                        :class="difficultyClass(topic.difficulty)"
+                        x-text="topic.difficulty"></span>
+                </div>
+                <h3 class="text-lg font-bold" x-text="topic.title"></h3>
+              </div>
+
+              <button @click="toggleDone(topic)"
+                class="grid h-9 w-9 shrink-0 place-items-center rounded-full border text-lg"
+                :class="topic.done
+                  ? 'border-emerald-500 bg-emerald-500 text-white'
+                  : 'border-slate-300 dark:border-slate-700'"
+                :title="topic.done ? 'Mark pending' : 'Mark completed'">
+                <span x-text="topic.done ? '✓' : '○'"></span>
+              </button>
+            </div>
+
+            <p class="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-400" x-text="topic.description"></p>
+
+            <div class="mt-4">
+              <div class="text-xs font-semibold uppercase tracking-wide text-slate-400">Interview Questions</div>
+              <ul class="mt-2 space-y-1 text-sm">
+                <template x-for="q in topic.questions" :key="q">
+                  <li class="flex gap-2">
+                    <span class="text-indigo-500">•</span>
+                    <span x-text="q"></span>
+                  </li>
+                </template>
+              </ul>
+            </div>
+
+            <div class="mt-4 flex flex-wrap gap-2">
+              <template x-for="tag in topic.tags" :key="tag">
+                <span class="rounded bg-slate-100 px-2 py-1 text-xs text-slate-600 dark:bg-slate-800 dark:text-slate-400"
+                      x-text="'#' + tag"></span>
+              </template>
+            </div>
+
+            <div class="mt-5 flex gap-2">
+              <button @click="openNotes(topic)"
+                class="flex-1 rounded-lg bg-slate-100 px-3 py-2 text-sm font-medium hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700">
+                📝 Notes
+              </button>
+              <button @click="toggleImportant(topic)"
+                class="rounded-lg px-3 py-2 text-sm"
+                :class="topic.important ? 'bg-amber-100 text-amber-700 dark:bg-amber-950 dark:text-amber-300' : 'bg-slate-100 dark:bg-slate-800'"
+                x-text="topic.important ? '⭐' : '☆'"></button>
+            </div>
+          </article>
+        </template>
+      </div>
+
+      <div x-show="filteredTopics.length === 0" class="rounded-2xl bg-white p-10 text-center shadow-sm dark:bg-slate-900">
+        <div class="text-4xl">🔎</div>
+        <div class="mt-3 font-semibold">No topics found</div>
+        <div class="mt-1 text-sm text-slate-500">Try changing your filters.</div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Notes modal -->
+  <div x-show="notesOpen" x-cloak class="fixed inset-0 z-50 grid place-items-center bg-black/50 p-4">
+    <div @click.outside="notesOpen=false"
+         class="w-full max-w-2xl rounded-2xl bg-white p-6 shadow-xl dark:bg-slate-900">
+      <div class="flex items-center justify-between">
+        <div>
+          <div class="text-sm text-indigo-600" x-text="selectedTopic?.category"></div>
+          <h2 class="text-xl font-bold" x-text="selectedTopic?.title"></h2>
+        </div>
+        <button @click="notesOpen=false" class="text-2xl text-slate-400">×</button>
+      </div>
+
+      <textarea x-model="selectedTopic.notes"
+        class="mt-5 h-56 w-full rounded-xl border border-slate-300 bg-white p-4 outline-none focus:border-indigo-500 dark:border-slate-700 dark:bg-slate-800"
+        placeholder="Write your revision notes here..."></textarea>
+
+      <div class="mt-4 flex justify-end gap-2">
+        <button @click="notesOpen=false"
+          class="rounded-lg border px-4 py-2 text-sm">Close</button>
+        <button @click="saveNotes()"
+          class="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-700">
+          Save Notes
+        </button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<style>[x-cloak]{display:none!important}</style>
+<script src="./assets/app.js"></script>
+</body>
+</html>
