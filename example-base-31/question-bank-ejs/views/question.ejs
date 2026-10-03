@@ -1,0 +1,30 @@
+<%- include("partials/head", { title: "Question #" + question.number + " • Question Bank" }) %>
+
+<div class="question-nav">
+  <% if (previous) { %><a href="/questions/<%= previous.id %>">← Previous</a><% } else { %><span></span><% } %>
+  <a href="/questions">All questions</a>
+  <% if (next) { %><a href="/questions/<%= next.id %>">Next →</a><% } else { %><span></span><% } %>
+</div>
+
+<article class="detail">
+  <div class="detail-meta">
+    <span class="q-number">Question #<%= question.number %></span>
+    <% question.tagNames.forEach(name => { %><span class="mini-tag"><%= name %></span><% }) %>
+  </div>
+
+  <div class="markdown question-markdown"><%- marked(question.question) %></div>
+
+  <div class="answer-label">Answer<%= question.answers.length > 1 ? "s" : "" %></div>
+  <% question.answerHtml.forEach((answer, i) => { %>
+    <% if (question.answers.length > 1) { %><h3 class="answer-number">Answer <%= i + 1 %></h3><% } %>
+    <div class="markdown answer"><%- answer %></div>
+  <% }) %>
+</article>
+
+<div class="bottom-nav">
+  <% if (previous) { %><a class="secondary" href="/questions/<%= previous.id %>">← Previous</a><% } %>
+  <a class="primary" href="/random">Random Question</a>
+  <% if (next) { %><a class="secondary" href="/questions/<%= next.id %>">Next →</a><% } %>
+</div>
+
+<%- include("partials/foot", { bank }) %>
