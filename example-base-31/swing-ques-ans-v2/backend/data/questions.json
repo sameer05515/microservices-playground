@@ -1,0 +1,12 @@
+[
+  {
+    "id": 1,
+    "question": "What is the difference between `HashMap` and `ConcurrentHashMap`?",
+    "answer": "## Answer\n\n`HashMap` is **not thread-safe**, while `ConcurrentHashMap` supports concurrent access.\n\n### Key points\n\n- HashMap is not thread-safe.\n- ConcurrentHashMap supports concurrent access.\n- ConcurrentHashMap does not allow null keys or values."
+  },
+  {
+    "id": 2,
+    "question": "What is Dependency Injection in Spring?",
+    "answer": "Spring creates and injects required dependencies instead of the class creating them directly.\n\n```java\n@Service\npublic class UserService {\n    private final UserRepository repository;\n\n    public UserService(UserRepository repository) {\n        this.repository = repository;\n    }\n}\n```"
+  }
+]
