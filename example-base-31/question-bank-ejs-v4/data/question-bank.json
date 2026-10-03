@@ -1,6 +1,6 @@
 {
-  "version": 1,
-  "exportedAt": "2026-10-03T10:34:41.451Z",
+  "version": 2,
+  "exportedAt": "2026-10-03T18:28:00+05:30",
   "tags": [
     {
       "id": "6a9fd244443b416bda75278d",
@@ -29,10 +29,6 @@
     {
       "id": "6aa294eadaa77f7a1d3ef73c",
       "name": "Interview FAQ"
-    },
-    {
-      "id": "7859a69e5803dedebda30c2d",
-      "name": "Spring Boot"
     }
   ],
   "questions": [
@@ -40,9 +36,11 @@
       "id": "6a9ea054e2c4aee65c418932",
       "question": "What is Java?",
       "answers": [
-        "Java is an Object oriented programming language"
+        "Java is a high-level, class-based, object-oriented programming language designed to be portable through the JVM."
       ],
-      "tags": []
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
     },
     {
       "id": "6a9ea4f4e2c4aee65c418933",
@@ -1164,6 +1162,2966 @@
       "tags": [
         "6a9fd244443b416bda75278d",
         "6a9fd95f5bdbbfdf9298f10a"
+      ]
+    },
+    {
+      "id": "e656789f04fb4a08876270cd",
+      "question": "What is JavaScript?",
+      "answers": [
+        "JavaScript is a high-level, dynamically typed programming language primarily used to add behavior and interactivity to web applications. It runs in browsers and also on servers through runtimes such as Node.js."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "740d26e124914d92836d45aa",
+      "question": "What is the difference between JavaScript and Java?",
+      "answers": [
+        "JavaScript and Java are different languages. JavaScript is dynamically typed and commonly interpreted/JIT-compiled, while Java is statically typed and runs on the JVM. Their syntax, type systems, object models, concurrency models, and typical use cases are different."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "9352bce1a13d4f2d9a37b9fe",
+      "question": "What is the difference between var, let, and const?",
+      "answers": [
+        "var is function-scoped and can be redeclared; let and const are block-scoped and cannot be redeclared in the same scope. let can be reassigned, while const cannot be reassigned. All declarations are hoisted, but let/const remain in the Temporal Dead Zone until initialization."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "4f5649178721483a82688cab",
+      "question": "What is hoisting in JavaScript?",
+      "answers": [
+        "Hoisting describes how JavaScript creates bindings before executing code. Function declarations are available before their source position; var declarations are initialized with undefined; let and const are hoisted but inaccessible until initialization because of the Temporal Dead Zone."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "9b97dbabb96f4a47a1aff517",
+      "question": "What is the Temporal Dead Zone (TDZ)?",
+      "answers": [
+        "The TDZ is the period from entering a scope until a let, const, or class declaration is initialized. Accessing the binding during this period throws a ReferenceError."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "025889bf8e8c443c8001b48a",
+      "question": "What is scope in JavaScript?",
+      "answers": [
+        "Scope determines where an identifier can be accessed. JavaScript has lexical scoping, so the accessible variables are determined by where code is written, not where a function is called."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "95bd63bf2fcd4dfa82d1e141",
+      "question": "What are global scope, function scope, and block scope?",
+      "answers": [
+        "Global scope is accessible throughout the script/module according to the environment. Function scope is created for a function and applies to var declarations. Block scope is created by blocks such as {}, and applies to let, const, and class declarations."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "7957f619cae64257a8966b7e",
+      "question": "What is a closure?",
+      "answers": [
+        "A closure is a function together with access to variables from its surrounding lexical environment. It allows inner functions to retain access to outer variables even after the outer function has returned."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "935e9b2439bf4b398b17ce1e",
+      "question": "What is lexical scope?",
+      "answers": [
+        "Lexical scope means variable visibility is determined by the physical nesting of declarations in source code. An inner function can access variables declared in its outer scopes."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "ac8b708c3e77479da549eb7d",
+      "question": "What is an execution context?",
+      "answers": [
+        "An execution context is the environment in which JavaScript evaluates code. It contains information such as the current lexical environment, variable bindings, and the value of this. Global, function, and module execution contexts are common types."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "b950b9ca0674465e8efb2b16",
+      "question": "What is the Call Stack?",
+      "answers": [
+        "The Call Stack is a LIFO structure used by the JavaScript engine to track active function calls. A function call pushes a stack frame; when it returns, the frame is removed."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "b155a9aad04d4f509d9662d5",
+      "question": "What is the Event Loop?",
+      "answers": [
+        "The Event Loop coordinates synchronous JavaScript with asynchronous callbacks. After the call stack becomes empty, it processes queued jobs, giving microtasks priority before moving to the next task/macrotask."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "6a3d762ba8144aab81d66e7c",
+      "question": "What is the difference between microtasks and macrotasks?",
+      "answers": [
+        "Microtasks include Promise reactions and queueMicrotask callbacks and are processed after the current task, before the browser proceeds to the next task. Macrotasks/tasks include timers, user events, and many I/O callbacks. The exact scheduling also depends on the host environment."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "6fa1011f6e0243a8a5feeece",
+      "question": "What is the difference between == and ===?",
+      "answers": [
+        "== performs comparison with type coercion in many cases, while === requires both type and value to match without implicit coercion. In most application code, === is preferred for predictable comparisons."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "76d0c47c4819459ea42c677c",
+      "question": "What is type coercion?",
+      "answers": [
+        "Type coercion is conversion of a value from one type to another. JavaScript performs implicit coercion in operations such as == and string concatenation, and developers can also perform explicit conversion using Number(), String(), Boolean(), and similar APIs."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "9b627e81c2c74972a1dc3313",
+      "question": "What are primitive and non-primitive data types?",
+      "answers": [
+        "Primitive values include string, number, bigint, boolean, undefined, symbol, and null. Objects, arrays, and functions are non-primitive reference values. Primitives are immutable values, while objects can have mutable properties."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "c78bce9cc4ed41c2b4eef7c6",
+      "question": "What is the difference between null and undefined?",
+      "answers": [
+        "undefined usually means a value has not been assigned or a property is missing. null is an explicit absence-of-value marker. typeof undefined is 'undefined', while typeof null is historically 'object'."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "922f8c881fee484b80470b9e",
+      "question": "What is NaN and how do you check for it?",
+      "answers": [
+        "NaN means Not-a-Number and is a special numeric value representing an invalid numeric result. Number.isNaN(value) is the preferred precise check because it does not coerce its argument."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "90fdbc2515d342ab8f76629c",
+      "question": "Why does typeof null return \"object\"?",
+      "answers": [
+        "It is a historical behavior of JavaScript maintained for backward compatibility. null is a primitive value, despite typeof null returning the string 'object'."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "fbceb21062274442a5b02c58",
+      "question": "What are truthy and falsy values?",
+      "answers": [
+        "Falsy values become false when converted to Boolean. Common falsy values are false, 0, -0, 0n, '', null, undefined, and NaN. Most other values, including [] and {}, are truthy."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "744893693b6e40edaf99e3aa",
+      "question": "How does the this keyword work in JavaScript?",
+      "answers": [
+        "this is determined by the call site for regular functions. In obj.method(), this is obj; with new it is the new instance; call/apply/bind can explicitly set it. Arrow functions do not have their own this and capture it lexically."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "dbfb06629dcf4386a6990847",
+      "question": "What is the difference between arrow functions and regular functions?",
+      "answers": [
+        "Arrow functions have lexical this, cannot be used as constructors with new, and do not have their own arguments object. Regular functions have dynamic this based on invocation and can be constructors when appropriate."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "9aa7a16bc3e04058ab24fa4f",
+      "question": "What is the difference between call(), apply(), and bind()?",
+      "answers": [
+        "call() invokes a function immediately with a specified this and separate arguments. apply() invokes it immediately with arguments supplied as an array-like value. bind() returns a new function with this and optionally leading arguments fixed."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "5e25c6a9ef26493a97695416",
+      "question": "What is the difference between a function declaration and a function expression?",
+      "answers": [
+        "A function declaration defines a named function as a statement and is hoisted so it can normally be called before its declaration. A function expression creates a function as part of an expression and is assigned to a variable or other value."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "870b0a1eb73e440fa8d03ae1",
+      "question": "What is a callback function?",
+      "answers": [
+        "A callback is a function passed to another function to be invoked later or during an operation. Callbacks are common with array methods, event handlers, timers, and asynchronous APIs."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "07d2fa586be2436fb74e466c",
+      "question": "What is a higher-order function?",
+      "answers": [
+        "A higher-order function takes one or more functions as arguments, returns a function, or both. Examples include map(), filter(), reduce(), and functions that create configured callbacks."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "5f418aa5d0584070aaa5adf7",
+      "question": "What are first-class functions?",
+      "answers": [
+        "Functions are first-class values in JavaScript, meaning they can be stored in variables, passed as arguments, returned from functions, and stored in object properties or arrays."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "c0e6eca578474637ba547938",
+      "question": "What is an IIFE?",
+      "answers": [
+        "An IIFE, or Immediately Invoked Function Expression, is a function expression that is executed immediately after it is created. It was historically used to create a private scope and avoid global variables; modules now provide a cleaner solution."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "98dcfc0794974952be6102d1",
+      "question": "What is a pure function?",
+      "answers": [
+        "A pure function produces the same output for the same inputs and has no observable side effects such as modifying external state, performing I/O, or changing its arguments. Pure functions are easier to test and reason about."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "20d874c9dc794731a9b9ef4d",
+      "question": "What is a prototype in JavaScript?",
+      "answers": [
+        "A prototype is an object used for property and method lookup through JavaScript's prototype-based object model. Objects can inherit properties from their prototype."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "e8ff07a05fef4abab25997cc",
+      "question": "What is the prototype chain?",
+      "answers": [
+        "When a property is not found directly on an object, JavaScript searches its prototype, then that prototype's prototype, continuing until null. This sequence is the prototype chain."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "ff475f3e3abe4f3a982d43d3",
+      "question": "What is prototypal inheritance?",
+      "answers": [
+        "Prototypal inheritance means an object can delegate property and method lookup to another object through its prototype. It is the fundamental inheritance mechanism underneath JavaScript classes."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "8d12a0772d2943b7b9d460de",
+      "question": "How do classes work in JavaScript?",
+      "answers": [
+        "class provides syntax for defining constructors, instance methods, static methods, and inheritance. Classes are built on top of JavaScript's prototype system; methods are generally placed on the prototype rather than copied to every instance."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "7263cf215fdf48e4834abdc0",
+      "question": "What is Object.create()?",
+      "answers": [
+        "Object.create(proto) creates a new object whose internal prototype is the supplied proto. It can also accept property descriptors. It is useful when explicit prototype-based object creation is required."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "2debab39e49540958d520699",
+      "question": "What is the difference between shallow copy and deep copy?",
+      "answers": [
+        "A shallow copy duplicates only the top-level structure, so nested objects remain shared references. A deep copy recursively creates independent nested data. structuredClone() is a modern option for many supported data types."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "be30e8b9e3ad41838f79e9f2",
+      "question": "What are different ways to clone an object?",
+      "answers": [
+        "Common approaches include spread syntax, Object.assign(), structuredClone(), and JSON.parse(JSON.stringify(obj)) for restricted JSON-compatible data. Spread and Object.assign are shallow; structuredClone provides deep cloning for many built-in types."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "9b6a00e3846d437a9d87e020",
+      "question": "What is destructuring?",
+      "answers": [
+        "Destructuring extracts values from arrays or properties from objects into variables. Example: const {name} = user; and const [first, second] = items;. It can also provide defaults and rename object properties."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "4f610a4f61364a4e9e871c45",
+      "question": "What is the difference between the Spread and Rest operators?",
+      "answers": [
+        "Both use .... Spread expands an iterable or object into individual elements/properties. Rest collects remaining arguments, array elements, or object properties into a new array or object."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "a6a3aab686da4edb9e63cf33",
+      "question": "What are template literals?",
+      "answers": [
+        "Template literals use backticks and support interpolation with ${...}, multiline strings, and tagged templates. They are convenient for constructing readable dynamic strings."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "a3347b9757fb450ab7a2ed8e",
+      "question": "What is the difference between map(), filter(), and reduce()?",
+      "answers": [
+        "map() transforms every element and returns an array of the same length. filter() returns elements that satisfy a predicate. reduce() combines elements into a single accumulated result, such as a sum, object, or grouped structure."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "c44584781f86433f8bd6fd85",
+      "question": "What is the difference between forEach() and map()?",
+      "answers": [
+        "forEach() executes a callback for each element and returns undefined. map() transforms each element and returns a new array. Use map when the transformed array is the desired result."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "dc82dd7437e94f57ac980f33",
+      "question": "What is a Promise?",
+      "answers": [
+        "A Promise represents the eventual completion or failure of an asynchronous operation and its resulting value. It enables composition through then(), catch(), and finally()."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "9346380a55b441f59da54b15",
+      "question": "What are the states of a Promise?",
+      "answers": [
+        "A Promise starts pending and becomes fulfilled when the operation succeeds or rejected when it fails. Fulfilled and rejected are collectively called settled states, and a settled promise does not change state again."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "c57b7c6437194f9992e773ec",
+      "question": "What is async/await?",
+      "answers": [
+        "async/await is syntax built on Promises. An async function always returns a Promise, and await pauses execution of that async function until a Promise settles, making asynchronous code easier to read."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "b4250bba24b0413f89277bd3",
+      "question": "What is the difference between Promise.all(), Promise.allSettled(), Promise.race(), and Promise.any()?",
+      "answers": [
+        "Promise.all() fulfills when all fulfill and rejects on the first rejection. allSettled() waits for every input and reports each result. race() settles with the first settled input. any() fulfills with the first fulfilled input and rejects with AggregateError if all reject."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "a30ee0f5d9004d9d84f224a7",
+      "question": "What is the difference between synchronous and asynchronous JavaScript?",
+      "answers": [
+        "Synchronous work executes sequentially and blocks the current flow until it completes. Asynchronous APIs allow work such as timers, network requests, or I/O to complete later while the JavaScript thread can continue processing other work."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "43ef2a841e404228be8bdbf9",
+      "question": "What are debouncing and throttling?",
+      "answers": [
+        "Debouncing delays execution until activity stops for a configured period, useful for search input. Throttling limits execution to at most a defined rate, useful for scroll, resize, or mousemove events."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "82ee25a5bbcd4496a06d72dd",
+      "question": "What are event bubbling and event capturing?",
+      "answers": [
+        "Capturing travels from the document/root toward the target. At the target the event is handled, and bubbling then travels from the target back toward ancestors. Event listeners can choose the capture phase with the capture option."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "f60fe5189adb4f75859f8a5e",
+      "question": "What is event delegation?",
+      "answers": [
+        "Event delegation attaches one listener to a common ancestor and uses event bubbling to handle events from matching descendants. It reduces listener count and works well for dynamically created elements."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "45eced9fe9a641f3b542ec5e",
+      "question": "What is a memory leak in JavaScript and how can you prevent it?",
+      "answers": [
+        "A memory leak occurs when objects that are no longer needed remain reachable and therefore cannot be collected. Common causes include forgotten event listeners, timers, global references, and unbounded caches. Remove listeners, clear timers, release references, and bound caches."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "165254b1757e47edbaea2858",
+      "question": "What is the difference between Object and Map?",
+      "answers": [
+        "Objects are general-purpose property containers whose keys are strings or symbols. Map is a dedicated key-value collection that supports keys of any type, preserves insertion order, exposes size, and provides convenient iteration and mutation methods."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "451d849e762d4f0bbb007dc3",
+      "question": "What is the difference between Set and Array?",
+      "answers": [
+        "An Array is an ordered indexed collection and can contain duplicates. A Set stores unique values and provides efficient membership operations conceptually suited to uniqueness checks."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "1b3ea8c1911c425c80fa5136",
+      "question": "What is the difference between Map and WeakMap?",
+      "answers": [
+        "Map accepts any key type and is iterable. WeakMap keys must be objects or non-registered symbols and are weakly held, allowing garbage collection when there are no other strong references. WeakMap is not enumerable."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "0693aaa2960c43f98d8fd8b2",
+      "question": "What is the difference between Set and WeakSet?",
+      "answers": [
+        "Set can store values of any type, is iterable, and exposes size. WeakSet stores objects or non-registered symbols weakly, is not iterable, and is useful when membership should not keep objects alive."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "ee5b0bf695e74daf938ef4b6",
+      "question": "What are Symbols in JavaScript?",
+      "answers": [
+        "Symbol is a primitive type that creates unique values. Symbols are often used as non-colliding object property keys and for well-known protocols such as Symbol.iterator."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "cb0e77202c7647dd9336746d",
+      "question": "What are BigInt values?",
+      "answers": [
+        "BigInt represents integers larger than Number's safe integer range. Literals use n, such as 123n. BigInt and Number are different types and generally cannot be mixed directly in arithmetic."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "da648cebeb324cfdaacc4ec4",
+      "question": "What is optional chaining (?.)?",
+      "answers": [
+        "Optional chaining safely accesses a property, method, or index when an intermediate value may be null or undefined. For example, user?.address?.city returns undefined instead of throwing when a link is nullish."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "9d4afb8d909c460bad7e00e5",
+      "question": "What is the nullish coalescing operator (??)?",
+      "answers": [
+        "?? returns the right-hand value only when the left-hand value is null or undefined. Unlike ||, it does not replace valid falsy values such as 0, false, or an empty string."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "f88afaed0e87403d9e2a0550",
+      "question": "What is the difference between || and ???",
+      "answers": [
+        "|| uses truthiness, so it falls back for values such as 0, false, and ''. ?? falls back only for null or undefined. Use ?? when those other falsy values are valid data."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "ea65c05efd6943bdb55ad696",
+      "question": "What is the purpose of the typeof operator?",
+      "answers": [
+        "typeof returns a string describing the type category of a value, such as 'string', 'number', 'boolean', 'undefined', 'object', 'function', 'symbol', or 'bigint'. It has historical quirks such as typeof null being 'object'."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "be395c63cd4b4858b1d9039e",
+      "question": "What is the purpose of the instanceof operator?",
+      "answers": [
+        "instanceof checks whether an object's prototype chain contains the prototype property of a constructor. It is useful for nominal-style checks, but can be affected by multiple realms and custom Symbol.hasInstance behavior."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "87c31afba909453d91f9f3d4",
+      "question": "What is the difference between Object.keys(), Object.values(), and Object.entries()?",
+      "answers": [
+        "Object.keys() returns an array of an object's enumerable own string keys. Object.values() returns the corresponding values. Object.entries() returns [key, value] pairs. None includes inherited enumerable properties."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "c99581a45c914b088d0d7d00",
+      "question": "What is Object.freeze()?",
+      "answers": [
+        "Object.freeze() prevents adding, removing, or changing an object's own data properties at the top level. It is shallow; nested objects remain mutable unless they are frozen separately."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "89eb3acdf8fd42bead028e88",
+      "question": "What is Object.seal()?",
+      "answers": [
+        "Object.seal() prevents adding or deleting own properties and makes them non-configurable, but existing writable properties can still be changed."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "02de51de71144f3bb9bb229b",
+      "question": "What is the difference between Object.freeze() and Object.seal()?",
+      "answers": [
+        "freeze() makes an object non-extensible and its existing data properties non-writable and non-configurable. seal() makes it non-extensible and properties non-configurable, but writable values may still change."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "492b00c0d91b44098fe68cf5",
+      "question": "What is Object.assign()?",
+      "answers": [
+        "Object.assign(target, ...sources) copies enumerable own properties from source objects into a target object and returns the target. The copy is shallow."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "8886fa5db9494475b14c5285",
+      "question": "What is the difference between Object.assign() and the spread operator?",
+      "answers": [
+        "Both commonly perform shallow copies. Object.assign() mutates and returns an explicit target object and can accept multiple sources. Object spread creates a new object in an object literal; its semantics and supported syntax differ in some edge cases."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "43b932d8783f4a4f86ed810d",
+      "question": "What are getters and setters in JavaScript?",
+      "answers": [
+        "Getters define code that runs when a property is read; setters define code that runs when a property is assigned. They can be declared in object literals, classes, or through property descriptors."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "f422aa4442b0432c908bfec9",
+      "question": "What are property descriptors?",
+      "answers": [
+        "Property descriptors define metadata for object properties. Data descriptors use value, writable, enumerable, and configurable; accessor descriptors use get, set, enumerable, and configurable."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "35c330611d2c440da214b543",
+      "question": "What is the difference between enumerable, writable, and configurable properties?",
+      "answers": [
+        "enumerable controls whether a property appears in common enumeration operations. writable controls whether a data property's value can be changed. configurable controls whether the property descriptor can be changed or the property deleted."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "d1f1822c27b642dfb873eacf",
+      "question": "What is a JavaScript module?",
+      "answers": [
+        "A module is a separately scoped unit of code that can export values and import dependencies. ES modules use import/export and have module scope rather than placing declarations in the global scope."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "fff616a5ccc14177baf30cab",
+      "question": "What is the difference between CommonJS and ES Modules?",
+      "answers": [
+        "CommonJS uses require() and module.exports and is common in Node.js legacy code. ES Modules use import/export, have standardized module semantics, and are supported by modern browsers and Node.js."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "840e32e6f0ef487f9cd96d0f",
+      "question": "What is the difference between import and require()?",
+      "answers": [
+        "import is part of the ES module system and is statically analyzable in its normal form. require() is CommonJS runtime loading syntax. They differ in module format, loading semantics, interoperability, and tooling behavior."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "415e703f518e4a37bef1002d",
+      "question": "What is a default export and a named export?",
+      "answers": [
+        "A module can have one default export and any number of named exports. Default imports choose the local name freely; named imports use the exported name unless aliased with as."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "d26b57681fb7446d8e667369",
+      "question": "What is dynamic import()?",
+      "answers": [
+        "dynamic import() loads an ES module asynchronously and returns a Promise for its module namespace object. It is useful for code splitting and loading optional features on demand."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "a7cc7c3996624eb1a8617aa7",
+      "question": "What is tree shaking?",
+      "answers": [
+        "Tree shaking is a build optimization that removes statically detectable unused exports from a module graph. It works especially well with ES modules because import/export relationships are statically analyzable."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "8bb3f08de145452e94bc6691",
+      "question": "What is strict mode (\"use strict\")?",
+      "answers": [
+        "Strict mode enables safer JavaScript semantics, such as preventing accidental global variables, making some silent errors throw, and changing this behavior for plain function calls. ES modules and class bodies are strict automatically."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "6382d4f0bc9541ccbb923848",
+      "question": "What is the purpose of the new keyword?",
+      "answers": [
+        "new creates a new object, links it to the constructor's prototype, calls the constructor with that object as this, and returns the constructor's object result when it is an object; otherwise it returns the new instance."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "c11323826b374d9384a88637",
+      "question": "What happens when you use new with a constructor function?",
+      "answers": [
+        "JavaScript creates an object, sets its prototype from Constructor.prototype, invokes the constructor with this bound to the new object, and returns the object unless the constructor explicitly returns another object."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "688dec4b8b1c46a9b8d71f0d",
+      "question": "What is a constructor function?",
+      "answers": [
+        "A constructor function is a regular function intended to create and initialize objects when called with new. Its prototype can hold shared methods."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "d791e5066f684661b7e4a166",
+      "question": "What is the difference between __proto__ and prototype?",
+      "answers": [
+        "prototype is a property on constructor functions used as the prototype for objects created with new. __proto__ is an accessor on objects that exposes or changes their internal prototype. Object.getPrototypeOf() and Object.setPrototypeOf() are clearer standard APIs."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "2cd57b16b6df4650a04bf9ff",
+      "question": "What is method chaining?",
+      "answers": [
+        "Method chaining calls multiple methods sequentially by returning an object that supports the next method. Many array APIs and fluent interfaces use this style."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "b916ac7b3def4ab99d365cb2",
+      "question": "What is currying?",
+      "answers": [
+        "Currying transforms a function taking multiple arguments into a sequence of functions each taking one or fewer arguments. Example: f(a,b) becomes f(a)(b)."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "397470225d3c4608bce3ec6a",
+      "question": "What is function composition?",
+      "answers": [
+        "Function composition combines small functions so the output of one becomes the input of another. It encourages reusable transformations and can be represented as compose(f, g)(x) = f(g(x))."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "a042efc4279b4733b2da70dd",
+      "question": "What is memoization?",
+      "answers": [
+        "Memoization caches the result of a function for previously seen inputs. It can reduce repeated expensive computation when the function is deterministic and the cache strategy is controlled."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "cc88c6eea2794587a968873d",
+      "question": "What is recursion?",
+      "answers": [
+        "Recursion is when a function calls itself directly or indirectly. A correct recursive algorithm needs a base case that stops further calls."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "1e0c1693c0074e2f8f37510f",
+      "question": "What is tail recursion?",
+      "answers": [
+        "A tail-recursive function makes its recursive call as its final operation, with no additional work after the call. Some languages optimize this, but JavaScript engines should not be assumed to provide general tail-call optimization in typical environments."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "423bc975435b4054ae020894",
+      "question": "What is an iterator?",
+      "answers": [
+        "An iterator is an object implementing a next() method that returns objects of the form {value, done}. It allows consumers to retrieve a sequence of values incrementally."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "3f5f53e1c57e491a8860619f",
+      "question": "What is a generator function?",
+      "answers": [
+        "A generator function is declared with function* and can pause at yield. Calling it returns a generator object, which is an iterator that resumes execution on next()."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "d02113875e3d4ebfa73b2237",
+      "question": "What are Symbol.iterator and iterables?",
+      "answers": [
+        "An iterable is an object that implements Symbol.iterator and therefore can produce an iterator. Arrays, strings, Maps, and Sets are iterable and can be consumed by for...of and spread syntax."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "bcdcb6e8d14b40a08f67e902",
+      "question": "What are JavaScript Proxy and Reflect?",
+      "answers": [
+        "Proxy lets you intercept operations such as property access, assignment, and function calls. Reflect provides standard functions corresponding to many internal object operations and is often used inside Proxy traps."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "0a0a7360cfd046cb8b3002a0",
+      "question": "What are custom events?",
+      "answers": [
+        "Custom events are application-defined DOM events created with Event or CustomEvent and dispatched with dispatchEvent(). CustomEvent can carry application data through its detail property."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "04f0ecf155e845f087dd4843",
+      "question": "What is the DOM?",
+      "answers": [
+        "The Document Object Model is a programming interface representing an HTML or XML document as a tree of nodes. JavaScript can use it to read, modify, create, and remove document content and structure."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "2c407752e77a4885b3309a40",
+      "question": "What is the difference between the DOM and BOM?",
+      "answers": [
+        "DOM represents the document and its elements. BOM, or Browser Object Model, refers to browser-provided objects such as window, location, history, and navigator that expose browser environment capabilities."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "002a190f827441a38bb02141",
+      "question": "What is the difference between querySelector() and getElementById()?",
+      "answers": [
+        "getElementById() finds an element by its unique id and is specialized for that lookup. querySelector() accepts a CSS selector and returns the first matching element, making it more general."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "130c2bb59d5d42ef811133be",
+      "question": "What is the difference between innerHTML, innerText, and textContent?",
+      "answers": [
+        "innerHTML reads/writes markup and can create security risks when inserting untrusted HTML. textContent reads/writes raw text without layout-based rendering behavior. innerText reflects rendered text and is affected by CSS/layout."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "6a68825ae7b541929f5aeee4",
+      "question": "What is the difference between preventDefault() and stopPropagation()?",
+      "answers": [
+        "preventDefault() cancels the browser's default action for an event when cancelable. stopPropagation() prevents the event from continuing through the capture or bubble path. They solve different problems."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "832b39c3f0664e42a06d0be1",
+      "question": "What is the Fetch API?",
+      "answers": [
+        "Fetch is a browser and modern runtime API for making HTTP requests. fetch() returns a Promise resolving to a Response object; HTTP error status codes such as 404 do not automatically reject the Promise, so response.ok or status should be checked."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "0d8c79f6346e4b31bb7f6939",
+      "question": "What is CORS and why does it occur?",
+      "answers": [
+        "CORS, Cross-Origin Resource Sharing, is a browser security mechanism controlling requests between different origins. The server must provide appropriate Access-Control-Allow-* headers to permit the requested cross-origin operation."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "d95668d4154c4effa222b5a5",
+      "question": "What is the difference between localStorage, sessionStorage, and cookies?",
+      "answers": [
+        "localStorage persists until explicitly cleared; sessionStorage is scoped to a browser tab/session; cookies are sent with matching HTTP requests and can have attributes such as Secure, HttpOnly, SameSite, and expiration. Storage APIs are not automatically sent with requests."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "d54d5e672f54499d9d304ed9",
+      "question": "What is the difference between synchronous and asynchronous callbacks?",
+      "answers": [
+        "A synchronous callback runs before the current function returns, such as the callback passed to forEach(). An asynchronous callback runs later after the current call stack has progressed, such as a timer or Promise reaction."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "b023894c693c45769ad800b9",
+      "question": "What is callback hell and how can you avoid it?",
+      "answers": [
+        "Callback hell is deeply nested callback-based asynchronous code that becomes difficult to read and maintain. Promises, async/await, smaller functions, centralized error handling, and proper abstraction can flatten and clarify the flow."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "97be10aa27c24b1f907c0a11",
+      "question": "What is promise chaining?",
+      "answers": [
+        "Promise chaining connects asynchronous operations by returning a Promise from then(). The next then() receives the resolved value, while thrown errors or rejections propagate to the nearest appropriate catch()."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "a42201d5ea88408484de9453",
+      "question": "What is the difference between .then(), .catch(), and .finally()?",
+      "answers": [
+        "then() handles fulfillment and optionally rejection. catch() handles rejection. finally() runs when the Promise settles regardless of outcome and is commonly used for cleanup."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "46611f1b50a84125815c275b",
+      "question": "How do you handle errors with async/await?",
+      "answers": [
+        "Use try/catch around awaited operations, and optionally finally for cleanup. Ensure rejected Promises are handled at an appropriate boundary and avoid swallowing errors without logging or translating them meaningfully."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "354ba360618c4f8889844391",
+      "question": "What happens when an async function returns a value?",
+      "answers": [
+        "An async function automatically wraps the returned value in a fulfilled Promise. Returning Promise.resolve(value) is effectively equivalent from the caller's perspective."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "bb936c56a4244b69b162f5e8",
+      "question": "What happens when an async function throws an error?",
+      "answers": [
+        "The async function returns a rejected Promise containing that error. The caller can handle it with await inside try/catch or with Promise.catch()."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "aa81e80827134784acdd865e",
+      "question": "Can await be used without async?",
+      "answers": [
+        "Modern JavaScript permits top-level await in ES modules. Inside a normal function body, await generally requires the function to be async. A module can therefore use top-level await without wrapping code in an async function."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "f72b347dfa3f42b6965bbc31",
+      "question": "What is an async iterator?",
+      "answers": [
+        "An async iterator provides a next() method that returns a Promise resolving to {value, done}. It is designed for sequences whose values become available asynchronously."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "061d465eaf4c4b95b575592e",
+      "question": "What is for await...of?",
+      "answers": [
+        "for await...of consumes async iterables one item at a time using await. It can also consume synchronous iterables whose yielded values are Promises."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "62da49b9b7244f59b4c2d060",
+      "question": "How does Promise.all() handle rejected promises?",
+      "answers": [
+        "Promise.all() rejects as soon as one input Promise rejects. It does not cancel the other underlying operations; those operations may continue running, even though their results are no longer returned by Promise.all()."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "efc5058b19844288950e1c15",
+      "question": "How would you implement your own Promise.all()?",
+      "answers": [
+        "Create a new Promise, preserve input order, count fulfilled results, and reject immediately when any input rejects. Handle non-Promise values with Promise.resolve(). A completion counter resolves when it reaches the number of inputs, with an immediate resolution for an empty input."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "bf24316484b041159e1e39fb",
+      "question": "How would you implement your own debounce() function?",
+      "answers": [
+        "Keep a timer in a closure, clear the previous timer whenever the function is called, and schedule a new setTimeout. Invoke the original function only after the configured quiet period has elapsed."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "7a193333dc024c19bc8e1e9d",
+      "question": "How would you implement your own throttle() function?",
+      "answers": [
+        "Track the last execution time or a scheduled timer. Ignore or defer calls that occur before the interval expires, then execute at most once per interval. Leading/trailing behavior should be explicitly defined."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "1932c9ded0654808bec6598b",
+      "question": "How would you implement a deep-clone function?",
+      "answers": [
+        "For general supported data, structuredClone(value) is the preferred built-in. A custom recursive clone must handle arrays, objects, cycles, Dates, Maps, Sets, and other special types deliberately; JSON serialization is not a general deep-clone solution."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "1ced20074f9a4cc5b69e2be0",
+      "question": "How would you remove duplicate values from an array?",
+      "answers": [
+        "For primitive values, the simplest approach is [...new Set(array)]. For objects, uniqueness requires a key or custom comparison strategy, for example using a Map keyed by an object property."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "a979881c9106403281cd6dbb",
+      "question": "How would you find the second-largest number in an array?",
+      "answers": [
+        "Track the largest and second-largest distinct values in one pass, updating them as each number is visited. Define how duplicates and arrays with fewer than two distinct numbers should be handled."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "f00f91e0aa624244ba98c0e4",
+      "question": "How would you flatten a nested array?",
+      "answers": [
+        "Use array.flat(Infinity) for straightforward complete flattening. For a custom implementation, recursively walk each element and append non-array values to an output array."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "1d182d678c004c8cba55c2bb",
+      "question": "How would you reverse a string without using built-in methods?",
+      "answers": [
+        "Convert the string into a character sequence and iterate from the last index to zero, appending each character to a result. For full Unicode grapheme handling, simple indexing is insufficient and Intl.Segmenter or a suitable Unicode-aware approach may be needed."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "cc97a4f88d2348c6b6dd9ade",
+      "question": "How would you check whether a string is a palindrome?",
+      "answers": [
+        "Normalize the string according to the required rules, then compare characters from both ends moving toward the center, or compare it with its reversed form. Decide whether case, spaces, punctuation, and Unicode normalization should be ignored."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "afee9b7aac8846c291d93392",
+      "question": "How would you count the frequency of elements in an array?",
+      "answers": [
+        "Use a Map or object as a frequency table. Iterate over the array and increment the count for each value. Map is preferable when keys can be arbitrary values."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "d463ee7ff3e048bbb124af94",
+      "question": "How would you find the frequency of characters in a string?",
+      "answers": [
+        "Iterate through the string and maintain a Map from character to count. For Unicode user-visible characters, consider iterating by code points or grapheme clusters rather than UTF-16 code units."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "2d529dd2272c4959a11419e6",
+      "question": "How would you find duplicate elements in an array?",
+      "answers": [
+        "Maintain a Set of seen values and another Set of duplicates. For each value, add it to seen if new; otherwise add it to duplicates. This gives linear expected time for primitive keys."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "a17a0fab332940e7b5c47f61",
+      "question": "How would you find the missing number from an array?",
+      "answers": [
+        "If the array contains distinct integers from 0 through n with exactly one missing, use the arithmetic sum n(n+1)/2 minus the actual sum, or XOR all expected and actual values."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "0bb63e3e319a43c89664fc0e",
+      "question": "How would you sort an array of objects by a property?",
+      "answers": [
+        "Pass a comparator to sort(), for example items.sort((a,b) => a.name.localeCompare(b.name)). For numbers, use (a,b) => a.age - b.age. Avoid relying on default lexicographic conversion for numeric properties."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "01b0aa12ce8646a590e81c6c",
+      "question": "How does JavaScript's sort() method work?",
+      "answers": [
+        "sort() sorts an array in place and returns the same array. Without a comparator, elements are converted to strings and compared by UTF-16 code units. With a comparator, negative means a before b, positive means b before a, and zero means equivalent ordering for that comparison."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "342b6302bd3c446682b03f86",
+      "question": "Why does [10, 2, 5].sort() produce unexpected results?",
+      "answers": [
+        "Because the default comparator sorts elements as strings: '10', '2', '5'. Use [10,2,5].sort((a,b) => a-b) for numeric ascending order."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "1a0a7b4669cd4309a9ec7e88",
+      "question": "What is the difference between slice() and splice()?",
+      "answers": [
+        "slice() returns a shallow copy of a selected portion without changing the original array. splice() changes the original array by removing, replacing, or inserting elements and returns the removed elements."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "3dad6b931ce8433d8e751bc7",
+      "question": "What is the difference between find(), findIndex(), and filter()?",
+      "answers": [
+        "find() returns the first matching element or undefined. findIndex() returns the first matching index or -1. filter() returns all matching elements in a new array."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "7589202242054999a6468f87",
+      "question": "What is the difference between some() and every()?",
+      "answers": [
+        "some() returns true when at least one element passes the predicate. every() returns true only when all elements pass. Both stop early when their result is determined."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "37be254cab384fe49d5a0727",
+      "question": "What is the difference between includes() and indexOf()?",
+      "answers": [
+        "includes() returns a boolean and correctly recognizes NaN using SameValueZero semantics. indexOf() returns the index or -1 and does not find NaN."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "ae3582db5db6484d8dd4f14b",
+      "question": "What is the difference between push(), pop(), shift(), and unshift()?",
+      "answers": [
+        "push() adds to the end; pop() removes from the end; shift() removes from the beginning; unshift() adds to the beginning. All mutate the original array."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "d715dd56fc4f4938924f6680",
+      "question": "What is the difference between concat() and the spread operator?",
+      "answers": [
+        "Both can combine arrays without mutating the originals. concat() is an array method with defined flattening behavior for spreadable values; spread expands an iterable directly inside a new array literal."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "a756c2ea64fd47558e8a8572",
+      "question": "Are JavaScript arrays really arrays internally?",
+      "answers": [
+        "JavaScript arrays are specialized objects with indexed elements and a length property, optimized by engines for common array usage. They are not low-level fixed-size arrays in the same sense as arrays in C."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "99a845e3d1bc4036be21d909",
+      "question": "How are objects stored in JavaScript memory?",
+      "answers": [
+        "The JavaScript engine manages objects in heap-managed memory. Implementations may use optimized internal layouts, hidden classes/shapes, and inline storage, but these are engine-specific details and should not be treated as language guarantees."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "a9ee41d9a2de4789ad332848",
+      "question": "What is garbage collection in JavaScript?",
+      "answers": [
+        "Garbage collection automatically reclaims memory for objects that are no longer reachable from live program roots. Developers generally do not manually free JavaScript objects."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "43858097409b492e860490a3",
+      "question": "How does JavaScript garbage collection work?",
+      "answers": [
+        "Engines use tracing garbage collectors and related optimizations. Starting from roots such as active execution contexts and reachable globals, the collector identifies reachable objects and can reclaim unreachable memory. Exact algorithms vary by engine."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "51d722c1ef904699bb02d3e6",
+      "question": "What are strong and weak references?",
+      "answers": [
+        "A strong reference keeps an object reachable for garbage collection purposes. Weak references, such as WeakMap keys and WeakRef targets, do not by themselves keep the object alive, allowing collection when no strong references remain."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "b4e2404d2856499696c24360",
+      "question": "What is the difference between stack memory and heap memory?",
+      "answers": [
+        "The stack commonly stores execution frames and short-lived execution state, while the heap is used for dynamically managed objects. These are useful conceptual models; exact memory representation is engine-specific."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "f7110ff16b864935848ae6ed",
+      "question": "Is JavaScript pass-by-value or pass-by-reference?",
+      "answers": [
+        "JavaScript is pass-by-value. For objects, the value being passed is a reference to the object, so mutating the object through that reference is visible to the caller, but reassigning the parameter is not."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "a64c56fe50d34c4797810389",
+      "question": "How are objects passed to functions in JavaScript?",
+      "answers": [
+        "An object reference value is copied into the parameter. Both caller and callee can therefore refer to the same object and observe mutations, but assigning a new object to the parameter does not change the caller's variable."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "318097e5f1c8466184ad654c",
+      "question": "What is the difference between mutable and immutable data?",
+      "answers": [
+        "Mutable data can be changed after creation; immutable data cannot be changed and instead requires producing a new value. Strings and primitive values are immutable, while ordinary objects and arrays are mutable unless controlled otherwise."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "e5ccd9db621f422abd242b79",
+      "question": "How can you make an object immutable?",
+      "answers": [
+        "Object.freeze() prevents top-level changes, but it is shallow. For deep immutability, recursively freeze nested objects or use immutable data structures/patterns. A frozen object should also be treated as immutable by application code."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "52a7be69112043c08c4ef262",
+      "question": "What is structural cloning?",
+      "answers": [
+        "Structural cloning is an algorithm for copying supported structured values, including many built-in types and circular references, into independent data. It is used by APIs such as structuredClone() and some browser messaging APIs."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "7fecc8ed6dc84c6b90df0754",
+      "question": "What is structuredClone()?",
+      "answers": [
+        "structuredClone() creates a deep structured clone of a supported value and handles many built-in types and circular references. It does not clone everything, such as functions, and certain host-specific objects have restrictions."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "2aae2e7ee4d641358339e70f",
+      "question": "What is the difference between Date and timestamps?",
+      "answers": [
+        "Date is an object representing a point in time with methods for formatting and manipulation. A timestamp commonly means a numeric count such as milliseconds since the Unix epoch. Timestamps are convenient for storage and comparison."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "7008e647f31d4a5eb1c45280",
+      "question": "How does JavaScript handle dates and time zones?",
+      "answers": [
+        "Date internally represents an instant as milliseconds from the Unix epoch and does not store an arbitrary named time zone. Local-time methods use the host environment's time zone, while UTC methods use UTC. Modern applications often use Temporal where available or a dedicated time library for explicit time-zone handling."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "6ec9589c9db6438cb4f77661",
+      "question": "What is JSON?",
+      "answers": [
+        "JSON, JavaScript Object Notation, is a text data format commonly used for exchanging structured data. It supports objects, arrays, strings, numbers, booleans, and null, with restrictions compared with full JavaScript values."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "50340945b873471bbdbc95e5",
+      "question": "What is the difference between JSON.stringify() and JSON.parse()?",
+      "answers": [
+        "JSON.stringify() converts a JavaScript value to JSON text. JSON.parse() converts valid JSON text into JavaScript values. Both support optional reviver/replacer-related customization in their respective APIs."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "aa036ade999c43329b6adbcc",
+      "question": "What values cannot be directly represented by JSON?",
+      "answers": [
+        "JSON has no native representation for undefined, functions, symbols, BigInt, NaN, Infinity, or -Infinity. Object properties with unsupported values are generally omitted, while unsupported array elements become null; BigInt causes JSON.stringify() to throw unless customized."
+      ],
+      "tags": [
+        "6aa0faaf95ae27743ac9f849"
+      ]
+    },
+    {
+      "id": "a05977f477a842269fb97b1f",
+      "question": "What are the main features of Java?",
+      "answers": [
+        "Key features include platform independence, object orientation, strong typing, automatic memory management, exception handling, multithreading, a rich standard library, and runtime security."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "7d2d1034654745d19603d8cc",
+      "question": "What is the difference between JDK, JRE, and JVM?",
+      "answers": [
+        "JVM executes Java bytecode. JRE provides the JVM plus runtime libraries needed to run Java applications. JDK contains the JRE/runtime plus development tools such as javac, javadoc, and jdb."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "e390df7a76094335af35667c",
+      "question": "How does JVM work?",
+      "answers": [
+        "The JVM loads class files, verifies bytecode, manages runtime memory, and executes bytecode using an interpreter and JIT compiler. It also performs garbage collection and provides runtime services."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "58d21adf72204a72a98384af",
+      "question": "What is the difference between Java and C++?",
+      "answers": [
+        "Java runs through the JVM and uses garbage collection; C++ normally compiles to native machine code and gives developers manual memory-management control. Java also avoids C++ features such as pointer arithmetic and multiple class inheritance."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "f50194a3ec6c41fabbc4b6c3",
+      "question": "Why is Java platform independent?",
+      "answers": [
+        "Java source is compiled into platform-neutral bytecode. A JVM implementation for each operating system executes that bytecode, so the same compiled class files can run on different platforms."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "2a65d785404f48b39f29d37d",
+      "question": "What is bytecode in Java?",
+      "answers": [
+        "Bytecode is the platform-independent instruction set stored in .class files after Java source is compiled by javac. The JVM executes or JIT-compiles it."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "469282e204dc42ec8b998372",
+      "question": "What is the difference between == and equals()?",
+      "answers": [
+        "For primitives, == compares values. For object references, == checks whether two references point to the same object. equals() is a method intended to compare logical equality when a class overrides it."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "79feb356f0024817b066c3f5",
+      "question": "What is the hashCode() method?",
+      "answers": [
+        "hashCode() returns an integer hash value used by hash-based collections such as HashMap and HashSet. Objects that are equal according to equals() must return the same hash code."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "6ae318765a8c4f0e8848cb5d",
+      "question": "What is the contract between equals() and hashCode()?",
+      "answers": [
+        "If a.equals(b) is true, a.hashCode() must equal b.hashCode(). The reverse is not required: equal hash codes do not imply equals() is true."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "7e2e640a17bc47d8bbb2fadd",
+      "question": "What are primitive and non-primitive data types in Java?",
+      "answers": [
+        "Primitive types are byte, short, int, long, float, double, char, and boolean. Non-primitive types are reference types such as classes, interfaces, arrays, enums, and records."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "156c30aab0af403aaeb478f1",
+      "question": "What is autoboxing and unboxing?",
+      "answers": [
+        "Autoboxing automatically converts a primitive to its wrapper type, such as int to Integer. Unboxing converts a wrapper back to a primitive."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "8036929edde84387b82e8565",
+      "question": "What is the difference between int and Integer?",
+      "answers": [
+        "int is a primitive 32-bit integer. Integer is a reference type that wraps an int, can be null, and provides methods and APIs required by generic collections."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "6c546242850c4a0fae1231d4",
+      "question": "What is the difference between String, StringBuilder, and StringBuffer?",
+      "answers": [
+        "String is immutable. StringBuilder is mutable and generally preferred for single-threaded string construction. StringBuffer is mutable and synchronized, making it suitable when synchronized access is required."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "3cdba7069f7446a88cc55ade",
+      "question": "What is the String Pool?",
+      "answers": [
+        "The String Pool is a JVM-managed area for canonical String literals and interned strings. Identical pooled literals can share the same String object, reducing memory usage."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "067026f496e64dd0a90965c3",
+      "question": "What are access modifiers in Java?",
+      "answers": [
+        "The main modifiers are public, protected, package-private (no modifier), and private. They control visibility of classes, members, and constructors."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "13238d05089b4ba98345befc",
+      "question": "What is the difference between static and instance members?",
+      "answers": [
+        "A static member belongs to the class and is shared by its instances. An instance member belongs to a particular object and requires an object instance for access."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "3a23b458f1bd49f28c74d31d",
+      "question": "What is method overloading?",
+      "answers": [
+        "Overloading means defining multiple methods with the same name but different parameter lists in the same class or related scope. It is resolved at compile time."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "586fd3fb5325414ba0229706",
+      "question": "What is method overriding?",
+      "answers": [
+        "Overriding occurs when a subclass provides a compatible implementation of an inherited instance method. The method selected at runtime depends on the actual object type."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "243e943297804c5d93ae301c",
+      "question": "What is the difference between overloading and overriding?",
+      "answers": [
+        "Overloading changes the parameter list and is primarily compile-time polymorphism. Overriding keeps the method signature compatible and provides runtime polymorphism."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "3d3a9c37f2af4718a9a3b23b",
+      "question": "What is inheritance in Java?",
+      "answers": [
+        "Inheritance allows a class to reuse accessible state and behavior from a superclass using extends. Java supports single class inheritance but allows multiple interfaces."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "8dbf4d67a4b8429d807330c9",
+      "question": "What is polymorphism?",
+      "answers": [
+        "Polymorphism allows one interface or superclass reference to represent different concrete implementations. In Java, overriding provides runtime polymorphism and overloading provides compile-time polymorphism."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "f3a1b31f578a49dbb4b75a4e",
+      "question": "What is encapsulation?",
+      "answers": [
+        "Encapsulation bundles data and behavior inside a class and controls direct access to state, commonly using private fields with methods that enforce invariants."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "d6f79dd491c14a1ea13c5171",
+      "question": "What is abstraction?",
+      "answers": [
+        "Abstraction exposes essential behavior while hiding implementation details. Java supports abstraction through interfaces and abstract classes."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "eaf19567e4414c159e1c43c5",
+      "question": "What is the difference between an abstract class and an interface?",
+      "answers": [
+        "An abstract class can hold instance state, constructors, concrete methods, and abstract methods. An interface primarily defines a contract and can have abstract, default, static, and private methods; a class can implement multiple interfaces."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "e64320c8b6ba43349f00953f",
+      "question": "Can an interface have default and static methods?",
+      "answers": [
+        "Yes. Since Java 8, interfaces can declare default and static methods. Default methods provide inherited behavior; static methods belong to the interface itself."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "ebe36e00e9424b508e585a63",
+      "question": "What is multiple inheritance and how does Java handle it?",
+      "answers": [
+        "Multiple inheritance means inheriting implementation from multiple classes. Java does not allow a class to extend multiple classes, avoiding ambiguity, but a class can implement multiple interfaces."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "ebb0aeb61f524982b791a425",
+      "question": "What is the super keyword?",
+      "answers": [
+        "super refers to the immediate superclass. It can access superclass members, invoke a superclass constructor, and explicitly call an overridden superclass method."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "9811ee79f3d245818b8d9606",
+      "question": "What is the this keyword?",
+      "answers": [
+        "this refers to the current object. It can distinguish fields from parameters, invoke another constructor in the same class, and pass or return the current instance."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "eaaf15a77c2641c1b0aa5d2d",
+      "question": "What are constructors in Java?",
+      "answers": [
+        "A constructor initializes a new object and has the same name as its class with no return type. It runs when an object is created with new."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "1c602a69270b4dacabd1fc96",
+      "question": "Can constructors be inherited or overridden?",
+      "answers": [
+        "No. Constructors are not inherited and cannot be overridden because they initialize the class in which they are declared. A subclass constructor can invoke a superclass constructor with super()."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "90b2a92cde2544b0a8e3d557",
+      "question": "What is constructor chaining?",
+      "answers": [
+        "Constructor chaining means one constructor invokes another constructor using this(), or a subclass constructor invokes a superclass constructor using super()."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "67302ff322884aa7a97cd8d7",
+      "question": "What is an immutable class?",
+      "answers": [
+        "An immutable class is designed so its observable state cannot change after construction. String is a common example."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "bde8aef2a8254be0a3fcde34",
+      "question": "How do you create an immutable class in Java?",
+      "answers": [
+        "Make the class final when appropriate, keep fields private and final, initialize them in the constructor, provide no setters, and defensively copy mutable inputs and outputs."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "eff626c4397d4a4386fd68c1",
+      "question": "What is the difference between checked and unchecked exceptions?",
+      "answers": [
+        "Checked exceptions are checked by the compiler and must be caught or declared. Unchecked exceptions extend RuntimeException and are not required to be declared or caught."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "75e4d03529c44477b6864699",
+      "question": "What is the difference between throw and throws?",
+      "answers": [
+        "throw explicitly creates and throws an exception object. throws declares in a method signature that the method may propagate specified exceptions."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "c5cc47a251824df99125697f",
+      "question": "What is exception propagation?",
+      "answers": [
+        "If a method does not handle an exception, it propagates up the call stack until a compatible catch block handles it or the thread terminates."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "f6d7199e9ef54e6dbf5587b7",
+      "question": "What is try-with-resources?",
+      "answers": [
+        "Try-with-resources automatically closes objects implementing AutoCloseable after the try block, including when an exception occurs. It is preferred for resources such as files and database statements."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "303198eec1e34b7ebc1a82b7",
+      "question": "What is the Java Collections Framework?",
+      "answers": [
+        "It is a set of interfaces, implementations, algorithms, and utilities for storing and manipulating groups of objects, including List, Set, Queue, and Map APIs."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "915174cbcf8f420cab9a509b",
+      "question": "What is the difference between ArrayList and LinkedList?",
+      "answers": [
+        "ArrayList uses a resizable array and provides fast random access. LinkedList uses linked nodes and can efficiently insert/remove at known node positions, but indexed access is slower and it has higher node overhead."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "2da0b1c85fb549d1bf32723d",
+      "question": "What is the difference between HashMap, Hashtable, and ConcurrentHashMap?",
+      "answers": [
+        "HashMap is unsynchronized and permits one null key and null values. Hashtable is legacy synchronized and disallows null keys/values. ConcurrentHashMap supports concurrent access with scalable thread-safe operations and disallows null keys/values."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "844fb62b456143249c961d82",
+      "question": "How does HashMap work internally?",
+      "answers": [
+        "HashMap hashes a key to choose a bucket, then compares keys using hashCode() and equals(). Collisions are stored in bucket nodes and, in sufficiently large buckets, may be represented by balanced trees."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "2f1409abadec43d990e0af97",
+      "question": "What is the difference between HashSet, LinkedHashSet, and TreeSet?",
+      "answers": [
+        "HashSet provides hash-based uniqueness without guaranteed iteration order. LinkedHashSet preserves insertion order. TreeSet keeps elements sorted according to natural ordering or a Comparator."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "3acc8819698a4163bd0a12b6",
+      "question": "What is the difference between Comparable and Comparator?",
+      "answers": [
+        "Comparable defines a class’s natural ordering through compareTo(). Comparator defines an external ordering through compare() and allows multiple sorting strategies."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "b900c404256c4f998bd5d7f8",
+      "question": "What are generics in Java?",
+      "answers": [
+        "Generics provide compile-time type safety and reusable classes and methods, such as List<String>. They reduce casts and many ClassCastException risks."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "a26ba216be3f48b78132b478",
+      "question": "What are Java 8 features?",
+      "answers": [
+        "Major Java 8 features include lambda expressions, functional interfaces, Stream API, default and static interface methods, Optional, method references, and the java.time API."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "35b464eba48a4f3dba62580e",
+      "question": "What are lambda expressions and functional interfaces?",
+      "answers": [
+        "A lambda is a concise implementation of a functional interface. A functional interface has exactly one abstract method, such as Runnable, Predicate, Function, or Consumer."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "0b6e0665d3a9440e9b99052d",
+      "question": "What is the difference between synchronized, volatile, and Atomic classes?",
+      "answers": [
+        "synchronized provides mutual exclusion and memory visibility. volatile provides visibility and ordering for a variable but not compound atomicity. Atomic classes provide lock-free atomic operations using mechanisms such as CAS."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "a088648eba864a51ab9bb95b",
+      "question": "What is the difference between ArrayList and Vector?",
+      "answers": [
+        "Both are resizable-array Lists. Vector synchronizes many methods and is a legacy class; ArrayList is unsynchronized and generally preferred unless a specific legacy requirement exists."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "4132ed62d15046c8aa9811c2",
+      "question": "What is the difference between HashMap and TreeMap?",
+      "answers": [
+        "HashMap provides hash-based lookup with no sorted-key guarantee. TreeMap is a sorted map based on a red-black tree and supports ordered operations such as range queries."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "ee2dc2658dd44b9fb6091830",
+      "question": "What is the difference between HashMap and LinkedHashMap?",
+      "answers": [
+        "HashMap does not guarantee iteration order. LinkedHashMap maintains a linked order, normally insertion order, and can also maintain access order for cache-like use cases."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "255db3ac36694aee8ea34f06",
+      "question": "How does HashSet work internally?",
+      "answers": [
+        "HashSet is backed by a HashMap. Each set element is stored as a map key with a shared dummy value, and uniqueness is determined using hashCode() and equals()."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "65caecfa994e4cb1bf993e99",
+      "question": "What happens when two keys have the same hash code in a HashMap?",
+      "answers": [
+        "They map to the same bucket. HashMap then uses equals() to distinguish the keys; if they are not equal, both entries can coexist in that bucket."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "33fc665adbdd4c6197485b4d",
+      "question": "What is the initial capacity of HashMap?",
+      "answers": [
+        "For the standard Java HashMap constructors, the default initial capacity is 16 buckets when the table is first allocated. The table is lazily allocated and capacity can be supplied explicitly."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "9148d34bb94e45ac95e28e18",
+      "question": "What is the load factor of HashMap?",
+      "answers": [
+        "The default load factor is 0.75. It controls the threshold at which HashMap resizes, balancing memory use against collision probability."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "89cdd26b0bc644aeba5c5f95",
+      "question": "What is rehashing in HashMap?",
+      "answers": [
+        "Rehashing commonly refers to resizing the internal table and redistributing entries into the new bucket layout when the size exceeds the resize threshold."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "47d8563c8e9742e8ad23952f",
+      "question": "What is the difference between fail-fast and fail-safe iterators?",
+      "answers": [
+        "Fail-fast iterators detect certain structural modifications and may throw ConcurrentModificationException. The term fail-safe is informal and often describes iterators that operate on a snapshot or weakly consistent view instead."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "e08e535e1334498fbe5123e9",
+      "question": "What is ConcurrentModificationException?",
+      "answers": [
+        "It is a runtime exception commonly thrown by fail-fast collection iterators when they detect an unsupported structural modification during iteration."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "33b5bf08977d4e8db9d8dd3a",
+      "question": "What is an Iterator?",
+      "answers": [
+        "Iterator is an interface for traversing collection elements sequentially, typically using hasNext() and next(), with optional removal through remove()."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "734946399c824f92946ebfa7",
+      "question": "What is the difference between Iterator and ListIterator?",
+      "answers": [
+        "Iterator works with general collections and moves forward. ListIterator is specific to List and supports bidirectional traversal plus index information and add/set operations."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "f0dc2db7f32446059b42bd8a",
+      "question": "What is Deque and how is it different from Queue?",
+      "answers": [
+        "Deque is a double-ended queue that supports insertion and removal at both ends. Queue generally models insertion at one end and removal at the other, although implementations may provide additional operations."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "739fa3839b4841bc99f35cf2",
+      "question": "What is PriorityQueue?",
+      "answers": [
+        "PriorityQueue is a heap-based queue where the head is the least element according to natural ordering or a supplied Comparator. It does not guarantee sorted iteration."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "40b7f502485841799df57d7a",
+      "question": "What is the difference between Collection and Collections?",
+      "answers": [
+        "Collection is a root interface for groups of objects. Collections is a utility class containing static methods for operations such as sorting, searching, synchronization wrappers, and unmodifiable views."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "5032a5004011404eb848926f",
+      "question": "What is the difference between Collection and Map?",
+      "answers": [
+        "Collection represents a group of individual elements. Map represents key-value associations and is part of the collections framework but does not extend Collection."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "1a9fd124f93c4448bc369517",
+      "question": "What is the difference between Arrays.asList() and List.of()?",
+      "answers": [
+        "Arrays.asList() returns a fixed-size list backed by the array, so set is allowed but add/remove are not. List.of() creates an unmodifiable list and rejects null elements."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "b40d530067f64d61a2bb3c97",
+      "question": "What is Optional in Java?",
+      "answers": [
+        "Optional is a container type representing a value that may be present or absent. It is mainly useful for modeling possibly missing return values and making absence explicit."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "3cf3a3390b364d2ca18cd472",
+      "question": "Why was Optional introduced?",
+      "answers": [
+        "Optional was introduced to make absence explicit in APIs and reduce accidental null handling, especially for return values. It is not intended to replace every nullable field or parameter."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "532a338c0a09489a9d0293b1",
+      "question": "What is the difference between orElse() and orElseGet()?",
+      "answers": [
+        "orElse() evaluates its fallback argument eagerly even when a value is present. orElseGet() invokes the Supplier only when the Optional is empty."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "a59732aa635447ea8f89ac47",
+      "question": "What is the Stream API?",
+      "answers": [
+        "Stream API provides a declarative way to process sequences of data using operations such as filter, map, sorted, collect, and reduce."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "b710057d87e54de68b94c47f",
+      "question": "What is the difference between intermediate and terminal operations in Streams?",
+      "answers": [
+        "Intermediate operations such as filter and map return another stream and are lazy. Terminal operations such as collect, reduce, and forEach trigger stream processing and produce a final result or side effect."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "085932bda7eb421981656ed4",
+      "question": "What is lazy evaluation in Streams?",
+      "answers": [
+        "Stream intermediate operations are not executed when declared. They are evaluated when a terminal operation runs, allowing operation fusion and processing only the elements needed."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "3fe880925b774497a56f812b",
+      "question": "What is the difference between sequential and parallel streams?",
+      "answers": [
+        "A sequential stream processes its pipeline using one logical execution path. A parallel stream partitions work across the common ForkJoinPool; it can help for suitable CPU-bound workloads but adds overhead and ordering considerations."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "01ed8bf23f544a0d8943953e",
+      "question": "What is a functional interface?",
+      "answers": [
+        "A functional interface has exactly one abstract method and can therefore be implemented with a lambda expression or method reference. It may also contain default and static methods."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "7aa4218ab9654dd58ad007f1",
+      "question": "What is the @FunctionalInterface annotation?",
+      "answers": [
+        "It documents and asks the compiler to verify that an interface is a functional interface. Compilation fails if the interface violates the single-abstract-method rule."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "99027f04f43f4508b33ae40d",
+      "question": "What are method references in Java?",
+      "answers": [
+        "Method references are shorthand for compatible lambda expressions, using forms such as ClassName::staticMethod, object::instanceMethod, and ClassName::instanceMethod."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "a0aab5cc446f40f08b9b7b7b",
+      "question": "What are default methods in interfaces?",
+      "answers": [
+        "Default methods are interface methods with an implementation. They allow interfaces to evolve by adding behavior without forcing every existing implementation class to implement the new method."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "eeebf47c41694456ba1ed1b0",
+      "question": "What are static methods in interfaces?",
+      "answers": [
+        "Static interface methods belong to the interface itself and are invoked with InterfaceName.method(). They are not inherited as instance methods by implementing classes."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "57298db71538412882792140",
+      "question": "What is the difference between Predicate, Function, Consumer, and Supplier?",
+      "answers": [
+        "Predicate<T> accepts T and returns boolean. Function<T,R> maps T to R. Consumer<T> accepts T and returns nothing. Supplier<T> takes no argument and supplies T."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "bb3bc5871dee4c1c939cd5b5",
+      "question": "What is the difference between map() and filter() in Streams?",
+      "answers": [
+        "map transforms each element and keeps the resulting element count aligned with the input unless the mapping itself changes structure. filter keeps only elements that satisfy a predicate."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "2e074a7202064155acabccbc",
+      "question": "What is reduce() in the Stream API?",
+      "answers": [
+        "reduce combines stream elements into one result using an accumulator, such as summing integers or combining values. It can also provide an identity and combiner for parallel execution."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "46dd215fed9c4987a9b49a1b",
+      "question": "What is the difference between findFirst() and findAny?",
+      "answers": [
+        "findFirst returns the first element according to encounter order when one exists. findAny may return any matching element and can allow more flexibility in parallel streams."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "f789b6e778114a9c95788a3d",
+      "question": "What is the difference between forEach() and forEachOrdered()?",
+      "answers": [
+        "forEach does not guarantee encounter order, especially for parallel streams. forEachOrdered respects encounter order where the stream has one, potentially reducing parallel performance."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "7d1543f0f41443ce9e100a44",
+      "question": "What is multithreading in Java?",
+      "answers": [
+        "Multithreading is concurrent execution of multiple threads within a process. Java provides Thread, Runnable, executors, synchronization primitives, concurrent collections, and other concurrency APIs."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "e5fe53c7ba754ecaa5f2409f",
+      "question": "What is the difference between a process and a thread?",
+      "answers": [
+        "A process is an independent execution environment with its own address space. Threads are execution units within a process and normally share that process’s memory."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "2fd4b6f1311c4c89a27ee862",
+      "question": "What are the different ways to create a thread in Java?",
+      "answers": [
+        "Common approaches include extending Thread, implementing Runnable, implementing Callable and submitting it to an ExecutorService, and using higher-level concurrency APIs such as CompletableFuture."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "cf039822f5e04daa9b747ca1",
+      "question": "What is the difference between Runnable and Callable?",
+      "answers": [
+        "Runnable represents a task that returns no result and cannot directly throw checked exceptions. Callable returns a value and can throw checked exceptions."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "a7902d5a7d1849b8a90e4baf",
+      "question": "What is ExecutorService?",
+      "answers": [
+        "ExecutorService manages asynchronous task execution and thread lifecycle through methods such as execute, submit, shutdown, and invokeAll."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "56a130a771024183befcefa2",
+      "question": "What is a thread pool?",
+      "answers": [
+        "A thread pool is a managed collection of reusable worker threads that execute submitted tasks, reducing thread-creation overhead and allowing concurrency to be controlled."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "5fef596985d74355bcd07af5",
+      "question": "What is the difference between execute() and submit()?",
+      "answers": [
+        "execute() accepts a Runnable and does not return a Future. submit() accepts Runnable or Callable and returns a Future that can be used to observe completion, obtain results, or inspect exceptions."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "836dfe2478ce46aeb6015062",
+      "question": "What is Future in Java?",
+      "answers": [
+        "Future represents the result of an asynchronous computation. It provides methods such as get(), isDone(), cancel(), and isCancelled()."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "ddd3b4d7a37249719df9d9e7",
+      "question": "What is CompletableFuture?",
+      "answers": [
+        "CompletableFuture is an implementation of Future that supports asynchronous pipelines, composition, combination, callbacks, explicit completion, and exception handling."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "4d645aba6014423294f565fd",
+      "question": "What is synchronization in Java?",
+      "answers": [
+        "Synchronization coordinates concurrent access to shared state so operations have the required mutual exclusion and memory-visibility guarantees."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "5d897120afe544afbfa798c0",
+      "question": "What is a deadlock?",
+      "answers": [
+        "Deadlock occurs when threads wait indefinitely for locks held by one another, creating a cycle of dependencies."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "108bbc883b6146b586c59e7a",
+      "question": "What is a race condition?",
+      "answers": [
+        "A race condition occurs when the program result depends on unpredictable timing between concurrent operations on shared state."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "6b11d888f9c54e50bdf22fb3",
+      "question": "What is starvation in multithreading?",
+      "answers": [
+        "Starvation occurs when a thread repeatedly fails to obtain the CPU or required resources because other threads continually get preference."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "19c5bb9a5ad941ee8688598b",
+      "question": "What is the Java Memory Model (JMM)?",
+      "answers": [
+        "JMM defines how threads interact through memory, including visibility, ordering, atomicity rules, and the happens-before relationships that make concurrent programs predictable."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "31a188eeb5264492ade273a0",
+      "question": "What is the difference between wait(), notify(), and notifyAll()?",
+      "answers": [
+        "wait() releases the monitor and suspends the current thread until notified or otherwise awakened. notify() wakes one waiting thread; notifyAll() wakes all waiting threads on that monitor. They must be used while owning the monitor."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "457cc784db5741289dfb9ca4",
+      "question": "What is the difference between sleep() and wait()?",
+      "answers": [
+        "sleep() pauses a thread for a time and does not release a monitor it holds. wait() releases the associated monitor and waits for notification, timeout, or interruption."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "aa6eac4869bf40da85557687",
+      "question": "What is the difference between notify() and notifyAll()?",
+      "answers": [
+        "notify() wakes one waiting thread chosen by the JVM. notifyAll() wakes all threads waiting on the same monitor, after which they compete to reacquire the monitor."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "4dad755bb5e14395bf588903",
+      "question": "What is thread safety?",
+      "answers": [
+        "Thread safety means code behaves correctly when accessed concurrently according to its contract, without corrupted shared state or unsafe visibility."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "c08384b507f049a08c06bd84",
+      "question": "What is a thread-safe class?",
+      "answers": [
+        "A thread-safe class maintains its invariants and provides safe behavior when multiple threads use its instances concurrently, using synchronization, immutability, atomic operations, confinement, or other mechanisms."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "f7003f9de463445987955fc9",
+      "question": "What is the difference between synchronized method and synchronized block?",
+      "answers": [
+        "A synchronized method locks the method’s associated monitor for the whole method. A synchronized block locks a chosen object for only a specific section, allowing finer-grained locking."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "8706b2756fc84a64ba8ff11f",
+      "question": "What is a synchronized static method?",
+      "answers": [
+        "A synchronized static method locks the Class object associated with the declaring class, so concurrent calls synchronize on that class-level monitor."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "feb6cf0367484805a1d37482",
+      "question": "What is a reentrant lock?",
+      "answers": [
+        "A reentrant lock can be acquired multiple times by the same thread without deadlocking itself. Each acquisition must be matched by an unlock."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "b06927b20bf5471daed283dd",
+      "question": "What is the difference between ReentrantLock and synchronized?",
+      "answers": [
+        "ReentrantLock offers features such as tryLock, timed locking, interruptible lock acquisition, fairness options, and multiple Conditions. synchronized is simpler and automatically releases the monitor when leaving the block."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "a3ed5a88aca1445c967e0cd2",
+      "question": "What is ReadWriteLock?",
+      "answers": [
+        "ReadWriteLock separates a shared lock into read and write locks, allowing multiple concurrent readers while ensuring writers have exclusive access."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "f5bfe6ee8af4481bb97db526",
+      "question": "What is CountDownLatch?",
+      "answers": [
+        "CountDownLatch lets one or more threads wait until a counter reaches zero. It is one-shot; once it reaches zero, it cannot be reset."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "29e2762a132342d384d57288",
+      "question": "What is CyclicBarrier?",
+      "answers": [
+        "CyclicBarrier lets a fixed number of threads wait for one another at a barrier point. Once all arrive, the barrier releases them and can be reused for another cycle."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "926a0782c1544a2f82f7162b",
+      "question": "What is Semaphore?",
+      "answers": [
+        "Semaphore controls access to a resource using a number of permits. Threads acquire permits before entering a limited resource section and release them afterward."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "d2aafe53acbf4c0896f3a2fb",
+      "question": "What is BlockingQueue?",
+      "answers": [
+        "BlockingQueue is a thread-safe queue whose put operation can wait for capacity and whose take operation can wait for an element. It is commonly used for producer-consumer designs."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "3497103a5dca4c3ab1b12054",
+      "question": "What is the Producer-Consumer problem?",
+      "answers": [
+        "It is a concurrency pattern where producers generate work and consumers process it through a shared bounded buffer, requiring coordination to avoid overflow, underflow, and unsafe access."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "23bd45185ccb4e55beb71dd9",
+      "question": "What is AtomicInteger?",
+      "answers": [
+        "AtomicInteger provides atomic operations on an int value, such as incrementAndGet and compareAndSet, without requiring external synchronization for those operations."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "d86c196c5ad542c08bb252f3",
+      "question": "What is CAS (Compare-And-Swap)?",
+      "answers": [
+        "CAS atomically compares a memory location with an expected value and updates it to a new value only if they match. It is a fundamental primitive used by many lock-free algorithms and atomic classes."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "a5e467a486c44db38b6e0a36",
+      "question": "What is the difference between volatile and AtomicInteger?",
+      "answers": [
+        "volatile guarantees visibility and ordering for reads/writes but does not make compound operations such as increment atomic. AtomicInteger provides atomic read-modify-write operations such as incrementAndGet using CAS."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "125a1d55d6a7433f8e82956f",
+      "question": "What is false sharing?",
+      "answers": [
+        "False sharing occurs when independent variables used by different threads occupy the same CPU cache line, causing cache-coherence traffic and performance degradation."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "07cb9ee4e83143b68bf2712b",
+      "question": "What is thread interruption?",
+      "answers": [
+        "Interruption is a cooperative mechanism for requesting that a thread stop or respond to cancellation. APIs such as sleep and wait may throw InterruptedException, and code should preserve or handle the interruption appropriately."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "8fa71908af024cd897bd05fc",
+      "question": "What is a daemon thread?",
+      "answers": [
+        "A daemon thread is a background thread that does not prevent the JVM from exiting once all non-daemon threads have finished."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "defb4c28928142c58c53c2f0",
+      "question": "What is garbage collection in Java?",
+      "answers": [
+        "Garbage collection automatically identifies objects that are no longer reachable and reclaims their memory, reducing the need for explicit memory deallocation."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "a6a353b36da5467d920ab874",
+      "question": "How does Java Garbage Collector work?",
+      "answers": [
+        "The JVM tracks object reachability from GC roots and collects unreachable objects. Modern collectors use generational and concurrent techniques to balance throughput, latency, and pause times."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "8bfbfd1138e54e9e9d1ddaaf",
+      "question": "What are Young Generation and Old Generation?",
+      "answers": [
+        "The young generation holds newly allocated objects and is collected frequently. Objects that survive enough collections may be promoted to the old generation, which is collected less frequently."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "ce7610353b6849d0906a825a",
+      "question": "What are Eden, Survivor, and Old Generation spaces?",
+      "answers": [
+        "Eden is where many new objects are allocated. Survivor spaces hold objects that survive young collections. Long-lived objects may eventually be promoted to the old generation."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "84f99aa546984967ac873039",
+      "question": "What is a Minor GC?",
+      "answers": [
+        "A Minor GC traditionally refers to a collection focused on the young generation. It is generally more frequent and shorter than old/full collections, though exact behavior depends on the collector."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "e016ed31334e478d8e3274f2",
+      "question": "What is a Major GC?",
+      "answers": [
+        "Major GC commonly refers to a collection involving the old generation. The exact terminology varies by JVM collector, so modern documentation often prefers precise collector-specific terminology."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "c5c19425d4e944829827c054",
+      "question": "What is a Full GC?",
+      "answers": [
+        "Full GC generally means a collection that covers the entire Java heap and may involve other memory areas depending on the collector. It can cause significant pauses, although collector behavior varies."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "c9855a19a4514bf18ac37e32",
+      "question": "What is the difference between Serial, Parallel, G1, and ZGC collectors?",
+      "answers": [
+        "Serial uses a single GC thread and suits small/simple heaps. Parallel uses multiple GC threads to maximize throughput. G1 divides the heap into regions and targets predictable pauses. ZGC is designed for very low pause times on large heaps using highly concurrent processing."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "6a7d10442abf4b6391f7806a",
+      "question": "What is a memory leak in Java?",
+      "answers": [
+        "A Java memory leak occurs when an application unintentionally retains references to objects that are no longer needed, preventing garbage collection and causing memory usage to grow."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "4eb9b95510f24e9da5be66b8",
+      "question": "What is OutOfMemoryError?",
+      "answers": [
+        "OutOfMemoryError indicates that the JVM or a relevant memory area cannot satisfy an allocation or related memory requirement. Causes include an undersized heap, leaks, or excessive allocation."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "3817f4d84d0b47f6afc26c6c",
+      "question": "What is StackOverflowError?",
+      "answers": [
+        "StackOverflowError occurs when a thread exhausts its stack, commonly because of excessively deep or infinite recursion."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "e3f0889116334897a2583784",
+      "question": "What is the difference between Stack and Heap memory?",
+      "answers": [
+        "Each thread has its own stack for frames, local variables, and call state. The heap is shared by threads and stores objects and arrays managed by the garbage collector."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "45d1e23af852441482e81538",
+      "question": "What is Metaspace?",
+      "answers": [
+        "Metaspace is native memory used by HotSpot to store class metadata. It replaced PermGen starting with Java 8 and can grow within configured limits."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "308e8ace8080412788d47e3a",
+      "question": "What is class loading in Java?",
+      "answers": [
+        "Class loading brings a class’s bytecode into the JVM, links it as required, and initializes it when the JVM determines initialization is needed."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "ba57503dc23143eb81e51e41",
+      "question": "What is the ClassLoader hierarchy?",
+      "answers": [
+        "Class loaders are organized around parent delegation. In modern Java, the bootstrap loader loads core classes, the platform loader loads platform modules, and the application loader loads application classes and classpath entries."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "02ea32d0f15c4410ab274d88",
+      "question": "What are Bootstrap, Platform, and Application ClassLoaders?",
+      "answers": [
+        "Bootstrap loads core Java runtime classes. Platform loads Java platform classes beyond the core. Application loads application and classpath classes and is the system class loader."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "640b2e4d9e4340e792b7f66b",
+      "question": "What is parent delegation in ClassLoader?",
+      "answers": [
+        "A class loader normally asks its parent to load a class first. Only if the parent cannot load it does the child attempt to load it, helping avoid duplicate core classes and improving security."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "d0d683e5b1634d70ac138ae8",
+      "question": "What is reflection in Java?",
+      "answers": [
+        "Reflection allows a program to inspect and interact with classes, methods, fields, constructors, and annotations at runtime, subject to access and module restrictions."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "6dbc9dc4349744e1a3ead45f",
+      "question": "What is the Reflection API?",
+      "answers": [
+        "The Reflection API is primarily provided by java.lang.Class and java.lang.reflect types such as Method, Field, Constructor, and Modifier for runtime inspection and invocation."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "74c1713dff8a49ad8981adc1",
+      "question": "What are annotations in Java?",
+      "answers": [
+        "Annotations are metadata attached to program elements. They can be processed by the compiler, tools, frameworks, or runtime reflection depending on their retention policy."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "1e2c2838e9ee4623aa5eba62",
+      "question": "What is the difference between @Override, @Deprecated, and @SuppressWarnings?",
+      "answers": [
+        "@Override verifies that a method overrides an inherited method. @Deprecated marks an API as discouraged for use. @SuppressWarnings asks the compiler to suppress specified warnings in a scope."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "53f5db50a31e4427bc90d229",
+      "question": "What is serialization in Java?",
+      "answers": [
+        "Serialization converts an object’s state into a byte stream so it can be stored or transmitted. Java’s built-in object serialization is provided through Serializable and ObjectOutputStream/ObjectInputStream."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "61263cadc46a4011b0ddd625",
+      "question": "What is Serializable?",
+      "answers": [
+        "Serializable is a marker interface indicating that an object’s state can participate in Java’s built-in serialization mechanism."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "03e78e2fb36f4ecc911b6596",
+      "question": "What is serialVersionUID?",
+      "answers": [
+        "serialVersionUID is a version identifier used during Java serialization to check compatibility between serialized data and the current class definition."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "64119f9fda104699bcf9de21",
+      "question": "What is the difference between Serializable and Externalizable?",
+      "answers": [
+        "Serializable uses Java’s default serialization mechanism with optional customization. Externalizable requires the class to explicitly implement writeExternal and readExternal, giving full control over serialized data."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "662eb0a5995a4e2ea8e01daa",
+      "question": "What is the transient keyword?",
+      "answers": [
+        "transient marks a field to be skipped by Java’s default serialization mechanism. It is useful for derived, sensitive, or non-serializable state that should not be serialized."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "dbf50d5a5cab40a2bcfbe26b",
+      "question": "What is Java NIO?",
+      "answers": [
+        "Java NIO provides APIs for non-blocking I/O, buffers, channels, paths, files, selectors, and related high-performance I/O operations. The java.nio.file package provides the modern file API."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "2c81f83d76d54dd38c243e43",
+      "question": "What is the difference between InputStream and Reader?",
+      "answers": [
+        "InputStream is for byte-oriented input. Reader is for character-oriented input and handles character decoding through appropriate reader implementations."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "057aeefdb0c94754b18cc159",
+      "question": "What is the difference between File, Path, and Files?",
+      "answers": [
+        "File is the older java.io file abstraction. Path is the newer java.nio.file representation of a filesystem path. Files is a utility class offering operations such as read, write, copy, move, and delete for Path objects."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
+      ]
+    },
+    {
+      "id": "ef16f562bf0f426e94b994a9",
+      "question": "What are records in modern Java?",
+      "answers": [
+        "Records are concise classes for transparent data carriers. They automatically provide components, accessors, equals, hashCode, and toString, while still allowing validation and custom methods."
+      ],
+      "tags": [
+        "6a9fd244443b416bda75278d"
       ]
     }
   ]

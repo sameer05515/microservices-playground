@@ -1,0 +1,172 @@
+<%- include("partials/head", { title: "Manage • Question Bank" }) %>
+<section class="page-header">
+  <div><div class="eyebrow">Administration</div><h1>Manage Question Bank</h1><p><%= bank.questions.length %> questions · <%= bank.tags.length %> tags</p></div>
+  <div class="actions"><a class="secondary" href="/questions">← Questions</a><button class="primary" type="button" id="addQuestionBtn">+ New Question</button></div>
+</section>
+
+<% if (message) { %><div class="notice success"><%= message %></div><% } %>
+<% if (error) { %><div class="notice error"><%= error %></div><% } %>
+<% if (formError) { %><div class="notice error"><%= formError %></div><% } %>
+
+<div class="admin-grid">
+  <aside class="panel import-panel">
+    <div class="panel-header"><div><h2>Import / Export</h2><p>Export the complete bank or replace it from a validated JSON file.</p></div></div>
+    <a class="primary wide" href="/export">↓ Export JSON</a>
+    <label class="upload-box" for="importFile"><strong>↑ Import JSON</strong><span>Select a question-bank JSON file</span><input id="importFile" type="file" accept="application/json,.json"></label>
+    <div id="importStatus" class="hint"></div>
+    <div class="warning"><strong>Import behavior</strong><br>Import replaces the current question bank only after schema and tag references pass validation.</div>
+  </aside>
+
+  <section class="panel">
+    <div class="panel-header"><div><h2>Quick Actions</h2><p>Manage questions and tags using pop-up editors.</p></div></div>
+    <div class="quick-actions">
+      <button class="secondary action-card" type="button" id="addQuestionBtn2"><span>＋</span><strong>Add Question</strong><small>Create Markdown question and answers</small></button>
+      <button class="secondary action-card" type="button" id="addTagBtn"><span>🏷</span><strong>Add Tag</strong><small>Create a reusable question tag</small></button>
+    </div>
+  </section>
+</div>
+
+<section class="panel table-panel">
+  <div class="panel-header"><div><h2>Questions</h2><p>Edit or delete existing questions.</p></div></div>
+  <div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>#</th><th>Question</th><th>Tags</th><th>Actions</th></tr></thead><tbody>
+  <% questions.forEach(q => { %>
+    <tr>
+      <td><%= q.number %></td>
+      <td><a href="/questions/<%= q.id %>"><strong><%= q.question.split("\n")[0].replace(/^#+\s*/, "") %></strong></a></td>
+      <td><div class="tag-row"><% q.tagNames.forEach(t => { %><span class="mini-tag"><%= t %></span><% }) %></div></td>
+      <td class="row-actions">
+        <button class="secondary small edit-question" type="button" data-question="<%= encodeURIComponent(JSON.stringify(q)) %>">Edit</button>
+        <form action="/manage/questions/<%= q.id %>/delete" method="post" onsubmit="return confirm('Delete this question?')"><button class="danger small" type="submit">Delete</button></form>
+      </td>
+    </tr>
+  <% }) %>
+  </tbody></table></div>
+</section>
+
+<section class="panel table-panel">
+  <div class="panel-header"><div><h2>Tags</h2><p>Add, edit, or delete tag definitions.</p></div><button class="primary small" type="button" id="addTagBtn2">+ Add Tag</button></div>
+  <div class="tag-admin-list">
+    <% bank.tags.forEach(tag => { %>
+      <div class="tag-edit">
+        <span class="mini-tag"><%= tag.name %></span>
+        <span class="tag-id"><%= tag.id %></span>
+        <div class="row-actions">
+          <button class="secondary small edit-tag" type="button" data-tag="<%= encodeURIComponent(JSON.stringify(tag)) %>">Edit</button>
+          <form action="/manage/tags/<%= tag.id %>/delete" method="post" onsubmit="return confirm('Delete this tag?')"><button class="danger small" type="submit">Delete</button></form>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+</section>
+
+<!-- Question Modal -->
+<div class="modal" id="questionModal" aria-hidden="true">
+  <div class="modal-backdrop" data-close="questionModal"></div>
+  <div class="modal-dialog modal-large" role="dialog" aria-modal="true" aria-labelledby="questionModalTitle">
+    <div class="modal-header"><div><div class="eyebrow">Question Editor</div><h2 id="questionModalTitle">Add Question</h2></div><button class="modal-close" type="button" data-close="questionModal">×</button></div>
+    <form action="/manage/questions/save" method="post" class="editor-form" id="questionForm">
+      <input type="hidden" name="id" id="questionId">
+      <label>Question<textarea name="question" id="questionText" rows="7" required placeholder="Write the interview question in Markdown..."></textarea></label>
+      <label>Answers <span class="hint">Separate multiple answers with a line containing <code>---</code></span>
+        <textarea name="answers" id="answerText" rows="16" required placeholder="Write the answer in Markdown..."></textarea>
+      </label>
+      <fieldset><legend>Tags</legend><div class="check-grid" id="questionTags">
+        <% bank.tags.forEach(tag => { %><label class="check"><input type="checkbox" name="tags" value="<%= tag.id %>"><span><%= tag.name %></span></label><% }) %>
+      </div></fieldset>
+      <div class="form-actions modal-actions"><button class="primary" type="submit" id="questionSubmit">Create Question</button><button class="secondary" type="button" data-close="questionModal">Cancel</button></div>
+    </form>
+  </div>
+</div>
+
+<!-- Tag Modal -->
+<div class="modal" id="tagModal" aria-hidden="true">
+  <div class="modal-backdrop" data-close="tagModal"></div>
+  <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="tagModalTitle">
+    <div class="modal-header"><div><div class="eyebrow">Tag Editor</div><h2 id="tagModalTitle">Add Tag</h2></div><button class="modal-close" type="button" data-close="tagModal">×</button></div>
+    <form action="/manage/tags/save" method="post" class="editor-form" id="tagForm">
+      <input type="hidden" name="id" id="tagId">
+      <label>Tag Name<input name="name" id="tagName" maxlength="100" required placeholder="e.g. Spring Boot"></label>
+      <div class="form-actions modal-actions"><button class="primary" type="submit" id="tagSubmit">Create Tag</button><button class="secondary" type="button" data-close="tagModal">Cancel</button></div>
+    </form>
+  </div>
+</div>
+
+<script>
+(() => {
+  const qModal = document.getElementById('questionModal');
+  const tModal = document.getElementById('tagModal');
+  const qForm = document.getElementById('questionForm');
+  const tForm = document.getElementById('tagForm');
+
+  function openModal(modal) { modal.classList.add('open'); modal.setAttribute('aria-hidden', 'false'); document.body.classList.add('modal-open'); }
+  function closeModal(id) { const modal = document.getElementById(id); modal.classList.remove('open'); modal.setAttribute('aria-hidden', 'true'); if (!document.querySelector('.modal.open')) document.body.classList.remove('modal-open'); }
+
+  function resetQuestion() {
+    qForm.reset();
+    document.getElementById('questionId').value = '';
+    document.getElementById('questionModalTitle').textContent = 'Add Question';
+    document.getElementById('questionSubmit').textContent = 'Create Question';
+  }
+
+  function editQuestion(q) {
+    resetQuestion();
+    document.getElementById('questionId').value = q.id || '';
+    document.getElementById('questionText').value = q.question || '';
+    document.getElementById('answerText').value = (q.answers || []).join('\n\n---\n\n');
+    document.querySelectorAll('#questionTags input[type="checkbox"]').forEach(input => {
+      input.checked = (q.tags || []).includes(input.value);
+    });
+    document.getElementById('questionModalTitle').textContent = 'Edit Question';
+    document.getElementById('questionSubmit').textContent = 'Update Question';
+    openModal(qModal);
+    setTimeout(() => document.getElementById('questionText').focus(), 50);
+  }
+
+  function resetTag() {
+    tForm.reset();
+    document.getElementById('tagId').value = '';
+    document.getElementById('tagModalTitle').textContent = 'Add Tag';
+    document.getElementById('tagSubmit').textContent = 'Create Tag';
+  }
+
+  function editTag(tag) {
+    resetTag();
+    document.getElementById('tagId').value = tag.id || '';
+    document.getElementById('tagName').value = tag.name || '';
+    document.getElementById('tagModalTitle').textContent = 'Edit Tag';
+    document.getElementById('tagSubmit').textContent = 'Update Tag';
+    openModal(tModal);
+    setTimeout(() => document.getElementById('tagName').focus(), 50);
+  }
+
+  document.getElementById('addQuestionBtn').onclick = () => { resetQuestion(); openModal(qModal); setTimeout(() => document.getElementById('questionText').focus(), 50); };
+  document.getElementById('addQuestionBtn2').onclick = () => { resetQuestion(); openModal(qModal); setTimeout(() => document.getElementById('questionText').focus(), 50); };
+  document.querySelectorAll('.edit-question').forEach(btn => btn.addEventListener('click', () => editQuestion(JSON.parse(decodeURIComponent(btn.dataset.question)))));
+
+  document.getElementById('addTagBtn').onclick = () => { resetTag(); openModal(tModal); setTimeout(() => document.getElementById('tagName').focus(), 50); };
+  document.getElementById('addTagBtn2').onclick = () => { resetTag(); openModal(tModal); setTimeout(() => document.getElementById('tagName').focus(), 50); };
+  document.querySelectorAll('.edit-tag').forEach(btn => btn.addEventListener('click', () => editTag(JSON.parse(decodeURIComponent(btn.dataset.tag)))));
+
+  document.querySelectorAll('[data-close]').forEach(el => el.addEventListener('click', () => closeModal(el.dataset.close)));
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      if (qModal.classList.contains('open')) closeModal('questionModal');
+      if (tModal.classList.contains('open')) closeModal('tagModal');
+    }
+  });
+
+  document.getElementById('importFile').addEventListener('change', async (e) => {
+    const file = e.target.files[0]; if (!file) return;
+    const status = document.getElementById('importStatus'); status.textContent = 'Validating and importing...';
+    try {
+      const text = await file.text();
+      const response = await fetch('/import', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: text });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error || 'Import failed');
+      status.textContent = `Imported ${result.questions} questions and ${result.tags} tags. Reloading...`;
+      location.reload();
+    } catch (err) { status.textContent = 'Import failed: ' + err.message; }
+  });
+})();
+</script>
+<%- include("partials/foot", { bank }) %>

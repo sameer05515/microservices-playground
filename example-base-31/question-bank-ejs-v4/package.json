@@ -1,0 +1,17 @@
+{
+  "name": "question-bank-ejs",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Node.js + Express + EJS question bank viewer backed by question-bank.json",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "ejs": "^3.1.10",
+    "marked": "^16.2.1",
+    "highlight.js": "^11.11.1"
+  }
+}
