@@ -1,0 +1,70 @@
+<%- include("partials/head", { title: "Manage • Question Bank" }) %>
+<section class="page-header">
+  <div><div class="eyebrow">Administration</div><h1>Manage Question Bank</h1><p><%= bank.questions.length %> questions · <%= bank.tags.length %> tags</p></div>
+  <div class="actions"><a class="secondary" href="/questions">← Questions</a><a class="primary" href="/manage/questions/new">+ New Question</a></div>
+</section>
+
+<% if (message) { %><div class="notice success"><%= message %></div><% } %>
+<% if (error) { %><div class="notice error"><%= error %></div><% } %>
+<% if (formError) { %><div class="notice error"><%= formError %></div><% } %>
+
+<div class="admin-grid">
+  <section class="panel">
+    <div class="panel-header"><div><h2><%= editQuestion ? "Edit Question" : "Create Question" %></h2><p>Markdown is supported in question and answer.</p></div></div>
+    <form action="/manage/questions/save" method="post" class="editor-form">
+      <input type="hidden" name="id" value="<%= editQuestion?.id || "" %>">
+      <label>Question<textarea name="question" rows="7" required><%= editQuestion?.question || "" %></textarea></label>
+      <label>Answers <span class="hint">Separate multiple answers with a line containing <code>---</code></span>
+        <textarea name="answers" rows="18" required><%= (editQuestion?.answers || []).join("\n\n---\n\n") %></textarea>
+      </label>
+      <fieldset><legend>Tags</legend><div class="check-grid">
+        <% bank.tags.forEach(tag => { %><label class="check"><input type="checkbox" name="tags" value="<%= tag.id %>" <%= (editQuestion?.tags || []).includes(tag.id) ? "checked" : "" %>><span><%= tag.name %></span></label><% }) %>
+      </div></fieldset>
+      <div class="form-actions"><button class="primary" type="submit"><%= editQuestion ? "Update Question" : "Create Question" %></button><a class="secondary" href="/manage">Reset</a></div>
+    </form>
+  </section>
+
+  <aside class="panel import-panel">
+    <div class="panel-header"><div><h2>Import / Export</h2><p>Export the complete bank or replace it from a validated JSON file.</p></div></div>
+    <a class="primary wide" href="/export">↓ Export JSON</a>
+    <label class="upload-box" for="importFile"><strong>↑ Import JSON</strong><span>Select a question-bank JSON file</span><input id="importFile" type="file" accept="application/json,.json"></label>
+    <div id="importStatus" class="hint"></div>
+    <div class="warning"><strong>Import behavior</strong><br>Import replaces the current question bank only after schema and tag references pass validation.</div>
+  </aside>
+</div>
+
+<section class="panel table-panel">
+  <div class="panel-header"><div><h2>Questions</h2><p>Edit or delete existing questions.</p></div></div>
+  <div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>#</th><th>Question</th><th>Tags</th><th>Actions</th></tr></thead><tbody>
+  <% questions.forEach(q => { %><tr><td><%= q.number %></td><td><a href="/questions/<%= q.id %>"><strong><%= q.question.split("\n")[0].replace(/^#+\s*/, "") %></strong></a></td><td><div class="tag-row"><% q.tagNames.forEach(t => { %><span class="mini-tag"><%= t %></span><% }) %></div></td><td class="row-actions"><a class="secondary small" href="/manage/questions/<%= q.id %>/edit">Edit</a><form action="/manage/questions/<%= q.id %>/delete" method="post" onsubmit="return confirm('Delete this question?')"><button class="danger small" type="submit">Delete</button></form></td></tr><% }) %>
+  </tbody></table></div>
+</section>
+
+<section class="panel table-panel">
+  <div class="panel-header"><div><h2>Tags</h2><p>Create and maintain tag definitions.</p></div></div>
+  <div class="tag-admin-list">
+    <% bank.tags.forEach(tag => { %>
+      <div class="tag-edit">
+        <form action="/manage/tags/save" method="post"><input type="hidden" name="id" value="<%= tag.id %>"><input name="name" value="<%= tag.name %>" required><button class="secondary small">Save</button></form>
+        <form action="/manage/tags/<%= tag.id %>/delete" method="post" onsubmit="return confirm('Delete this tag?')"><button class="danger small">Delete</button></form>
+      </div>
+    <% }) %>
+    <form class="tag-edit new-tag" action="/manage/tags/save" method="post"><input name="name" placeholder="New tag name" required><button class="primary small">+ Add Tag</button></form>
+  </div>
+</section>
+
+<script>
+document.getElementById('importFile').addEventListener('change', async (e) => {
+  const file = e.target.files[0]; if (!file) return;
+  const status = document.getElementById('importStatus'); status.textContent = 'Validating and importing...';
+  try {
+    const text = await file.text();
+    const response = await fetch('/import', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: text });
+    const result = await response.json();
+    if (!response.ok) throw new Error(result.error || 'Import failed');
+    status.textContent = `Imported ${result.questions} questions and ${result.tags} tags. Reloading...`;
+    location.reload();
+  } catch (err) { status.textContent = 'Import failed: ' + err.message; }
+});
+</script>
+<%- include("partials/foot", { bank }) %>
