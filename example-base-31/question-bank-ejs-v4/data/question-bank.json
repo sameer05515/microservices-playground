@@ -36,7 +36,7 @@
       "id": "6a9ea054e2c4aee65c418932",
       "question": "What is Java?",
       "answers": [
-        "Java is a high-level, class-based, object-oriented programming language designed to be portable through the JVM."
+        "Java is a high-level, object-oriented, class-based programming language. It is platform independent because Java source code is compiled into bytecode, which can run on any operating system that has a compatible JVM.\r\n\r\n```\r\nJava\r\n ├── High-level\r\n ├── Object-oriented\r\n ├── Class-based\r\n └── Platform independent\r\n       ↓\r\n    Bytecode\r\n       ↓\r\n      JVM\r\n```"
       ],
       "tags": [
         "6a9fd244443b416bda75278d"
