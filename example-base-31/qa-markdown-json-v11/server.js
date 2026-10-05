@@ -4,7 +4,7 @@ const { marked } = require('marked');
 const { MongoClient } = require('mongodb');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3009;
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017';
 const DB_NAME = process.env.MONGODB_DB || 'ques_ans_db';
 
