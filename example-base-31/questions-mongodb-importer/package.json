@@ -1,0 +1,13 @@
+{
+  "name": "questions-mongodb-importer",
+  "version": "1.0.0",
+  "description": "Import questions.json tags and questions into MongoDB",
+  "private": true,
+  "main": "import-questions.js",
+  "scripts": {
+    "import": "node import-questions.js"
+  },
+  "dependencies": {
+    "mongodb": "^6.20.0"
+  }
+}
