@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Markdown Q&A</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header><div><h1>Markdown Q&A</h1><p>Multiple answers · Markdown · JSON persistence</p></div><button id="newBtn">+ New Question</button></header>
+<main>
+  <section class="toolbar"><input id="search" placeholder="Search questions, answers or tags..." /><span id="count"></span></section>
+  <section id="list"></section>
+</main>
+<div id="modal" class="modal hidden"><div class="dialog"><div class="dialog-head"><h2 id="modalTitle">New Question</h2><button id="closeBtn">×</button></div>
+  <form id="form">
+    <input type="hidden" id="qid" />
+    <label>Question<input id="question" required /></label>
+    <label>Tags <small>comma separated</small><input id="tags" placeholder="java, spring, collections" /></label>
+    <div class="answers-head"><h3>Answers</h3><button type="button" id="addAnswer">+ Add Answer</button></div>
+    <div id="answers"></div>
+    <div class="actions"><button type="button" class="secondary" id="cancelBtn">Cancel</button><button>Save</button></div>
+  </form>
+</div></div>
+<script src="https://cdn.jsdelivr.net/npm/marked@16.3.0/lib/marked.umd.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

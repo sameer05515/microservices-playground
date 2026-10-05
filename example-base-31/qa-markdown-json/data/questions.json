@@ -1,0 +1,19 @@
+[
+  {
+    "id": "q1",
+    "question": "What is Java?",
+    "tags": ["java", "basics"],
+    "answers": [
+      {"id":"a1","title":"Short Answer","markdown":"Java is a **high-level, class-based, object-oriented programming language** designed to have as few implementation dependencies as possible.\n\nIt follows the idea of **Write Once, Run Anywhere** through the JVM."},
+      {"id":"a2","title":"Interview Answer","markdown":"Java source code is compiled into **bytecode**. The bytecode runs on the **Java Virtual Machine (JVM)**, which provides platform independence.\n\n### Key characteristics\n- Object-oriented\n- Platform independent\n- Garbage collected\n- Strongly typed\n- Large standard library"}
+    ]
+  },
+  {
+    "id": "q2",
+    "question": "What is the difference between HashMap and ConcurrentHashMap?",
+    "tags": ["java", "collections", "concurrency"],
+    "answers": [
+      {"id":"a3","title":"Comparison","markdown":"| Feature | HashMap | ConcurrentHashMap |\n|---|---|---|\n| Thread safe | No | Yes |\n| Null keys | One | Not allowed |\n| Null values | Allowed | Not allowed |\n| Concurrent access | Not designed for it | Designed for it |\n\nUse `ConcurrentHashMap` when multiple threads need to update/read the map concurrently."}
+    ]
+  }
+]
