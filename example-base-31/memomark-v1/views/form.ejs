@@ -1,0 +1,46 @@
+<%- include("partials/header") %>
+
+<div class="form-page">
+  <div class="page-header">
+    <div>
+      <h1><%= mode === "create" ? "Create Note" : "Edit Note" %></h1>
+      <p class="muted">Write content using Markdown.</p>
+    </div>
+    <a class="btn" href="/">Cancel</a>
+  </div>
+
+  <% if (typeof error !== "undefined") { %>
+    <div class="alert"><%= error %></div>
+  <% } %>
+
+  <form method="post"
+        action="<%= mode === 'create' ? '/notes' : '/notes/' + note.id + '/update' %>"
+        class="note-form">
+
+    <label for="title">Title</label>
+    <input
+      id="title"
+      name="title"
+      type="text"
+      maxlength="200"
+      required
+      value="<%= note.title %>"
+      placeholder="e.g. What is HashMap in Java?">
+
+    <label for="content">Content (Markdown)</label>
+    <textarea
+      id="content"
+      name="content"
+      required
+      placeholder="# Heading&#10;&#10;Write your Markdown here..."><%= note.content %></textarea>
+
+    <div class="form-actions">
+      <a class="btn" href="/">Cancel</a>
+      <button class="btn btn-primary" type="submit">
+        <%= mode === "create" ? "Create Note" : "Save Changes" %>
+      </button>
+    </div>
+  </form>
+</div>
+
+<%- include("partials/footer") %>

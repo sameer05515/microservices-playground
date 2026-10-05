@@ -1,0 +1,49 @@
+<%- include("partials/header") %>
+
+<div class="page-header">
+  <div>
+    <h1>Notes</h1>
+    <p class="muted">Markdown knowledge, interview notes and reusable content.</p>
+  </div>
+  <a class="btn btn-primary" href="/notes/new">Create Note</a>
+</div>
+
+<% if (notes.length === 0) { %>
+  <div class="empty">
+    <h2>No notes yet</h2>
+    <p>Create your first Markdown note.</p>
+    <a class="btn btn-primary" href="/notes/new">Create Note</a>
+  </div>
+<% } %>
+
+<div class="note-grid">
+  <% notes.forEach(note => { %>
+    <article class="card">
+      <h2>
+        <a href="/notes/<%= note.id %>"><%= note.title %></a>
+      </h2>
+
+      <div class="preview">
+        <%- markedPreview(note.content) %>
+      </div>
+
+      <div class="card-footer">
+        <span class="muted">
+          Updated <%= new Date(note.updatedAt).toLocaleString() %>
+        </span>
+
+        <div class="actions">
+          <a class="btn btn-small" href="/notes/<%= note.id %>">View</a>
+          <a class="btn btn-small" href="/notes/<%= note.id %>/edit">Edit</a>
+          <form method="post"
+                action="/notes/<%= note.id %>/delete"
+                onsubmit="return confirm('Delete this note?');">
+            <button class="btn btn-small btn-danger" type="submit">Delete</button>
+          </form>
+        </div>
+      </div>
+    </article>
+  <% }) %>
+</div>
+
+<%- include("partials/footer") %>

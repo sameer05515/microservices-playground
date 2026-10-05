@@ -1,0 +1,27 @@
+<%- include("partials/header") %>
+
+<div class="note-header">
+  <div>
+    <a class="back-link" href="/">← All Notes</a>
+    <h1><%= note.title %></h1>
+    <p class="muted">
+      Updated <%= new Date(note.updatedAt).toLocaleString() %>
+    </p>
+  </div>
+
+  <div class="actions">
+    <a class="btn" href="/notes/<%= note.id %>/edit">Edit</a>
+
+    <form method="post"
+          action="/notes/<%= note.id %>/delete"
+          onsubmit="return confirm('Delete this note?');">
+      <button class="btn btn-danger" type="submit">Delete</button>
+    </form>
+  </div>
+</div>
+
+<article class="markdown-body">
+  <%- renderedContent %>
+</article>
+
+<%- include("partials/footer") %>

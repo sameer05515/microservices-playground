@@ -1,0 +1,16 @@
+[
+  {
+    "id": "a0d8f234-fb22-4673-922d-273fbbda3044",
+    "title": "Remembrable",
+    "content": "# My Important projects\r\n\r\n",
+    "createdAt": "2026-10-05T11:08:36.918Z",
+    "updatedAt": "2026-10-05T11:08:36.918Z"
+  },
+  {
+    "id": "demo-java-001",
+    "title": "Java HashMap",
+    "content": "# HashMap\n\n`HashMap` stores key-value pairs.\n\n```java\nMap<String, Integer> map = new HashMap<>();\nmap.put(\"Java\", 1);\nSystem.out.println(map.get(\"Java\"));\n```\n\n## Important\n\n- Average lookup: **O(1)**\n- Allows one `null` key\n- Not thread-safe",
+    "createdAt": "2026-10-05T00:00:00.000Z",
+    "updatedAt": "2026-10-05T00:00:00.000Z"
+  }
+]

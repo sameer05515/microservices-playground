@@ -1,0 +1,271 @@
+:root {
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #1f2937;
+  background: #f5f7fb;
+  line-height: 1.6;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+a {
+  color: #2563eb;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.container {
+  width: min(1120px, calc(100% - 32px));
+  margin: 0 auto;
+}
+
+.topbar {
+  background: #111827;
+  color: white;
+  margin-bottom: 32px;
+}
+
+.topbar-inner {
+  min-height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand {
+  color: white;
+  font-size: 1.35rem;
+  font-weight: 800;
+}
+
+.topbar nav {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.page-header,
+.note-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+h1,
+h2 {
+  line-height: 1.2;
+}
+
+.muted {
+  color: #6b7280;
+}
+
+.btn {
+  border: 1px solid #d1d5db;
+  background: white;
+  color: #111827;
+  border-radius: 8px;
+  padding: 9px 14px;
+  cursor: pointer;
+  font-size: 14px;
+  display: inline-block;
+}
+
+.btn:hover {
+  text-decoration: none;
+  background: #f3f4f6;
+}
+
+.btn-primary {
+  color: white;
+  background: #2563eb;
+  border-color: #2563eb;
+}
+
+.btn-primary:hover {
+  background: #1d4ed8;
+}
+
+.btn-danger {
+  color: #b91c1c;
+  border-color: #fecaca;
+  background: #fff;
+}
+
+.btn-small {
+  padding: 6px 10px;
+  font-size: 13px;
+}
+
+.note-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 18px;
+}
+
+.card {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.04);
+}
+
+.card h2 {
+  margin-top: 0;
+}
+
+.preview {
+  max-height: 180px;
+  overflow: hidden;
+  color: #4b5563;
+}
+
+.card-footer {
+  border-top: 1px solid #eee;
+  padding-top: 14px;
+  margin-top: 16px;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.actions form {
+  margin: 0;
+}
+
+.empty {
+  background: white;
+  border: 1px dashed #cbd5e1;
+  border-radius: 12px;
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.form-page {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.note-form {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.note-form label {
+  display: block;
+  font-weight: 700;
+  margin: 14px 0 7px;
+}
+
+.note-form input,
+.note-form textarea {
+  width: 100%;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 12px;
+  font: inherit;
+}
+
+.note-form textarea {
+  min-height: 500px;
+  resize: vertical;
+  font-family: Consolas, "Courier New", monospace;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.alert {
+  background: #fef2f2;
+  color: #b91c1c;
+  border: 1px solid #fecaca;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 18px;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 8px;
+}
+
+.markdown-body {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 32px;
+  overflow-x: auto;
+}
+
+.markdown-body img {
+  max-width: 100%;
+}
+
+.markdown-body code {
+  background: #f3f4f6;
+  padding: 2px 5px;
+  border-radius: 4px;
+}
+
+.markdown-body pre {
+  background: #0d1117;
+  border-radius: 8px;
+  padding: 16px;
+  overflow-x: auto;
+}
+
+.markdown-body pre code {
+  background: transparent;
+  padding: 0;
+}
+
+.markdown-body blockquote {
+  border-left: 4px solid #2563eb;
+  padding-left: 16px;
+  color: #6b7280;
+}
+
+.footer {
+  margin-top: 60px;
+  padding: 24px 0;
+  color: #6b7280;
+  text-align: center;
+  font-size: 13px;
+}
+
+@media (max-width: 700px) {
+  .page-header,
+  .note-header,
+  .card-footer {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .markdown-body {
+    padding: 18px;
+  }
+}
