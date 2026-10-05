@@ -6,7 +6,7 @@ const { marked } = require("marked");
 const hljs = require("highlight.js");
 
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 7009;
 
 const DATA_DIR = path.join(__dirname, "data");
 const DATA_FILE = path.join(DATA_DIR, "notes.json");
