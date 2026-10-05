@@ -2,6 +2,7 @@ const $ = s => document.querySelector(s);
 const list = $('#list');
 let timer;
 let tagsCache = [];
+let originalAnswers = [];
 
 function applyTheme(theme) {
   document.documentElement.classList.toggle('dark', theme === 'dark');
@@ -78,6 +79,7 @@ function tagCheckboxes(selected = []) {
   return tagsCache.length ? tagsCache.map(t => `<label class="flex cursor-pointer items-center gap-2 rounded-lg border border-slate-200 px-3 py-2 dark:border-slate-700"><input type="checkbox" class="tag-check h-4 w-4" value="${esc(t.id)}" ${selected.includes(t.id) ? 'checked' : ''}><span class="text-sm">${esc(t.name)}</span></label>`).join('') : '<p class="text-sm text-slate-500">No tags yet. Create one from Manage Tags.</p>';
 }
 function answerEditor(a = {}) {
+  if (typeof a === 'string') a = { title: 'Answer', markdown: a };
   const div = document.createElement('div');
   div.className = 'my-3 rounded-xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-950';
   div.dataset.id = a.id || '';
@@ -90,6 +92,7 @@ function open(item) {
   $('#qid').value = item?.id || ''; $('#modalTitle').textContent = item ? 'Edit Question' : 'New Question';
   $('#question').value = item?.question || '';
   $('#tagChecks').innerHTML = tagCheckboxes(item?.tags || []);
+  originalAnswers = Array.isArray(item?.answers) ? JSON.parse(JSON.stringify(item.answers)) : [];
   $('#answers').innerHTML = ''; (item?.answers?.length ? item.answers : [{}]).forEach(answerEditor);
 }
 function closeModal() { $('#modal').classList.add('hidden'); $('#modal').classList.remove('flex'); }
@@ -141,7 +144,12 @@ $('#addAnswer').onclick = () => answerEditor();
 $('#search').oninput = () => { clearTimeout(timer); timer = setTimeout(load, 200); };
 $('#form').onsubmit = async e => {
   e.preventDefault();
-  const answers = [...document.querySelectorAll('.answer-editor')].map(x => ({id:x.dataset.id,title:x.querySelector('.atitle').value,markdown:x.querySelector('.amarkdown').value}));
+  const editors = [...document.querySelectorAll('.answer-editor')];
+  let answers = editors.map(x => ({id:x.dataset.id,title:x.querySelector('.atitle').value,markdown:x.querySelector('.amarkdown').value}));
+  // Never accidentally erase existing answers because the editor did not render them.
+  if ($('#qid').value && answers.length === 0 && originalAnswers.length > 0) {
+    answers = JSON.parse(JSON.stringify(originalAnswers));
+  }
   const tags = [...document.querySelectorAll('.tag-check:checked')].map(x => x.value);
   const body = {question:$('#question').value,tags,answers};
   const id = $('#qid').value;

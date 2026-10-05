@@ -135,7 +135,9 @@ app.put('/api/questions/:id', async (req, res) => {
 
     const old = normalizeQuestion(data.questions[index]);
     const hasAnswers = Object.prototype.hasOwnProperty.call(req.body || {}, 'answers');
-    const incomingAnswers = hasAnswers && Array.isArray(req.body.answers)
+    // Empty/missing answers on an update are treated as 'not supplied' so a normal
+    // question/tag edit can never accidentally erase the existing answers.
+    const incomingAnswers = hasAnswers && Array.isArray(req.body.answers) && req.body.answers.length > 0
       ? req.body.answers.map((a, i) => normalizeAnswer(a, old.id, i))
       : old.answers;
 
