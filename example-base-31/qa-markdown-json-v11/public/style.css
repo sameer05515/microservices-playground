@@ -6,3 +6,8 @@
 .md th, .md td { border: 1px solid #cbd5e1; padding: .5rem; text-align: left; }
 .dark .md code { background: #1e293b; color: #e2e8f0; }
 .dark .md th, .dark .md td { border-color: #334155; }
+
+/* Code blocks */
+.md pre { overflow-x: auto; border-radius: 0.75rem; margin: 1rem 0; }
+.md pre code { display: block; padding: 1rem; font-size: 0.875rem; line-height: 1.6; }
+.md code:not(pre code) { padding: 0.15rem 0.35rem; border-radius: 0.35rem; background: rgba(100,116,139,.15); }

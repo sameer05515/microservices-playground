@@ -26,6 +26,12 @@ function md(text) {
   if (window.marked && typeof window.marked.parse === 'function') return window.marked.parse(value);
   return esc(value).replace(/\n/g, '<br>');
 }
+function highlightCode(root = document) {
+  if (!window.hljs) return;
+  root.querySelectorAll('pre code').forEach(block => {
+    if (!block.dataset.highlighted) window.hljs.highlightElement(block);
+  });
+}
 function tagName(id) { return tagsCache.find(t => t.id === id)?.name || id; }
 
 async function loadTags() { tagsCache = await api('/api/tags'); }
@@ -36,7 +42,9 @@ async function load() {
   const questions = Array.isArray(data) ? data : (data?.questions || []);
   $('#count').textContent = `${questions.length} question${questions.length === 1 ? '' : 's'}`;
   list.innerHTML = questions.length ? questions.map(render).join('') : '<div class="py-16 text-center text-slate-500">No questions found.</div>';
+  highlightCode(list);
 }
+
 
 async function loadQuestionPage(id) {
   try {
@@ -62,6 +70,7 @@ async function loadQuestionPage(id) {
       <a href="/question/${encodeURIComponent(previous.id)}" class="rounded-lg bg-slate-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-slate-500">← Previous</a>
       <a href="/question/${encodeURIComponent(next.id)}" class="rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-blue-500">Next →</a>
     </div>`;
+    highlightCode(list);
   } catch (e) {
     $('#search').parentElement.classList.add('hidden');
     $('#count').textContent = '';
