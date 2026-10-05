@@ -1,0 +1,93 @@
+<%- include("partials/header") %>
+
+<div class="page-header">
+  <div>
+    <h1>My Notes</h1>
+    <p class="muted">Store and revise your technical knowledge in Markdown.</p>
+  </div>
+  <a class="btn btn-primary" href="/notes/new">+ New Note</a>
+</div>
+
+<form class="search-box" method="get" action="/">
+  <input
+    type="search"
+    name="q"
+    value="<%= q %>"
+    placeholder="Search title, content or tags...">
+
+  <select name="tag">
+    <option value="">All tags</option>
+    <% allTags.forEach(item => { %>
+      <option value="<%= item %>" <%= tag === item ? "selected" : "" %>>
+        <%= item %>
+      </option>
+    <% }) %>
+  </select>
+
+  <button class="btn btn-primary" type="submit">Search</button>
+
+  <% if (q || tag) { %>
+    <a class="btn" href="/">Clear</a>
+  <% } %>
+</form>
+
+<div class="result-info">
+  <strong><%= notes.length %></strong> note(s)
+  <% if (q) { %>
+    matching "<strong><%= q %></strong>"
+  <% } %>
+</div>
+
+<% if (notes.length === 0) { %>
+  <div class="empty">
+    <h2>No notes found</h2>
+    <p>Try another search or create a new note.</p>
+  </div>
+<% } %>
+
+<div class="note-grid">
+  <% notes.forEach(note => { %>
+    <article class="card">
+      <div class="card-title">
+        <h2>
+          <a href="/notes/<%= note.id %>"><%= note.title %></a>
+        </h2>
+      </div>
+
+      <% if (note.tags.length) { %>
+        <div class="tags">
+          <% note.tags.forEach(item => { %>
+            <a class="tag" href="/?tag=<%= encodeURIComponent(item) %>">
+              #<%= item %>
+            </a>
+          <% }) %>
+        </div>
+      <% } %>
+
+      <div class="preview">
+        <%- preview(note.content) %>
+      </div>
+
+      <div class="card-footer">
+        <span class="muted">
+          <%= new Date(note.updatedAt).toLocaleDateString() %>
+        </span>
+
+        <div class="actions">
+          <a class="btn btn-small" href="/notes/<%= note.id %>">View</a>
+          <a class="btn btn-small" href="/notes/<%= note.id %>/edit">Edit</a>
+
+          <form method="post"
+                action="/notes/<%= note.id %>/delete"
+                onsubmit="return confirm('Delete this note?');">
+            <button class="btn btn-small btn-danger" type="submit">
+              Delete
+            </button>
+          </form>
+        </div>
+      </div>
+    </article>
+  <% }) %>
+</div>
+
+<%- include("partials/footer") %>

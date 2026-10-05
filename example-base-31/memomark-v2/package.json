@@ -1,0 +1,16 @@
+{
+  "name": "memomark",
+  "version": "2.0.0",
+  "description": "Markdown knowledge manager built with Node.js, Express, EJS, Marked and Highlight.js.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "node --watch app.js"
+  },
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "highlight.js": "^11.11.1",
+    "marked": "^16.2.3"
+  }
+}

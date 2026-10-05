@@ -1,0 +1,100 @@
+<%- include("partials/header") %>
+
+<div class="editor-page">
+
+  <div class="page-header">
+    <div>
+      <h1><%= mode === "create" ? "Create Note" : "Edit Note" %></h1>
+      <p class="muted">Markdown editor with live preview.</p>
+    </div>
+
+    <a class="btn" href="/">← Notes</a>
+  </div>
+
+  <% if (error) { %>
+    <div class="alert"><%= error %></div>
+  <% } %>
+
+  <form method="post"
+        action="<%= mode === 'create'
+          ? '/notes'
+          : '/notes/' + note.id + '/update' %>">
+
+    <div class="editor-toolbar">
+      <div class="field">
+        <label for="title">Title</label>
+        <input
+          id="title"
+          name="title"
+          type="text"
+          maxlength="200"
+          required
+          value="<%= note.title %>"
+          placeholder="e.g. What is HashMap in Java?">
+      </div>
+
+      <div class="field">
+        <label for="tags">Tags</label>
+        <input
+          id="tags"
+          name="tags"
+          type="text"
+          value="<%= note.tags.join(', ') %>"
+          placeholder="java, collections, interview">
+        <small>Comma separated</small>
+      </div>
+    </div>
+
+    <div class="split-editor">
+
+      <section class="editor-panel">
+        <div class="panel-title">
+          <strong>Markdown</strong>
+          <span>Write</span>
+        </div>
+
+        <textarea
+          id="content"
+          name="content"
+          required
+          placeholder="# Your note&#10;&#10;Write Markdown here..."><%= note.content %></textarea>
+      </section>
+
+      <section class="editor-panel">
+        <div class="panel-title">
+          <strong>Preview</strong>
+          <span>Live</span>
+        </div>
+
+        <article id="preview" class="markdown-body">
+          <p class="muted">Start writing Markdown...</p>
+        </article>
+      </section>
+
+    </div>
+
+    <div class="form-actions">
+      <a class="btn" href="/">Cancel</a>
+
+      <% if (mode === "edit") { %>
+        <button
+          class="btn btn-secondary"
+          formaction="/notes/<%= note.id %>/duplicate"
+          formmethod="post"
+          type="submit">
+          Duplicate
+        </button>
+      <% } %>
+
+      <button class="btn btn-primary" type="submit">
+        <%= mode === "create" ? "Create Note" : "Save Changes" %>
+      </button>
+    </div>
+  </form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/marked@16.2.3/lib/marked.umd.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/highlight.js@11.11.1/lib/highlight.min.js"></script>
+<script src="/js/editor.js"></script>
+
+<%- include("partials/footer") %>

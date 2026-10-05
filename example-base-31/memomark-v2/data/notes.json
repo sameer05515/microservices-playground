@@ -1,0 +1,18 @@
+[
+  {
+    "id": "java-hashmap-demo",
+    "title": "Java HashMap",
+    "tags": ["java", "collections", "interview"],
+    "content": "# HashMap\n\n`HashMap` stores key-value pairs.\n\n```java\nMap<String, Integer> map = new HashMap<>();\nmap.put(\"Java\", 1);\nSystem.out.println(map.get(\"Java\"));\n```\n\n## Complexity\n\n- Average lookup: **O(1)**\n- One `null` key is allowed\n- Not thread-safe",
+    "createdAt": "2026-10-05T00:00:00.000Z",
+    "updatedAt": "2026-10-05T00:00:00.000Z"
+  },
+  {
+    "id": "spring-di-demo",
+    "title": "Spring Dependency Injection",
+    "tags": ["spring", "spring-boot", "interview"],
+    "content": "# Dependency Injection\n\nSpring creates and injects objects managed by the IoC container.\n\n```java\n@Service\npublic class UserService {\n    private final UserRepository repository;\n\n    public UserService(UserRepository repository) {\n        this.repository = repository;\n    }\n}\n```",
+    "createdAt": "2026-10-05T00:00:00.000Z",
+    "updatedAt": "2026-10-05T00:00:00.000Z"
+  }
+]
