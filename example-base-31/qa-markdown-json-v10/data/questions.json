@@ -33,6 +33,18 @@
   ],
   "questions": [
     {
+      "id": "q_1791184978510_gmb6aq",
+      "question": "What is python?",
+      "tags": [],
+      "answers": [
+        {
+          "id": "a_1791184978511_954xbn",
+          "title": "Answer 1",
+          "markdown": "**Python is a high-level, general-purpose, interpreted programming language** known for its simple syntax and readability.\n\n### Simple example\n\n```python\nname = \"Prem\"\nage = 40\n\nprint(f\"My name is {name} and I am {age} years old.\")\n```\n\nOutput:\n\n```text\nMy name is Prem and I am 40 years old.\n```\n\n### Key features of Python\n\n```text\n1. Easy to learn and read\n2. High-level language\n3. Dynamically typed\n4. Interpreted\n5. Object-oriented\n6. Supports functional programming\n7. Cross-platform\n8. Large standard library\n9. Huge third-party ecosystem\n10. Automatic memory management\n```\n\n### Python example with a function\n\n```python\ndef add(a, b):\n    return a + b\n\nresult = add(10, 20)\n\nprint(result)\n```\n\nOutput:\n\n```text\n30\n```\n\n### Python vs Java\n\n| Python | Java |\n|---|---|\n| Dynamically typed | Statically typed |\n| Usually interpreted/bytecode executed by Python runtime | Compiled to bytecode and executed by JVM |\n| Less boilerplate | More boilerplate |\n| `x = 10` | `int x = 10;` |\n| Indentation defines blocks | `{}` defines blocks |\n| Very concise | More verbose |\n| Excellent for scripting, AI, data science | Excellent for enterprise/backend systems |\n\nFor example:\n\n**Python:**\n\n```python\nclass Employee:\n    def __init__(self, name, salary):\n        self.name = name\n        self.salary = salary\n\n    def display(self):\n        print(self.name, self.salary)\n```\n\n**Java:**\n\n```java\nclass Employee {\n\n    private String name;\n    private double salary;\n\n    public Employee(String name, double salary) {\n        this.name = name;\n        this.salary = salary;\n    }\n\n    public void display() {\n        System.out.println(name + \" \" + salary);\n    }\n}\n```\n\n### Where Python is used\n\n```text\nBackend Development\n        ↓\nDjango / Flask / FastAPI\n\nData Science\n        ↓\nPandas / NumPy\n\nMachine Learning / AI\n        ↓\nPyTorch / TensorFlow\n\nAutomation / Scripting\n        ↓\nPython scripts\n\nDevOps\n        ↓\nAutomation / CI/CD / Cloud tooling\n\nTesting\n        ↓\nPyTest / Selenium\n\nDesktop Applications\n        ↓\nTkinter / PyQt\n```\n\n### Interview answer\n\n> **Python is a high-level, dynamically typed, general-purpose programming language that emphasizes readability and simplicity. It supports object-oriented, procedural, and functional programming and is widely used in web development, automation, data science, AI/ML, testing, and scripting.**"
+        }
+      ]
+    },
+    {
       "id": "6a9ea054e2c4aee65c418932",
       "question": "What is Java?",
       "answers": [
