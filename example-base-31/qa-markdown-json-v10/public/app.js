@@ -79,15 +79,22 @@ function render(x, detail = false) {
 function tagCheckboxes(selected = []) {
   return tagsCache.length ? tagsCache.map(t => `<label class="flex cursor-pointer items-center gap-2 rounded-lg border border-slate-200 px-3 py-2 dark:border-slate-700"><input type="checkbox" class="tag-check h-4 w-4" value="${esc(t.id)}" ${selected.includes(t.id) ? 'checked' : ''}><span class="text-sm">${esc(t.name)}</span></label>`).join('') : '<p class="text-sm text-slate-500">No tags yet. Create one from Manage Tags.</p>';
 }
-function answerEditor(a = {}) {
+function answerEditor(a = {}, markChanged = false) {
   if (typeof a === 'string') a = { title: 'Answer', markdown: a };
   const div = document.createElement('div');
-  div.className = 'my-3 rounded-xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-950';
+  div.className = 'my-3 rounded-xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-950 answer-editor';
   div.dataset.id = a.id || '';
-  answersChanged = true;
-  div.innerHTML = `<div class="flex gap-2"><input class="atitle min-w-0 flex-1 rounded-lg border border-slate-300 bg-white px-3 py-2 dark:border-slate-700 dark:bg-slate-900" placeholder="Answer title" value="${esc(a.title || 'Answer')}"><button type="button" class="rounded-lg bg-red-600 px-3 py-2 text-sm font-semibold text-white" onclick="answersChanged=true; this.closest('.answer-editor').remove()">Remove</button></div><textarea class="amarkdown mt-3 min-h-40 w-full resize-y rounded-lg border border-slate-300 bg-white p-3 font-mono text-sm dark:border-slate-700 dark:bg-slate-900" placeholder="Write Markdown here..."></textarea>`;
-  div.querySelector('textarea').value = a.markdown || '';
+  div.innerHTML = `<div class="flex gap-2"><input class="atitle min-w-0 flex-1 rounded-lg border border-slate-300 bg-white px-3 py-2 dark:border-slate-700 dark:bg-slate-900" placeholder="Answer title"><button type="button" class="remove-answer rounded-lg bg-red-600 px-3 py-2 text-sm font-semibold text-white">Remove</button></div><textarea class="amarkdown mt-3 min-h-40 w-full resize-y rounded-lg border border-slate-300 bg-white p-3 font-mono text-sm dark:border-slate-700 dark:bg-slate-900" placeholder="Write Markdown here..."></textarea>`;
+  div.querySelector('.atitle').value = a.title || 'Answer';
+  div.querySelector('.amarkdown').value = a.markdown || '';
+  div.querySelector('.atitle').addEventListener('input', () => { answersChanged = true; });
+  div.querySelector('.amarkdown').addEventListener('input', () => { answersChanged = true; });
+  div.querySelector('.remove-answer').addEventListener('click', () => {
+    answersChanged = true;
+    div.remove();
+  });
   $('#answers').appendChild(div);
+  if (markChanged) answersChanged = true;
 }
 function open(item) {
   answersChanged = false;
@@ -96,7 +103,12 @@ function open(item) {
   $('#question').value = item?.question || '';
   $('#tagChecks').innerHTML = tagCheckboxes(item?.tags || []);
   originalAnswers = Array.isArray(item?.answers) ? JSON.parse(JSON.stringify(item.answers)) : [];
-  $('#answers').innerHTML = ''; (item?.answers?.length ? item.answers : [{}]).forEach(answerEditor);
+  $('#answers').innerHTML = '';
+  if (item?.answers?.length) {
+    item.answers.forEach(a => answerEditor(a, false));
+  } else if (!item) {
+    answerEditor({}, false);
+  }
 }
 function closeModal() { $('#modal').classList.add('hidden'); $('#modal').classList.remove('flex'); }
 
@@ -143,12 +155,17 @@ $('#manageTagsBtn').onclick = openTags;
 $('#closeTagsBtn').onclick = closeTags;
 $('#closeBtn').onclick = closeModal;
 $('#cancelBtn').onclick = closeModal;
-$('#addAnswer').onclick = () => answerEditor();
+$('#addAnswer').onclick = () => answerEditor({}, true);
 $('#search').oninput = () => { clearTimeout(timer); timer = setTimeout(load, 200); };
 $('#form').onsubmit = async e => {
   e.preventDefault();
-  const editors = [...document.querySelectorAll('.answer-editor')];
-  const answers = editors.map(x => ({id:x.dataset.id,title:x.querySelector('.atitle').value,markdown:x.querySelector('.amarkdown').value}));
+  const answersContainer = $('#answers');
+  const editors = answersContainer ? [...answersContainer.querySelectorAll(':scope > .answer-editor')] : [];
+  const answers = editors.map(x => ({
+    id: x.dataset.id || undefined,
+    title: x.querySelector('.atitle').value.trim(),
+    markdown: x.querySelector('.amarkdown').value
+  }));
   const tags = [...document.querySelectorAll('.tag-check:checked')].map(x => x.value);
   const body = {question:$('#question').value,tags};
   if (!$('#qid').value || answersChanged) body.answers = answers;

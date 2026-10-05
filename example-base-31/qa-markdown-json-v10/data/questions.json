@@ -4018,7 +4018,16 @@
       "id": "74c1713dff8a49ad8981adc1",
       "question": "What are annotations in Java?",
       "answers": [
-        "Annotations are metadata attached to program elements. They can be processed by the compiler, tools, frameworks, or runtime reflection depending on their retention policy."
+        {
+          "id": "74c1713dff8a49ad8981adc1_a1",
+          "title": "Answer 1",
+          "markdown": "Annotations are metadata attached to program elements. They can be processed by the compiler, tools, frameworks, or runtime reflection depending on their retention policy."
+        },
+        {
+          "id": "a_1791184723123_5429uv",
+          "title": "Answer 2",
+          "markdown": "In Java, **annotations are metadata added to classes, methods, fields, parameters, etc.** They provide additional information to the compiler, JVM, or frameworks.\n\n### Simple example\n\n```java\n@Override\npublic String toString() {\n    return \"Employee\";\n}\n```\n\nHere `@Override` is an annotation. It tells the compiler:\n\n> \"This method is intended to override a method from the parent class.\"\n\n---\n\n## Common Java annotations\n\n| Annotation | Purpose |\n|---|---|\n| `@Override` | Indicates method overriding |\n| `@Deprecated` | Marks code as deprecated |\n| `@SuppressWarnings` | Suppresses compiler warnings |\n| `@FunctionalInterface` | Ensures an interface is functional |\n| `@SafeVarargs` | Suppresses unsafe varargs warnings |\n\n### Example\n\n```java\n@Deprecated\npublic void oldMethod() {\n    System.out.println(\"Old method\");\n}\n```\n\nCalling it may generate a compiler warning.\n\n---\n\n## Custom Annotation\n\nYou can create your own annotation:\n\n```java\n@Retention(RetentionPolicy.RUNTIME)\n@Target(ElementType.METHOD)\npublic @interface MyAnnotation {\n    String value();\n}\n```\n\nUse it:\n\n```java\npublic class UserService {\n\n    @MyAnnotation(\"login\")\n    public void login() {\n        System.out.println(\"Login\");\n    }\n}\n```\n\n---\n\n## Annotations with values\n\n```java\npublic @interface Author {\n    String name();\n    int version() default 1;\n}\n```\n\nUsage:\n\n```java\n@Author(name = \"Prem\", version = 2)\npublic class UserService {\n}\n```\n\n---\n\n## Important: Annotations don't normally execute code\n\nAn annotation itself doesn't perform an operation like a method.\n\nFor example:\n\n```java\n@Transactional\npublic void transferMoney() {\n}\n```\n\n`@Transactional` is metadata. **Spring reads that metadata and performs transaction-related processing.**\n\nThis is why annotations are heavily used in Spring Boot:\n\n```java\n@RestController\n@RequestMapping(\"/users\")\npublic class UserController {\n\n    @GetMapping(\"/{id}\")\n    public User getUser(@PathVariable Long id) {\n        return userService.findById(id);\n    }\n}\n```\n\nSpring reads annotations such as:\n\n```text\n@RestController\n@RequestMapping\n@GetMapping\n@PathVariable\n```\n\nand uses them to configure the application.\n\n### Interview definition\n\n> **An annotation in Java is a form of metadata that provides additional information about program elements such as classes, methods, fields, and parameters. It can be processed by the compiler, JVM, or frameworks at compile time or runtime.**\n\nThe three important concepts to learn next are **`@Retention`, `@Target`, and Reflection**, because they explain how custom annotations actually work."
+        }
       ],
       "tags": [
         "6a9fd244443b416bda75278d"
