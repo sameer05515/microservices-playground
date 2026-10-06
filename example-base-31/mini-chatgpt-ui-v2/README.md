@@ -1,8 +1,26 @@
-# Mini ChatGPT UI V2
+# Mini ChatGPT UI V2.1
 
-React + Vite frontend with Node/Express backend, OpenAI integration, Markdown rendering and syntax highlighting.
+## Fix included
 
-## Backend
+The frontend contains no `async` `useEffect` callback.
+
+Correct pattern:
+
+```jsx
+useEffect(() => {
+  const checkBackend = async () => {
+    // async work
+  };
+
+  checkBackend();
+
+  return () => {
+    // cleanup
+  };
+}, []);
+```
+
+## Run backend
 
 ```bash
 cd backend
@@ -15,11 +33,16 @@ Linux/macOS:
 
 ```bash
 cp .env.example .env
+npm run dev
 ```
 
-Set `OPENAI_API_KEY` in `backend/.env` for real AI responses. Without it, the backend runs in demo mode.
+Backend:
 
-## Frontend
+```text
+http://localhost:8080
+```
+
+## Run frontend
 
 ```bash
 cd frontend
@@ -27,18 +50,24 @@ npm install
 npm run dev
 ```
 
-Open http://localhost:5173
+Frontend:
 
-Backend: http://localhost:8080
+```text
+http://localhost:5173
+```
 
 ## Features
 
-- ChatGPT-style sidebar
-- Real backend API
-- OpenAI Responses API integration
-- Conversation context
-- Markdown
-- Code syntax highlighting
+- React 19 + Vite
+- Node.js + Express
+- OpenAI Responses API
+- Backend health indicator
+- Markdown rendering
+- Syntax highlighting
 - Copy code button
-- Responsive UI
+- Conversation context
 - Demo mode without API key
+- Responsive UI
+- New Chat
+- Enter to send
+- Shift + Enter for newline

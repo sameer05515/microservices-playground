@@ -1,1 +1,16 @@
-{"name":"mini-chatgpt-backend","version":"2.0.0","private":true,"type":"module","scripts":{"dev":"node --watch src/server.js","start":"node src/server.js"},"dependencies":{"cors":"^2.8.5","dotenv":"^17.2.2","express":"^5.1.0","openai":"^6.7.0"}}
+{
+  "name": "mini-chatgpt-backend",
+  "version": "2.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch src/server.js",
+    "start": "node src/server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.2",
+    "express": "^5.1.0",
+    "openai": "^6.7.0"
+  }
+}
