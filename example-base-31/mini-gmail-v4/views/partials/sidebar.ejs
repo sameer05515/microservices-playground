@@ -1,12 +1,12 @@
 <aside class="sidebar">
   <a class="compose-btn" href="/mail/compose">＋ Compose</a>
   <nav>
-    <a href="/?box=inbox">📥 Inbox <span><%= mailStats.unread || 0 %></span></a>
-    <a href="/?box=starred">⭐ Starred <span><%= mailStats.starred || 0 %></span></a>
-    <a href="/?box=important">❗ Important</a>
-    <a href="/?box=sent">📤 Sent</a>
-    <a href="/?box=drafts">📝 Drafts <span><%= mailStats.drafts || 0 %></span></a>
-    <a href="/?box=trash">🗑 Trash</a>
+    <a href="/mail?box=inbox">📥 Inbox <span><%= mailStats.unread || 0 %></span></a>
+    <a href="/mail?box=starred">⭐ Starred <span><%= mailStats.starred || 0 %></span></a>
+    <a href="/mail?box=important">❗ Important</a>
+    <a href="/mail?box=sent">📤 Sent</a>
+    <a href="/mail?box=drafts">📝 Drafts <span><%= mailStats.drafts || 0 %></span></a>
+    <a href="/mail?box=trash">🗑 Trash</a>
     <a href="/mail/contacts/list">👥 Contacts</a>
   </nav>
   <form action="/auth/logout" method="post" class="logout-form">

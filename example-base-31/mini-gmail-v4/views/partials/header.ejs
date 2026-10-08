@@ -9,7 +9,7 @@
 <body>
 <header class="topbar">
   <div class="brand">✉ Mini Gmail</div>
-  <form action="/" class="search">
+  <form action="/mail" class="search">
     <input name="q" value="<%= typeof q !== 'undefined' ? q : '' %>" placeholder="Search mail">
     <input type="hidden" name="box" value="<%= typeof box !== 'undefined' ? box : 'inbox' %>">
     <button>Search</button>

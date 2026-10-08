@@ -8,13 +8,13 @@
       <input name="to" placeholder="To" required value="<%= draft && draft.to ? draft.to.map(x => x.email).join(', ') : '' %>">
       <input name="cc" placeholder="Cc" value="<%= draft && draft.cc ? draft.cc.map(x => x.email).join(', ') : '' %>">
       <input name="bcc" placeholder="Bcc" value="<%= draft && draft.bcc ? draft.bcc.map(x => x.email).join(', ') : '' %>">
-      <input name="subject" placeholder="Subject" value="<%= draft?.subject || '' %>">
-      <textarea name="body" rows="16" placeholder="Write your message..."><%= draft?.body || '' %></textarea>
+      <input name="subject" placeholder="Subject" value="<%= draft && draft.subject ? draft.subject : '' %>">
+      <textarea name="body" rows="16" placeholder="Write your message..."><%= draft && draft.body ? draft.body : '' %></textarea>
       <label class="file-label">📎 Attach files <input type="file" name="attachments" multiple></label>
       <div class="form-actions">
         <button class="primary">Send</button>
         <button type="submit" formaction="/mail/draft" class="secondary">Save Draft</button>
-        <a href="/" class="secondary">Discard</a>
+        <a href="/mail" class="secondary">Discard</a>
       </div>
     </form>
   </div>

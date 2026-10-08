@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { register, login } = require("../services/authService");
 
-router.get("/login", (req, res) => res.render("login", { error: null }));
+router.get("/login", (req, res) => res.render("login", { error: null, registered: req.query.registered === "1" }));
 router.get("/register", (req, res) => res.render("register", { error: null }));
 
 router.post("/register", async (req, res) => {

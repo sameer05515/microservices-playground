@@ -25,7 +25,10 @@ app.use((req, res, next) => {
 
 app.get("/", (req, res) => {
   if (!req.user) return res.redirect("/auth/login");
-  res.redirect("/?box=inbox");
+  const box = req.query.box || "inbox";
+  const page = Math.max(1, Number(req.query.page) || 1);
+  const q = req.query.q || "";
+  res.redirect(`/mail?box=${encodeURIComponent(box)}&page=${page}&q=${encodeURIComponent(q)}`);
 });
 
 app.use("/auth", require("./routes/auth"));

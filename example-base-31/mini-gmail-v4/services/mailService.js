@@ -3,15 +3,25 @@ const Email = require("../models/Email");
 const User = require("../models/User");
 
 async function findRecipients(addresses = []) {
-  const emails = addresses
-    .flatMap(x => String(x || "").split(","))
-    .map(x => x.trim().toLowerCase())
+  // HTML form fields arrive as strings, while API callers may send arrays.
+  // Normalize both forms before processing comma-separated addresses.
+  const values = Array.isArray(addresses) ? addresses : [addresses];
+
+  const emails = values
+    .flatMap(value => String(value || "").split(","))
+    .map(email => email.trim().toLowerCase())
     .filter(Boolean);
 
+  if (!emails.length) return [];
+
   const users = await User.find({ email: { $in: emails } });
-  const found = new Set(users.map(u => u.email));
-  const missing = emails.filter(e => !found.has(e));
-  if (missing.length) throw new Error(`User not found: ${missing.join(", ")}`);
+  const found = new Set(users.map(user => user.email));
+  const missing = emails.filter(email => !found.has(email));
+
+  if (missing.length) {
+    throw new Error(`User not found: ${missing.join(", ")}`);
+  }
+
   return users;
 }
 

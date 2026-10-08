@@ -32,9 +32,9 @@
   </div>
 
   <div class="pagination">
-    <% if (page > 1) { %><a href="/?box=<%= box %>&page=<%= page-1 %>&q=<%= q %>">← Previous</a><% } %>
+    <% if (page > 1) { %><a href="/mail?box=<%= box %>&page=<%= page-1 %>&q=<%= q %>">← Previous</a><% } %>
     <span>Page <%= page %> / <%= pages %></span>
-    <% if (page < pages) { %><a href="/?box=<%= box %>&page=<%= page+1 %>&q=<%= q %>">Next →</a><% } %>
+    <% if (page < pages) { %><a href="/mail?box=<%= box %>&page=<%= page+1 %>&q=<%= q %>">Next →</a><% } %>
   </div>
 </main>
 <%- include("partials/footer") %>
