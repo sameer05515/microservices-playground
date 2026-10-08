@@ -32,6 +32,14 @@ app.locals.markedPreview = (content = "") => {
   return html.length > 900 ? html.substring(0, 900) + "..." : html;
 };
 
+app.locals.preview = (content = "") => {
+    const html = marked.parse(content);
+
+    return html.length > 700
+        ? html.substring(0, 700) + "..."
+        : html;
+};
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
