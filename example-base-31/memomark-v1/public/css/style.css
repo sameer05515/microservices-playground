@@ -269,3 +269,118 @@ h2 {
     padding: 18px;
   }
 }
+
+
+/* ==============================
+   MemoMark Light / Dark Theme
+   ============================== */
+:root {
+  color-scheme: light;
+  --mm-bg: #f5f7fb;
+  --mm-surface: #ffffff;
+  --mm-surface-alt: #f8fafc;
+  --mm-text: #1f2937;
+  --mm-muted: #6b7280;
+  --mm-border: #e5e7eb;
+  --mm-input-border: #cbd5e1;
+  --mm-code-bg: #0d1117;
+  --mm-inline-code: #f3f4f6;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --mm-bg: #0f172a;
+  --mm-surface: #111827;
+  --mm-surface-alt: #1e293b;
+  --mm-text: #e5e7eb;
+  --mm-muted: #94a3b8;
+  --mm-border: #334155;
+  --mm-input-border: #475569;
+  --mm-code-bg: #020617;
+  --mm-inline-code: #1e293b;
+}
+
+body {
+  background: var(--mm-bg);
+  color: var(--mm-text);
+  transition: background-color .2s ease, color .2s ease;
+}
+
+.card,
+.empty,
+.note-form,
+.markdown-body,
+.editor-panel,
+.search-box {
+  background: var(--mm-surface);
+  border-color: var(--mm-border);
+}
+
+.muted,
+.field small,
+.result-info,
+.footer {
+  color: var(--mm-muted);
+}
+
+.btn {
+  background: var(--mm-surface);
+  color: var(--mm-text);
+  border-color: var(--mm-border);
+}
+
+.btn:hover {
+  background: var(--mm-surface-alt);
+}
+
+.note-form input,
+.note-form textarea,
+.search-box input,
+.search-box select,
+.field input {
+  background: var(--mm-surface);
+  color: var(--mm-text);
+  border-color: var(--mm-input-border);
+}
+
+.note-form input::placeholder,
+.note-form textarea::placeholder,
+.search-box input::placeholder,
+.field input::placeholder {
+  color: var(--mm-muted);
+}
+
+.markdown-body code {
+  background: var(--mm-inline-code);
+}
+
+.markdown-body pre {
+  background: var(--mm-code-bg);
+}
+
+.card-footer {
+  border-color: var(--mm-border);
+}
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  border: 1px solid #4b5563;
+  background: transparent;
+  color: #e5e7eb;
+  border-radius: 999px;
+  padding: 7px 11px;
+  cursor: pointer;
+  font-size: 13px;
+  margin-right: 4px;
+}
+
+.theme-toggle:hover {
+  background: rgba(255, 255, 255, .1);
+}
+
+.theme-toggle:focus-visible {
+  outline: 2px solid #60a5fa;
+  outline-offset: 2px;
+}

@@ -9,12 +9,27 @@
         href="https://cdn.jsdelivr.net/npm/highlight.js@11.11.1/styles/github-dark.min.css">
 
   <link rel="stylesheet" href="/css/style.css">
+
+  <script>
+    (function () {
+      const saved = localStorage.getItem("memomark-theme");
+      const theme = saved === "dark" || saved === "light"
+        ? saved
+        : (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+      document.documentElement.dataset.theme = theme;
+    })();
+  </script>
 </head>
 <body>
   <header class="topbar">
     <div class="container topbar-inner">
       <a class="brand" href="/">MemoMark</a>
       <nav>
+        <button id="themeToggle" class="theme-toggle" type="button"
+                aria-label="Switch to dark theme" title="Switch theme">
+          <span id="themeIcon">🌙</span>
+          <span id="themeLabel">Dark</span>
+        </button>
         <a href="/">Notes</a>
         <a class="btn btn-primary" href="/notes/new">+ New Note</a>
       </nav>

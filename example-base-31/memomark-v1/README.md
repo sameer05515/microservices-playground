@@ -109,3 +109,10 @@ IDs are generated using:
 ```js
 crypto.randomUUID()
 ```
+
+
+## Theme Toggle
+
+MemoMark includes a Light/Dark theme toggle. The selected theme is stored in browser `localStorage` using the key `memomark-theme`, so it survives page refreshes and future visits.
+
+If no preference exists, MemoMark follows the operating system's preferred color scheme.
