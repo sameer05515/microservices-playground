@@ -90,7 +90,7 @@ async function send({ user, to, cc, bcc, subject, body, files = [], draftId }) {
     draft.subject = subject || "";
     draft.body = body || "";
     draft.attachments = attachments;
-    draft.labels = ["SENT"];
+    draft.labels = ["SENT", "INBOX"];
     draft.isDraft = false;
     draft.isRead = true;
     return draft.save();
@@ -105,7 +105,9 @@ async function send({ user, to, cc, bcc, subject, body, files = [], draftId }) {
     subject: subject || "",
     body: body || "",
     attachments,
-    labels: ["SENT"],
+    // Keep SENT for the sender and INBOX for recipients on the same
+    // message document. Inbox queries are based on recipient + INBOX.
+    labels: ["SENT", "INBOX"],
     isRead: true,
     isDraft: false
   });

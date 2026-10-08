@@ -62,3 +62,9 @@ Authorization: Bearer <JWT>
 Default maximum is 10 MB per file and up to 5 files per message.
 
 Configure with `MAX_FILE_SIZE_MB` in `.env`.
+
+## Mail delivery model
+
+A sent message is stored as one MongoDB document with both `SENT` and `INBOX`
+labels. The sender sees it through the Sent mailbox, while each recipient sees
+the same message through the Inbox mailbox.
