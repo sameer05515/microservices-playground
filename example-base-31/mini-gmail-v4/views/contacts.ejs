@@ -1,0 +1,16 @@
+<%- include("partials/header") %>
+<%- include("partials/sidebar") %>
+<main class="content">
+  <div class="compose-card">
+    <h2>Contacts</h2>
+    <div class="contacts">
+      <% users.forEach(u => { %>
+        <div class="contact">
+          <div class="avatar"><%= u.name.charAt(0).toUpperCase() %></div>
+          <div><strong><%= u.name %></strong><br><small><%= u.email %></small></div>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+</main>
+<%- include("partials/footer") %>

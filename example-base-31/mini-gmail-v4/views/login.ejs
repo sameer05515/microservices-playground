@@ -1,0 +1,15 @@
+<%- include("partials/header", { user: null, q: "" }) %>
+<div class="auth-card">
+  <h1>Mini Gmail</h1>
+  <p>Sign in to continue</p>
+  <% if (error) { %><div class="error"><%= error %></div><% } %>
+  <% if (typeof registered !== "undefined") { %><div class="success">Registration successful.</div><% } %>
+  <form action="/auth/login" method="post">
+    <input name="email" type="email" placeholder="Email" required>
+    <input name="password" type="password" placeholder="Password" required>
+    <button class="primary">Login</button>
+  </form>
+  <p>No account? <a href="/auth/register">Create one</a></p>
+  <small>Demo: prem@gmail.com / 123456</small>
+</div>
+<%- include("partials/footer") %>

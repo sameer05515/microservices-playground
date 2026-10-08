@@ -1,0 +1,40 @@
+<%- include("partials/header") %>
+<%- include("partials/sidebar") %>
+<main class="content">
+  <div class="toolbar">
+    <h2><%= box.charAt(0).toUpperCase() + box.slice(1) %></h2>
+    <span><%= total %> messages</span>
+  </div>
+
+  <% if (!items.length) { %>
+    <div class="empty">No messages found.</div>
+  <% } %>
+
+  <div class="mail-list">
+    <% items.forEach(mail => { %>
+      <div class="mail-row <%= mail.isRead ? '' : 'unread' %>">
+        <form action="/mail/<%= mail._id %>/star" method="post">
+          <input type="hidden" name="value" value="<%= !mail.starred %>">
+          <button class="icon-btn"><%= mail.starred ? '★' : '☆' %></button>
+        </form>
+        <form action="/mail/<%= mail._id %>/important" method="post">
+          <input type="hidden" name="value" value="<%= !mail.important %>">
+          <button class="icon-btn"><%= mail.important ? '❗' : '·' %></button>
+        </form>
+        <a class="mail-main" href="/mail/<%= mail._id %>">
+          <strong><%= box === 'sent' ? mail.to.map(x => x.email).join(', ') : (mail.from?.email || '') %></strong>
+          <span><%= mail.subject || '(no subject)' %></span>
+          <small><%= (mail.body || '').replace(/<[^>]*>/g, '').slice(0, 100) %></small>
+        </a>
+        <time><%= new Date(mail.createdAt).toLocaleString() %></time>
+      </div>
+    <% }) %>
+  </div>
+
+  <div class="pagination">
+    <% if (page > 1) { %><a href="/?box=<%= box %>&page=<%= page-1 %>&q=<%= q %>">← Previous</a><% } %>
+    <span>Page <%= page %> / <%= pages %></span>
+    <% if (page < pages) { %><a href="/?box=<%= box %>&page=<%= page+1 %>&q=<%= q %>">Next →</a><% } %>
+  </div>
+</main>
+<%- include("partials/footer") %>

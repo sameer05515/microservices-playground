@@ -1,0 +1,38 @@
+<%- include("partials/header") %>
+<%- include("partials/sidebar") %>
+<main class="content">
+  <article class="email-card">
+    <div class="email-head">
+      <h1><%= email.subject || '(no subject)' %></h1>
+      <div><strong><%= email.from.name %></strong> &lt;<%= email.from.email %>&gt;</div>
+      <small><%= new Date(email.createdAt).toLocaleString() %></small>
+    </div>
+    <div class="recipients">
+      To: <%= email.to.map(x => x.email).join(', ') %>
+      <% if (email.cc?.length) { %><br>Cc: <%= email.cc.map(x => x.email).join(', ') %><% } %>
+    </div>
+    <div class="email-body"><%= email.body %></div>
+
+    <% if (email.attachments?.length) { %>
+      <div class="attachments">
+        <h3>Attachments</h3>
+        <% email.attachments.forEach(a => { %>
+          <a class="attachment" href="<%= a.path %>" download="<%= a.originalName %>">
+            📎 <%= a.originalName %> (<%= Math.ceil(a.size / 1024) %> KB)
+          </a>
+        <% }) %>
+      </div>
+    <% } %>
+
+    <div class="email-actions">
+      <a class="secondary" href="/mail/<%= email._id %>/reply">↩ Reply</a>
+      <a class="secondary" href="/mail/<%= email._id %>/forward">↪ Forward</a>
+      <form action="/mail/<%= email._id %>/star" method="post">
+        <input type="hidden" name="value" value="<%= !email.starred %>">
+        <button class="secondary"><%= email.starred ? '★ Unstar' : '☆ Star' %></button>
+      </form>
+      <form action="/mail/<%= email._id %>/trash" method="post"><button class="secondary">🗑 Trash</button></form>
+    </div>
+  </article>
+</main>
+<%- include("partials/footer") %>

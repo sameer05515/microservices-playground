@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Mini Gmail v4</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">✉ Mini Gmail</div>
+  <form action="/" class="search">
+    <input name="q" value="<%= typeof q !== 'undefined' ? q : '' %>" placeholder="Search mail">
+    <input type="hidden" name="box" value="<%= typeof box !== 'undefined' ? box : 'inbox' %>">
+    <button>Search</button>
+  </form>
+  <div class="user-area"><%= user ? user.name : '' %></div>
+</header>
+<div class="layout">
