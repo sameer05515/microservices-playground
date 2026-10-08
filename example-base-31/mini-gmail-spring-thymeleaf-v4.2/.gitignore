@@ -1,0 +1,6 @@
+target/
+.idea/
+*.iml
+.env
+src/main/resources/static/uploads/*
+!src/main/resources/static/uploads/.gitkeep

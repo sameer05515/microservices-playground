@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: head}"></head>
+<body>
+<div class="auth-card">
+    <h1>Create account</h1>
+    <div class="error" th:if="${error}" th:text="${error}"></div>
+    <form th:action="@{/auth/register}" method="post">
+        <input name="name" placeholder="Full name" required>
+        <input name="email" type="email" placeholder="Email" required>
+        <input name="password" type="password" placeholder="Password" minlength="6" required>
+        <button class="primary">Register</button>
+    </form>
+    <p>Already registered? <a th:href="@{/auth/login}">Login</a></p>
+</div>
+</body>
+</html>

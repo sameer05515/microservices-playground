@@ -1,0 +1,15 @@
+<aside class="sidebar" th:fragment="sidebar">
+    <a class="compose-btn" th:href="@{/mail/compose}">＋ Compose</a>
+    <nav>
+        <a th:href="@{/mail(box='inbox')}">📥 Inbox <span th:text="${stats.unread}">0</span></a>
+        <a th:href="@{/mail(box='starred')}">⭐ Starred <span th:text="${stats.starred}">0</span></a>
+        <a th:href="@{/mail(box='important')}">❗ Important</a>
+        <a th:href="@{/mail(box='sent')}">📤 Sent</a>
+        <a th:href="@{/mail(box='drafts')}">📝 Drafts <span th:text="${stats.drafts}">0</span></a>
+        <a th:href="@{/mail(box='trash')}">🗑 Trash</a>
+        <a th:href="@{/mail/contacts/list}">👥 Contacts</a>
+    </nav>
+    <form th:action="@{/auth/logout}" method="post" class="logout-form">
+        <button>Logout</button>
+    </form>
+</aside>

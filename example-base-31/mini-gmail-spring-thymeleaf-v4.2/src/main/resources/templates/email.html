@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: head}"></head>
+<body>
+<header th:replace="~{fragments/header :: header}"></header>
+<div class="layout">
+<aside th:replace="~{fragments/sidebar :: sidebar}"></aside>
+<main class="content">
+<article class="email-card">
+    <div class="email-head">
+        <h1 th:text="${email.subject == '' ? '(no subject)' : email.subject}"></h1>
+        <div><strong th:text="${email.fromUserId}"></strong></div>
+        <small th:text="${#temporals.format(email.createdAt, 'dd MMM yyyy HH:mm')}"></small>
+    </div>
+    <div class="email-body" th:text="${email.body}"></div>
+
+    <div class="attachments" th:if="${!email.attachments.empty}">
+        <h3>Attachments</h3>
+        <a class="attachment" th:each="a : ${email.attachments}"
+           th:href="${a.path}" th:download="${a.originalName}"
+           th:text="${'📎 ' + a.originalName + ' (' + T(java.lang.Math).ceil(a.size / 1024.0) + ' KB)'}"></a>
+    </div>
+
+    <div class="email-actions">
+        <a class="secondary" th:href="@{'/mail/' + ${email.id} + '/reply'}">↩ Reply</a>
+        <a class="secondary" th:href="@{'/mail/' + ${email.id} + '/forward'}">↪ Forward</a>
+        <form th:action="@{'/mail/' + ${email.id} + '/star'}" method="post">
+            <input type="hidden" name="value" th:value="${!email.starred}">
+            <button class="secondary" th:text="${email.starred ? '★ Unstar' : '☆ Star'}"></button>
+        </form>
+        <form th:action="@{'/mail/' + ${email.id} + '/trash'}" method="post">
+            <button class="secondary">🗑 Trash</button>
+        </form>
+    </div>
+</article>
+</main>
+</div>
+</body>
+</html>
