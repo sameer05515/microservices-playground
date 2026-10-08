@@ -20,6 +20,17 @@
   </div>
 </div>
 
+<div class="note-navigation">
+  <form method="post" action="/notes/<%= note.id %>/bookmark">
+    <button class="btn <%= bookmarked ? 'bookmark-active' : '' %>" type="submit"><%= bookmarked ? '★ Bookmarked' : '☆ Bookmark' %></button>
+  </form>
+  <div class="prev-next">
+    <a class="btn" href="/notes/<%= previousNote.id %>">← Previous</a>
+    <span>Closed loop</span>
+    <a class="btn" href="/notes/<%= nextNote.id %>">Next →</a>
+  </div>
+</div>
+
 <article class="markdown-body">
   <%- renderedContent %>
 </article>

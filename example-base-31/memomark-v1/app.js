@@ -10,6 +10,7 @@ const PORT = process.env.PORT || 7009;
 
 const DATA_DIR = path.join(__dirname, "data");
 const DATA_FILE = path.join(DATA_DIR, "notes.json");
+const BOOKMARK_FILE = path.join(DATA_DIR, "bookmark.json");
 
 if (!fs.existsSync(DATA_DIR)) {
   fs.mkdirSync(DATA_DIR, { recursive: true });
@@ -17,6 +18,10 @@ if (!fs.existsSync(DATA_DIR)) {
 
 if (!fs.existsSync(DATA_FILE)) {
   fs.writeFileSync(DATA_FILE, "[]", "utf8");
+}
+
+if (!fs.existsSync(BOOKMARK_FILE)) {
+  fs.writeFileSync(BOOKMARK_FILE, "[]", "utf8");
 }
 
 app.set("view engine", "ejs");
@@ -57,6 +62,25 @@ function writeNotes(notes) {
   fs.renameSync(tempFile, DATA_FILE);
 }
 
+function readBookmarks() {
+  try { return JSON.parse(fs.readFileSync(BOOKMARK_FILE, "utf8")); }
+  catch { return []; }
+}
+
+function writeBookmarks(bookmarks) {
+  const temp = `${BOOKMARK_FILE}.tmp`;
+  fs.writeFileSync(temp, JSON.stringify(bookmarks, null, 2), "utf8");
+  fs.renameSync(temp, BOOKMARK_FILE);
+}
+
+function isBookmarked(noteId) {
+  return readBookmarks().includes(noteId);
+}
+
+function findNote(id) {
+  return readNotes().find(note => note.id === id);
+}
+
 function generateId() {
   return crypto.randomUUID();
 }
@@ -71,7 +95,8 @@ app.get("/", (req, res) => {
 
   res.render("index", {
     notes,
-    pageTitle: "MemoMark"
+    pageTitle: "MemoMark",
+    bookmarks: readBookmarks()
   });
 });
 
@@ -115,22 +140,47 @@ app.post("/notes", (req, res) => {
   res.redirect("/");
 });
 
-// READ
+// READ + CLOSED-LOOP PREV/NEXT
 app.get("/notes/:id", (req, res) => {
   const notes = readNotes();
-  const note = notes.find(item => item.id === req.params.id);
+  const index = notes.findIndex(note => note.id === req.params.id);
 
-  if (!note) {
-    return res.status(404).render("404", {
-      pageTitle: "Note Not Found"
-    });
+  if (index === -1) {
+    return res.status(404).render("404", { pageTitle: "Not Found" });
   }
+
+  const note = notes[index];
+  const previousNote = notes[(index - 1 + notes.length) % notes.length];
+  const nextNote = notes[(index + 1) % notes.length];
 
   res.render("show", {
     pageTitle: note.title,
     note,
+    previousNote,
+    nextNote,
+    bookmarked: isBookmarked(note.id),
     renderedContent: renderMarkdown(note.content)
   });
+});
+
+// BOOKMARK TOGGLE
+app.post("/notes/:id/bookmark", (req, res) => {
+  const note = findNote(req.params.id);
+  if (!note) return res.status(404).render("404", { pageTitle: "Not Found" });
+
+  const bookmarks = readBookmarks();
+  const i = bookmarks.indexOf(note.id);
+  if (i === -1) bookmarks.push(note.id); else bookmarks.splice(i, 1);
+  writeBookmarks(bookmarks);
+  res.redirect(req.get("referer") || `/notes/${note.id}`);
+});
+
+// BOOKMARK LIST
+app.get("/bookmarks", (req, res) => {
+  const notes = readNotes();
+  const bookmarks = readBookmarks();
+  const bookmarkedNotes = bookmarks.map(id => notes.find(n => n.id === id)).filter(Boolean);
+  res.render("bookmarks", { pageTitle: "Bookmarks", notes: bookmarkedNotes, bookmarks });
 });
 
 // EDIT FORM
@@ -201,9 +251,15 @@ app.post("/notes/:id/delete", (req, res) => {
   }
 
   writeNotes(filtered);
+  writeBookmarks(readBookmarks().filter(id => id !== req.params.id));
   res.redirect("/");
 });
 
 app.listen(PORT, () => {
   console.log(`MemoMark running at http://localhost:${PORT}`);
+});
+
+app.get("/api/bookmarks", (req, res) => {
+  const notes = readNotes();
+  res.json(readBookmarks().map(id => notes.find(n => n.id === id)).filter(Boolean));
 });

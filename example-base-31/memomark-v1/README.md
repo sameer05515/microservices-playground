@@ -116,3 +116,18 @@ crypto.randomUUID()
 MemoMark includes a Light/Dark theme toggle. The selected theme is stored in browser `localStorage` using the key `memomark-theme`, so it survives page refreshes and future visits.
 
 If no preference exists, MemoMark follows the operating system's preferred color scheme.
+
+
+## Closed-loop Prev/Next
+
+Note navigation wraps around: Previous from the first note opens the last note, and Next from the last note opens the first.
+
+## Bookmarks
+
+Bookmarks are stored separately in `data/bookmark.json`.
+
+```json
+["note-id-1", "note-id-2"]
+```
+
+Routes: `POST /notes/:id/bookmark`, `GET /bookmarks`, `GET /api/bookmarks`.

@@ -1,0 +1,7 @@
+<%- include("partials/header") %>
+<div class="page-header"><div><h1>🔖 Bookmarks</h1><p class="muted">Saved notes.</p></div><a class="btn" href="/">← All Notes</a></div>
+<% if (!notes.length) { %><div class="empty"><h2>No bookmarks yet</h2><a class="btn btn-primary" href="/">Browse Notes</a></div><% } %>
+<div class="note-grid">
+<% notes.forEach(note => { %><article class="card"><h2><a href="/notes/<%= note.id %>"><%= note.title %></a> <span class="bookmark-indicator">★</span></h2><div class="preview"><%- preview(note.content) %></div><div class="card-footer"><span class="muted"><%= new Date(note.updatedAt).toLocaleDateString() %></span><a class="btn btn-small" href="/notes/<%= note.id %>">Open</a></div></article><% }) %>
+</div>
+<%- include("partials/footer") %>
