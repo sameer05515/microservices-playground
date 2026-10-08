@@ -1,0 +1,19 @@
+<header>
+  <a class="brand" href="/mail/inbox">
+    <span class="g">G</span>mail
+  </a>
+
+  <form class="search" action="/mail/search">
+    <input
+      name="q"
+      value="<%= typeof search !== 'undefined' ? search : '' %>"
+      placeholder="Search mail"
+    >
+    <button>🔍</button>
+  </form>
+
+  <div class="user">
+    <span><%= user.name %></span>
+    <a href="/logout">Logout</a>
+  </div>
+</header>

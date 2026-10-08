@@ -1,0 +1,23 @@
+<aside>
+  <a class="compose" href="/mail/compose">✚ Compose</a>
+
+  <a class="<%= type === 'inbox' ? 'active' : '' %>" href="/mail/inbox">
+    📥 Inbox <b><%= unread %></b>
+  </a>
+
+  <a class="<%= type === 'starred' ? 'active' : '' %>" href="/mail/starred">
+    ⭐ Starred
+  </a>
+
+  <a class="<%= type === 'sent' ? 'active' : '' %>" href="/mail/sent">
+    📤 Sent
+  </a>
+
+  <a class="<%= type === 'drafts' ? 'active' : '' %>" href="/mail/drafts">
+    📝 Drafts <b><%= drafts %></b>
+  </a>
+
+  <a class="<%= type === 'trash' ? 'active' : '' %>" href="/mail/trash">
+    🗑 Trash
+  </a>
+</aside>

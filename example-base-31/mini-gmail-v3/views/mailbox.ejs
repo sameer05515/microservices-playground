@@ -1,0 +1,137 @@
+<!doctype html>
+<html>
+<head>
+  <title><%= title %> - Mini Gmail v3</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+
+<%- include("partials/header") %>
+
+<div class="layout">
+
+  <%- include("partials/sidebar", {
+    type,
+    unread,
+    drafts
+  }) %>
+
+  <main>
+
+    <div class="toolbar">
+      <div>
+        <h2><%= title %></h2>
+
+        <% if (search) { %>
+          <small>Search: "<%= search %>"</small>
+        <% } %>
+      </div>
+
+      <span>
+        <%= total %> messages
+      </span>
+    </div>
+
+    <div class="list">
+
+      <% if (!emails.length) { %>
+        <div class="empty">
+          <h2>No messages</h2>
+          <p>There are no messages in this mailbox.</p>
+        </div>
+      <% } %>
+
+      <% emails.forEach(email => { %>
+
+        <div class="row <%= !email.read && !email.draft ? 'unread' : '' %>">
+
+          <form method="post" action="/mail/star/<%= email._id %>">
+            <button class="icon">
+              <%= email.starred ? "★" : "☆" %>
+            </button>
+          </form>
+
+          <a
+            class="email-link"
+            href="/mail/<%= email.draft ? 'compose?draft=' + email._id : 'view/' + email._id %>"
+          >
+
+            <strong>
+              <% if (type === "sent") { %>
+                To: <%= email.toEmail %>
+              <% } else { %>
+                <%= email.from ? email.from.email : "Unknown" %>
+              <% } %>
+            </strong>
+
+            <b>
+              <%= email.subject || "(no subject)" %>
+            </b>
+
+            <span>
+              <%= (email.body || "").substring(0, 80).replace(/\n/g, " ") %>
+            </span>
+
+            <small>
+              <%= new Date(email.createdAt).toLocaleString() %>
+            </small>
+
+          </a>
+
+          <% if (type === "trash") { %>
+
+            <form method="post" action="/mail/restore/<%= email._id %>">
+              <button class="mini">Restore</button>
+            </form>
+
+            <form method="post" action="/mail/delete/<%= email._id %>">
+              <button class="mini danger">Delete</button>
+            </form>
+
+          <% } else if (email.draft) { %>
+
+            <a
+              class="mini"
+              href="/mail/compose?draft=<%= email._id %>"
+            >
+              Edit
+            </a>
+
+          <% } else { %>
+
+            <form method="post" action="/mail/trash/<%= email._id %>">
+              <button class="icon">🗑</button>
+            </form>
+
+          <% } %>
+
+        </div>
+
+      <% }) %>
+
+    </div>
+
+    <% if (pages > 1) { %>
+      <div class="pagination">
+
+        <% for (let p = 1; p <= pages; p++) { %>
+
+          <a
+            class="<%= p === page ? 'current' : '' %>"
+            href="?page=<%= p %><%= search ? '&q=' + encodeURIComponent(search) : '' %>"
+          >
+            <%= p %>
+          </a>
+
+        <% } %>
+
+      </div>
+    <% } %>
+
+  </main>
+
+</div>
+
+</body>
+</html>

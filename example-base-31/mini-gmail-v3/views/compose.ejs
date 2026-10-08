@@ -1,0 +1,92 @@
+<!doctype html>
+<html>
+<head>
+  <title>Compose - Mini Gmail v3</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+
+<%- include("partials/header") %>
+
+<div class="layout">
+
+  <%- include("partials/sidebar", {
+    type: "",
+    unread,
+    drafts
+  }) %>
+
+  <main>
+
+    <div class="compose-card">
+
+      <h2>
+        <%= email ? "Edit / Compose" : "New message" %>
+      </h2>
+
+      <% if (error) { %>
+        <div class="error"><%= error %></div>
+      <% } %>
+
+      <form method="post" action="/mail/send">
+
+        <% if (email && email._id) { %>
+          <input
+            type="hidden"
+            name="id"
+            value="<%= email._id %>"
+          >
+        <% } %>
+
+        <input
+          name="to"
+          type="email"
+          placeholder="To"
+          value="<%= email && email.to ? email.to.email || email.to : (email && email.toEmail ? email.toEmail : '') %>"
+          required
+        >
+
+        <input
+          name="subject"
+          placeholder="Subject"
+          value="<%= email && email.subject ? email.subject : '' %>"
+          required
+        >
+
+        <textarea
+          name="body"
+          placeholder="Message"
+          required
+        ><%= email && email.body ? email.body : '' %></textarea>
+
+        <div class="actions">
+
+          <button type="submit">
+            Send
+          </button>
+
+          <button
+            type="submit"
+            formaction="/mail/draft"
+            class="secondary"
+          >
+            Save draft
+          </button>
+
+          <a href="/mail/inbox">
+            Cancel
+          </a>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </main>
+
+</div>
+
+</body>
+</html>

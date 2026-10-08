@@ -1,0 +1,84 @@
+<!doctype html>
+<html>
+<head>
+  <title><%= email.subject %></title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+
+<%- include("partials/header") %>
+
+<div class="layout">
+
+  <%- include("partials/sidebar", {
+    type: "inbox",
+    unread,
+    drafts
+  }) %>
+
+  <main>
+
+    <article class="message">
+
+      <h1><%= email.subject %></h1>
+
+      <div class="meta">
+
+        <strong>
+          <%= email.from.name %>
+        </strong>
+
+        &lt;<%= email.from.email %>&gt;
+
+        →
+
+        <%= email.toEmail %>
+
+        ·
+
+        <%= new Date(email.createdAt).toLocaleString() %>
+
+      </div>
+
+      <hr>
+
+      <div class="body">
+        <%= email.body %>
+      </div>
+
+      <div class="actions">
+
+        <a
+          class="button"
+          href="/mail/reply/<%= email._id %>"
+        >
+          ↩ Reply
+        </a>
+
+        <a
+          class="button secondary"
+          href="/mail/forward/<%= email._id %>"
+        >
+          ↪ Forward
+        </a>
+
+        <form
+          method="post"
+          action="/mail/trash/<%= email._id %>"
+        >
+          <button class="danger">
+            🗑 Delete
+          </button>
+        </form>
+
+      </div>
+
+    </article>
+
+  </main>
+
+</div>
+
+</body>
+</html>

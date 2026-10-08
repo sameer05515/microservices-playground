@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+<head>
+  <title>Mini Gmail v3 - Register</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="auth">
+  <div class="auth-card">
+    <div class="auth-brand">
+      <span>G</span>mail
+    </div>
+
+    <h2>Create account</h2>
+
+    <% if (error) { %>
+      <div class="error"><%= error %></div>
+    <% } %>
+
+    <form method="post" action="/register">
+      <input name="name" placeholder="Full name" required>
+      <input name="email" type="email" placeholder="Email" required>
+      <input
+        name="password"
+        type="password"
+        minlength="6"
+        placeholder="Password"
+        required
+      >
+      <button>Create account</button>
+    </form>
+
+    <a href="/login">Back to login</a>
+  </div>
+</body>
+</html>
