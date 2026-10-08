@@ -4,7 +4,6 @@ import com.example.minigmail.model.Email;
 import com.example.minigmail.model.User;
 import com.example.minigmail.repository.EmailRepository;
 import com.example.minigmail.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.*;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.*;
@@ -17,12 +16,19 @@ import java.time.Instant;
 import java.util.*;
 
 @Service
-@RequiredArgsConstructor
 public class MailService {
     private final EmailRepository emailRepository;
     private final UserRepository userRepository;
     private final UserService userService;
     private final MongoTemplate mongoTemplate;
+
+    public MailService(EmailRepository emailRepository, UserRepository userRepository,
+                       UserService userService, MongoTemplate mongoTemplate) {
+        this.emailRepository = emailRepository;
+        this.userRepository = userRepository;
+        this.userService = userService;
+        this.mongoTemplate = mongoTemplate;
+    }
 
     public Page<Email> mailbox(User user, String box, int page, String q) {
         Pageable pageable = PageRequest.of(Math.max(0, page - 1), 10, Sort.by(Sort.Direction.DESC, "createdAt"));
@@ -75,7 +81,8 @@ public class MailService {
             email = emailRepository.findByIdAndFromUserId(draftId, sender.getId())
                     .orElseThrow(() -> new IllegalArgumentException("Draft not found"));
         } else {
-            email = Email.builder().threadId(UUID.randomUUID().toString()).build();
+            email = new Email();
+            email.setThreadId(UUID.randomUUID().toString());
         }
 
         email.setFromUserId(sender.getId());
@@ -98,8 +105,10 @@ public class MailService {
         Email email = (draftId != null && !draftId.isBlank())
                 ? emailRepository.findByIdAndFromUserId(draftId, sender.getId())
                     .orElseThrow(() -> new IllegalArgumentException("Draft not found"))
-                : Email.builder().threadId(UUID.randomUUID().toString()).createdAt(Instant.now()).build();
+                : new Email();
 
+        if (email.getThreadId() == null) email.setThreadId(UUID.randomUUID().toString());
+        if (email.getCreatedAt() == null) email.setCreatedAt(Instant.now());
         email.setFromUserId(sender.getId());
         email.setToUserIds(ids(resolveRecipients(to)));
         email.setCcUserIds(ids(resolveRecipients(cc)));

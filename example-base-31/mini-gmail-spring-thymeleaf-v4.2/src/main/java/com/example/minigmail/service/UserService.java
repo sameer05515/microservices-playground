@@ -2,15 +2,18 @@ package com.example.minigmail.service;
 
 import com.example.minigmail.model.User;
 import com.example.minigmail.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     public User register(String name, String email, String password) {
         email = email.trim().toLowerCase();
@@ -18,11 +21,11 @@ public class UserService {
             throw new IllegalArgumentException("Email already registered");
         }
 
-        return userRepository.save(User.builder()
-                .name(name.trim())
-                .email(email)
-                .password(passwordEncoder.encode(password))
-                .build());
+        User user = new User();
+        user.setName(name.trim());
+        user.setEmail(email);
+        user.setPassword(passwordEncoder.encode(password));
+        return userRepository.save(user);
     }
 
     public User byEmail(String email) {

@@ -5,7 +5,6 @@ import com.example.minigmail.model.User;
 import com.example.minigmail.security.AuthUser;
 import com.example.minigmail.service.MailService;
 import com.example.minigmail.service.UserService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -18,11 +17,15 @@ import java.nio.file.Path;
 import java.util.List;
 
 @Controller
-@RequiredArgsConstructor
 @RequestMapping("/mail")
 public class MailController {
     private final MailService mailService;
     private final UserService userService;
+
+    public MailController(MailService mailService, UserService userService) {
+        this.mailService = mailService;
+        this.userService = userService;
+    }
 
     @Value("${app.upload-dir}")
     private String uploadDir;

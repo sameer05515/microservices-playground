@@ -3,15 +3,18 @@ package com.example.minigmail.config;
 import com.example.minigmail.model.User;
 import com.example.minigmail.repository.UserRepository;
 import com.example.minigmail.service.UserService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.*;
 
 @Configuration
-@RequiredArgsConstructor
 public class SeedConfig {
     private final UserRepository userRepository;
     private final UserService userService;
+
+    public SeedConfig(UserRepository userRepository, UserService userService) {
+        this.userRepository = userRepository;
+        this.userService = userService;
+    }
 
     @Bean
     CommandLineRunner seedUsers() {

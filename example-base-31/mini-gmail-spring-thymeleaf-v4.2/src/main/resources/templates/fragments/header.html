@@ -14,5 +14,5 @@
         <input type="hidden" name="box" th:value="${box != null ? box : 'inbox'}">
         <button>Search</button>
     </form>
-    <div class="user-area" th:text="${#authentication.name}">user</div>
+    <div class="user-area" th:text="${#authentication != null ? #authentication.name : 'user'}">user</div>
 </header>
