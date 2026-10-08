@@ -35,17 +35,51 @@ public class MailService {
         String uid = user.getId();
 
         if (q != null && !q.isBlank()) {
-            return emailRepository.searchVisible(uid, q.trim(), pageable);
+            return searchVisible(uid, q.trim(), pageable);
         }
 
         return switch (box) {
             case "sent" -> emailRepository.findByFromUserIdAndLabelsContainingAndDraftFalse(uid, "SENT", pageable);
-            case "drafts" -> emailRepository.findByFromUserIdAndDraftTrue(pageable);
-            case "trash" -> emailRepository.findVisibleByLabel(uid, "TRASH", pageable);
+            case "drafts" -> emailRepository.findByFromUserIdAndDraftTrue(uid, pageable);
+            case "trash" -> findVisibleByLabel(uid, "TRASH", pageable);
             case "starred" -> starred(uid, pageable);
-            case "important" -> emailRepository.findVisibleByLabel(uid, "IMPORTANT", pageable);
+            case "important" -> findVisibleByLabel(uid, "IMPORTANT", pageable);
             default -> emailRepository.findByToUserIdsContainingAndLabelsContainingAndDraftFalse(uid, "INBOX", pageable);
         };
+    }
+
+    private Page<Email> findVisibleByLabel(String uid, String label, Pageable pageable) {
+        Query query = new Query(new Criteria().orOperator(
+                Criteria.where("fromUserId").is(uid),
+                Criteria.where("toUserIds").is(uid),
+                Criteria.where("ccUserIds").is(uid),
+                Criteria.where("bccUserIds").is(uid)
+        ).and("labels").is(label));
+        long total = mongoTemplate.count(query, Email.class);
+        query.with(pageable);
+        return new PageImpl<>(mongoTemplate.find(query, Email.class), pageable, total);
+    }
+
+    private Page<Email> searchVisible(String uid, String q, Pageable pageable) {
+        Criteria visible = new Criteria().orOperator(
+                Criteria.where("fromUserId").is(uid),
+                Criteria.where("toUserIds").is(uid),
+                Criteria.where("ccUserIds").is(uid),
+                Criteria.where("bccUserIds").is(uid)
+        );
+        Criteria text = new Criteria().orOperator(
+                Criteria.where("subject").regex(q, "i"),
+                Criteria.where("body").regex(q, "i")
+        );
+        Query query = new Query(new Criteria().andOperator(
+                visible,
+                Criteria.where("labels").ne("TRASH"),
+                Criteria.where("draft").is(false),
+                text
+        ));
+        long total = mongoTemplate.count(query, Email.class);
+        query.with(pageable);
+        return new PageImpl<>(mongoTemplate.find(query, Email.class), pageable, total);
     }
 
     private Page<Email> starred(String uid, Pageable pageable) {
@@ -122,8 +156,15 @@ public class MailService {
     }
 
     public Email getVisible(String id, User user) {
-        return emailRepository.findVisibleById(id, user.getId())
-                .orElseThrow(() -> new IllegalArgumentException("Email not found"));
+        Query query = new Query(new Criteria().and("_id").is(id).orOperator(
+                Criteria.where("fromUserId").is(user.getId()),
+                Criteria.where("toUserIds").is(user.getId()),
+                Criteria.where("ccUserIds").is(user.getId()),
+                Criteria.where("bccUserIds").is(user.getId())
+        ));
+        Email email = mongoTemplate.findOne(query, Email.class);
+        if (email == null) throw new IllegalArgumentException("Email not found");
+        return email;
     }
 
     public void markRead(String id, User user, boolean read) {

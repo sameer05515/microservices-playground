@@ -30,6 +30,13 @@ public class MailController {
     @Value("${app.upload-dir}")
     private String uploadDir;
 
+    @ModelAttribute
+    public void addCommonModel(@AuthenticationPrincipal AuthUser principal, Model model) {
+        if (principal != null && principal.getUser() != null) {
+            model.addAttribute("stats", mailService.stats(principal.getUser()));
+        }
+    }
+
     @GetMapping
     public String mailbox(@AuthenticationPrincipal AuthUser principal,
                           @RequestParam(defaultValue = "inbox") String box,
