@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head><title>Inbox - Mini Gmail</title><link rel="stylesheet" href="/css/style.css"></head>
+<body>
+<%- include("partials/header") %>
+<div class="layout">
+  <%- include("partials/sidebar") %>
+  <main class="content">
+    <div class="page-header">
+      <h2><%= page === "search" ? "Search results" : "Inbox" %></h2>
+      <span><%= emails.length %> messages</span>
+    </div>
+    <% if (emails.length === 0) { %><div class="empty"><h2>No emails</h2><p>Your inbox is empty.</p></div><% } %>
+    <div class="email-list">
+      <% emails.forEach(email => { %>
+        <div class="email-row <%= !email.read ? 'unread' : '' %>">
+          <a href="/mail/view/<%= email.id %>" class="email-link">
+            <div class="sender"><%= email.from %></div>
+            <div class="subject"><%= email.subject %></div>
+            <div class="preview"><%= email.body.substring(0, 70) %></div>
+            <div class="date"><%= new Date(email.date).toLocaleString() %></div>
+          </a>
+          <form method="POST" action="/mail/delete/<%= email.id %>"><button class="delete-btn">🗑</button></form>
+        </div>
+      <% }) %>
+    </div>
+  </main>
+</div>
+</body>
+</html>

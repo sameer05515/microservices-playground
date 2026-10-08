@@ -1,0 +1,8 @@
+<header class="header">
+  <div class="logo"><span>G</span>mail</div>
+  <form class="search" method="GET" action="/mail/search">
+    <input type="text" name="q" value="<%= typeof search !== 'undefined' ? search : '' %>" placeholder="Search mail">
+    <button type="submit">🔍</button>
+  </form>
+  <div class="profile"><span><%= user.name %></span><a href="/logout">Logout</a></div>
+</header>

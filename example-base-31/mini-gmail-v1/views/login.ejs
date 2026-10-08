@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head><title>Mini Gmail - Login</title><link rel="stylesheet" href="/css/style.css"></head>
+<body class="login-page">
+<div class="login-card">
+  <div class="gmail-logo"><span class="gmail-red">G</span>mail</div>
+  <h2>Sign in</h2>
+  <p class="muted">Use your Mini Gmail account</p>
+  <% if (error) { %><div class="error"><%= error %></div><% } %>
+  <form method="POST" action="/login">
+    <input type="email" name="email" placeholder="Email" required>
+    <input type="password" name="password" placeholder="Password" required>
+    <button type="submit">Sign in</button>
+  </form>
+  <div class="demo-account"><strong>Demo:</strong><br>prem@gmail.com<br>123456</div>
+</div>
+</body>
+</html>

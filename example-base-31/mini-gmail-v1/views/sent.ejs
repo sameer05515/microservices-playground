@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head><title>Sent - Mini Gmail</title><link rel="stylesheet" href="/css/style.css"></head>
+<body>
+<%- include("partials/header") %>
+<div class="layout">
+  <%- include("partials/sidebar") %>
+  <main class="content">
+    <div class="page-header"><h2>Sent</h2><span><%= emails.length %> messages</span></div>
+    <div class="email-list">
+      <% emails.forEach(email => { %>
+        <div class="email-row">
+          <a href="/mail/view/<%= email.id %>" class="email-link">
+            <div class="sender">To: <%= email.to %></div>
+            <div class="subject"><%= email.subject %></div>
+            <div class="preview"><%= email.body.substring(0, 70) %></div>
+            <div class="date"><%= new Date(email.date).toLocaleString() %></div>
+          </a>
+        </div>
+      <% }) %>
+    </div>
+  </main>
+</div>
+</body>
+</html>

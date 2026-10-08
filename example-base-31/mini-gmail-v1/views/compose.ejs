@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head><title>Compose - Mini Gmail</title><link rel="stylesheet" href="/css/style.css"></head>
+<body>
+<%- include("partials/header") %>
+<div class="layout">
+  <%- include("partials/sidebar") %>
+  <main class="content">
+    <div class="compose-card">
+      <div class="compose-header">New Message</div>
+      <% if (error) { %><div class="error"><%= error %></div><% } %>
+      <form method="POST" action="/mail/send">
+        <input type="email" name="to" placeholder="To" required>
+        <input type="text" name="subject" placeholder="Subject" required>
+        <textarea name="body" placeholder="Write your message..." required></textarea>
+        <div class="compose-actions"><button type="submit">Send</button><a href="/mail/inbox">Cancel</a></div>
+      </form>
+    </div>
+  </main>
+</div>
+</body>
+</html>

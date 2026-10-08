@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head><title><%= email.subject %></title><link rel="stylesheet" href="/css/style.css"></head>
+<body>
+<%- include("partials/header") %>
+<div class="layout">
+  <%- include("partials/sidebar") %>
+  <main class="content">
+    <div class="message-card">
+      <h1><%= email.subject %></h1>
+      <div class="message-meta">
+        <strong><%= email.from %></strong>
+        <span>to <%= email.to %></span>
+        <span><%= new Date(email.date).toLocaleString() %></span>
+      </div>
+      <hr>
+      <div class="message-body"><%= email.body %></div>
+      <div class="message-actions">
+        <a href="/mail/compose" class="btn">↩ Reply</a>
+        <form method="POST" action="/mail/delete/<%= email.id %>"><button class="delete-button">🗑 Delete</button></form>
+      </div>
+    </div>
+  </main>
+</div>
+</body>
+</html>

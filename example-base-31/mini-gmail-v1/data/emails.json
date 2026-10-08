@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "from": "rahul@gmail.com",
+    "to": "prem@gmail.com",
+    "subject": "Welcome to Mini Gmail",
+    "body": "Hi Prem,\n\nWelcome to our Mini Gmail application.\n\nRegards,\nRahul",
+    "date": "2026-10-08T10:30:00.000Z",
+    "read": true,
+    "deleted": false
+  },
+  {
+    "id": 2,
+    "from": "prem@gmail.com",
+    "to": "rahul@gmail.com",
+    "subject": "Re: Welcome",
+    "body": "Hi Rahul,\n\nThanks for the welcome message.\n\nRegards,\nPrem",
+    "date": "2026-10-08T11:00:00.000Z",
+    "read": true,
+    "deleted": false
+  }
+]
