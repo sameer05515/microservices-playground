@@ -1,0 +1,9 @@
+{
+  "name":"mini-gmail-v2",
+  "version":"2.0.0",
+  "description":"Mini Gmail v2 using Node.js Express EJS and JSON storage",
+  "main":"app.js",
+  "scripts":{"start":"node app.js","dev":"nodemon app.js"},
+  "dependencies":{"ejs":"^3.1.10","express":"^5.1.0","express-session":"^1.18.2"},
+  "devDependencies":{"nodemon":"^3.1.10"}
+}

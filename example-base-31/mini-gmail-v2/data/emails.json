@@ -1,0 +1,5 @@
+[
+ {"id":1,"from":"rahul@gmail.com","to":"prem@gmail.com","subject":"Welcome to Mini Gmail v2","body":"Hi Prem,\n\nThis is the new Gmail v2 demo.\n\nRegards, Rahul","date":"2026-10-08T10:30:00.000Z","read":false,"starred":true,"deleted":false,"draft":false},
+ {"id":2,"from":"prem@gmail.com","to":"rahul@gmail.com","subject":"Project discussion","body":"Hi Rahul,\n\nLet's discuss the project tomorrow.\n\nRegards, Prem","date":"2026-10-08T11:00:00.000Z","read":true,"starred":false,"deleted":false,"draft":false},
+ {"id":3,"from":"prem@gmail.com","to":"","subject":"My draft","body":"This is a draft message.","date":"2026-10-08T12:00:00.000Z","read":true,"starred":false,"deleted":false,"draft":true}
+]
