@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: head}"></head>
+<body>
+<header th:replace="~{fragments/header :: header}"></header>
+<div class="layout">
+<aside th:replace="~{fragments/sidebar :: sidebar}"></aside>
+<main class="content">
+<div class="compose-card">
+    <h2>New Message</h2>
+    <form th:action="@{/mail/send}" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="draftId" th:value="${draftId}">
+        <input name="to" placeholder="To" required th:value="${replyTo}">
+        <input name="cc" placeholder="Cc">
+        <input name="bcc" placeholder="Bcc">
+        <input name="subject" placeholder="Subject" th:value="${subject}">
+        <textarea name="body" rows="16" placeholder="Write your message..." th:text="${body}"></textarea>
+        <label class="file-label">📎 Attach files
+            <input type="file" name="attachments" multiple>
+        </label>
+        <div class="form-actions">
+            <button class="primary">Send</button>
+            <button type="submit" formaction="/mail/draft" class="secondary">Save Draft</button>
+            <a th:href="@{/mail}" class="secondary">Discard</a>
+        </div>
+    </form>
+</div>
+</main>
+</div>
+</body>
+</html>

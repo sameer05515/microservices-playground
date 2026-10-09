@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: head}"></head>
+<body>
+<header th:replace="~{fragments/header :: header}"></header>
+<div class="layout">
+<aside th:replace="~{fragments/sidebar :: sidebar}"></aside>
+<main class="content">
+<div class="compose-card">
+    <h2>Contacts</h2>
+    <div class="contacts">
+        <div class="contact" th:each="u : ${users}">
+            <div class="avatar" th:text="${#strings.substring(u.name,0,1).toUpperCase()}">P</div>
+            <div><strong th:text="${u.name}"></strong><br><small th:text="${u.email}"></small></div>
+        </div>
+    </div>
+</div>
+</main>
+</div>
+</body>
+</html>

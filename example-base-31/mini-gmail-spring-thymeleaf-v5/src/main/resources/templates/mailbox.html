@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: head}"></head>
+<body>
+<header th:replace="~{fragments/header :: header}"></header>
+<div class="layout">
+<aside th:replace="~{fragments/sidebar :: sidebar}"></aside>
+<main class="content">
+    <div class="toolbar">
+        <h2 th:text="${#strings.capitalize(box)}">Inbox</h2>
+        <span th:text="${emails.totalElements + ' messages'}">0 messages</span>
+    </div>
+
+    <div class="empty" th:if="${emails.empty}">No messages found.</div>
+
+    <div class="mail-list">
+        <div class="mail-row" th:each="mail : ${emails.content}"
+             th:classappend="${!mail.read ? ' unread' : ''}">
+            <form th:action="@{'/mail/' + ${mail.id} + '/star'}" method="post">
+                <input type="hidden" name="value" th:value="${!mail.starred}">
+                <button class="icon-btn" th:text="${mail.starred ? '★' : '☆'}">☆</button>
+            </form>
+            <form th:action="@{'/mail/' + ${mail.id} + '/important'}" method="post">
+                <input type="hidden" name="value" th:value="${!mail.important}">
+                <button class="icon-btn" th:text="${mail.important ? '❗' : '·'}">·</button>
+            </form>
+            <a class="mail-main" th:href="@{'/mail/' + ${mail.id}}">
+                <strong th:if="${box == 'sent'}"
+                        th:text="${#strings.listJoin(mail.toUserIds, ', ')}">recipient</strong>
+                <strong th:unless="${box == 'sent'}" th:text="${mail.fromUserId}">sender</strong>
+                <span th:text="${mail.subject == '' ? '(no subject)' : mail.subject}"></span>
+                <small th:text="${#strings.abbreviate(mail.body, 100)}"></small>
+            </a>
+            <time th:text="${#temporals.format(mail.createdAt, 'dd MMM yyyy HH:mm')}"></time>
+        </div>
+    </div>
+
+    <div class="pagination" th:if="${emails.totalPages > 0}">
+        <a th:if="${emails.hasPrevious()}"
+           th:href="@{/mail(box=${box},page=${emails.number},q=${q})}">← Previous</a>
+        <span th:text="${'Page ' + (emails.number + 1) + ' / ' + emails.totalPages}"></span>
+        <a th:if="${emails.hasNext()}"
+           th:href="@{/mail(box=${box},page=${emails.number + 2},q=${q})}">Next →</a>
+    </div>
+</main>
+</div>
+</body>
+</html>

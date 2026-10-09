@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: head}"></head>
+<body>
+<div class="auth-card">
+    <h1>Mini Gmail</h1>
+    <p>Sign in to continue</p>
+    <div class="error" th:if="${param.error}">Invalid email or password.</div>
+    <div class="success" th:if="${param.registered}">Registration successful.</div>
+    <div class="success" th:if="${param.logout}">Logged out successfully.</div>
+    <form th:action="@{/auth/login}" method="post">
+        <input name="username" type="email" placeholder="Email" required>
+        <input name="password" type="password" placeholder="Password" required>
+        <button class="primary">Login</button>
+    </form>
+    <p>No account? <a th:href="@{/auth/register}">Create one</a></p>
+    <small>Demo: prem@gmail.com / 123456</small>
+</div>
+</body>
+</html>
