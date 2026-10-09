@@ -1,0 +1,16 @@
+{
+  "name": "qa-markdown-mongodb",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Question and answer application with MongoDB persistence",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "marked": "^16.3.0",
+    "mongodb": "^6.20.0"
+  }
+}
