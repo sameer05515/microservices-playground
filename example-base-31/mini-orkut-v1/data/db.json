@@ -12,7 +12,14 @@
       "createdAt": "2026-10-19T12:55:52.829Z"
     }
   ],
-  "posts": [],
+  "posts": [
+    {
+      "id": "mvfb5jnf8nhf2o",
+      "userId": "mvf9cgagwsaiwo",
+      "content": "Hello there. I am back",
+      "createdAt": "2026-10-19T13:46:29.691Z"
+    }
+  ],
   "requests": [],
   "friends": [],
   "memberships": []
