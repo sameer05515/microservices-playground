@@ -22,5 +22,22 @@
   ],
   "requests": [],
   "friends": [],
-  "memberships": []
+  "memberships": [],
+  "communities": [
+    {
+      "id": "c1",
+      "name": "Java Developers",
+      "description": "Java, Spring Boot and backend engineering."
+    },
+    {
+      "id": "c2",
+      "name": "Music Lovers",
+      "description": "Artists, albums and songs you love."
+    },
+    {
+      "id": "c3",
+      "name": "Old Internet Nostalgia",
+      "description": "A corner for classic social web memories."
+    }
+  ]
 }

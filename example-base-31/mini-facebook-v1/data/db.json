@@ -1,0 +1,40 @@
+{
+  "users": [
+    {
+      "id": "u_mvfbk3flea5oh",
+      "name": "PREMENDRA KUMAR",
+      "username": "premendra05515",
+      "email": "premendra.bce05515@gmail.com",
+      "hash": "$2a$10$r2pPXhVmTQhsJw2d.jPs5ezGpeiU.cinH.X4Dek9xM9Ca7avT5Ma2",
+      "bio": "Hey! Nice to meet you.",
+      "location": "Faridabad",
+      "createdAt": "2026-10-19T13:57:48.771Z"
+    }
+  ],
+  "posts": [
+    {
+      "id": "p_mvfbpll1qtf68",
+      "userId": "u_mvfbk3flea5oh",
+      "content": "I want to build a great application",
+      "createdAt": "2026-10-19T14:02:05.317Z"
+    }
+  ],
+  "friends": [],
+  "requests": [],
+  "likes": [
+    {
+      "id": "l_mvfbpsd4euumv",
+      "post": "p_mvfbpll1qtf68",
+      "user": "u_mvfbk3flea5oh"
+    }
+  ],
+  "comments": [
+    {
+      "id": "c_mvfbqie04a545",
+      "post": "p_mvfbpll1qtf68",
+      "user": "u_mvfbk3flea5oh",
+      "content": "best of luck!!",
+      "createdAt": "2026-10-19T14:02:47.832Z"
+    }
+  ]
+}
