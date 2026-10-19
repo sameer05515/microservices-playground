@@ -1,0 +1,46 @@
+require("dotenv").config();
+const express = require("express");
+const session = require("express-session");
+const bcrypt = require("bcryptjs");
+const methodOverride = require("method-override");
+const fs = require("fs");
+const path = require("path");
+const app = express();
+const file = path.join(__dirname, "data", "db.json");
+if (!fs.existsSync(file)) fs.writeFileSync(file, JSON.stringify({users:[], posts:[], requests:[], friends:[], memberships:[]}, null, 2));
+const db = () => JSON.parse(fs.readFileSync(file, "utf8"));
+const save = d => fs.writeFileSync(file, JSON.stringify(d, null, 2));
+const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2,8);
+const safe = u => u && ({id:u.id,name:u.name,username:u.username,email:u.email,bio:u.bio,location:u.location,interests:u.interests,createdAt:u.createdAt});
+app.set("view engine","ejs"); app.set("views",path.join(__dirname,"views"));
+app.use(express.urlencoded({extended:true})); app.use(methodOverride("_method")); app.use(express.static(path.join(__dirname,"public")));
+app.use(session({secret:process.env.SESSION_SECRET||"local-dev-secret-change-me",resave:false,saveUninitialized:false,cookie:{httpOnly:true,sameSite:"lax",maxAge:86400000}}));
+app.use((req,res,next)=>{const d=db();res.locals.me=d.users.find(u=>u.id===req.session.uid);res.locals.flash=req.session.flash;delete req.session.flash;next()});
+function auth(req,res,next){if(!req.session.uid){req.session.flash="Please log in first.";return res.redirect("/login")}next()}
+function friendsOf(d,id){return d.friends.filter(f=>f.a===id||f.b===id).map(f=>d.users.find(u=>u.id===(f.a===id?f.b:f.a))).filter(Boolean)}
+function requestsTo(d,id){return d.requests.filter(r=>r.to===id&&r.status==="pending").map(r=>({...r,from:d.users.find(u=>u.id===r.from)}))}
+app.get("/",(req,res)=>res.redirect(req.session.uid?"/feed":"/login"));
+app.get("/register",(req,res)=>res.render("register",{error:null}));
+app.post("/register",async(req,res)=>{const d=db(),{name,username,email,password,confirm}=req.body;
+ if(!name||!username||!email||!password)return res.status(400).render("register",{error:"Please fill every field."});
+ if(!/^[a-zA-Z0-9_]{3,20}$/.test(username))return res.status(400).render("register",{error:"Username must be 3–20 letters, numbers or underscores."});
+ if(password.length<8||password!==confirm)return res.status(400).render("register",{error:"Passwords must match and contain at least 8 characters."});
+ if(d.users.some(u=>u.email.toLowerCase()===email.toLowerCase()||u.username.toLowerCase()===username.toLowerCase()))return res.status(400).render("register",{error:"Email or username is already in use."});
+ const u={id:uid(),name:name.trim(),username:username.trim(),email:email.trim().toLowerCase(),hash:await bcrypt.hash(password,10),bio:"Hey there! Welcome to my profile.",location:"",interests:"",createdAt:new Date().toISOString()};
+ d.users.push(u);save(d);req.session.uid=u.id;res.redirect("/feed")});
+app.get("/login",(req,res)=>res.render("login",{error:null}));
+app.post("/login",async(req,res)=>{const d=db(),u=d.users.find(x=>x.email===String(req.body.email||"").toLowerCase());if(!u||!(await bcrypt.compare(req.body.password||"",u.hash)))return res.status(401).render("login",{error:"Email or password is incorrect."});req.session.uid=u.id;res.redirect("/feed")});
+app.post("/logout",(req,res)=>req.session.destroy(()=>res.redirect("/login")));
+app.get("/feed",auth,(req,res)=>{const d=db(),ids=new Set([req.session.uid,...friendsOf(d,req.session.uid).map(u=>u.id)]);const posts=d.posts.filter(p=>ids.has(p.userId)).map(p=>({...p,author:safe(d.users.find(u=>u.id===p.userId))}));res.render("feed",{posts,friends:friendsOf(d,req.session.uid),requests:requestsTo(d,req.session.uid)})});
+app.post("/posts",auth,(req,res)=>{const text=String(req.body.content||"").trim();if(!text||text.length>1000){req.session.flash="Scraps must contain 1–1000 characters.";return res.redirect("/feed")}const d=db();d.posts.unshift({id:uid(),userId:req.session.uid,content:text,createdAt:new Date().toISOString()});save(d);res.redirect("/feed")});
+app.delete("/posts/:id",auth,(req,res)=>{const d=db();d.posts=d.posts.filter(p=>!(p.id===req.params.id&&p.userId===req.session.uid));save(d);res.redirect(req.get("referer")||"/feed")});
+app.get("/profile/:username",auth,(req,res)=>{const d=db(),u=d.users.find(x=>x.username.toLowerCase()===req.params.username.toLowerCase());if(!u)return res.status(404).render("error",{message:"Profile not found."});const friends=friendsOf(d,req.session.uid);res.render("profile",{profile:safe(u),own:u.id===req.session.uid,isFriend:friends.some(f=>f.id===u.id),sent:d.requests.some(r=>r.from===req.session.uid&&r.to===u.id&&r.status==="pending"),incoming:d.requests.some(r=>r.from===u.id&&r.to===req.session.uid&&r.status==="pending"),friends:friendsOf(d,u.id),posts:d.posts.filter(p=>p.userId===u.id).map(p=>({...p,author:safe(u)}))})});
+app.post("/profile",auth,(req,res)=>{const d=db(),u=d.users.find(x=>x.id===req.session.uid);u.name=String(req.body.name||u.name).slice(0,70);u.bio=String(req.body.bio||"").slice(0,500);u.location=String(req.body.location||"").slice(0,100);u.interests=String(req.body.interests||"").slice(0,250);save(d);res.redirect("/profile/"+u.username)});
+app.post("/friends/request/:id",auth,(req,res)=>{const d=db();if(req.params.id!==req.session.uid&&d.users.some(u=>u.id===req.params.id)&&!friendsOf(d,req.session.uid).some(u=>u.id===req.params.id)&&!d.requests.some(r=>r.status==="pending"&&((r.from===req.session.uid&&r.to===req.params.id)||(r.from===req.params.id&&r.to===req.session.uid))))d.requests.push({id:uid(),from:req.session.uid,to:req.params.id,status:"pending"});save(d);res.redirect(req.get("referer")||"/people")});
+app.post("/friends/respond/:id",auth,(req,res)=>{const d=db(),r=d.requests.find(r=>r.id===req.params.id&&r.to===req.session.uid&&r.status==="pending");if(r){r.status=req.body.action==="accept"?"accepted":"declined";if(r.status==="accepted")d.friends.push({a:r.from,b:r.to})}save(d);res.redirect("/friends")});
+app.get("/friends",auth,(req,res)=>res.render("friends",{friends:friendsOf(db(),req.session.uid),requests:requestsTo(db(),req.session.uid)}));
+app.get("/people",auth,(req,res)=>{const d=db(),q=String(req.query.q||"").toLowerCase();const people=d.users.filter(u=>u.id!==req.session.uid&&q&&[u.name,u.username,u.location].some(x=>String(x||"").toLowerCase().includes(q))).map(safe);res.render("people",{people,q,friends:friendsOf(d,req.session.uid),requests:requestsTo(d,req.session.uid)})});
+app.get("/communities",auth,(req,res)=>{const d=db();if(!d.communities){d.communities=[{id:"c1",name:"Java Developers",description:"Java, Spring Boot and backend engineering."},{id:"c2",name:"Music Lovers",description:"Artists, albums and songs you love."},{id:"c3",name:"Old Internet Nostalgia",description:"A corner for classic social web memories."}];d.memberships=[];save(d)}res.render("communities",{communities:d.communities.map(c=>({...c,count:d.memberships.filter(m=>m.c===c.id).length,joined:d.memberships.some(m=>m.c===c.id&&m.u===req.session.uid)}))})});
+app.post("/communities/:id/toggle",auth,(req,res)=>{const d=db(),i=d.memberships.findIndex(m=>m.c===req.params.id&&m.u===req.session.uid);if(i>=0)d.memberships.splice(i,1);else d.memberships.push({c:req.params.id,u:req.session.uid});save(d);res.redirect("/communities")});
+app.use((req,res)=>res.status(404).render("error",{message:"Page not found."}));
+app.listen(process.env.PORT||3000,()=>console.log("Mini Orkut: http://localhost:"+(process.env.PORT||3000)));

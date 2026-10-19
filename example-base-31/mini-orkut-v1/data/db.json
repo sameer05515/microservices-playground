@@ -1,0 +1,19 @@
+{
+  "users": [
+    {
+      "id": "mvf9cgagwsaiwo",
+      "name": "PREMENDRA KUMAR",
+      "username": "prem",
+      "email": "premendra.bce05515@gmail.com",
+      "hash": "$2a$10$RBiPlqsMr/oCJeqkVu6RFeb1itHP.X5xTuzOONVjjJpw7a8lG21w2",
+      "bio": "Hey there! Welcome to my profile.",
+      "location": "",
+      "interests": "",
+      "createdAt": "2026-10-19T12:55:52.829Z"
+    }
+  ],
+  "posts": [],
+  "requests": [],
+  "friends": [],
+  "memberships": []
+}
