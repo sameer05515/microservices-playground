@@ -1,0 +1,16 @@
+{
+  "name": "mini-udemy",
+  "version": "1.0.0",
+  "description": "Udemy-inspired learning platform built with Node.js, Express, EJS and JSON storage",
+  "main": "app.js",
+  "scripts": { "start": "node app.js", "dev": "nodemon app.js" },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.4.7",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "express-session": "^1.18.1",
+    "method-override": "^3.0.0"
+  },
+  "devDependencies": { "nodemon": "^3.1.9" }
+}
