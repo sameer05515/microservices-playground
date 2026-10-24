@@ -1,0 +1,20 @@
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: interview-gym-mysql
+    environment:
+      MYSQL_DATABASE: interview_gym
+      MYSQL_USER: interview_user
+      MYSQL_PASSWORD: interview_pass
+      MYSQL_ROOT_PASSWORD: root_demo_pass
+    ports:
+      - "3306:3306"
+    volumes:
+      - interview_gym_mysql:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot_demo_pass"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+volumes:
+  interview_gym_mysql:

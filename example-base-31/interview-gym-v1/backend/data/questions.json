@@ -1,0 +1,225 @@
+[ {
+  "id" : "q-001",
+  "category" : "Java",
+  "topic" : "Collections",
+  "difficulty" : "INTERMEDIATE",
+  "question" : "What is the difference between HashMap and ConcurrentHashMap?",
+  "answer" : "`HashMap` is not thread-safe and permits one `null` key and multiple `null` values. `ConcurrentHashMap` supports concurrent access with internal synchronization/CAS techniques, does not permit null keys or values, and provides weakly consistent iterators. Prefer it for shared mutable maps accessed by multiple threads.",
+  "tags" : [ "java", "collections" ]
+}, {
+  "id" : "q-002",
+  "category" : "Java",
+  "topic" : "Concurrency",
+  "difficulty" : "INTERMEDIATE",
+  "question" : "What is the Java Memory Model?",
+  "answer" : "The Java Memory Model (JMM) defines how threads interact through memory and which writes are visible to other threads. It specifies **happens-before** relationships, including monitor unlock/lock, volatile write/read, and thread start/join. Correct synchronization avoids data races and visibility bugs.",
+  "tags" : [ "java", "concurrency" ]
+}, {
+  "id" : "q-003",
+  "category" : "Java",
+  "topic" : "Core Java",
+  "difficulty" : "INTERMEDIATE",
+  "question" : "Why should equals() and hashCode() be overridden together?",
+  "answer" : "Equal objects must return the same hash code. Hash-based collections use `hashCode()` to select a bucket and `equals()` to find the matching key. Overriding only one can make logically equal keys behave incorrectly in `HashMap` or `HashSet`. Keep equality fields stable while an object is used as a key.",
+  "tags" : [ "java", "core-java" ]
+}, {
+  "id" : "q-004",
+  "category" : "Java",
+  "topic" : "Concurrency",
+  "difficulty" : "INTERMEDIATE",
+  "question" : "How can deadlock occur, and how can you prevent it?",
+  "answer" : "Deadlock can occur when threads hold resources and wait cyclically for resources held by each other. Reduce risk by acquiring locks in a consistent global order, using timeouts (`tryLock`), avoiding nested locks where possible, and collecting thread dumps to diagnose cycles.",
+  "tags" : [ "java", "concurrency" ]
+}, {
+  "id" : "q-005",
+  "category" : "Java",
+  "topic" : "Streams",
+  "difficulty" : "INTERMEDIATE",
+  "question" : "When would you use a Stream instead of a loop?",
+  "answer" : "Streams express data transformations such as `filter`, `map`, and `collect` declaratively. Use them for readable pipelines; prefer loops when stateful control flow, early exits, debugging clarity, or performance measurements make them better. Avoid side effects in stream operations.",
+  "tags" : [ "java", "streams" ]
+}, {
+  "id" : "q-006",
+  "category" : "Spring Boot",
+  "topic" : "Dependency Injection",
+  "difficulty" : "INTERMEDIATE",
+  "question" : "What is dependency injection in Spring?",
+  "answer" : "Dependency injection means a class receives its collaborators from a container rather than constructing them directly. Constructor injection makes dependencies explicit, supports immutability, and simplifies unit testing. Example: `OrderService(OrderRepository repository)`.",
+  "tags" : [ "spring-boot", "dependency-injection" ]
+}, {
+  "id" : "q-007",
+  "category" : "Spring Boot",
+  "topic" : "Bean Lifecycle",
+  "difficulty" : "INTERMEDIATE",
+  "question" : "Explain common Spring bean scopes.",
+  "answer" : "`singleton` creates one bean instance per application context (the default); `prototype` creates a new instance per request from the container; web scopes include `request`, `session`, and `application`. Singleton beans should generally be stateless or thread-safe.",
+  "tags" : [ "spring-boot", "bean-lifecycle" ]
+}, {
+  "id" : "q-008",
+  "category" : "Spring Boot",
+  "topic" : "REST APIs",
+  "difficulty" : "INTERMEDIATE",
+  "question" : "How do you validate request bodies?",
+  "answer" : "Use Jakarta Bean Validation annotations such as `@NotBlank`, `@Email`, and `@Size` on a DTO, then annotate the controller argument with `@Valid`. Handle `MethodArgumentNotValidException` in `@RestControllerAdvice` and return a consistent error structure without exposing internals.",
+  "tags" : [ "spring-boot", "rest-apis" ]
+}, {
+  "id" : "q-009",
+  "category" : "Spring Boot",
+  "topic" : "Transactions",
+  "difficulty" : "INTERMEDIATE",
+  "question" : "What does @Transactional do?",
+  "answer" : "Spring typically wraps a bean method in a transaction interceptor. A transaction commits on successful completion and rolls back by default for unchecked exceptions and errors. Be aware of proxy/self-invocation behavior, propagation, isolation, and keeping transactions short.",
+  "tags" : [ "spring-boot", "transactions" ]
+}, {
+  "id" : "q-010",
+  "category" : "Spring Boot",
+  "topic" : "Security",
+  "difficulty" : "INTERMEDIATE",
+  "question" : "Where should JWT validation happen?",
+  "answer" : "A resource server or security filter validates the signature, expiry, issuer and relevant claims on each protected request. Keep signing keys outside source control, use TLS, choose short token lifetimes, and avoid treating a decoded-but-unverified token as trusted.",
+  "tags" : [ "spring-boot", "security" ]
+}, {
+  "id" : "q-011",
+  "category" : "React",
+  "topic" : "Hooks",
+  "difficulty" : "INTERMEDIATE",
+  "question" : "What are the rules of React Hooks?",
+  "answer" : "Call Hooks only at the top level of React function components or custom Hooks—not inside loops, conditions, or nested functions. This preserves Hook call order across renders. Custom Hooks let components share stateful logic.",
+  "tags" : [ "react", "hooks" ]
+}, {
+  "id" : "q-012",
+  "category" : "React",
+  "topic" : "State",
+  "difficulty" : "INTERMEDIATE",
+  "question" : "When should you use useMemo and useCallback?",
+  "answer" : "`useMemo` caches a calculated value and `useCallback` caches a function reference between renders when dependencies are unchanged. Use them when they avoid meaningful work or stabilize props for memoized children; they are not required for every value or function.",
+  "tags" : [ "react", "state" ]
+}, {
+  "id" : "q-013",
+  "category" : "React",
+  "topic" : "Effects",
+  "difficulty" : "INTERMEDIATE",
+  "question" : "What belongs in useEffect?",
+  "answer" : "Use `useEffect` to synchronize a component with external systems, such as subscriptions, timers, or browser APIs. Include reactive dependencies and clean up subscriptions when needed. Do not use effects for values that can be derived during render.",
+  "tags" : [ "react", "effects" ]
+}, {
+  "id" : "q-014",
+  "category" : "React",
+  "topic" : "Architecture",
+  "difficulty" : "INTERMEDIATE",
+  "question" : "How would you handle API errors in a React app?",
+  "answer" : "Centralize fetch/API handling, check `response.ok`, expose useful user-facing errors, represent loading/error/empty/success states, and cancel or ignore stale requests when appropriate. Never render raw server stack traces to users.",
+  "tags" : [ "react", "architecture" ]
+}, {
+  "id" : "q-015",
+  "category" : "SQL",
+  "topic" : "Indexes",
+  "difficulty" : "INTERMEDIATE",
+  "question" : "What is an index and what is its trade-off?",
+  "answer" : "An index helps the database find rows without scanning the entire table and can speed up filters, joins, and ordering. It consumes storage and adds work to inserts, updates, and deletes. Design indexes around actual query patterns and verify with `EXPLAIN`.",
+  "tags" : [ "sql", "indexes" ]
+}, {
+  "id" : "q-016",
+  "category" : "SQL",
+  "topic" : "Joins",
+  "difficulty" : "INTERMEDIATE",
+  "question" : "Explain INNER JOIN vs LEFT JOIN.",
+  "answer" : "`INNER JOIN` returns only rows with matching keys in both tables. `LEFT JOIN` returns all rows from the left table and matching right rows, using `NULL` where no match exists. Conditions in `WHERE` can accidentally filter out the null-extended rows and change the intended result.",
+  "tags" : [ "sql", "joins" ]
+}, {
+  "id" : "q-017",
+  "category" : "SQL",
+  "topic" : "Transactions",
+  "difficulty" : "INTERMEDIATE",
+  "question" : "What are ACID properties?",
+  "answer" : "**Atomicity:** all-or-nothing. **Consistency:** constraints remain valid. **Isolation:** concurrent transactions are controlled to avoid unwanted interference. **Durability:** committed changes survive failures according to the database's guarantees.",
+  "tags" : [ "sql", "transactions" ]
+}, {
+  "id" : "q-018",
+  "category" : "SQL",
+  "topic" : "Optimization",
+  "difficulty" : "INTERMEDIATE",
+  "question" : "How do you investigate a slow SQL query?",
+  "answer" : "Reproduce with representative data, inspect `EXPLAIN`/execution plans, check row estimates and index usage, reduce unnecessary columns/rows, review joins and N+1 patterns, and measure before/after. Avoid adding indexes blindly because writes become more expensive.",
+  "tags" : [ "sql", "optimization" ]
+}, {
+  "id" : "q-019",
+  "category" : "Microservices",
+  "topic" : "Patterns",
+  "difficulty" : "INTERMEDIATE",
+  "question" : "What is the Saga pattern?",
+  "answer" : "A Saga coordinates a business transaction as a sequence of local transactions. Each step may have a compensating action if a later step fails. Choreography uses events; orchestration uses a coordinator. Design for retries, idempotency, timeouts, and eventual consistency.",
+  "tags" : [ "microservices", "patterns" ]
+}, {
+  "id" : "q-020",
+  "category" : "Microservices",
+  "topic" : "Messaging",
+  "difficulty" : "INTERMEDIATE",
+  "question" : "What is a dead-letter queue (DLQ)?",
+  "answer" : "A DLQ stores messages that could not be processed after configured retries or due to non-retryable errors. It helps isolate poison messages and supports diagnosis/replay. Include error metadata, alert on queue growth, and make replay safe and idempotent.",
+  "tags" : [ "microservices", "messaging" ]
+}, {
+  "id" : "q-021",
+  "category" : "Microservices",
+  "topic" : "Resilience",
+  "difficulty" : "INTERMEDIATE",
+  "question" : "Explain circuit breaker and retry.",
+  "answer" : "Retries can recover from transient failures but should use bounded attempts, backoff and jitter. A circuit breaker temporarily blocks calls to an unhealthy dependency to prevent cascading failures. Avoid retrying non-idempotent operations unless safely protected.",
+  "tags" : [ "microservices", "resilience" ]
+}, {
+  "id" : "q-022",
+  "category" : "Microservices",
+  "topic" : "Data",
+  "difficulty" : "INTERMEDIATE",
+  "question" : "How do you maintain data consistency across services?",
+  "answer" : "Use local transactions within each service and patterns such as Saga, transactional outbox, idempotent consumers, and event-driven updates. Avoid distributed transactions unless their operational trade-offs are justified. Make eventual consistency visible in API and UX design.",
+  "tags" : [ "microservices", "data" ]
+}, {
+  "id" : "q-023",
+  "category" : "Microservices",
+  "topic" : "Observability",
+  "difficulty" : "INTERMEDIATE",
+  "question" : "What should be included in distributed tracing?",
+  "answer" : "Propagate trace and span context across HTTP and messaging boundaries. Add service names, operation names, timings, status, and carefully selected attributes. Correlate traces with structured logs and metrics; do not put secrets or sensitive personal data in telemetry.",
+  "tags" : [ "microservices", "observability" ]
+}, {
+  "id" : "q-024",
+  "category" : "System Design",
+  "topic" : "Scalability",
+  "difficulty" : "INTERMEDIATE",
+  "question" : "How would you design a URL shortener?",
+  "answer" : "Use an API to create short codes, a durable mapping store, and a redirect service. Generate collision-resistant IDs, enforce uniqueness, cache popular mappings, rate-limit abuse, and collect analytics asynchronously. Discuss read/write ratio, availability, expiration, and key generation.",
+  "tags" : [ "system-design", "scalability" ]
+}, {
+  "id" : "q-025",
+  "category" : "System Design",
+  "topic" : "Caching",
+  "difficulty" : "INTERMEDIATE",
+  "question" : "What is cache-aside?",
+  "answer" : "The application checks the cache first, reads from the database on a miss, then populates the cache. It is simple and works well for read-heavy workloads, but requires TTL/invalidation strategy and tolerance for stale data or cache stampedes.",
+  "tags" : [ "system-design", "caching" ]
+}, {
+  "id" : "q-026",
+  "category" : "System Design",
+  "topic" : "Reliability",
+  "difficulty" : "INTERMEDIATE",
+  "question" : "How do load balancers improve a service?",
+  "answer" : "A load balancer distributes requests across healthy instances and can perform health checks and TLS termination. It improves availability and horizontal scalability, but does not remove the need for stateless services, capacity planning, timeouts, and resilient downstream dependencies.",
+  "tags" : [ "system-design", "reliability" ]
+}, {
+  "id" : "q-027",
+  "category" : "System Design",
+  "topic" : "API Design",
+  "difficulty" : "INTERMEDIATE",
+  "question" : "How would you design pagination for a large dataset?",
+  "answer" : "Offset pagination is easy but can become expensive and unstable at high offsets. Cursor/keyset pagination uses a stable ordered key and performs better for large changing datasets. Define deterministic sorting, page-size limits, and opaque cursor validation.",
+  "tags" : [ "system-design", "api-design" ]
+}, {
+  "id" : "q-028",
+  "category" : "System Design",
+  "topic" : "Capacity",
+  "difficulty" : "INTERMEDIATE",
+  "question" : "How do you approach capacity estimation?",
+  "answer" : "Estimate requests per second from daily traffic and peak factors, then estimate payload sizes, storage growth, cache hit rate, and per-request CPU/IO. State assumptions, calculate rough bounds, and validate with load tests and production metrics.",
+  "tags" : [ "system-design", "capacity" ]
+} ]
