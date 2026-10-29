@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Revision Reminder</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-icon">↻</span><div><h1>Revision Reminder</h1><p>Small steps. Consistent progress.</p></div></div>
+    <div class="today"><span>Today</span><strong><%= today %></strong></div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div>
+        <span class="eyebrow">YOUR DAILY REVISION SPACE</span>
+        <h2>Learn a little.<br><em>Remember more.</em></h2>
+        <p>Review one topic at a time. No need to catch up on everything today.</p>
+      </div>
+      <div class="hero-art" aria-hidden="true"><div class="circle c1"></div><div class="circle c2"></div><div class="book">✓</div></div>
+    </section>
+
+    <section class="stats">
+      <article class="stat"><span class="stat-icon orange">◷</span><div><small>Due for revision</small><strong><%= dueCount %></strong></div></article>
+      <article class="stat"><span class="stat-icon blue">▤</span><div><small>Total topics</small><strong><%= total %></strong></div></article>
+      <article class="stat"><span class="stat-icon green">✓</span><div><small>Reviewed today</small><strong><%= reviewedCount %></strong></div></article>
+    </section>
+
+    <section class="section-heading">
+      <div><span class="eyebrow">STAY ON TRACK</span><h2>Today's revision</h2></div>
+      <button class="button secondary" id="enableNotifications" type="button">Enable browser reminders</button>
+    </section>
+    <p class="hint" id="notificationStatus">Browser reminders work while this app is open. Allow notifications when prompted.</p>
+
+    <% if (dueTopics.length === 0) { %>
+      <section class="empty"><div class="empty-check">✓</div><h3>You're all caught up!</h3><p>No topics are due right now. Add a topic or come back when it's time to revise.</p></section>
+    <% } else { %>
+      <section class="topic-list">
+        <% dueTopics.forEach(topic => { %>
+          <article class="topic-card">
+            <div class="topic-mark"><%= (topic.category || 'G').slice(0,1).toUpperCase() %></div>
+            <div class="topic-content">
+              <div class="topic-meta"><span class="category"><%= topic.category %></span><span class="due-pill">Due now</span></div>
+              <h3><%= topic.title %></h3>
+              <% if (topic.notes) { %><p><%= topic.notes %></p><% } %>
+              <small>Reviewed <%= topic.reviewCount || 0 %> times · Last: <%= formatDate(topic.lastReviewed) %></small>
+            </div>
+            <div class="topic-actions">
+              <form action="/topics/<%= topic.id %>/review" method="POST"><button class="button primary" type="submit">✓ Reviewed</button></form>
+              <form action="/topics/<%= topic.id %>/snooze" method="POST"><button class="button text-button" type="submit">Remind me in 2 hours</button></form>
+            </div>
+          </article>
+        <% }) %>
+      </section>
+    <% } %>
+
+    <section class="section-heading add-heading"><div><span class="eyebrow">BUILD YOUR ROUTINE</span><h2>Add a revision topic</h2></div></section>
+    <section class="panel">
+      <form action="/topics" method="POST" class="add-form">
+        <label>Topic name<input name="title" placeholder="e.g. HashMap internals" required maxlength="120"></label>
+        <label>Technology / category<input name="category" placeholder="e.g. Java" maxlength="60"></label>
+        <label>Notes (optional)<input name="notes" placeholder="Key points to remember" maxlength="300"></label>
+        <label>First reminder after
+          <select name="intervalDays"><option value="1">Today</option><option value="2">2 days</option><option value="3">3 days</option><option value="7">7 days</option></select>
+        </label>
+        <button class="button primary add-button" type="submit">+ Add topic</button>
+      </form>
+    </section>
+
+    <section class="section-heading all-heading"><div><span class="eyebrow">YOUR LEARNING LIST</span><h2>All topics</h2></div></section>
+    <section class="panel all-topics">
+      <% if (topics.length === 0) { %><p class="muted">No topics added yet.</p><% } %>
+      <% topics.forEach(topic => { %>
+        <div class="all-topic-row">
+          <div><strong><%= topic.title %></strong><small><%= topic.category %> · Next: <%= formatDate(topic.nextReview) %></small></div>
+          <div class="row-actions"><span class="mini-pill"><%= dueLabel(topic) %></span><form action="/topics/<%= topic.id %>/delete" method="POST" onsubmit="return confirm('Delete this topic?')"><button class="delete-button" title="Delete topic" aria-label="Delete topic">×</button></form></div>
+        </div>
+      <% }) %>
+    </section>
+
+    <section class="section-heading all-heading"><div><span class="eyebrow">GENTLE REMINDER</span><h2>Daily notification time</h2></div></section>
+    <section class="panel reminder-settings">
+      <p>Choose a daily reminder time. This browser checks the schedule while the dashboard is open.</p>
+      <form action="/settings/reminder" method="POST" class="settings-form">
+        <label>Hour (24-hour)<input name="hour" type="number" min="0" max="23" value="9" required></label>
+        <label>Minute<input name="minute" type="number" min="0" max="59" value="0" required></label>
+        <button class="button secondary" type="submit">Save reminder time</button>
+      </form>
+      <p class="footnote">Note: this is a local app. Notifications are not sent if the browser is closed. For reliable reminders, keep the app open or add an OS-level scheduled task.</p>
+    </section>
+    <footer>Made for steady progress, not pressure. One topic is enough to restart.</footer>
+  </main>
+  <script src="/app.js"></script>
+</body>
+</html>

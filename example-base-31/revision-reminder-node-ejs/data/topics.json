@@ -1,0 +1,32 @@
+[
+  {
+    "id": "java-collections",
+    "title": "Java Collections",
+    "category": "Java",
+    "notes": "List vs Set vs Map; HashMap internals",
+    "intervalDays": 1,
+    "lastReviewed": "2026-10-29T09:59:23.824Z",
+    "nextReview": "2026-10-30T09:59:23.824Z",
+    "reviewCount": 1
+  },
+  {
+    "id": "spring-di",
+    "title": "Spring Dependency Injection",
+    "category": "Spring Boot",
+    "notes": "IoC, DI, constructor injection, bean scopes",
+    "intervalDays": 1,
+    "lastReviewed": null,
+    "nextReview": "2026-10-29T08:00:00.000Z",
+    "reviewCount": 0
+  },
+  {
+    "id": "react-hooks",
+    "title": "React Hooks",
+    "category": "React",
+    "notes": "useState, useEffect, dependency array",
+    "intervalDays": 1,
+    "lastReviewed": null,
+    "nextReview": "2026-10-29T08:00:00.000Z",
+    "reviewCount": 0
+  }
+]
