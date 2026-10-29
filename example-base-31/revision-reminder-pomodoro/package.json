@@ -1,0 +1,9 @@
+{
+  "name": "revision-reminder-pomodoro",
+  "version": "2.0.0",
+  "description": "Pomodoro-style revision timer using Node.js, Express, EJS and JSON storage",
+  "main": "server.js",
+  "scripts": { "start": "node server.js", "dev": "nodemon server.js" },
+  "dependencies": { "ejs": "^3.1.10", "express": "^4.21.2" },
+  "devDependencies": { "nodemon": "^3.1.9" }
+}

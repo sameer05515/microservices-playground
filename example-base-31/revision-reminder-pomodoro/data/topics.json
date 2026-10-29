@@ -1,0 +1,20 @@
+[
+  {
+    "id": "java-collections",
+    "title": "Java Collections",
+    "category": "Java",
+    "notes": "List vs Set vs Map; HashMap internals"
+  },
+  {
+    "id": "spring-di",
+    "title": "Spring Dependency Injection",
+    "category": "Spring Boot",
+    "notes": "IoC, DI, constructor injection, bean scopes"
+  },
+  {
+    "id": "react-hooks",
+    "title": "React Hooks",
+    "category": "React",
+    "notes": "useState, useEffect, dependency array"
+  }
+]

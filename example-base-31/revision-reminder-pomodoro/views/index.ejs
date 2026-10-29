@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Focus Room · Revision Pomodoro</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="/"><span class="brand-symbol">◉</span><span>focus<span class="brand-light">room</span><small>REVISION STUDIO</small></span></a>
+      <div class="side-label">WORKSPACE</div>
+      <a class="nav active" href="/"><span>◷</span> Focus timer</a>
+      <a class="nav" href="#topics"><span>▤</span> Revision topics</a>
+      <a class="nav" href="#progress"><span>↗</span> Today's progress</a>
+      <div class="sidebar-note"><div class="note-icon">✦</div><strong>One session is progress.</strong><p>You don't have to finish everything. Just begin.</p></div>
+      <div class="side-footer"><span class="status-dot"></span> Your progress is saved locally</div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar"><div><p class="date"><%= today %></p><h1>Your focus space</h1><p class="subtitle">A calm place to revise, one small session at a time.</p></div><div class="avatar">P</div></header>
+
+      <section class="welcome-strip"><div><span class="sparkle">✦</span><span>SMALL STEPS COUNT</span><p>Forget the backlog. Focus on the next 25 minutes.</p></div><div class="strip-art"><span>◌</span><span>✦</span><span>◦</span></div></section>
+
+      <div class="workspace-grid">
+        <section class="timer-panel">
+          <div class="panel-top"><div><span class="overline">POMODORO TIMER</span><h2 id="timerTitle">Time to focus</h2></div><span class="live-badge"><i></i> READY WHEN YOU ARE</span></div>
+          <div class="mode-tabs" role="tablist">
+            <button class="mode active" data-mode="focus">Focus</button>
+            <button class="mode" data-mode="short">Short break</button>
+            <button class="mode" data-mode="long">Long break</button>
+          </div>
+          <div class="timer-face">
+            <svg class="ring" viewBox="0 0 260 260" aria-hidden="true">
+              <circle class="ring-track" cx="130" cy="130" r="112"></circle>
+              <circle id="progressRing" class="ring-progress" cx="130" cy="130" r="112"></circle>
+            </svg>
+            <div class="timer-readout"><div id="timerText">25:00</div><small id="timerCaption">ONE THING AT A TIME</small></div>
+          </div>
+          <div class="timer-controls"><button id="resetBtn" class="icon-button" aria-label="Reset timer" title="Reset">↺</button><button id="startBtn" class="start-button"><span>▶</span> Start focus</button><button id="skipBtn" class="icon-button" aria-label="Skip session" title="Skip">»</button></div>
+          <p class="timer-tip" id="timerTip">Put your phone aside. You only need to work on one topic.</p>
+          <div class="session-choice"><label for="topicSelect">WHAT ARE YOU REVISING?</label><select id="topicSelect">
+            <option value="">Choose a topic (optional)</option>
+            <% topics.forEach(topic => { %><option value="<%= topic.id %>"><%= topic.category %> · <%= topic.title %></option><% }) %>
+          </select></div>
+        </section>
+
+        <section class="right-column">
+          <div class="progress-card" id="progress">
+            <div class="panel-top"><div><span class="overline">TODAY'S PROGRESS</span><h2>You're showing up.</h2></div><span class="progress-icon">↗</span></div>
+            <div class="progress-metrics"><div><strong id="minutesToday"><%= minutesToday %></strong><span>focus minutes</span></div><div><strong id="sessionsToday"><%= sessionsToday %></strong><span>sessions done</span></div></div>
+            <div class="progress-bar"><span id="progressBar" style="width:<%= Math.min(100, minutesToday/60*100) %>%"></span></div>
+            <div class="progress-caption"><span>Daily gentle goal</span><strong id="goalLabel"><%= minutesToday %> / 60 min</strong></div>
+          </div>
+          <div class="break-card"><div class="break-illustration">☕</div><div><span class="overline">REMEMBER TO PAUSE</span><h3>Breaks are part of the plan.</h3><p>Stretch, drink water, look away from the screen. Rest is productive, too.</p><button id="breakBtn" class="quiet-button">Start a 5-minute break →</button></div></div>
+          <div class="how-card"><span class="overline">YOUR ONLY JOB RIGHT NOW</span><div class="how-step"><span>1</span><p>Choose one small topic</p></div><div class="how-step"><span>2</span><p>Focus until the timer ends</p></div><div class="how-step"><span>3</span><p>Mark the session done. That's enough.</p></div></div>
+        </section>
+      </div>
+
+      <section class="topics-section" id="topics">
+        <div class="section-head"><div><span class="overline">YOUR LEARNING LIST</span><h2>Revision topics</h2><p>Keep your next learning step easy to find.</p></div><button id="addTopicToggle" class="outline-button">＋ Add topic</button></div>
+        <form id="addTopicForm" class="add-topic-form hidden" action="/topics" method="POST">
+          <label>Topic<input name="title" placeholder="e.g. HashMap internals" required maxlength="120"></label>
+          <label>Category<input name="category" placeholder="Java / Spring / React" maxlength="60"></label>
+          <label>Notes<input name="notes" placeholder="Key points to recall" maxlength="300"></label>
+          <button class="small-primary" type="submit">Add topic</button>
+        </form>
+        <div class="topic-grid">
+          <% if (!topics.length) { %><div class="empty-topics">No topics yet. Add one small thing to revise.</div><% } %>
+          <% topics.forEach(topic => { %>
+            <article class="topic-tile"><div class="tile-icon"><%= (topic.category || 'G').slice(0,1).toUpperCase() %></div><div class="tile-main"><span><%= topic.category %></span><h3><%= topic.title %></h3><p><%= topic.notes || 'A little revision goes a long way.' %></p></div><form action="/topics/<%= topic.id %>/delete" method="POST" onsubmit="return confirm('Delete this topic?')"><button class="remove-topic" title="Delete topic" aria-label="Delete topic">×</button></form></article>
+          <% }) %>
+        </div>
+      </section>
+      <footer>Made for progress, not pressure. Start small. Keep going gently.</footer>
+    </main>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="/app.js"></script>
+</body>
+</html>
