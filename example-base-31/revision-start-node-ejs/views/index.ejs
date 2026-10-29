@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Revision Starter</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/"><span class="brand-mark">↗</span> Revision Starter</a>
+    <span class="top-note">Small steps count.</span>
+  </header>
+  <main class="shell">
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">YOUR REVISION SPACE</p>
+        <h1>Don't plan a perfect day.<br><span>Start with 10 minutes.</span></h1>
+        <p class="hero-text">Aaj ka target poora syllabus nahi hai. Sirf ek chhota concept revise karna hai.</p>
+        <div class="hero-actions">
+          <button class="btn btn-light" id="startFocus">Start a 10-minute session <span>→</span></button>
+          <a class="text-link" href="#topics">Choose a topic</a>
+        </div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
+        <div class="focus-card"><div class="focus-icon">✦</div><div class="focus-label">JUST FOR NOW</div><div class="focus-number">10<span> min</span></div><div class="focus-sub">One topic. One small win.</div><div class="focus-line"><span></span></div></div>
+        <span class="spark spark-a">✳</span><span class="spark spark-b">✦</span>
+      </div>
+    </section>
+
+    <% if (message) { %><div class="notice"><%= message %></div><% } %>
+
+    <section class="stats">
+      <article class="stat-card"><div class="stat-icon lavender">◷</div><div><p>Today's revision</p><strong><%= todayMinutes %> <small>min</small></strong></div><span class="stat-foot">No pressure</span></article>
+      <article class="stat-card"><div class="stat-icon mint">✓</div><div><p>Sessions logged today</p><strong><%= todaySessions.length %></strong></div><span class="stat-foot">Every session counts</span></article>
+      <article class="stat-card"><div class="stat-icon peach">↗</div><div><p>All-time sessions</p><strong><%= totalSessions %></strong></div><span class="stat-foot">Keep building the habit</span></article>
+    </section>
+
+    <div class="content-grid">
+      <section class="panel timer-panel" id="timerPanel">
+        <div class="panel-heading"><div><p class="eyebrow">FOCUS TIMER</p><h2>One thing at a time</h2></div><span class="pill">Gentle mode</span></div>
+        <div class="timer-face"><div class="timer-ring"><svg viewBox="0 0 220 220" aria-hidden="true"><circle class="ring-bg" cx="110" cy="110" r="96"/><circle id="ringProgress" class="ring-progress" cx="110" cy="110" r="96"/></svg><div class="timer-center"><span id="timerLabel">READY WHEN YOU ARE</span><strong id="timerDisplay">10:00</strong><small id="timerSub">10 minutes is enough to begin</small></div></div></div>
+        <div class="timer-controls"><button class="btn btn-primary" id="timerToggle">▶ Start</button><button class="btn btn-outline" id="timerReset">↺ Reset</button></div>
+        <p class="timer-hint" id="timerHint">Phone silent. One tab. No need to finish everything.</p>
+        <div class="timer-presets"><button class="preset active" data-minutes="10">10 min</button><button class="preset" data-minutes="15">15 min</button><button class="preset" data-minutes="25">25 min</button></div>
+      </section>
+
+      <section class="panel topics-panel" id="topics">
+        <div class="panel-heading"><div><p class="eyebrow">YOUR NEXT STEPS</p><h2>Pick one topic</h2></div><span class="count"><%= topics.filter(t => !t.done).length %> left</span></div>
+        <p class="section-desc">Choose the easiest one if starting feels hard. You can stop after one session.</p>
+        <div class="topic-list">
+          <% if (topics.length === 0) { %><div class="empty">No topics yet. Add one below to get started.</div><% } %>
+          <% topics.forEach((topic, index) => { %>
+            <article class="topic <%= topic.done ? 'topic-done' : '' %>">
+              <form method="POST" action="/topics/<%= topic.id %>/toggle"><button class="check-btn" type="submit" title="Mark complete"><%= topic.done ? '✓' : (index + 1) %></button></form>
+              <button class="topic-main" type="button" data-topic-id="<%= topic.id %>" data-topic-name="<%= topic.name %>" data-minutes="<%= topic.minutes %>">
+                <span class="topic-title"><%= topic.name %></span><span class="topic-step"><%= topic.nextStep || 'Review notes for 10 minutes' %></span>
+                <span class="topic-meta"><span class="tag"><%= topic.category %></span><span>◷ <%= topic.minutes %> min</span></span>
+              </button>
+              <form method="POST" action="/topics/<%= topic.id %>/delete" onsubmit="return confirm('Delete this topic?')"><button class="delete-btn" type="submit" aria-label="Delete topic">×</button></form>
+            </article>
+          <% }) %>
+        </div>
+        <details class="add-topic">
+          <summary><span>＋ Add your own topic</span><span class="plus-circle">+</span></summary>
+          <form action="/topics" method="POST" class="topic-form">
+            <label>Topic name<input name="name" placeholder="e.g. HashMap internals" required maxlength="80"></label>
+            <div class="form-row"><label>Category<input name="category" placeholder="Java / Spring / Design"></label><label>Minutes<select name="minutes"><option>10</option><option>15</option><option>25</option><option>30</option><option>45</option></select></label></div>
+            <label>Small next step<input name="nextStep" placeholder="e.g. Explain collisions without notes"></label>
+            <button class="btn btn-primary full" type="submit">Add topic</button>
+          </form>
+        </details>
+      </section>
+    </div>
+
+    <section class="bottom-grid">
+      <article class="tip-card"><div class="tip-icon">☼</div><div><p class="eyebrow">A SIMPLE REVISION METHOD</p><h3>Read → Recall → Check</h3><p>1. Read notes for 3 minutes.<br>2. Close notes and explain it aloud.<br>3. Check what you missed. That's revision.</p></div></article>
+      <article class="win-card"><span class="win-star">✦</span><p class="eyebrow">REMEMBER THIS</p><h3>Consistency before intensity.</h3><p>Even 10 focused minutes is progress. No guilt, no catch-up marathon.</p></article>
+    </section>
+    <footer><span>Built for realistic revision, not perfect productivity.</span><span>Data stays in your local JSON files.</span></footer>
+  </main>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script>
+    window.REVISION_TOPICS = <%- JSON.stringify(topics.map(t => ({ id: t.id, name: t.name, minutes: t.minutes }))).replace(/</g, '\\u003c') %>;
+  </script>
+  <script src="/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+[
+  {
+    "id": "java-core",
+    "name": "Core Java",
+    "category": "Java",
+    "nextStep": "Revise HashMap vs ConcurrentHashMap",
+    "minutes": 10,
+    "done": false
+  },
+  {
+    "id": "spring",
+    "name": "Spring Boot",
+    "category": "Spring",
+    "nextStep": "Recall bean scopes without notes",
+    "minutes": 10,
+    "done": false
+  },
+  {
+    "id": "system-design",
+    "name": "System Design",
+    "category": "Design",
+    "nextStep": "Draw API Gateway + load balancer flow",
+    "minutes": 10,
+    "done": false
+  }
+]
