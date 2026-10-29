@@ -1,0 +1,20 @@
+[
+  {
+    "id": "java",
+    "name": "Core Java",
+    "category": "Java",
+    "description": "Collections, OOP, concurrency"
+  },
+  {
+    "id": "spring",
+    "name": "Spring Boot",
+    "category": "Spring",
+    "description": "Beans, REST APIs, security"
+  },
+  {
+    "id": "design",
+    "name": "System Design",
+    "category": "Architecture",
+    "description": "Scalability, caching, messaging"
+  }
+]

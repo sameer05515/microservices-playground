@@ -1,0 +1,36 @@
+[
+  {
+    "id": "q1",
+    "topicId": "java",
+    "title": "HashMap vs ConcurrentHashMap",
+    "question": "Explain the main differences.",
+    "answer": "HashMap is not thread-safe. ConcurrentHashMap supports concurrent access and disallows null keys and values.",
+    "difficulty": "Medium",
+    "tags": [
+      "Collections",
+      "Concurrency"
+    ]
+  },
+  {
+    "id": "q2",
+    "topicId": "spring",
+    "title": "Spring Bean Scopes",
+    "question": "What are common Spring bean scopes?",
+    "answer": "Singleton, prototype, request, session, application, and websocket. Singleton is the default scope.",
+    "difficulty": "Easy",
+    "tags": [
+      "Spring Core"
+    ]
+  },
+  {
+    "id": "q3",
+    "topicId": "design",
+    "title": "Why use a cache?",
+    "question": "When would you add caching to a distributed system?",
+    "answer": "Caching reduces repeated expensive reads and latency. Consider invalidation, TTL, consistency, and cache stampedes.",
+    "difficulty": "Medium",
+    "tags": [
+      "Caching"
+    ]
+  }
+]

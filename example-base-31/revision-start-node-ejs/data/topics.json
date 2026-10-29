@@ -22,5 +22,13 @@
     "nextStep": "Draw API Gateway + load balancer flow",
     "minutes": 10,
     "done": false
+  },
+  {
+    "id": "topic-1793270909936",
+    "name": "Hashmap Internals",
+    "category": "Java",
+    "nextStep": "",
+    "minutes": 10,
+    "done": false
   }
 ]

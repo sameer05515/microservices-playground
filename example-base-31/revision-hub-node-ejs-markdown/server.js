@@ -1,0 +1,34 @@
+const express=require('express'),fs=require('fs'),path=require('path');
+const { marked } = require('marked');
+const sanitizeHtml = require('sanitize-html');
+marked.setOptions({ gfm: true, breaks: false });
+const app=express(),PORT=process.env.PORT||3000,DIR=path.join(__dirname,'data');
+const FILES={topics:path.join(DIR,'topics.json'),questions:path.join(DIR,'questions.json'),revisions:path.join(DIR,'revisions.json')};
+app.set('view engine','ejs');app.set('views',path.join(__dirname,'views'));app.use(express.urlencoded({extended:true}));app.use(express.json());app.use(express.static(path.join(__dirname,'public')));
+function read(k){try{return JSON.parse(fs.readFileSync(FILES[k],'utf8'))}catch{return []}}function write(k,v){fs.writeFileSync(FILES[k],JSON.stringify(v,null,2))}
+function renderMarkdown(text='') {
+  const html = marked.parse(String(text || ''));
+  return sanitizeHtml(html, {
+    allowedTags: sanitizeHtml.defaults.allowedTags.concat(['h1','h2','h3','h4','h5','h6','del','table','thead','tbody','tr','th','td','pre','code','hr']),
+    allowedAttributes: { a: ['href','name','target','rel'], code: ['class'], th: ['align'], td: ['align'] },
+    allowedSchemes: ['http','https','mailto'],
+    transformTags: { a: sanitizeHtml.simpleTransform('a', { target: '_blank', rel: 'noopener noreferrer' }) }
+  });
+}
+app.locals.renderMarkdown = renderMarkdown;
+if(!fs.existsSync(DIR))fs.mkdirSync(DIR,{recursive:true});
+if(!fs.existsSync(FILES.topics))write('topics',[{id:'java',name:'Core Java',category:'Java',description:'Collections, OOP, concurrency'},{id:'spring',name:'Spring Boot',category:'Spring',description:'Beans, REST APIs, security'},{id:'design',name:'System Design',category:'Architecture',description:'Scalability, caching, messaging'}]);
+if(!fs.existsSync(FILES.questions))write('questions',[
+{id:'q1',topicId:'java',title:'HashMap vs ConcurrentHashMap',question:'Explain the main differences.',answer:'HashMap is not thread-safe. ConcurrentHashMap supports concurrent access and disallows null keys and values.',difficulty:'Medium',tags:['Collections','Concurrency']},
+{id:'q2',topicId:'spring',title:'Spring Bean Scopes',question:'What are common Spring bean scopes?',answer:'Singleton, prototype, request, session, application, and websocket. Singleton is the default scope.',difficulty:'Easy',tags:['Spring Core']},
+{id:'q3',topicId:'design',title:'Why use a cache?',question:'When would you add caching to a distributed system?',answer:'Caching reduces repeated expensive reads and latency. Consider invalidation, TTL, consistency, and cache stampedes.',difficulty:'Medium',tags:['Caching']}]);
+if(!fs.existsSync(FILES.revisions))write('revisions',[]);
+function dashboard(){let topics=read('topics'),questions=read('questions'),revisions=read('revisions'),today=new Date().toISOString().slice(0,10),todayRevisions=revisions.filter(r=>r.date===today);let dueQuestions=questions.filter(q=>{let last=revisions.filter(r=>r.questionId===q.id).sort((a,b)=>b.date.localeCompare(a.date))[0];return !last||(last.nextReviewDate&&last.nextReviewDate<=today)});return{topics,questions,revisions,todayRevisions,dueQuestions,todayMinutes:todayRevisions.reduce((n,r)=>n+Number(r.minutes||0),0)}}
+app.get('/',(req,res)=>res.render('index',{...dashboard(),page:req.query.page||'dashboard',message:req.query.message||'',search:req.query.search||'',questionId:req.query.questionId||''}));
+app.post('/topics',(req,res)=>{let name=(req.body.name||'').trim();if(!name)return res.redirect('/?page=topics');let a=read('topics');a.push({id:'t'+Date.now(),name:name.slice(0,100),category:(req.body.category||'General').slice(0,50),description:(req.body.description||'').slice(0,250)});write('topics',a);res.redirect('/?page=topics&message=Topic%20created')});
+app.post('/topics/:id/delete',(req,res)=>{write('topics',read('topics').filter(t=>t.id!==req.params.id));write('questions',read('questions').filter(q=>q.topicId!==req.params.id));res.redirect('/?page=topics&message=Topic%20deleted')});
+app.post('/questions',(req,res)=>{let title=(req.body.title||'').trim(),topicId=req.body.topicId;if(!title||!topicId)return res.redirect('/?page=questions');let a=read('questions');a.push({id:'q'+Date.now(),topicId,title:title.slice(0,160),question:(req.body.question||'').slice(0,5000),answer:(req.body.answer||'').slice(0,10000),difficulty:['Easy','Medium','Hard'].includes(req.body.difficulty)?req.body.difficulty:'Medium',tags:(req.body.tags||'').split(',').map(x=>x.trim()).filter(Boolean).slice(0,10)});write('questions',a);res.redirect('/?page=questions&message=Question%20saved')});
+app.post('/questions/:id/delete',(req,res)=>{write('questions',read('questions').filter(q=>q.id!==req.params.id));res.redirect('/?page=questions')});
+app.post('/questions/:id/update',(req,res)=>{let a=read('questions'),q=a.find(q=>q.id===req.params.id);if(q){q.title=(req.body.title||q.title).slice(0,160);q.question=(req.body.question||'').slice(0,5000);q.answer=(req.body.answer||'').slice(0,10000);q.difficulty=req.body.difficulty;q.tags=(req.body.tags||'').split(',').map(x=>x.trim()).filter(Boolean)}write('questions',a);res.redirect('/?page=questions&message=Question%20updated')});
+app.post('/revisions',(req,res)=>{let q=read('questions').find(q=>q.id===req.body.questionId);if(!q)return res.status(400).json({error:'Choose a valid question'});let minutes=Math.max(1,Math.min(240,Number(req.body.minutes)||10)),rating=['Again','Hard','Good','Easy'].includes(req.body.rating)?req.body.rating:'Good',days={Again:1,Hard:2,Good:4,Easy:7}[rating],now=new Date(),next=new Date(now);next.setDate(next.getDate()+days);let r={id:'r'+Date.now(),questionId:q.id,topicId:q.topicId,questionTitle:q.title,date:now.toISOString().slice(0,10),createdAt:now.toISOString(),minutes,rating,note:(req.body.note||'').slice(0,500),nextReviewDate:next.toISOString().slice(0,10)};let a=read('revisions');a.push(r);write('revisions',a);res.json({ok:true,revision:r})});
+app.listen(PORT,()=>console.log(`Revision Hub: http://localhost:${PORT}`));
