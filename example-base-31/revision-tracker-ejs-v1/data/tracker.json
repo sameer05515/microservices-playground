@@ -24,6 +24,156 @@
       "questionsPracticed": 0,
       "problemsSolved": 0,
       "notes": ""
+    },
+    "2026-11-04": {
+      "date": "2026-11-04",
+      "track": "Java",
+      "tasks": [
+        {
+          "id": "1",
+          "label": "Collections / Streams revision",
+          "done": false
+        },
+        {
+          "id": "2",
+          "label": "Java coding practice",
+          "done": false
+        },
+        {
+          "id": "3",
+          "label": "Spring Boot interview questions",
+          "done": false
+        }
+      ],
+      "codingMinutes": 0,
+      "questionsPracticed": 0,
+      "problemsSolved": 0,
+      "notes": ""
+    },
+    "2026-11-05": {
+      "date": "2026-11-05",
+      "track": "JavaScript",
+      "tasks": [
+        {
+          "id": "1",
+          "label": "ES6+ concept revision",
+          "done": false
+        },
+        {
+          "id": "2",
+          "label": "JavaScript coding practice",
+          "done": false
+        },
+        {
+          "id": "3",
+          "label": "React interview questions",
+          "done": false
+        }
+      ],
+      "codingMinutes": 0,
+      "questionsPracticed": 0,
+      "problemsSolved": 0,
+      "notes": ""
+    },
+    "2026-11-06": {
+      "date": "2026-11-06",
+      "track": "Java",
+      "tasks": [
+        {
+          "id": "1",
+          "label": "Multithreading / JVM revision",
+          "done": false
+        },
+        {
+          "id": "2",
+          "label": "Java coding practice",
+          "done": false
+        },
+        {
+          "id": "3",
+          "label": "Microservices interview questions",
+          "done": false
+        }
+      ],
+      "codingMinutes": 0,
+      "questionsPracticed": 0,
+      "problemsSolved": 0,
+      "notes": ""
+    },
+    "2026-11-07": {
+      "date": "2026-11-07",
+      "track": "JavaScript",
+      "tasks": [
+        {
+          "id": "1",
+          "label": "Async JS / Event Loop revision",
+          "done": false
+        },
+        {
+          "id": "2",
+          "label": "JavaScript coding practice",
+          "done": false
+        },
+        {
+          "id": "3",
+          "label": "React interview questions",
+          "done": false
+        }
+      ],
+      "codingMinutes": 0,
+      "questionsPracticed": 0,
+      "problemsSolved": 0,
+      "notes": ""
+    },
+    "2026-11-08": {
+      "date": "2026-11-08",
+      "track": "Rest & Retrospection",
+      "tasks": [
+        {
+          "id": "1",
+          "label": "Rest and recharge",
+          "done": false
+        },
+        {
+          "id": "2",
+          "label": "Review weekly progress",
+          "done": false
+        },
+        {
+          "id": "3",
+          "label": "Plan next week",
+          "done": false
+        }
+      ],
+      "codingMinutes": 0,
+      "questionsPracticed": 0,
+      "problemsSolved": 0,
+      "notes": ""
+    },
+    "2026-11-09": {
+      "date": "2026-11-09",
+      "track": "Java",
+      "tasks": [
+        {
+          "id": "1",
+          "label": "Core Java concept revision",
+          "done": false
+        },
+        {
+          "id": "2",
+          "label": "Java coding practice",
+          "done": false
+        },
+        {
+          "id": "3",
+          "label": "Java interview questions",
+          "done": false
+        }
+      ],
+      "codingMinutes": 0,
+      "questionsPracticed": 0,
+      "problemsSolved": 0,
+      "notes": ""
     }
   },
   "retrospectives": {}
