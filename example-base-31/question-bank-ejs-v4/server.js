@@ -6,7 +6,7 @@ const { marked } = require("marked");
 const hljs = require("highlight.js");
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3022;
 const DATA_FILE = path.join(__dirname, "data", "question-bank.json");
 
 marked.setOptions({ gfm: true, breaks: true });
