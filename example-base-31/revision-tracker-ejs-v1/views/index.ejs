@@ -1,0 +1,78 @@
+<%- include('partials/header', { title: 'Dashboard | Revision Tracker' }) %>
+<section class="hero">
+  <div>
+    <p class="eyebrow">YOUR WEEKLY LEARNING SYSTEM</p>
+    <h1>Build consistency, one day at a time.</h1>
+    <p class="muted">Track Java, JavaScript, interview preparation and weekly reflection.</p>
+  </div>
+  <div class="hero-stat"><strong><%= stats.percent %>%</strong><span>this week completed</span></div>
+</section>
+
+<% if (typeof query !== 'undefined' && query.saved) { %><div class="notice">Daily progress saved successfully.</div><% } %>
+<div class="section-heading">
+  <div><p class="eyebrow">DAILY REVISION</p><h2><%= prettyDate %></h2></div>
+  <div class="date-nav"><a class="btn btn-light" href="/?date=<%= prevDate %>">←</a><a class="btn btn-light" href="/?date=<%= todayKey %>">Today</a><a class="btn btn-light" href="/?date=<%= nextDate %>">→</a></div>
+</div>
+
+<div class="day-layout">
+  <section class="panel day-panel">
+    <div class="panel-head">
+      <div><span class="pill <%= day.track === 'Java' ? 'java' : day.track === 'JavaScript' ? 'js' : 'rest' %>"><%= day.track %></span><h3>Today's checklist</h3></div>
+      <span class="muted small"><%= day.tasks.filter(t => t.done).length %> / <%= day.tasks.length %> done</span>
+    </div>
+    <form method="POST" action="/day/<%= key %>/tasks">
+      <div class="task-list">
+        <% day.tasks.forEach(task => { %>
+          <label class="task <%= task.done ? 'is-done' : '' %>">
+            <input type="checkbox" name="completed" value="<%= task.id %>" <%= task.done ? 'checked' : '' %>>
+            <span class="check"></span><span><%= task.label %></span>
+          </label>
+        <% }) %>
+      </div>
+      <div class="metrics">
+        <label>Coding minutes<input type="number" min="0" name="codingMinutes" value="<%= day.codingMinutes %>" placeholder="e.g. 45"></label>
+        <label>Problems solved<input type="number" min="0" name="problemsSolved" value="<%= day.problemsSolved %>" placeholder="e.g. 2"></label>
+        <label>Interview questions<input type="number" min="0" name="questionsPracticed" value="<%= day.questionsPracticed %>" placeholder="e.g. 5"></label>
+      </div>
+      <label class="field-label">What did you learn today?</label>
+      <textarea name="notes" rows="4" placeholder="Write concepts revised, problems attempted, mistakes and doubts..."><%= day.notes %></textarea>
+      <button class="btn btn-primary" type="submit">Save daily progress</button>
+    </form>
+  </section>
+  <aside class="panel schedule-panel">
+    <div class="panel-head"><div><p class="eyebrow">WEEKLY ROUTINE</p><h3>Your schedule</h3></div></div>
+    <% Object.keys(schedule).sort((a,b) => (Number(a)+6)%7 - (Number(b)+6)%7).forEach(k => { const s = schedule[k]; const active = selected.getDay() === Number(k); %>
+      <a class="schedule-row <%= active ? 'active' : '' %>" href="/?date=<%= dateKey(new Date(selected.getFullYear(), selected.getMonth(), selected.getDate() - ((selected.getDay()-Number(k)+7)%7))) %>">
+        <span class="schedule-day"><%= s.name.slice(0,3) %></span><span><b><%= s.track %></b><small><%= s.focus[1] %></small></span><span class="chevron">›</span>
+      </a>
+    <% }) %>
+    <div class="tip"><b>Remember</b><p>On low-energy days, do just 20 minutes. A small session is better than skipping completely.</p></div>
+  </aside>
+</div>
+
+<section class="panel week-panel">
+  <div class="panel-head"><div><p class="eyebrow">WEEK AT A GLANCE</p><h3>Progress overview</h3></div><strong class="percent"><%= stats.percent %>%</strong></div>
+  <div class="progress-track"><div class="progress-fill" style="width:<%= stats.percent %>%"></div></div>
+  <div class="week-grid">
+    <% stats.rows.forEach(row => { %>
+      <a class="week-day <%= row.date === key ? 'selected' : '' %>" href="/?date=<%= row.date %>">
+        <span><%= row.day.slice(0,3) %></span><b><%= row.done %>/<%= row.total %></b>
+        <div class="mini-track"><i style="width:<%= row.percent %>%"></i></div>
+        <small><%= row.track === 'JavaScript' ? 'JS' : row.track === 'Rest & Retrospection' ? 'Rest' : row.track %></small>
+      </a>
+    <% }) %>
+  </div>
+</section>
+
+<section class="panel retrospective" id="retrospective">
+  <div class="panel-head"><div><p class="eyebrow">SUNDAY CHECK-IN</p><h3>Weekly retrospection</h3><p class="muted small">Use this on Sunday to learn from the week, not to judge yourself.</p></div><span class="pill rest">Reflect & reset</span></div>
+  <form method="POST" action="/retrospective/<%= stats.rows[0].date %>">
+    <div class="reflection-grid">
+      <label>What went well?<textarea name="wins" rows="3" placeholder="Concepts understood, problems solved..."><%= retrospective.wins %></textarea></label>
+      <label>What was difficult?<textarea name="challenges" rows="3" placeholder="Topics to revisit, distractions..."><%= retrospective.challenges %></textarea></label>
+      <label class="full">What will I focus on next week?<textarea name="nextWeek" rows="3" placeholder="Choose 2–3 realistic priorities..."><%= retrospective.nextWeek %></textarea></label>
+    </div>
+    <button class="btn btn-primary" type="submit">Save weekly reflection</button>
+  </form>
+</section>
+<%- include('partials/footer') %>

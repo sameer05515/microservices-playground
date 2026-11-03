@@ -1,0 +1,15 @@
+<%- include('partials/header', { title: 'History | Revision Tracker' }) %>
+<div class="section-heading"><div><p class="eyebrow">YOUR JOURNEY</p><h1>Revision history</h1><p class="muted">A record of the work you have put in.</p></div><a class="btn btn-light" href="/">← Dashboard</a></div>
+<section class="panel">
+  <% if (!rows.length) { %><div class="empty"><h3>No revision history yet</h3><p>Start by saving your first daily progress.</p><a class="btn btn-primary" href="/">Open dashboard</a></div><% } else { %>
+  <div class="history-list">
+    <% rows.forEach(row => { const done = row.tasks.filter(t => t.done).length; %>
+      <a class="history-row" href="/?date=<%= row.date %>">
+        <div><b><%= new Date(row.date + 'T12:00:00').toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' }) %></b><small><%= row.track %></small></div>
+        <div class="history-progress"><div class="mini-track"><i style="width:<%= row.tasks.length ? done / row.tasks.length * 100 : 0 %>%"></i></div><small><%= done %>/<%= row.tasks.length %> tasks</small></div>
+        <span class="chevron">›</span>
+      </a>
+    <% }) %>
+  </div><% } %>
+</section>
+<%- include('partials/footer') %>

@@ -1,0 +1,30 @@
+{
+  "days": {
+    "2026-11-03": {
+      "date": "2026-11-03",
+      "track": "JavaScript",
+      "tasks": [
+        {
+          "id": "1",
+          "label": "JavaScript concept revision",
+          "done": false
+        },
+        {
+          "id": "2",
+          "label": "JavaScript coding practice",
+          "done": false
+        },
+        {
+          "id": "3",
+          "label": "React interview questions",
+          "done": false
+        }
+      ],
+      "codingMinutes": 0,
+      "questionsPracticed": 0,
+      "problemsSolved": 0,
+      "notes": ""
+    }
+  },
+  "retrospectives": {}
+}
