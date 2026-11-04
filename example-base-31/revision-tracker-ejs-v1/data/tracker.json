@@ -174,7 +174,39 @@
       "questionsPracticed": 0,
       "problemsSolved": 0,
       "notes": ""
+    },
+    "2026-11-02": {
+      "date": "2026-11-02",
+      "track": "Java",
+      "tasks": [
+        {
+          "id": "1",
+          "label": "Core Java concept revision",
+          "done": false
+        },
+        {
+          "id": "2",
+          "label": "Java coding practice",
+          "done": false
+        },
+        {
+          "id": "3",
+          "label": "Java interview questions",
+          "done": false
+        }
+      ],
+      "codingMinutes": 0,
+      "questionsPracticed": 0,
+      "problemsSolved": 0,
+      "notes": ""
     }
   },
-  "retrospectives": {}
+  "retrospectives": {
+    "2026-11-02": {
+      "wins": "",
+      "challenges": "It is difficult to make my mind to revise",
+      "nextWeek": "",
+      "updatedAt": "2026-11-04T07:15:50.460Z"
+    }
+  }
 }
