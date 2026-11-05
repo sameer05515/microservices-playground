@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alpine Animation Playground</title>
+  <link rel="stylesheet" href="./styles.css" />
+  <!-- Load component definitions before Alpine initializes the page. -->
+  <script defer src="./app.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body>
+  <div class="app-shell" x-data="animationPlayground()" :style="{ '--anim-duration': duration + 's' }">
+    <header class="topbar">
+      <a class="brand" href="#"><span class="brand-mark">✦</span> MotionLab</a>
+      <span class="version">HTML · CSS · Alpine.js</span>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="eyebrow"><span class="live-dot"></span> INTERACTIVE COMPONENTS</div>
+        <h1>Bring your interface<br><span>to life.</span></h1>
+        <p>A hands-on playground for delightful web animations. Trigger, replay and explore each effect.</p>
+        <button class="primary-btn" @click="replayAll()">Replay all animations <span>↗</span></button>
+        <div class="hero-orbit orbit-one"></div><div class="hero-orbit orbit-two"></div>
+      </section>
+
+      <section class="section-heading">
+        <div><div class="eyebrow">THE PLAYGROUND</div><h2>Animation collection</h2></div>
+        <div class="filters">
+          <button :class="{active: filter === 'all'}" @click="filter='all'">All effects</button>
+          <button :class="{active: filter === 'entrance'}" @click="filter='entrance'">Entrance</button>
+          <button :class="{active: filter === 'interaction'}" @click="filter='interaction'">Interactive</button>
+        </div>
+      </section>
+
+      <section class="cards">
+        <template x-for="item in visibleItems" :key="item.id">
+          <article class="demo-card">
+            <div class="card-top"><span class="category" x-text="item.category"></span><span class="card-number" x-text="item.number"></span></div>
+            <div class="stage">
+              <template x-if="item.id === 'fade'">
+                <div class="demo-object object-purple" :class="{'run-fade': runs.fade}" @animationend="runs.fade=false">FADE</div>
+              </template>
+              <template x-if="item.id === 'slide'">
+                <div class="demo-object object-blue" :class="{'run-slide': runs.slide}" @animationend="runs.slide=false">SLIDE</div>
+              </template>
+              <template x-if="item.id === 'bounce'">
+                <div class="demo-object object-pink" :class="{'run-bounce': runs.bounce}" @animationend="runs.bounce=false">BOUNCE</div>
+              </template>
+              <template x-if="item.id === 'rotate'">
+                <div class="demo-object object-orange" :class="{'run-rotate': runs.rotate}" @animationend="runs.rotate=false">ROTATE</div>
+              </template>
+              <template x-if="item.id === 'pulse'">
+                <div class="demo-object object-green" :class="{'run-pulse': runs.pulse}" @animationend="runs.pulse=false">PULSE</div>
+              </template>
+              <template x-if="item.id === 'flip'">
+                <div class="flip-wrap" :class="{'run-flip': runs.flip}" @animationend="runs.flip=false"><div class="flip-inner"><div class="flip-front">FLIP</div><div class="flip-back">HELLO!</div></div></div>
+              </template>
+              <template x-if="item.id === 'shake'">
+                <div class="demo-object object-red" :class="{'run-shake': runs.shake}" @animationend="runs.shake=false">SHAKE</div>
+              </template>
+              <template x-if="item.id === 'swing'">
+                <div class="swing-hanger" :class="{'run-swing': runs.swing}"><div class="swing-string"></div><div class="demo-object object-yellow">SWING</div></div>
+              </template>
+              <template x-if="item.id === 'heartbeat'">
+                <div class="heart" :class="{'run-heartbeat': runs.heartbeat}">♥</div>
+              </template>
+              <template x-if="item.id === 'modal'">
+                <button class="mini-action" @click="modalOpen=true">Open modal</button>
+              </template>
+              <template x-if="item.id === 'toast'">
+                <div class="toast-demo"><div class="toast-message" x-show="toastVisible" x-transition.opacity.duration.300ms>✓ Saved successfully</div><button class="mini-action" @click="showToast()">Show toast</button></div>
+              </template>
+            </div>
+            <div class="card-footer"><div><h3 x-text="item.title"></h3><p x-text="item.description"></p></div>
+              <button class="replay-btn" @click="play(item.id)" :aria-label="'Play ' + item.title">↻</button>
+            </div>
+          </article>
+        </template>
+      </section>
+
+      <section class="controls-panel">
+        <div><div class="eyebrow">TUNE THE MOTION</div><h2>Animation controls</h2><p>Change the duration and replay an effect to feel the difference.</p></div>
+        <div class="control-area">
+          <label>Duration <strong x-text="duration + 's'"></strong></label>
+          <input type="range" min="0.3" max="2.5" step="0.1" x-model.number="duration" />
+          <div class="range-labels"><span>Fast</span><span>Slow</span></div>
+          <button class="secondary-btn" @click="play('bounce')">Preview bounce</button>
+        </div>
+      </section>
+    </main>
+
+    <footer><span>MotionLab</span><span>Built with Alpine.js + CSS keyframes</span></footer>
+
+    <div class="modal-backdrop" x-show="modalOpen" x-transition.opacity @click.self="modalOpen=false" @keydown.escape.window="modalOpen=false" x-cloak>
+      <div class="modal-box" x-transition.scale.origin.center>
+        <button class="modal-close" @click="modalOpen=false">×</button>
+        <div class="modal-icon">✦</div><h2>Nice interaction!</h2>
+        <p>This modal uses Alpine.js state and CSS transitions. No extra JavaScript framework needed.</p>
+        <button class="primary-btn" @click="modalOpen=false">Got it</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
